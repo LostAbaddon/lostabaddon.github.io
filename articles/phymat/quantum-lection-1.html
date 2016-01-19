@@ -9,46 +9,56 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>量子与生命读书会 - 量子力学基础科普</title>
 <link rel="stylesheet" href="../../lib/style/swiper.css" media="screen">
+<link rel="stylesheet" href="../../stylesheets/swiper.css" media="screen">
+<link rel="stylesheet" href="../../stylesheets/sliding-background.css" media="screen">
+<link rel="stylesheet" href="../../stylesheets/common.css" media="screen">
 <style>
 html,
 body {
 	width: 100%;
 	height: 100%;
 	margin: 0px;
+	background-color: grey;
 }
-.swiper-container {
-	width: 100%;
-	height: 100%;
-}
-.swiper-button {
-	transition: opacity 200ms ease-in;
-}
-.swiper-button-disabled {
-	opacity: 0;
+.inactive {
+	pointer-events: none;
+	user-select: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
 }
 
-.vertical .swiper-button-prev {
-	top: 0px;
-	left: 50%;
-	right: auto;
-	margin-top: 0px;
-	margin-left: -13.5px;
-	transform: rotate(90deg);
+.swiper-slide {
+	padding: 20px;
+	padding-top: 50px;
 }
-.vertical .swiper-button-next {
-	top: auto;
-	bottom: 0px;
-	left: 50%;
-	right: auto;
-	margin-top: 0px;
-	margin-left: -13.5px;
-	transform: rotate(90deg);
+
+.navbar {
+	top: 9px;
+	left: 50px;
+	transition: opacity 200ms ease-in-out;
+}
+.mobile .navbar {
+	top: 10px;
+	left: 10px;
+}
+.navbar.inactive {
+	opacity: 0;
 }
 </style>
 
 </head>
 
 <body>
+
+<!-- Background -->
+<div class="background inactive" data-direction="horizontal" data-view-per-image=3 data-height=1>
+	<img src="./images/back1.jpg" class="bg active">
+	<img src="./images/back2.jpg" class="bg">
+	<img src="./images/back3.jpg" class="bg">
+	<img src="./images/back4.jpg" class="bg">
+	<img src="./images/back5.jpg" class="bg">
+	<img src="./images/back6.jpg" class="bg">
+</div>
 
 <!-- Swiper Container -->
 <div class="swiper-container">
@@ -61,13 +71,82 @@ body {
 		<div class="swiper-slide">
 		Test Page 2!
 		</div>
-		<div class="swiper-slide">
+		<div class="swiper-slide" data-hash="page-3">
 		Test Page 3!
+		</div>
+		<div class="swiper-slide">
+		Test Page 4!
+		</div>
+		<div class="swiper-slide">
+		Test Page 5!
+		</div>
+		<div class="swiper-slide" data-hash="page-5">
+		Test Page 6!
+		</div>
+		<div class="swiper-slide">
+		Test Page 7!
+		</div>
+		<div class="swiper-slide">
+		Test Page 7!
+		</div>
+		<div class="swiper-slide">
+		Test Page 7!
+		</div>
+		<div class="swiper-slide">
+		Test Page 7!
+		</div>
+		<div class="swiper-slide">
+		Test Page 7!
+		</div>
+		<div class="swiper-slide">
+		Test Page 7!
+		</div>
+		<div class="swiper-slide">
+		Test Page 7!
+		</div>
+		<div class="swiper-slide">
+		Test Page 7!
+		</div>
+		<div class="swiper-slide">
+		Test Page 7!
+		</div>
+		<div class="swiper-slide">
+		Test Page 7!
+		</div>
+		<div class="swiper-slide">
+		Test Page 7!
+		</div>
+		<div class="swiper-slide">
+		Test Page 7!
+		</div>
+		<div class="swiper-slide">
+		Test Page 7!
+		</div>
+		<div class="swiper-slide">
+		Test Page 7!
+		</div>
+		<div class="swiper-slide">
+		Test Page 7!
+		</div>
+		<div class="swiper-slide">
+		Test Page 7!
+		</div>
+		<div class="swiper-slide">
+		Test Page 7!
 		</div>
 	</div>
 
-	<!-- Scrollbar -->
-	<div class="swiper-scrollbar"></div>
+	<!-- History -->
+	<div class="swiper-history">
+		<div class="swiper-button swiper-history-backward inactive">&lt;</div>
+		<div class="swiper-button swiper-history-forward inactive">&gt;</div>
+		<div class="navbar" id="site_navigation"></div>
+	</div>
+
+	<!-- Pagination -->
+	<div class="swiper-pagination">
+		<div class="swiper-pagination-inner"></div>
+	</div>
 
 	<!-- Arrows -->
 	<div class="swiper-button swiper-button-prev">
@@ -80,20 +159,85 @@ body {
 <script type="text/javascript" src="../../lib/script/zepto.min.js"></script>
 <script type="text/javascript" src="../../lib/script/swiper.js"></script>
 
-<script type="text/javascript" src="../../javascripts/main.js"></script>
+<script type="text/javascript" src="../../javascripts/common.js"></script>
+<script type="text/javascript" src="../../javascripts/auto-navigation.js"></script>
+<script type="text/javascript" src="../../javascripts/swiper-extension.js"></script>
+<script type="text/javascript" src="../../javascripts/sliding-background.js"></script>
 
 <!-- Swiper -->
 <script>
+// Initial
+var navbar = $('#site_navigation');
 if (Devices.isMobile) {
 	$('body').addClass('vertical');
+	$('.swiper-history').css({display: 'none'});
+	navbar.insertAfter($('.background'));
 }
+var initIndex = 0;
+(function (location) {
+	var hash = location.hash.split('#')[1];
+	if (!!hash) {
+		initIndex = $('.swiper-container').find('[data-hash="' + hash + '"]').index();
+	}
+}) (window.location);
+
+AutoNavigation(navbar);
+
+var bgc = new BackgroundController('.background');
+$(window).on('resize', function () {
+	bgc.onResize();
+});
+
+// Swiper Object
 var mySwiper = new Swiper('.swiper-container', {
+	initialSlide: initIndex,
 	speed: 400,
-	spaceBetween: 100,
+	spaceBetween: 10,
 	direction: Devices.isMobile ? 'vertical' : 'horizontal',
-	scrollbar: '.swiper-scrollbar',
+	keyboardControl: true,
+	mousewheelControl: true,
+	pagination: '.swiper-pagination-inner',
+	paginationClickable: true,
 	nextButton: '.swiper-button-next',
 	prevButton: '.swiper-button-prev',
+	onProgress: function (s, p) {
+		if (p > 0) {
+			navbar.addClass('inactive');
+		}
+		else {
+			navbar.removeClass('inactive');
+		}
+		if (s.slides.length > bgc.total) {
+			bgc.set(p);
+		}
+		else {
+			bgc.goto(p * (s.slides.length - 1));
+		}
+	},
+});
+var historyBackward = $('.swiper-history-backward'), historyForward = $('.swiper-history-forward');
+mySwiper.launchTimeMachine();
+mySwiper.onHistoryChanged(function (s, travel, start, end) {
+	if (end) {
+		historyBackward.addClass('inactive');
+	}
+	else {
+		historyBackward.removeClass('inactive');
+	}
+	if (start) {
+		historyForward.addClass('inactive');
+	}
+	else {
+		historyForward.removeClass('inactive');
+	}
+});
+historyBackward.on('click', function (e) {
+	mySwiper.history.prev();
+	e.stopPropagation();
+});
+historyForward.on('click', function (e) {
+	mySwiper.history.next();
+	e.stopPropagation();
 });
 </script>
 
