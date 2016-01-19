@@ -12,6 +12,6 @@
 	position: absolute;
 	top: 0px;
 	left: 0px;
-	opacity: 0;
+	opacity: 1;
 	transition: all 400ms ease-in-out;
 }
