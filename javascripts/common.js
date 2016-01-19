@@ -71,6 +71,7 @@ var Support = {};
 			else {
 				task[index] = false;
 				src = img.data('src');
+				img.data('src', null);
 				img[0].onload = function () {
 					task[index] = true;
 					done++;

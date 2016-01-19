@@ -1,6 +1,7 @@
 (function (root) {
 	root.AutoNavigation = function (selector) {
 		var dom = $(selector), mark = 'lostabaddon.github.io/articles/', index = root.location.pathname.indexOf(mark);
+		console.log(root.location.pathname, index);
 		if (index < 0) {
 			dom.remove();
 			return;
