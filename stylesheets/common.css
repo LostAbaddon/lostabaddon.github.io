@@ -1,3 +1,8 @@
+body {
+	font-family: "宋体";
+	font-size: 14px;
+}
+
 .navbar {
 	position: absolute;
 	top: 10px;
