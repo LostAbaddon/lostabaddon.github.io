@@ -1,7 +1,6 @@
 (function (root) {
 	root.AutoNavigation = function (selector) {
 		var dom = $(selector), mark = 'lostabaddon.github.io/articles/', index = root.location.href.indexOf(mark);
-		console.log(root.location.href, index);
 		if (index < 0) {
 			dom.remove();
 			return;
