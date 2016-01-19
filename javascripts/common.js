@@ -53,4 +53,37 @@ var Support = {};
 		phymat: "数学与物理",
 	};
 
+	// Image Loader
+	root.ImageLoader = function (callback) {
+		var task = [], done = 0, total = 0, check = function () {
+			var result = !task.some(function (t) {return !t;});
+			if (result) {
+				callback(done, total);
+			}
+		};
+		$('img[data-src]').each(function (index, img) {
+			img = $(img);
+			total++;
+			var src = img.attr('src');
+			if (!!src) {
+				task[index] = true;
+			}
+			else {
+				task[index] = false;
+				src = img.data('src');
+				img[0].onload = function () {
+					task[index] = true;
+					done++;
+					check();
+				};
+				img[0].onerror = function () {
+					task[index] = true;
+					check();
+				};
+				img.attr('src', src);
+			}
+			check();
+		});
+	};
+
 }) (window, window.navigator.userAgent, window.navigator);

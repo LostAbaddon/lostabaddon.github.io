@@ -52,12 +52,12 @@ body {
 
 <!-- Background -->
 <div class="background inactive" data-direction="horizontal" data-view-per-image=3 data-height=1>
-	<img src="./images/back1.jpg" class="bg">
-	<img src="./images/back2.jpg" class="bg">
-	<img src="./images/back3.jpg" class="bg">
-	<img src="./images/back4.jpg" class="bg">
-	<img src="./images/back5.jpg" class="bg">
-	<img src="./images/back6.jpg" class="bg">
+	<img data-src="./images/back1.jpg" class="bg">
+	<img data-src="./images/back2.jpg" class="bg">
+	<img data-src="./images/back3.jpg" class="bg">
+	<img data-src="./images/back4.jpg" class="bg">
+	<img data-src="./images/back5.jpg" class="bg">
+	<img data-src="./images/back6.jpg" class="bg">
 </div>
 
 <!-- Swiper Container -->
@@ -185,6 +185,9 @@ AutoNavigation(navbar);
 
 var bgc = new BackgroundController('.background');
 $(window).on('resize', function () {
+	bgc.onResize();
+});
+ImageLoader(function (done, total) {
 	bgc.onResize();
 });
 
