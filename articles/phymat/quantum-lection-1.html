@@ -51,7 +51,7 @@ body {
 <body>
 
 <!-- Background -->
-<div class="background inactive" data-direction="horizontal" data-view-per-image=3 data-width=1.05>
+<div class="background inactive" data-direction="horizontal" data-view-per-image=3 data-min-scale=1.05>
 	<img data-src="./images/back1.jpg" class="bg">
 	<img data-src="./images/back2.jpg" class="bg">
 	<img data-src="./images/back3.jpg" class="bg">
@@ -168,10 +168,15 @@ body {
 <script>
 // Initial
 var navbar = $('#site_navigation');
+var bgcOption = {};
 if (Devices.isMobile) {
 	$('body').addClass('vertical');
 	$('.swiper-history').css({display: 'none'});
 	navbar.insertAfter($('.background'));
+	bgcOption.imageHeight = 1;
+}
+else {
+	bgcOption.imageWidth = 1.05;
 }
 var initIndex = 0;
 (function (location) {
@@ -183,7 +188,7 @@ var initIndex = 0;
 
 AutoNavigation(navbar);
 
-var bgc = new BackgroundController('.background');
+var bgc = new BackgroundController('.background', bgcOption);
 $(window).on('resize', function () {
 	bgc.onResize();
 });
