@@ -13,5 +13,5 @@
 	top: 0px;
 	left: 0px;
 	opacity: 0;
-	transition: all 400ms ease-in-out;
+	transition: opacity 400ms ease-in-out, left 400ms ease-in-out, top 400ms ease-in-out;
 }

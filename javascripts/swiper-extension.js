@@ -1,7 +1,8 @@
 (function () {
 	// Extensions
 	Swiper.prototype.slideToHash = function (hash, speed, callback) {
-		var index = this.container.find('[data-hash="' + hash + '"]').index() || -1;
+		var index = this.container.find('[data-hash="' + hash + '"]').index();
+		if (!index && index !== 0) index = -1;
 		if (index >= 0) this.slideTo(index, speed, callback);
 	};
 	// History Control
@@ -59,4 +60,23 @@
 			}
 		};
 	};
+	// Hint Pagination Bullet
+	Swiper.prototype.hintBullet = function () {
+		var slides = this.container.find('.swiper-slide');
+		var bullets = this.container.find('.swiper-pagination-bullet');
+		slides.each(function (index, slide) {
+			slide = $(slide);
+			var hint = slide.data('hint');
+			if (!!hint) {
+				$(bullets[index]).data('hint', hint);
+			}
+		});
+	};
+
+	// Window Event for SlideToHash
+	$(document).on('click tap', '.swiper-slide-jumper', function (e) {
+		var hint = $(this).data('target');
+		if (!isNaN(hint)) mySwiper.slideTo(hint);
+		else if (!!hint) mySwiper.slideToHash(hint);
+	});
 }) ();

@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="../../stylesheets/swiper.css" media="screen">
 <link rel="stylesheet" href="../../stylesheets/sliding-background.css" media="screen">
 <link rel="stylesheet" href="../../stylesheets/common.css" media="screen">
+<link rel="stylesheet" href="../../stylesheets/ppt.css" media="screen">
 <style>
 html,
 body {
@@ -44,6 +45,13 @@ body {
 .navbar.inactive {
 	opacity: 0;
 }
+
+.table-of-content {
+	position: relative;
+	left: 50%;
+	width: 150px;
+	margin-left: -75px;
+}
 </style>
 
 </head>
@@ -65,74 +73,112 @@ body {
 	<!-- Swpier -->
 	<div class="swiper-wrapper">
 		<!-- Pages -->
-		<div class="swiper-slide">
-		Test Page 1!
+		<div class="swiper-slide" data-hash="home" data-hint="首页">
+			<div class="ppt-page">
+				<h1>量子理论基础科普</h1>
+				<div class="subtitle">不完全中二向科普</div>
+				<hr>
+				<h2 class="center top-margin" data-margin="50">主讲人：LostAbaddon（塔塔）</h2>
+				<div class="mention top-margin" data-margin="150">主办：小有文化（上海）<span class="span" data-width="20"></span>协办：集智俱乐部</div>
+			</div>
 		</div>
 		<div class="swiper-slide">
-		Test Page 2!
-		</div>
-		<div class="swiper-slide" data-hash="page-3">
-		Test Page 3!
-		</div>
-		<div class="swiper-slide">
-		Test Page 4!
-		</div>
-		<div class="swiper-slide">
-		Test Page 5!
-		</div>
-		<div class="swiper-slide" data-hash="page-5">
-		Test Page 6!
+			<div class="ppt-page">
+				<h1>什么是量子力学？</h1>
+				<hr>
+				<div class="content">
+					我们所生活的，是这么一个世界：<br>
+					在这里，人要么在这里，要么在那里，不可能同时既在这里又在那里；<br>
+					在这里，你一次只能吃一个煎饼果子，不能同时既吃煎饼果子有吃杂粮煎饼；<br>
+					在这里，一切都几乎是确定的，只不过我们几乎不可能知道一切的初始状态；<br>
+					在这里，牛顿住在一切。
+				</div>
+			</div>
 		</div>
 		<div class="swiper-slide">
-		Test Page 7!
+			<div class="ppt-page">
+				<h1>什么是量子力学？</h1>
+				<hr>
+				<div class="content center">
+					但在量子的世界中，上述一切，<br>都变得不一样了……
+				</div>
+			</div>
+		</div>
+		<div class="swiper-slide" data-hash="content-table" data-hint="目录">
+			<div class="ppt-page">
+				<h1>目录</h1>
+				<hr>
+				<ol class="table-of-content">
+					<li class="swiper-slide-jumper" data-target="home">神奇的实验</li>
+					<li class="swiper-slide-jumper" data-target="Hello">三种描述</li>
+					<li class="swiper-slide-jumper" data-target="page">不仅的诠释</li>
+					<li class="swiper-slide-jumper" data-target="page">与经典的差异</li>
+					<li class="swiper-slide-jumper" data-target="page">总结</li>
+				</ol>
+			</div>
 		</div>
 		<div class="swiper-slide">
-		Test Page 7!
+			Test Page 3!
 		</div>
 		<div class="swiper-slide">
-		Test Page 7!
+			Test Page 4!
 		</div>
 		<div class="swiper-slide">
-		Test Page 7!
+			Test Page 5!
 		</div>
 		<div class="swiper-slide">
-		Test Page 7!
+			Test Page 6!
 		</div>
 		<div class="swiper-slide">
-		Test Page 7!
+			Test Page 7!
 		</div>
 		<div class="swiper-slide">
-		Test Page 7!
+			Test Page 7!
 		</div>
 		<div class="swiper-slide">
-		Test Page 7!
+			Test Page 7!
 		</div>
 		<div class="swiper-slide">
-		Test Page 7!
+			Test Page 7!
 		</div>
 		<div class="swiper-slide">
-		Test Page 7!
+			Test Page 7!
 		</div>
 		<div class="swiper-slide">
-		Test Page 7!
+			Test Page 7!
 		</div>
 		<div class="swiper-slide">
-		Test Page 7!
+			Test Page 7!
 		</div>
 		<div class="swiper-slide">
-		Test Page 7!
+			Test Page 7!
 		</div>
 		<div class="swiper-slide">
-		Test Page 7!
+			Test Page 7!
 		</div>
 		<div class="swiper-slide">
-		Test Page 7!
+			Test Page 7!
 		</div>
 		<div class="swiper-slide">
-		Test Page 7!
+			Test Page 7!
 		</div>
 		<div class="swiper-slide">
-		Test Page 7!
+			Test Page 7!
+		</div>
+		<div class="swiper-slide">
+			Test Page 7!
+		</div>
+		<div class="swiper-slide">
+			Test Page 7!
+		</div>
+		<div class="swiper-slide">
+			Test Page 7!
+		</div>
+		<div class="swiper-slide">
+			Test Page 7!
+		</div>
+		<div class="swiper-slide">
+			Test Page 7!
 		</div>
 	</div>
 
@@ -223,6 +269,7 @@ var mySwiper = new Swiper('.swiper-container', {
 		}
 	},
 });
+// History Control
 var historyBackward = $('.swiper-history-backward'), historyForward = $('.swiper-history-forward');
 mySwiper.launchTimeMachine();
 mySwiper.onHistoryChanged(function (s, travel, start, end) {
@@ -247,6 +294,8 @@ historyForward.on('click', function (e) {
 	mySwiper.history.next();
 	e.stopPropagation();
 });
+// Hint Bullet
+if (!Devices.isMobile) mySwiper.hintBullet();
 </script>
 
 <!-- GA -->

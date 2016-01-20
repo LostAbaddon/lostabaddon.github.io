@@ -63,6 +63,7 @@ var Support = {};
 		};
 		$('img[data-src]').each(function (index, img) {
 			img = $(img);
+			img.css({opacity: 0});
 			total++;
 			var src = img.attr('src');
 			if (!!src) {
@@ -75,10 +76,12 @@ var Support = {};
 				img[0].onload = function () {
 					task[index] = true;
 					done++;
+					img.css({opacity: 1});
 					check();
 				};
 				img[0].onerror = function () {
 					task[index] = true;
+					img.css({opacity: 1});
 					check();
 				};
 				img.attr('src', src);
