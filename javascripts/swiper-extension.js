@@ -5,7 +5,7 @@
 		var index = this.container.find('[data-hash="' + hash + '"]').index();
 		if (!index && index !== 0) index = -1;
 		if (index >= 0 && index < this.slides.length) {
-			this.unlockSwipes();
+			if (this._clearPreventer) this._clearPreventer();
 			this.slideTo(index, speed, callback);
 		}
 	};
@@ -142,25 +142,28 @@
 	};
 	// Stopper
 	Swiper.prototype.plugins.autoLock = function (swiper) {
+		var is_locked = false;
 		var setPreventer = function () {
 			var page = $(swiper.slides[swiper.activeIndex]);
 			var no_prev = page.data('prevent-prev') === true, no_next = page.data('prevent-next') === true;
 			if (no_prev) swiper.lockSwipeToPrev();
 			if (no_next) swiper.lockSwipeToNext();
+			is_locked = true;
 		};
 		var clearPreventer = function () {
 			swiper.unlockSwipes();
+			is_locked = false;
 		};
 		swiper.on("onTransitionStart", clearPreventer);
 		swiper.on("onTransitionEnd", setPreventer);
 		setPreventer();
-		swiper.__slideTo = swiper.slideTo;
-		swiper.slideTo = function (index, speed, callback) {
-			if (index >= 0 && index < this.slides.length) {
-				this.unlockSwipes();
+		swiper._clearPreventer = clearPreventer;
+		swiper.container.on('click', '.swiper-pagination-bullet', function (e) {
+			if (is_locked) {
+				clearPreventer();
+				swiper.slideTo($(e.target).index());
 			}
-			return this.__slideTo(index, speed, callback);
-		};
+		});
 	};
 
 	// Window Event for SlideToHash
