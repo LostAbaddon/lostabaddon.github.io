@@ -104,16 +104,16 @@ body {
 				</div>
 			</div>
 		</div>
-		<div class="swiper-slide" data-hash="content-table" data-hint="目录">
+		<div class="swiper-slide" data-hash="content-table" data-hint="目录" data-reset-ppt=true>
 			<div class="ppt-page">
 				<h1>目录</h1>
 				<hr>
 				<ol class="table-of-content">
-					<li class="swiper-slide-jumper" data-target="home">神奇的实验</li>
+					<li class="swiper-slide-jumper" data-target="home" data-step=1>神奇的实验</li>
 					<li class="swiper-slide-jumper" data-target="Hello">三种描述</li>
-					<li class="swiper-slide-jumper" data-target="page">不仅的诠释</li>
-					<li class="swiper-slide-jumper" data-target="page">与经典的差异</li>
-					<li class="swiper-slide-jumper" data-target="page">总结</li>
+					<li class="swiper-slide-jumper" data-target="page" data-step=3>不仅的诠释</li>
+					<li class="swiper-slide-jumper" data-target="page" data-step=2>与经典的差异</li>
+					<li class="swiper-slide-jumper" data-target="page" data-step=5>总结</li>
 				</ol>
 			</div>
 		</div>
@@ -296,6 +296,8 @@ historyForward.on('click', function (e) {
 });
 // Hint Bullet
 if (!Devices.isMobile) mySwiper.hintBullet();
+// PPT Jump
+mySwiper.pptJump();
 </script>
 
 <!-- GA -->

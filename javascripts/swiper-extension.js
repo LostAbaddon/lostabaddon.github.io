@@ -1,4 +1,5 @@
 (function () {
+	var root = $(document);
 	// Extensions
 	Swiper.prototype.slideToHash = function (hash, speed, callback) {
 		var index = this.container.find('[data-hash="' + hash + '"]').index();
@@ -72,9 +73,74 @@
 			}
 		});
 	};
+	Swiper.prototype.pptJump = function () {
+		var self = this;
+		if (self._pptJumpInited) return;
+		self._pptJumpInited = true;
+		var pageInit = function () {
+			var page = $(self.slides[self.activeIndex]);
+			var needReset = (page.data('reset-ppt') === true);
+			var step = 1000;
+			if (needReset) step = 1;
+			else step = page.data('step') || 1;
+			var maxStep = 1;
+			page.data('step', step);
+			page.find('[data-step]').each(function (index, item) {
+				item = $(item);
+				index = item.data('step');
+				if (isNaN(index) || index < 1) index = 1;
+				if (index <= step) item.addClass('show');
+				else item.removeClass('show');
+				if (index > maxStep) maxStep = index;
+			});
+			page.data('max-step', maxStep);
+		};
+		var pageJump = function (delta) {
+			if (isNaN(delta)) delta = 1;
+			var page = $(self.slides[self.activeIndex]);
+			var step = page.data('step') || 1;
+			var maxStep = page.data('max-step') || 1;
+			step += delta;
+			if (step > maxStep || step < 1) return;
+			page.data('step', step);
+			page.find('[data-step]').each(function (index, item) {
+				item = $(item);
+				index = item.data('step');
+				if (isNaN(index) || index < 1) index = 1;
+				if (index <= step) item.addClass('show');
+				else item.removeClass('show');
+			});
+		};
+		self.container.on('click', '.swiper-slide', function (e) {
+			if (!e.altKey && !e.ctrlKey && !e.metaKey && !e.shiftKey) {
+				var target = $(e.target);
+				if (target.is('.swiper-slide') || (target.data('can-jump') === true)) {
+					if (e.which === 1 || e.button === 1) pageJump();
+					else if (e.which === 3 || e.button === 2) {
+						pageJump(-1);
+						e.preventDefault();
+					}
+				}
+			}
+		});
+		root.on('keydown', function (e) {
+			if (!e.altKey && !e.ctrlKey && !e.metaKey && !e.shiftKey) {
+				var target = $(e.target);
+				if (target.is('body')) {
+					if (e.which === 13 || e.keyCode === 13) pageJump();
+					else if (e.which === 8 || e.keyCode === 8) {
+						pageJump(-1);
+						e.preventDefault();
+					}
+				}
+			}
+		});
+		self.on('onTransitionStart', pageInit);
+		pageInit();
+	};
 
 	// Window Event for SlideToHash
-	$(document).on('click tap', '.swiper-slide-jumper', function (e) {
+	root.on('click tap', '.swiper-slide-jumper', function (e) {
 		var hint = $(this).data('target');
 		if (!isNaN(hint)) mySwiper.slideTo(hint);
 		else if (!!hint) mySwiper.slideToHash(hint);
