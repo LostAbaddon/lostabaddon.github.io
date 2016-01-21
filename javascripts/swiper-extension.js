@@ -5,7 +5,6 @@
 		var index = this.container.find('[data-hash="' + hash + '"]').index();
 		if (!index && index !== 0) index = -1;
 		if (index >= 0 && index < this.slides.length) {
-			if (this._clearPreventer) this._clearPreventer();
 			this.slideTo(index, speed, callback);
 		}
 	};
@@ -158,7 +157,7 @@
 		swiper.on("onTransitionEnd", setPreventer);
 		setPreventer();
 		swiper._clearPreventer = clearPreventer;
-		swiper.container.on('click', '.swiper-pagination-bullet', function (e) {
+		swiper.container.on('click', '.swiper-slide-jumper', function (e) {
 			if (is_locked) {
 				clearPreventer();
 				swiper.slideTo($(e.target).index());
