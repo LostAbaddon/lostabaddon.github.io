@@ -4,7 +4,10 @@
 	Swiper.prototype.slideToHash = function (hash, speed, callback) {
 		var index = this.container.find('[data-hash="' + hash + '"]').index();
 		if (!index && index !== 0) index = -1;
-		if (index >= 0) this.slideTo(index, speed, callback);
+		if (index >= 0 && index < this.slides.length) {
+			this.unlockSwipes();
+			this.slideTo(index, speed, callback);
+		}
 	};
 	// History Control
 	Swiper.prototype.launchTimeMachine = function (limit) {
@@ -62,9 +65,9 @@
 		};
 	};
 	// Hint Pagination Bullet
-	Swiper.prototype.hintBullet = function () {
-		var slides = this.container.find('.swiper-slide');
-		var bullets = this.container.find('.swiper-pagination-bullet');
+	Swiper.prototype.plugins.hintBullet = function (swiper) {
+		var slides = swiper.container.find('.swiper-slide');
+		var bullets = swiper.container.find('.swiper-pagination-bullet');
 		slides.each(function (index, slide) {
 			slide = $(slide);
 			var hint = slide.data('hint');
@@ -73,12 +76,11 @@
 			}
 		});
 	};
-	Swiper.prototype.pptJump = function () {
-		var self = this;
-		if (self._pptJumpInited) return;
-		self._pptJumpInited = true;
+	Swiper.prototype.plugins.pptJump = function (swiper) {
+		if (swiper._pptJumpInited) return;
+		swiper._pptJumpInited = true;
 		var pageInit = function () {
-			var page = $(self.slides[self.activeIndex]);
+			var page = $(swiper.slides[swiper.activeIndex]);
 			var needReset = (page.data('reset-ppt') === true);
 			var step = 1000;
 			if (needReset) step = 1;
@@ -97,7 +99,7 @@
 		};
 		var pageJump = function (delta) {
 			if (isNaN(delta)) delta = 1;
-			var page = $(self.slides[self.activeIndex]);
+			var page = $(swiper.slides[swiper.activeIndex]);
 			var step = page.data('step') || 1;
 			var maxStep = page.data('max-step') || 1;
 			step += delta;
@@ -111,7 +113,7 @@
 				else item.removeClass('show');
 			});
 		};
-		self.container.on('click', '.swiper-slide', function (e) {
+		swiper.container.on('click', '.swiper-slide', function (e) {
 			if (!e.altKey && !e.ctrlKey && !e.metaKey && !e.shiftKey) {
 				var target = $(e.target);
 				if (target.is('.swiper-slide') || (target.data('can-jump') === true)) {
@@ -135,8 +137,30 @@
 				}
 			}
 		});
-		self.on('onTransitionStart', pageInit);
+		swiper.on('onTransitionStart', pageInit);
 		pageInit();
+	};
+	// Stopper
+	Swiper.prototype.plugins.autoLock = function (swiper) {
+		var setPreventer = function () {
+			var page = $(swiper.slides[swiper.activeIndex]);
+			var no_prev = page.data('prevent-prev') === true, no_next = page.data('prevent-next') === true;
+			if (no_prev) swiper.lockSwipeToPrev();
+			if (no_next) swiper.lockSwipeToNext();
+		};
+		var clearPreventer = function () {
+			swiper.unlockSwipes();
+		};
+		swiper.on("onTransitionStart", clearPreventer);
+		swiper.on("onTransitionEnd", setPreventer);
+		setPreventer();
+		swiper.__slideTo = swiper.slideTo;
+		swiper.slideTo = function (index, speed, callback) {
+			if (index >= 0 && index < this.slides.length) {
+				this.unlockSwipes();
+			}
+			return this.__slideTo(index, speed, callback);
+		};
 	};
 
 	// Window Event for SlideToHash

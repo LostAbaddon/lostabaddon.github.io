@@ -102,34 +102,40 @@ body {
 				<div class="content center">
 					但在量子的世界中，上述一切，<br>都变得不一样了……
 				</div>
+				<hr data-step=2>
+				<h2 class="center top-margin" data-margin="50" data-step=2>严正声明</h2>
+				<div class="content center" data-step=2>
+					<b>本次演讲将基本不沿着正规教材上的套路进行，<br>而是以个人理解整理为线索~~</b>
+				</div>
 			</div>
 		</div>
-		<div class="swiper-slide" data-hash="content-table" data-hint="目录" data-reset-ppt=true>
+		<div class="swiper-slide" data-hash="content-table" data-hint="目录" data-prevent-next=true>
 			<div class="ppt-page">
 				<h1>目录</h1>
 				<hr>
 				<ol class="table-of-content">
-					<li class="swiper-slide-jumper" data-target="home" data-step=1>神奇的实验</li>
-					<li class="swiper-slide-jumper" data-target="Hello">三种描述</li>
-					<li class="swiper-slide-jumper" data-target="page" data-step=3>不仅的诠释</li>
-					<li class="swiper-slide-jumper" data-target="page" data-step=2>与经典的差异</li>
-					<li class="swiper-slide-jumper" data-target="page" data-step=5>总结</li>
+					<li class="swiper-slide-jumper" data-target="experiment-cate">神奇的实验</li>
+					<li class="swiper-slide-jumper" data-target="description-cate">三种描述</li>
+					<li class="swiper-slide-jumper" data-target="explain-cate">不尽的诠释</li>
+					<li class="swiper-slide-jumper" data-target="difference-cate">与经典的差异</li>
+					<li class="swiper-slide-jumper" data-target="sum-cate">总结</li>
 				</ol>
+				<div class="blank" data-height="100"></div>
 			</div>
 		</div>
-		<div class="swiper-slide">
+		<div class="swiper-slide" data-hash="experiment-cate" data-hint="神奇的实验">
 			Test Page 3!
 		</div>
-		<div class="swiper-slide">
+		<div class="swiper-slide" data-hash="description-cate" data-hint="三种描述">
 			Test Page 4!
 		</div>
-		<div class="swiper-slide">
+		<div class="swiper-slide" data-hash="explain-cate" data-hint="不尽的诠释">
 			Test Page 5!
 		</div>
-		<div class="swiper-slide">
+		<div class="swiper-slide" data-hash="difference-cate" data-hint="与经典的差异">
 			Test Page 6!
 		</div>
-		<div class="swiper-slide">
+		<div class="swiper-slide" data-hash="sum-cate" data-hint="总结">
 			Test Page 7!
 		</div>
 		<div class="swiper-slide">
@@ -294,10 +300,6 @@ historyForward.on('click', function (e) {
 	mySwiper.history.next();
 	e.stopPropagation();
 });
-// Hint Bullet
-if (!Devices.isMobile) mySwiper.hintBullet();
-// PPT Jump
-mySwiper.pptJump();
 </script>
 
 <!-- GA -->

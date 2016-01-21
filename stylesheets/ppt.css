@@ -63,6 +63,9 @@
 .top-margin {
 	margin-top: 10px;
 }
+.top-margin[data-margin="0"] {
+	margin-top: 0px;
+}
 .top-margin[data-margin="20"] {
 	margin-top: 20px;
 }
@@ -104,4 +107,41 @@
 }
 .span[data-width="100"] {
 	width: 100px;
+}
+
+.blank {
+	display: inline-block;
+	height: 10px;
+	min-width: 5px;
+}
+.blank[data-height="20"] {
+	height: 20px;
+}
+.blank[data-height="30"] {
+	height: 30px;
+}
+.blank[data-height="40"] {
+	height: 40px;
+}
+.blank[data-height="50"] {
+	height: 50px;
+}
+.blank[data-height="100"] {
+	height: 100px;
+}
+
+@media (max-width: 500px) {
+	.ppt-page h1 {
+		font-size: 24px;
+	}
+	.ppt-page h2 {
+		font-size: 18px;
+	}
+	.ppt-page .content {
+		font-size: 14px;
+	}
+	.ppt-page ol,
+	.ppt-page ul {
+		font-size: 14px;
+	}
 }
