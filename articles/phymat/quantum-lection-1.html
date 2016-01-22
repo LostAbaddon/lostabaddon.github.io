@@ -145,13 +145,10 @@ body {
 				<h1 class="left">神奇的实验</h1>
 				<hr>
 				<div class="content">
-					量子理论中，有这么几个实验是非常重要的，也是大家最耳熟能详的：
+					量子理论中，有这么两个实验是非常重要的，也是大家最耳熟能详的：
 					<ul class="top-margin" data-margin="20">
 						<li class="swiper-slide-jumper" data-target="double-split">杨氏双缝干涉实验</li>
 						<li class="swiper-slide-jumper" data-target="bell-inequation">贝尔不等式破缺</li>
-						<li class="swiper-slide-jumper" data-target="aspect-entangle">爱斯派克特量子纠缠实验</li>
-						<li>后选择实验</li>
-						<li>自由意志实验</li>
 					</ul>
 				</div>
 			</div>
@@ -244,10 +241,17 @@ body {
 						<p>由数学公式结合第一点的连续性可知：<br>如果一个量子系统的动能部分比一个势垒要低，那么在经典情况下这个鸿沟无法逾越，在量子系统中波函数却可以“渗透”进这个势垒，甚至穿越它。</p>
 						<p data-step=6>这就是<b>量子隧穿效应</b>。</p>
 					</div>
-					<div data-step="7">
+					<div class="float" data-step="7" data-fade-step=8>
 						<h3>重要的提醒：</h3>
 						<p>值得注意的是，上述猫效应和隧穿效应从根本上说，并不是量子系统所独有的。<br>一个经典系统在数学上一样可以具有这些特性，只要要求经典分布的分布函数也是连续与一阶导连续的，且粒子的运动满足这种经典分布。</p>
 						<p>量子的独特本质：<b>复几率分布</b></p>
+					</div>
+					<div data-step="8">
+						<h3>复几率分布的两大特点</h3>
+						<ol class="close">
+							<li>分布函数取值为复数域<span data-step=9>（经典下是[0,1]这个实数子域）</span></li>
+							<li>几率为分布函数值的模平方<span data-step=9>（经典下是分布函数值）</span></li>
+						</ol>
 					</div>
 				</div>
 			</div>
@@ -321,9 +325,18 @@ body {
 						<p data-step=4>而根据量子的复几率幅所得到的相关度是：</p>
 						<img src="./images/equ-3.jpg" class="block" data-step=5>
 					</div>
-					<div class="float" data-step="6">
-						<h3>重点</h3>
-						<p>这两个结果显然存在极大的不同，那就是</p>
+					<div class="float" data-step="6" data-fade-step=8>
+						<h3>不等式的由来</h3>
+						<p>上面的几率分布已经存在了极大的不同，但在实际测量的时候，AB两处检偏器的夹角θ是不确定的，所以需要引入一些统计的手段。</p>
+						<p>利用上述几率分布，在经典情况下我们有贝尔不等式(CHSH不等式)：</p>
+						<img src="./images/equ-4.jpg" class="block" data-step=7>
+						<p data-step=7>式子中的P<sub>xy</sub>表示A地测得x方向同时B地测得y方向的几率（可正可负）。</p>
+					</div>
+					<div data-step="8">
+						<h3>不等式的破缺</h3>
+						<p>而在正统的量子诠释下，采用的是余弦函数形的几率分布，从而不等式可以有破缺的情况——</p>
+						<p data-step=9>在量子理论下，上述不等式的左面可以达到的最大值是2√2，从而是大于右面的2的，因此不等式被打破。</p>
+						<p data-step="10">而这2√2的出现，就是因为量子的几率分布是余弦函数式的，从而在45º的位置可以出现比经典几率分布更大的几率值。</p>
 					</div>
 				</div>
 			</div>
@@ -332,30 +345,108 @@ body {
 			<div class="ppt-page">
 				<h2 class="left">贝尔不等式破缺</h2>
 				<hr>
+				<div class="area">
+					<h3>贝尔不等式被打破的意义</h3>
+					<ol class="close">
+						<li data-step=2>量子纠缠是真实存在的</li>
+						<li data-step=3>定域性与实在性，这两者必须放弃一个<br><span data-step=4><b>放弃实在性意味着放弃隐变量</b></span>
+						<br><span data-step=5><b>目前大家基本认为定域性不能放弃</b></span></li>
+						<li data-step=6>实体性所要求的实值物理量依然被认为是牢不可破的</li>
+					</ol>
+				</div>
+			</div>
+		</div>
+		<div class="swiper-slide">
+			<div class="ppt-page">
+				<h2 class="left">贝尔不等式破缺</h2>
+				<hr>
 				<div class="area float-container">
-					<div class="float" data-fade-step=2>
-						<p>在上一个实验中，我们提出量子最独特的本质，在于它的复几率分布。</p>
-						<p>这是量子系统相对于经典系统最大的不同之处。</p>
-						<p>而除了这个最根本的不同，另一个显著的不同，就是经典几率分布几乎不要求分布函数及其一阶导的连续性。</p>
+					<div class="float" data-fade-step=3>
+						<h3>定域性？</h3>
+						<p>物理过程的定域性是否必然不可打破？</p>
+						<p data-step="2">在广义相对论的引力场能量的计算中，我们发现目前最合适的一种定义下，<b>引力场的能量是非定域的</b>。</p>
 					</div>
-					<div data-step=2>
-						<p>这里要看量子系统的另一个在现象上与经典的极大差异：</p>
-						<p data-step=3>具有很多守恒量</p>
+					<div class="float" data-step=3 data-fade-step=5>
+						<h3>实体性？</h3>
+						<p>实体性要求物理量必须是实值的，至少可观测物理量必须是实值的。</p>
+						<p data-step="4">但我们也知道，在AB与AC效应中，原本被认为不具有实体性的波函数的相位却发挥了实实在在的作用，而<b>波函数是复值的</b>。</p>
+					</div>
+					<div data-step=5>
+						<h3>实在性？</h3>
+						<p>贝尔不等式的破缺基本宣布了隐变量理论的破产。</p>
+						<p>但非定域隐变量理论是否可以幸存下来？</p>
+						<p data-step="6">Kochen-Specker定理告诉我们：上下文无关的实在性理论与量子理论不相容。</p>
+						<p data-step="6">要么放弃实在性，要么认为存在隐变量，但其具体性质依赖于如何测量。</p>
+						<p data-step="7">基于KS定理的Conway-Kochen定理则更进一步论证了机械决定论必然是错的。</p>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="swiper-slide" data-hash="aspect-entangle">
+		<div class="swiper-slide">
 			<div class="ppt-page">
-				<h2 class="left">爱斯派克特的量子纠缠实验</h2>
+				<h2 class="left">小结</h2>
 				<hr>
 				<div class="area">
-					
+					<div class="float" data-fade-step=3>
+						<h3>量子与经典的核心差异：</h3>
+						<ul class="close" data-step="2">
+							<li>量子系统满足复值分布，且分布值的模平方为几率，单粒子也满足量子分布。</li>
+							<li>经典系统满足实值分布，且分布值本身就是几率，单粒子不使用统计分布。</li>
+						</ul>
+					</div>
+					<div data-step="3">
+						<h3>量子与经典的差异：</h3>
+						<p>上述特点体现在演化规律上，最核心的体现就是虽然分布同样都满足扩散方程，但量子系统的薛定谔方程带有虚数单位i，这使得量子分布本身除了波幅外，还多了相位这一重要信息。</p>
+						<h4 data-step="4">脑洞一下：</h4>
+						<p data-step="4">如果波函数的取值范围可以是四元数体呢？</p>
+					</div>
 				</div>
 			</div>
 		</div>
-		<div class="swiper-slide" data-hash="description-cate" data-hint="三种描述">
-			Test Page 4!
+		<div class="swiper-slide" data-hash="description-cate" data-hint="三种描述" data-prevent-next=true>
+			<div class="ppt-page">
+				<h1 class="left">量子理论的三种描述方法</h1>
+				<hr>
+				<div class="content">
+					<p>量子理论本身可以有三种不同的描述方法</p>
+					<p>（同时则可以有理论上无穷种诠释）</p>
+					<ul class="top-margin" data-margin="20">
+						<li class="swiper-slide-jumper" data-target="quantum-wave">波动力学</li>
+						<li class="swiper-slide-jumper" data-target="quantum-matrix">矩阵力学</li>
+						<li class="swiper-slide-jumper" data-target="quantum-path">路径积分</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="swiper-slide" data-hash="quantum-wave">
+			<div class="ppt-page">
+				<h2 class="left">量子理论的波动力学</h2>
+				<hr>
+				<div class="area">
+					<p>这种描述方法，就是经典的薛定谔方程，计算系统的波函数，再通过波函数给出系统处于不同量子态上的几率。</p>
+					<p data-step=2>它还可以分成三种绘景：<br>算符不随时间改变的<b>薛定谔绘景</b><br>波函数不随时而变的<b>海森堡绘景</b><br>算符与波函数都随时间改变的<b>相互作用绘景</b></p>
+				</div>
+			</div>
+		</div>
+		<div class="swiper-slide" data-hash="quantum-matrix">
+			<div class="ppt-page">
+				<h2 class="left">量子理论的矩阵力学</h2>
+				<hr>
+				<div class="area">
+					<p>矩阵力学和波动力学原则上是等价的——算符所得到的值以矩阵本征值的形式存在</p>
+					<p>对有限状态或可数无限个状态的情况可以有较直观的视野</p>
+					<p></p>
+				</div>
+			</div>
+		</div>
+		<div class="swiper-slide" data-hash="quantum-path">
+			<div class="ppt-page">
+				<h2 class="left">量子理论的11路径积分</h2>
+				<hr>
+				<div class="area">
+					Content
+				</div>
+			</div>
 		</div>
 		<div class="swiper-slide" data-hash="explain-cate" data-hint="不尽的诠释">
 			Test Page 5!
@@ -487,10 +578,12 @@ mySwiper.onHistoryChanged(function (s, travel, start, end) {
 	}
 });
 historyBackward.on('click', function (e) {
+	mySwiper.relaseAutoLock();
 	mySwiper.history.prev();
 	e.stopPropagation();
 });
 historyForward.on('click', function (e) {
+	mySwiper.relaseAutoLock();
 	mySwiper.history.next();
 	e.stopPropagation();
 });

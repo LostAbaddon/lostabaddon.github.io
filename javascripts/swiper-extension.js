@@ -23,6 +23,7 @@
 		this.history.callbacks = [];
 		this.history.push(this.activeIndex); // For Initial
 		this.on('onSlideChangeEnd', function (s) {
+			if (self.activeIndex === self.history[0]) return;
 			if (self.history.state === 0) {
 				if (self.history.index > 0) {
 					self.history.splice(0, self.history.index);
@@ -174,9 +175,12 @@
 		swiper.on("onTransitionStart", clearPreventer);
 		swiper.on("onTransitionEnd", setPreventer);
 		setPreventer();
+		swiper.relaseAutoLock = function (e) {
+			if (is_locked) clearPreventer();
+		};
 		swiper.container.on('click', '.swiper-slide-jumper', function (e) {
 			if (is_locked) {
-				clearPreventer();
+				swiper.relaseAutoLock();
 				swiper.slideTo($(e.target).index());
 			}
 		});
