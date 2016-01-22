@@ -38,13 +38,15 @@
 		var drawing = false;
 		function start (x, y) {
 			drawing = true;
+			console.log('Start');
 		};
 		function end (x, y) {
 			drawing = false;
+			console.log('End');
 		};
 		function moving (x, y) {
+			console.log(x, y, drawing);
 			if (!drawing) return;
-			console.log(x, y);
 		}
 
 		// Events
