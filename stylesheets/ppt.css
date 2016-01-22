@@ -9,6 +9,9 @@
 	box-sizing: border-box;
 	transform: translateY(-50%);
 }
+.ppt-page.middle-center {
+	min-height: 0px;
+}
 .mobile .ppt-page {
 	padding-left: 20px;
 	padding-right: 35px;

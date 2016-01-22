@@ -15,6 +15,7 @@
 <link rel="stylesheet" href="../../stylesheets/common.css" media="screen">
 <link rel="stylesheet" href="../../stylesheets/ppt.css" media="screen">
 <link rel="stylesheet" href="../../stylesheets/drawpad.css" media="screen">
+<link rel="stylesheet" href="../../stylesheets/life-game.css" media="screen">
 <style>
 html,
 body {
@@ -68,6 +69,10 @@ body {
 }
 .open-drawpad:hover {
 	opacity: 1;
+}
+
+.trigger {
+	cursor: pointer;
 }
 
 @media (max-width: 500px) {
@@ -280,7 +285,7 @@ body {
 					</div>
 					<div data-step="2">
 						<p>贝尔不等式破缺的核心关键，在于人们普遍认为物理系统必然是满足定域性与实在性的，而量子理论打破了这一常规。</p>
-						<p>这里关键点有实体个：</p>
+						<p>这里关键点有四个：</p>
 						<ol data-step=3>
 							<li>定域性</li>
 							<li>实在性</li>
@@ -403,7 +408,7 @@ body {
 					<div class="float" data-fade-step=3>
 						<h3>量子与经典的核心差异：</h3>
 						<ul class="close" data-step="2">
-							<li>量子系统满足复值分布，且分布值的模平方为几率，单粒子也满足量子分布。</li>
+							<li>量子系统满足复值分布，且分布值模平方为几率，单粒子也满足量子分布。</li>
 							<li>经典系统满足实值分布，且分布值本身就是几率，单粒子不使用统计分布。</li>
 						</ul>
 					</div>
@@ -478,22 +483,249 @@ body {
 				</div>
 			</div>
 		</div>
-		<div class="swiper-slide" data-hash="explain-cate" data-hint="不尽的诠释">
-			Test Page 5!
-		</div>
-		<div class="swiper-slide" data-hash="difference-cate" data-hint="与经典的差异">
-			Test Page 6!
-		</div>
-		<div class="swiper-slide" data-hash="sum-cate" data-hint="总结">
-			Test Page 7!
-		</div>
 		<div class="swiper-slide">
 			<div class="ppt-page">
-				<h2 class="left">Title</h2>
+				<h2 class="left">三种描述的异同</h2>
 				<hr>
 				<div class="area">
-					Content
+					<div class="float" data-fade-step="3">
+						<h3>首先，上述三种描述的理论描述能力是完全相同的，三者相互等价。</h3>
+						<h3>但它们的侧重点有所不同：</h3>
+						<ul class="close" data-step="2">
+							<li>波动力学侧重于时空中的分布</li>
+							<li>矩阵力学侧重于不同离散状态间的分布</li>
+							<li>路径积分则更主要是一种概念与想法的突破</li>
+						</ul>
+					</div>
+					<div data-step="3">
+						<p>路径积分（以及更加宽泛的构型积分）那种对所有可能的路径求和的思路，已经作为一种特殊的工具在很多领域得到了推广。</p>
+						<p>比如金融领域有一门课就叫“金融市场的路径积分”。</p>
+						<p data-step="4">一个有趣的启示：一个粒子其实不是一个粒子，而是这个粒子所有可能的状态构成的一个系宗。</p>
+					</div>
 				</div>
+			</div>
+		</div>
+		<div class="swiper-slide" data-hash="explain-cate" data-hint="不尽的诠释">
+			<div class="ppt-page">
+				<h2 class="left">不尽的诠释</h2>
+				<hr>
+				<div class="area">
+					<div class="float" data-fade-step="4">
+						<h3>所谓诠释，就是对物理理论的解释或者理解的范式</h3>
+						<p>量子理论的诠释有很多很多，而且，事实上只要你愿意，就可以有无穷多种诠释。</p>
+						<p data-step="2">究其根本是因为量子理论涉及到一些无法直接观测到的物理实体，比如波函数。</p>
+						<p data-step="3">而另一方面则是因为量子理论与我们日常生活的世界的行为差距太大。</p>
+					</div>
+					<div data-step="4">
+						<h1>至今还有人以量子理论所描述的行为与日常生活经验不符来否定量子理论！</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="swiper-slide" data-prevent-next=true>
+			<div class="ppt-page">
+				<h2 class="left">不尽的诠释</h2>
+				<hr>
+				<div class="area">
+					<h3>最常见的诠释（流派代表）</h3>
+					<ul>
+						<li class="swiper-slide-jumper" data-target="copenhagen">哥本哈根诠释</li>
+						<li class="swiper-slide-jumper" data-target="decoherence">退相干诠释</li>
+						<li class="swiper-slide-jumper" data-target="multiverse">多重宇宙诠释</li>
+						<li class="swiper-slide-jumper" data-target="hiden-reality">隐变量诠释</li>
+						<li class="swiper-slide-jumper" data-target="other-explains">其它</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="swiper-slide" data-hash="copenhagen">
+			<div class="ppt-page">
+				<h2 class="left">哥本哈根诠释</h2>
+				<hr>
+				<div class="area">
+					<div class="float" data-fade-step="2">
+						<h3>哥本哈根诠释的基本思想，可以归纳为以下这几点：</h3>
+						<ol class="close">
+							<li>物理对象由波函数描述</li>
+							<li>任何物理量都可以从波函数上通过相应的算符获得</li>
+							<li>波函数的演化满足薛定谔方程</li>
+							<li>观测会导致波函数的塌缩</li>
+						</ol>
+					</div>
+					<div class="float" data-step="2" data-fade-step=4>
+						<h3>意识与哥本哈根</h3>
+						<p>很多人会认为物理理论中承认了人的意识的重要性，这种普遍的都市传说一般的大众误解的起源，就是哥本哈根诠释中的那一条：<b>观测会导致波函数的塌缩</b>。</p>
+						<p data-step=3>意识成了“凌驾于物理规律之上”的“能决定物理结果”的特殊的存在。</p>
+					</div>
+					<div data-step=4>
+						<h3>意识与哥本哈根</h3>
+						<p>人成为了有物理理论支持的世界核心</p>
+						<p data-step="5"><b>薛定谔的猫</b>中猫不但处于生死叠加态，也被剥夺了观测自己的权力。</p>
+						<h3 data-step="6">个人看法：</h3>
+						<p data-step="6">就让尘归尘土归土，上帝的归上帝，物理的归物理。</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="swiper-slide" data-hash="decoherence">
+			<div class="ppt-page">
+				<h2 class="left">退相干诠释</h2>
+				<hr>
+				<div class="area">
+					<div class="float" data-fade-step="3">
+						<h3>与哥本哈根的不同</h3>
+						<p>退相干诠释的绝大部分内容与思想，都与哥本哈根诠释相同，只差了一点：</p>
+						<p data-step="2">测量的过程是一个包含大量粒子的系统与单个被试粒子发生大量频繁相互作用的过程，从而并不是观测导致塌缩，而是观测过程中那些数量巨大且频繁的相互作用造成了被试粒子发生了退相干。</p>
+					</div>
+					<div data-step="3">
+						<h3>量子退相干</h3>
+						<p>量子退相干本身不是一种诠释，而是一类标准的量子力学过程——含有量子叠加项的结果在一段时间内的平均会因为其中一个叠加项的波函数周期太短而被抵消为零。</p>
+						<p>而在观测或者说实验环境下，测量的时间相对于微观过程来说总是足够长的，而测量系统对被测对象的作用所带来的周期又总是足够短的。</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="swiper-slide" data-hash="multiverse">
+			<div class="ppt-page">
+				<h2 class="left">多重宇宙诠释</h2>
+				<hr>
+				<div class="area">
+					<div class="float" data-fade-step=3>
+						<h3>多重宇宙的多种解释</h3>
+						<p>首先要说明的，就是量子理论的多重宇宙诠释，与宇宙学上的多重宇宙或者膜宇宙学上的多重宇宙，是一点关系都没有的。</p>
+						<h3 data-step=2>更别提什么漫威宇宙了！！！</h3>
+					</div>
+					<div data-step="3" data-fade-step=4>
+						<h3>多重宇宙诠释</h3>
+						<p>多重宇宙诠释认为当哥本哈根诠释所认为的“测量”发生的时候，系统并没有简单地塌缩到某个确定的状态，而是将整个宇宙彻底分裂成了若干个宇宙——有多少可能的状态就分裂出多少个宇宙。</p>
+					</div>
+					<div class="float" data-step="4">
+						<h3>多重宇宙诠释</h3>
+						<p>而观测者则以波函数所给出的几率“随机”地“掉落”到了所有这些宇宙中的某一个中。</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="swiper-slide" data-hash="hiden-reality">
+			<div class="ppt-page">
+				<h2 class="left">隐变量诠释</h2>
+				<hr>
+				<div class="area">
+					<div class="float" data-fade-step=2>
+						<h3>隐变量诠释并没有死绝</h3>
+						<p>虽然贝尔不等式的破缺表明了定域实在的隐变量理论肯定是没希望了，甚至KS定理进一步表明上下文无关的实在性隐变量理论也没戏，但原则上说，隐变量理论这个流派并没有死绝。</p>
+					</div>
+					<div data-step="2">
+						<p>原则上说，凡是不承认波函数的实在性而只认为它描述了行为但背后的物理实体是某种至少目前无法被观测到对象的理论，都是隐变量理论。</p>
+						<p data-step=3>不知道大家注意到没有，这个“至少目前无法被观测到的对象”的提法本身显得非常地不具有“可证伪性”，但却堂而皇之地自称为物理理论而非形而上学或者伪科学……</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="swiper-slide" data-hash="other-explains">
+			<div class="ppt-page">
+				<h2 class="left">其它诠释</h2>
+				<hr>
+				<div class="area">
+					<h3>这里只列一些有趣的出来，不做解释：</h3>
+					<ul class="close">
+						<li>关系性量子力学</li>
+						<li>基本环量子力学</li>
+						<li>交易诠释</li>
+						<li>客观塌缩 / 主观塌缩</li>
+						<li>量子逻辑 / 量子信息论</li>
+						<li>多心灵诠释</li>
+						<li>各种神秘学与伪科学</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="swiper-slide" data-hash="difference-cate" data-hint="与经典的差异">
+			<div class="ppt-page">
+				<h2 class="left">与经典的差异</h2>
+				<hr>
+				<div class="area">
+					<div data-fade-step="3">
+						<h3>量子效应——不确定原理</h3>
+						<p>前面已经提过，量子理论的关键就在于即便只有单个粒子，其行为也满足波函数所描述的几率分布。</p>
+						<p>同时，我们可以从波函数中“提取”出系统的物理属性。</p>
+						<p data-step=2>此时我们发现，同一个对象的某些物理量之间，存在经典物理中所没有的特性：对一个的测量，会影响到对另一个的测量。</p>
+					</div>
+					<div class="float" data-step="3" data-fade-step="5">
+						<h3>量子效应——不确定原理</h3>
+						<p>比如，当我们可以以毋庸置疑的精度测量粒子的位置时，它的动量的不确定度为无穷大。</p>
+						<p>这就构成了一组著名的不确定原理：</p>
+						<p data-step=4>　　位置-动量不确定性</p>
+						<p data-step=4>　　时间-能量不确定性</p>
+					</div>
+					<div class="float" data-step="5" data-fade-step="7">
+						<h3>量子效应——不确定原理</h3>
+						<p>由于历史原因与翻译问题，我国曾已读将不确定关系翻译为“测不准原理”</p>
+						<p data-step="6">不确定原理的本质是波函数上的算符之间的非对易性，从而这些算符对应的物理量无法同时获得，与测量没有丝毫关系。</p>
+					</div>
+					<div class="float" data-step=7 data-fade-step=10>
+						<h3>量子效应——混合态与量子计算</h3>
+						<p>量子系统允许同时在多个状态上存在，比如既是活的又是死的。</p>
+						<p data-step=8>但当测量发生的时候，则必须塌缩到测量相关的某一个基态上。</p>
+						<p data-step=9>量子超高速计算依赖于混合态：对一个量子态的处理等于同时对若干个基态做相同的处理。</p>
+					</div>
+					<div class="float" data-step=10 data-fade-step=14>
+						<h3>量子效应——量子纠缠与量子信息</h3>
+						<p data-step=11>量子塌缩过程是一个真随机过程</p>
+						<p data-step=12>量子纠缠使得相隔遥远的两地可以获得同一组随机生成的物理量</p>
+						<p data-step=13>量子态不可克隆原理确保了上述过程得到的物理量是绝对安全的</p>
+					</div>
+					<div class="float" data-step=14>
+						<h3>量子效应——量子逻辑与量子决策</h3>
+						<p>基本思路就是使用量子理论的复值几率分布来替代经典逻辑与经典统计手段。</p>
+						<p data-step=15>想得很有趣，但事实上都不如金融市场的路径积分来得靠谱。</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="swiper-slide" data-hash="life-game">
+			<div class="ppt-page">
+				<h2 class="left">与经典的差异</h2>
+				<hr>
+				<div class="area">
+					<h3>高级算法</h3>
+					<p>模拟退火算法与量子退火算法</p>
+					<p>经典随机行走与量子随机行走</p>
+					<h3>生命游戏</h3>
+					<p class="swiper-slide-jumper" data-target="life-game" data-widget-toggle-target=".classic-life" data-widget-toggle-method="show">
+						<b>经典生命游戏</b>
+					</p>
+					<p class="swiper-slide-jumper" data-target="life-game" data-widget-toggle-target=".quantum-life" data-widget-toggle-method="show">
+						<b>量子生命游戏</b>
+					</p>
+				</div>
+			</div>
+		</div>
+		<div class="swiper-slide" data-hash="sum-cate" data-hint="总结">
+			<div class="ppt-page">
+				<h2 class="left">总结</h2>
+				<hr>
+				<div class="area">
+					<div class="float" data-fade-step="2">
+						<h3>量子与经典最大的不同：</h3>
+						<ul>
+							<li>量子系统满足复值分布，且分布值模平方为几率，单粒子也满足量子分布。</li>
+							<li>经典系统满足实值分布，且分布值本身就是几率，单粒子不使用统计分布。</li>
+						</ul>
+					</div>
+					<div class="float" data-step="2" data-fade-step="3">
+						<p>量子体系衍生而来了不确定原理、量子纠缠、隧穿效应、量子态不可克隆、量子计算与量子逻辑。</p>
+						<div class="blank" data-height="20"></div>
+						<p>但量子体系的理论诠释也始终没有一个定论。</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="swiper-slide">
+			<div class="ppt-page middle-center">
+				<h1>漫长而无聊的演讲终于结束了……</h1>
+				<div class="blank" data-height="20"></div>
+				<h2>谢谢大家收看收听！</h2>
 			</div>
 		</div>
 	</div>
@@ -519,6 +751,8 @@ body {
 </div>
 
 <div class="drawpad hide" data-padding="30"></div>
+<div class="classic-life life-game" data-grid=20 data-length=20 data-mode="classic"></div>
+<div class="quantum-life life-game" data-grid=20 data-length=20 data-mode="quantum"></div>
 
 <script type="text/javascript" src="../../lib/script/modernizr.js"></script>
 <script type="text/javascript" src="../../lib/script/zepto.min.js"></script>
@@ -529,6 +763,7 @@ body {
 <script type="text/javascript" src="../../javascripts/swiper-extension.js"></script>
 <script type="text/javascript" src="../../javascripts/sliding-background.js"></script>
 <script type="text/javascript" src="../../javascripts/drawpad.js"></script>
+<script type="text/javascript" src="../../javascripts/life-game.js"></script>
 
 <!-- Swiper -->
 <script>
@@ -618,7 +853,10 @@ historyForward.on('click', function (e) {
 	e.stopPropagation();
 });
 // DrawPad
-var drawpPad = new DrawPad('.drawpad');
+new DrawPad('.drawpad');
+// LifeGame
+new LifeGame('.life-game.classic-life');
+new LifeGame('.life-game.quantum-life');
 </script>
 
 <!-- GA -->
