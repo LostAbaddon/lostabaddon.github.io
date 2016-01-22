@@ -24,3 +24,7 @@ body {
 .navbar a:hover {
 	text-decoration: underline;
 }
+
+img.loading {
+	display: none;
+}
