@@ -35,23 +35,53 @@
 		};
 
 		// Private Methods
-		var drawing = false;
+		var drawing = false, old_x = 0, old_y = 0;;
 		function start (x, y) {
 			drawing = true;
-			console.log('Start');
+			old_x = x;
+			old_y = y;
+			self.canvas.beginPath();
+			self.canvas.moveTo(old_x, old_y);
+			self.canvas.lineTo(x, y);
+			self.canvas.lineTo(old_x, old_y);
+			self.canvas.closePath();
+			self.canvas.stroke();
 		};
 		function end (x, y) {
 			drawing = false;
-			console.log('End');
+			self.canvas.beginPath();
+			self.canvas.moveTo(old_x, old_y);
+			self.canvas.lineTo(x, y);
+			self.canvas.lineTo(old_x, old_y);
+			self.canvas.closePath();
+			self.canvas.stroke();
 		};
 		function moving (x, y) {
-			console.log(x, y, drawing);
 			if (!drawing) return;
+			self.canvas.beginPath();
+			self.canvas.moveTo(old_x, old_y);
+			self.canvas.lineTo(x, y);
+			self.canvas.lineTo(old_x, old_y);
+			self.canvas.closePath();
+			self.canvas.stroke();
+			old_x = x;
+			old_y = y;
+		}
+		function clear () {
+
 		}
 
 		// Events
 		this.button.on('click', this.close).on('tap', this.close);
-		this.drawarea.on('mousedown', start).on('mouseup', end).on('mousemove', moving);
+		this.drawarea.on('mousedown', function (e) {
+			start(e.offsetX, e.offsetY);
+		}).on('mouseup', function (e) {
+			end(e.offsetX, e.offsetY);
+		}).on('mousemove', function (e) {
+			moving(e.offsetX, e.offsetY);
+		}).on('doubleclick', function (e) {
+			console.log('Double Click');
+		});
 
 		// Test
 		this.open();
