@@ -69,6 +69,19 @@ body {
 .open-drawpad:hover {
 	opacity: 1;
 }
+
+@media (max-width: 500px) {
+	.swiper-slide-jumper::after {
+		animation-name: jumper-mention;
+		animation-duration: 400ms;
+		animation-iteration-count: infinite;
+		animation-timing-function: ease-out;
+	}
+	.swiper-slide.has-sub-page::after {
+		right: 30px;
+		font-size: 20px;
+	}
+}
 </style>
 
 </head>
@@ -423,8 +436,13 @@ body {
 				<h2 class="left">量子理论的波动力学</h2>
 				<hr>
 				<div class="area">
-					<p>这种描述方法，就是经典的薛定谔方程，计算系统的波函数，再通过波函数给出系统处于不同量子态上的几率。</p>
-					<p data-step=2>它还可以分成三种绘景：<br>算符不随时间改变的<b>薛定谔绘景</b><br>波函数不随时而变的<b>海森堡绘景</b><br>算符与波函数都随时间改变的<b>相互作用绘景</b></p>
+					<div class="float" data-fade-step="3">
+						<p>这种描述方法，就是经典的薛定谔方程，计算系统的波函数，再通过波函数给出系统处于不同量子态上的几率。</p>
+						<p data-step=2>它还可以分成三种绘景：<br>算符不随时间改变的<b>薛定谔绘景</b><br>波函数不随时而变的<b>海森堡绘景</b><br>算符与波函数都随时间改变的<b>相互作用绘景</b></p>
+					</div>
+					<div data-step="3">
+						<p>波动力学的表示方式适合于连续系统，尤其适合用于理解量子隧穿效应。</p>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -433,18 +451,28 @@ body {
 				<h2 class="left">量子理论的矩阵力学</h2>
 				<hr>
 				<div class="area">
-					<p>矩阵力学和波动力学原则上是等价的——算符所得到的值以矩阵本征值的形式存在</p>
-					<p>对有限状态或可数无限个状态的情况可以有较直观的视野</p>
-					<p></p>
+					<div class="float" data-fade-step="2">
+						<p>矩阵力学和波动力学原则上是等价的——算符所得到的值以矩阵本征值的形式存在</p>
+						<p>对有限状态或可数无限个状态的情况可以有较直观的视野</p>
+					</div>
+					<div class="float" data-step="2" data-fade-step=3>
+						<p>在矩阵力学中使用薛定谔绘景的话，我们可以认为矩阵同样给出了此刻与下一刻的态矢之间的演化关系。</p>
+						<p>同样的矩阵表达方法我们也可以用在复杂网络上的扩散与传播问题中，比如<a href="http://www.jianshu.com/p/3546fe9aaf17" target="_blank">这篇文章</a>。</p>
+					</div>
+					<div data-step="3">
+						<p>也就是说，如果我们构造一个有限节点的复杂网络，其上传播的属性可以在复数域上取值，那么这个复杂网络上的扩散方程在形式上就和矩阵力学的演化方程相同。</p>
+						<p>而复杂网络上的扩散与传播，说到底就是两个节点之间的属性传递，从而是一种连接或者说传播子的概念。</p>
+					</div>
 				</div>
 			</div>
 		</div>
 		<div class="swiper-slide" data-hash="quantum-path">
 			<div class="ppt-page">
-				<h2 class="left">量子理论的11路径积分</h2>
+				<h2 class="left">量子理论的路径积分</h2>
 				<hr>
 				<div class="area">
-					Content
+					<p>路径积分的概念与波动力学关系比较密切</p>
+					<p>它可以看做是量子版的惠更斯原理<i class="fa fa-hand-o-down"></i></p>
 				</div>
 			</div>
 		</div>

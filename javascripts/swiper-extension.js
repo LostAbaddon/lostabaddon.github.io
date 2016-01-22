@@ -156,6 +156,12 @@
 			if (!isNaN(hint)) mySwiper.slideTo(hint);
 			else if (!!hint) mySwiper.slideToHash(hint);
 		});
+		swiper.slides.each(function (index, slide) {
+			slide = $(slide);
+			if (slide.find('[data-step]').length > 0) {
+				slide.addClass('has-sub-page');
+			}
+		});
 		pageInit();
 	};
 	// Stopper

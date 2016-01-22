@@ -28,3 +28,14 @@ body {
 img.loading {
 	display: none;
 }
+
+a, a:hover, a:active, a:visited {
+	color: black;
+	font-weight: bolder;
+}
+a, a:active, a:visited {
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: underline;
+}

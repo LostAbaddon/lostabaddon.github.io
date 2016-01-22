@@ -35,12 +35,44 @@
 .swiper-slide-jumper:hover {
 	text-decoration: underline;
 }
+.swiper-slide-jumper::after {
+	content: "\f0a5";
+	display: inline-block;
+	margin-left: 5px;
+	font: normal normal normal 14px/1 FontAwesome;
+	font-size: inherit;
+	text-rendering: auto;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+.swiper-slide-jumper:hover::after {
+	animation-name: jumper-mention;
+	animation-duration: 400ms;
+	animation-iteration-count: infinite;
+	animation-timing-function: ease-out;
+}
 
 .swiper-slide {
 	box-sizing: border-box;
 	background-color: rgba(255, 255, 255, 0.7);
 	background: -webkit-linear-gradient(0deg, rgba(255, 255, 255, 0.0) 0%, rgba(255, 255, 255, 0.7) 20%, rgba(255, 255, 255, 0.7) 80%, rgba(255, 255, 255, 0.0) 100%);
 	background: linear-gradient(0deg, rgba(255, 255, 255, 0.0) 0%, rgba(255, 255, 255, 0.7) 20%, rgba(255, 255, 255, 0.7) 80%, rgba(255, 255, 255, 0.0) 100%);
+}
+.swiper-slide.has-sub-page::after {
+	content: "\f0a7";
+	position: absolute;
+	display: block;
+	bottom: 40px;
+	right: 20px;
+	font: normal normal normal 14px/1 FontAwesome;
+	font-size: 30px;
+	text-rendering: auto;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	animation-name: ppt-mention;
+	animation-duration: 400ms;
+	animation-iteration-count: infinite;
+	animation-timing-function: ease-out;
 }
 
 .swiper-slide [data-step],
@@ -161,4 +193,21 @@
 .swiper-history .swiper-history-forward {
 	right: 10px;
 	text-align: right;
+}
+
+@keyframes jumper-mention {
+	from {
+		margin-left: 10px;
+	}
+	to {
+		margin-left: 0px;
+	}
+}
+@keyframes ppt-mention {
+	from {
+		bottom: 45px;
+	}
+	to {
+		bottom: 35px;
+	}
 }
