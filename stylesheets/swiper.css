@@ -41,17 +41,24 @@
 	background-color: rgba(255, 255, 255, 0.7);
 	background: -webkit-linear-gradient(0deg, rgba(255, 255, 255, 0.0) 0%, rgba(255, 255, 255, 0.7) 20%, rgba(255, 255, 255, 0.7) 80%, rgba(255, 255, 255, 0.0) 100%);
 	background: linear-gradient(0deg, rgba(255, 255, 255, 0.0) 0%, rgba(255, 255, 255, 0.7) 20%, rgba(255, 255, 255, 0.7) 80%, rgba(255, 255, 255, 0.0) 100%);
-	box-shadow: inset 0px 0px 2px black;
 }
 
+.swiper-slide [data-step],
+.swiper-slide [data-fade-step] {
+	transition: all 200ms ease-in-out;
+}
 .swiper-slide [data-step] {
 	opacity: 0;
 	pointer-events: none;
-	transition: all 200ms ease-in-out;
 }
 .swiper-slide [data-step].show {
 	opacity: 1;
 	pointer-events: auto;
+}
+.swiper-slide [data-fade-step].fade,
+.swiper-slide [data-step][data-fade-step].fade {
+	opacity: 0;
+	pointer-events: none;
 }
 
 .swiper-container-horizontal > .swiper-pagination {
@@ -130,9 +137,10 @@
 	position: absolute;
 	width: 30px;
 	height: 30px;
-	font-size: 40px;
+	font-size: 30px;
 	cursor: pointer;
 	opacity: 0.3;
+	transform: translateY(2px);
 	transition: opacity 200ms linear;
 }
 .swiper-history:hover .swiper-button {
@@ -153,13 +161,4 @@
 .swiper-history .swiper-history-forward {
 	right: 10px;
 	text-align: right;
-}
-
-@media (max-width: 500px) {
-	h1 {
-		font-size: 24px;
-	}
-	h2 {
-		font-size: 20px;
-	}
 }

@@ -75,9 +75,8 @@
 			}
 		});
 	};
+	// Jump to Slide
 	Swiper.prototype.plugins.pptJump = function (swiper) {
-		if (swiper._pptJumpInited) return;
-		swiper._pptJumpInited = true;
 		var pageInit = function () {
 			var page = $(swiper.slides[swiper.activeIndex]);
 			var needReset = (page.data('reset-ppt') === true);
@@ -93,6 +92,13 @@
 				if (index <= step) item.addClass('show');
 				else item.removeClass('show');
 				if (index > maxStep) maxStep = index;
+			});
+			page.find('[data-fade-step]').each(function (index, item) {
+				item = $(item);
+				index = item.data('fade-step');
+				if (isNaN(index) || index < 1) index = maxStep + 1;
+				if (index <= step) item.addClass('fade');
+				else item.removeClass('fade');
 			});
 			page.data('max-step', maxStep);
 		};
@@ -111,6 +117,13 @@
 				if (index <= step) item.addClass('show');
 				else item.removeClass('show');
 			});
+			page.find('[data-fade-step]').each(function (index, item) {
+				item = $(item);
+				index = item.data('fade-step');
+				if (isNaN(index) || index < 1) index = maxStep + 1;
+				if (index <= step) item.addClass('fade');
+				else item.removeClass('fade');
+			});
 		};
 		swiper.container.on('click', '.swiper-slide', function (e) {
 			if (!e.altKey && !e.ctrlKey && !e.metaKey && !e.shiftKey) {
@@ -124,6 +137,7 @@
 				}
 			}
 		});
+		swiper.on('onTransitionStart', pageInit);
 		root.on('keydown', function (e) {
 			if (!e.altKey && !e.ctrlKey && !e.metaKey && !e.shiftKey) {
 				var target = $(e.target);
@@ -136,7 +150,11 @@
 				}
 			}
 		});
-		swiper.on('onTransitionStart', pageInit);
+		root.on('click tap', '.swiper-slide-jumper', function (e) {
+			var hint = $(this).data('target');
+			if (!isNaN(hint)) mySwiper.slideTo(hint);
+			else if (!!hint) mySwiper.slideToHash(hint);
+		});
 		pageInit();
 	};
 	// Stopper
@@ -156,7 +174,6 @@
 		swiper.on("onTransitionStart", clearPreventer);
 		swiper.on("onTransitionEnd", setPreventer);
 		setPreventer();
-		swiper._clearPreventer = clearPreventer;
 		swiper.container.on('click', '.swiper-slide-jumper', function (e) {
 			if (is_locked) {
 				clearPreventer();
@@ -164,11 +181,4 @@
 			}
 		});
 	};
-
-	// Window Event for SlideToHash
-	root.on('click tap', '.swiper-slide-jumper', function (e) {
-		var hint = $(this).data('target');
-		if (!isNaN(hint)) mySwiper.slideTo(hint);
-		else if (!!hint) mySwiper.slideToHash(hint);
-	});
 }) ();

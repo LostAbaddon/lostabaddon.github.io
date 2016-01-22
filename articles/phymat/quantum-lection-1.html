@@ -8,11 +8,13 @@
 <meta name="description" content="My Home Page">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>量子与生命读书会 - 量子力学基础科普</title>
+<link rel="stylesheet" href="../../lib/font-awesome/css/font-awesome.css" media="screen">
 <link rel="stylesheet" href="../../lib/style/swiper.css" media="screen">
 <link rel="stylesheet" href="../../stylesheets/swiper.css" media="screen">
 <link rel="stylesheet" href="../../stylesheets/sliding-background.css" media="screen">
 <link rel="stylesheet" href="../../stylesheets/common.css" media="screen">
 <link rel="stylesheet" href="../../stylesheets/ppt.css" media="screen">
+<link rel="stylesheet" href="../../stylesheets/drawpad.css" media="screen">
 <style>
 html,
 body {
@@ -51,6 +53,21 @@ body {
 	left: 50%;
 	width: 150px;
 	margin-left: -75px;
+}
+
+.open-drawpad {
+	position: absolute;
+	top: 5px;
+	left: 50%;
+	width: 24px;
+	margin-left: -12px;
+	font-size: 24px;
+	cursor: pointer;
+	opacity: 0.2;
+	transition: opacity 200ms linear;
+}
+.open-drawpad:hover {
+	opacity: 1;
 }
 </style>
 
@@ -123,8 +140,219 @@ body {
 				<div class="blank" data-height="100"></div>
 			</div>
 		</div>
-		<div class="swiper-slide" data-hash="experiment-cate" data-hint="神奇的实验">
-			Test Page 3!
+		<div class="swiper-slide" data-hash="experiment-cate" data-hint="神奇的实验" data-prevent-next=true>
+			<div class="ppt-page">
+				<h1 class="left">神奇的实验</h1>
+				<hr>
+				<div class="content">
+					量子理论中，有这么几个实验是非常重要的，也是大家最耳熟能详的：
+					<ul class="top-margin" data-margin="20">
+						<li class="swiper-slide-jumper" data-target="double-split">杨氏双缝干涉实验</li>
+						<li class="swiper-slide-jumper" data-target="bell-inequation">贝尔不等式破缺</li>
+						<li class="swiper-slide-jumper" data-target="aspect-entangle">爱斯派克特量子纠缠实验</li>
+						<li>后选择实验</li>
+						<li>自由意志实验</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="swiper-slide" data-hash="double-split">
+			<div class="ppt-page">
+				<h2 class="left">杨氏双缝干涉实验</h2>
+				<hr>
+				<div class="area float-container">
+					<img src="./images/double-split.jpg" class="block float" data-step=1 data-fade-step=2>
+					<div data-step=2>
+						<h3>双缝实验的精髓，在于两点：</h3>
+						<ol>
+							<li>粒子的位置不是确定的，而是有一个分布</li>
+							<li>这个分布不是经典分布，而是复数性质的量子分布</li>
+						</ol>
+						<div class="blank" data-height="50"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="swiper-slide">
+			<div class="ppt-page">
+				<h2 class="left">杨氏双缝干涉实验</h2>
+				<hr>
+				<div class="area float-container">
+					<div class="float" data-fade-step=4>
+						<h3>如果粒子位置确定</h3>
+						<p data-step=2>那么我们看到的应该是两条明亮的细条纹，因为粒子只能从走从源到缝的直线，从而只有两条笔直的路径，最多加上空气中的散射。</p>
+						<h3>如果是经典分布</h3>
+						<p data-step=3>那么我们看到的应该是有两个较亮区而一些较暗区的连续分布，关键是，不应该出现明显的暗条纹。</p>
+					</div>
+					<div class="float" data-step=4 data-fade-step=5>
+						<h3>微观粒子运动所遵循的基本规律：</h3>
+						<ol>
+							<li>运动具有扩散属性</li>
+							<li>扩散满足复数性质</li>
+						</ol>
+					</div>
+					<div data-step=5>
+						<h3>微观粒子运动所遵循的基本规律：</h3>
+						<ol>
+							<li>系统可以同时存在于多个状态</li>
+							<li>系统在多个状态上的分布具有复数性质</li>
+						</ol>
+						<div class="blank" data-height="80"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="swiper-slide">
+			<div class="ppt-page">
+				<h2 class="left">杨氏双缝干涉实验</h2>
+				<hr>
+				<div class="area">
+					<div>
+						<h3>用数学的语言来描述（薛定谔方程）：</h3>
+						<img src="./images/equ-1.jpg" class="block">
+					</div>
+					<div data-step=2>
+						<h3>波函数所要满足的性质：</h3>
+						<ul class="close">
+							<li>波函数及其一阶导连续</li>
+							<li>波函数在全空间归一化</li>
+							<li>波函数在某一状态的模平方为量子体系处于该状态的概率</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="swiper-slide">
+			<div class="ppt-page">
+				<h2 class="left">杨氏双缝干涉实验</h2>
+				<hr>
+				<div class="area float-container">
+					<div class="float" data-fade-step=2>
+						<h3>数学公式的意义</h3>
+						<p>量子理论的数学部分，是高度算符化的（出去波函数不看）：</p>
+						<p>等式的左面，是能量算符；等式的右面，整体就是哈密顿算法。</p>
+						<p>哈密顿算符可以分解为左边的动能算符和右边的势能算符。</p>
+						<p>这一套方案的基本思路与分析力学是完全相同的，只不过是算符化了。</p>
+					</div>
+					<div class="float" data-step=2 data-fade-step=5>
+						<h3>第三点特性带来的启示：</h3>
+						<p>粒子可以“同时”处于多个状态</p>
+						<p data-step=3>更准确地说，<br>是粒子可以“同时”在多个状态上具有非零的概率：<span data-step=4><b>薛定谔的猫</b></span></p>
+					</div>
+					<div class="float" data-step=5 data-fade-step=7>
+						<h3>第一点特性带来的启示：</h3>
+						<p>由数学公式结合第一点的连续性可知：<br>如果一个量子系统的动能部分比一个势垒要低，那么在经典情况下这个鸿沟无法逾越，在量子系统中波函数却可以“渗透”进这个势垒，甚至穿越它。</p>
+						<p data-step=6>这就是<b>量子隧穿效应</b>。</p>
+					</div>
+					<div data-step="7">
+						<h3>重要的提醒：</h3>
+						<p>值得注意的是，上述猫效应和隧穿效应从根本上说，并不是量子系统所独有的。<br>一个经典系统在数学上一样可以具有这些特性，只要要求经典分布的分布函数也是连续与一阶导连续的，且粒子的运动满足这种经典分布。</p>
+						<p>量子的独特本质：<b>复几率分布</b></p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="swiper-slide" data-hash="bell-inequation">
+			<div class="ppt-page">
+				<h2 class="left">贝尔不等式破缺</h2>
+				<hr>
+				<div class="area">
+					<div class="float" data-fade-step="2">
+						<p>严格说来，这不是一个真实的实验，而只是一个思想实验。</p>
+						<p>贝尔不等式的本质，是使用<b>经典几率统计</b>的手段给出了在满足<b>定域性</b>和<b>实在性</b>这两个条件的情况下，这么一个经典分布系统中两个处于纠缠状态的粒子在实验中所应该遵守的不等式关系。</p>
+					</div>
+					<div data-step="2">
+						<p>贝尔不等式破缺的核心关键，在于人们普遍认为物理系统必然是满足定域性与实在性的，而量子理论打破了这一常规。</p>
+						<p>这里关键点有实体个：</p>
+						<ol data-step=3>
+							<li>定域性</li>
+							<li>实在性</li>
+							<li>实体性</li>
+							<li>量子纠缠</li>
+						</ol>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="swiper-slide">
+			<div class="ppt-page">
+				<h2 class="left">贝尔不等式破缺</h2>
+				<hr>
+				<div class="area">
+					<div class="float" data-fade-step=4>
+						<h3>定域性</h3>
+						<p data-step=2>所有相互作用必须在同一个时空点上完成</p>
+						<h3>实在性</h3>
+						<p data-step=3>必须存在一个实体来传递物理影响</p>
+					</div>
+					<div class="float" data-step="4" data-fade-step=7>
+						<h3>量子的反常</h3>
+						<p data-step=5>量子纠缠系统中的波函数塌缩<b>看起来</b>就是瞬间不通过任何媒介地从A点传递到了B点。</p>
+						<h3 data-step=6>贝尔的逆袭</h3>
+						<p data-step=6>假定存在一个目前无法观测到但本质上可观测的物理实体，连接着AB两地的物理对象。</p>
+					</div>
+					<div class="float" data-step="7" data-fade-step=11>
+						<h3>实体性</h3>
+						<p data-step="8">物理实体的物理量至少必须为实数<span data-step=9>，从而几率分布必须是<b>经典几率分布</b>。</span></p>
+						<h3>量子纠缠</h3>
+						<p data-step="10">多个量子系统的特征量子数满足一个确定的约束条件，从而当其中一部分的状态确定后剩下的状态同时也被确定而无需任何外界操作。</p>
+					</div>
+					<div class="float" data-step="11">
+						<h3>贝尔不等式</h3>
+						<p>实体性要求复数性质的量子几率波解释不能成立，因此量子纠缠就要求了定域实在的隐变量在一开始就参与了整个物理过程，我们的观测并不引起量子系统的塌缩，而是“恰好”观测到了隐变量在此时所给出的测量值。</p>
+						<p>这样的测量值与承认复值的几率分布的结果不同。</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="swiper-slide">
+			<div class="ppt-page">
+				<h2 class="left">贝尔不等式破缺</h2>
+				<hr>
+				<div class="area">
+					<div class="float" data-fade-step=2>
+						<h3>实验过程</h3>
+						<p>假定A与B两个光子处于量子纠缠中，相隔遥远，然后同时测量偏振性。</p>
+						<p>A处与B处的检偏器夹角θ；检偏器发现光子通过成为测得光子。</p>
+					</div>
+					<div class="float" data-step="2" data-fade-step=6>
+						<p>按照隐变量的逻辑，A处测得光子与B处测得光子的相关度是：</p>
+						<img src="./images/equ-2.jpg" class="block" data-step=3>
+						<p data-step=4>而根据量子的复几率幅所得到的相关度是：</p>
+						<img src="./images/equ-3.jpg" class="block" data-step=5>
+					</div>
+					<div class="float" data-step="6">
+						<h3>重点</h3>
+						<p>这两个结果显然存在极大的不同，那就是</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="swiper-slide">
+			<div class="ppt-page">
+				<h2 class="left">贝尔不等式破缺</h2>
+				<hr>
+				<div class="area float-container">
+					<div class="float" data-fade-step=2>
+						<p>在上一个实验中，我们提出量子最独特的本质，在于它的复几率分布。</p>
+						<p>这是量子系统相对于经典系统最大的不同之处。</p>
+						<p>而除了这个最根本的不同，另一个显著的不同，就是经典几率分布几乎不要求分布函数及其一阶导的连续性。</p>
+					</div>
+					<div data-step=2>
+						<p>这里要看量子系统的另一个在现象上与经典的极大差异：</p>
+						<p data-step=3>具有很多守恒量</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="swiper-slide" data-hash="aspect-entangle">
+			<div class="ppt-page">
+				<h2 class="left">爱斯派克特的量子纠缠实验</h2>
+				<hr>
+				<div class="area">
+					
+				</div>
+			</div>
 		</div>
 		<div class="swiper-slide" data-hash="description-cate" data-hint="三种描述">
 			Test Page 4!
@@ -139,60 +367,22 @@ body {
 			Test Page 7!
 		</div>
 		<div class="swiper-slide">
-			Test Page 7!
-		</div>
-		<div class="swiper-slide">
-			Test Page 7!
-		</div>
-		<div class="swiper-slide">
-			Test Page 7!
-		</div>
-		<div class="swiper-slide">
-			Test Page 7!
-		</div>
-		<div class="swiper-slide">
-			Test Page 7!
-		</div>
-		<div class="swiper-slide">
-			Test Page 7!
-		</div>
-		<div class="swiper-slide">
-			Test Page 7!
-		</div>
-		<div class="swiper-slide">
-			Test Page 7!
-		</div>
-		<div class="swiper-slide">
-			Test Page 7!
-		</div>
-		<div class="swiper-slide">
-			Test Page 7!
-		</div>
-		<div class="swiper-slide">
-			Test Page 7!
-		</div>
-		<div class="swiper-slide">
-			Test Page 7!
-		</div>
-		<div class="swiper-slide">
-			Test Page 7!
-		</div>
-		<div class="swiper-slide">
-			Test Page 7!
-		</div>
-		<div class="swiper-slide">
-			Test Page 7!
-		</div>
-		<div class="swiper-slide">
-			Test Page 7!
+			<div class="ppt-page">
+				<h2 class="left">Title</h2>
+				<hr>
+				<div class="area">
+					Content
+				</div>
+			</div>
 		</div>
 	</div>
 
 	<!-- History -->
 	<div class="swiper-history">
-		<div class="swiper-button swiper-history-backward inactive">&lt;</div>
-		<div class="swiper-button swiper-history-forward inactive">&gt;</div>
+		<div class="swiper-button swiper-history-backward inactive"><i class="fa fa-arrow-circle-left"></i></div>
+		<div class="swiper-button swiper-history-forward inactive"><i class="fa fa-arrow-circle-right"></i></div>
 		<div class="navbar" id="site_navigation"></div>
+		<div class="open-drawpad" data-widget-toggle-target=".drawpad" data-widget-toggle-method="open"><i class="fa fa-pencil-square-o"></i></div>
 	</div>
 
 	<!-- Pagination -->
@@ -207,6 +397,8 @@ body {
 	</div>
 </div>
 
+<div class="drawpad hide" data-padding="30"></div>
+
 <script type="text/javascript" src="../../lib/script/modernizr.js"></script>
 <script type="text/javascript" src="../../lib/script/zepto.min.js"></script>
 <script type="text/javascript" src="../../lib/script/swiper.js"></script>
@@ -215,6 +407,7 @@ body {
 <script type="text/javascript" src="../../javascripts/auto-navigation.js"></script>
 <script type="text/javascript" src="../../javascripts/swiper-extension.js"></script>
 <script type="text/javascript" src="../../javascripts/sliding-background.js"></script>
+<script type="text/javascript" src="../../javascripts/drawpad.js"></script>
 
 <!-- Swiper -->
 <script>
@@ -234,7 +427,8 @@ var initIndex = 0;
 (function (location) {
 	var hash = location.hash.split('#')[1];
 	if (!!hash) {
-		initIndex = $('.swiper-container').find('[data-hash="' + hash + '"]').index();
+		if (isNaN(hash * 1)) initIndex = $('.swiper-container').find('[data-hash="' + hash + '"]').index();
+		else initIndex = hash * 1;
 	}
 }) (window.location);
 
@@ -300,6 +494,8 @@ historyForward.on('click', function (e) {
 	mySwiper.history.next();
 	e.stopPropagation();
 });
+// DrawPad
+var drawpPad = new DrawPad('.drawpad');
 </script>
 
 <!-- GA -->

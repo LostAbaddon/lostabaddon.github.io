@@ -90,4 +90,24 @@ var Support = {};
 		});
 	};
 
+	// Auto Widget-Trigger
+	$(document).ready(function () {
+		$('[data-widget-toggle-target][data-widget-toggle-method]').each(function (index, trigger) {
+			trigger = $(trigger);
+			var target = trigger.data('widget-toggle-target');
+			var method = trigger.data('widget-toggle-method');
+			var paremeter = trigger.data('widget-toggle-paremeter');
+			var toggle = function () {
+				$(target).each(function (index, target) {
+					target = $(target);
+					if (!target || target.length === 0) return;
+					target = target[0].widget;
+					if (!target) return;
+					target[method](paremeter);
+				});
+			};
+			trigger.on('click', toggle).on('tap', toggle);
+		});
+	});
+
 }) (window, window.navigator.userAgent, window.navigator);

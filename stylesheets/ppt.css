@@ -3,6 +3,7 @@
 	top: 50%;
 	left: 0px;
 	width: 100%;
+	min-height: 60%;
 	padding-left: 50px;
 	padding-right: 50px;
 	box-sizing: border-box;
@@ -16,7 +17,22 @@
 	width: 100%;
 	margin-top: 30px;
 	margin-bottom: 20px;
+	font-size: 28px;
 	text-align: center;
+}
+.ppt-page h2 {
+	width: 100%;
+	margin-top: 20px;
+	margin-bottom: 15px;
+	font-size: 24px;
+	text-align: center;
+}
+.ppt-page h3 {
+	margin-top: 15px;
+	margin-bottom: 10px;
+	margin-left: 15px;
+	font-size: 20px;
+	text-align: left;
 }
 .ppt-page .subtitle {
 	width: 100%;
@@ -37,6 +53,7 @@
 	background-color: gray;
 	border-radius: 2px;
 }
+
 .ppt-page .mention {
 	text-align: center;
 }
@@ -46,20 +63,79 @@
 	font-size: 16px;
 	line-height: 1.8;
 }
+.ppt-page .area {
+	position: relative;
+	box-sizing: border-box;
+	padding: 10px;
+	font-size: 14px;
+	line-height: 1.6;
+}
+.ppt-page .area .float {
+	width: 100%;
+	box-sizing: border-box;
+}
+.ppt-page .area p {
+	width: 100%;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	padding-left: 20px;
+	padding-right: 20px;
+	box-sizing: border-box;
+}
+
 .ppt-page ol,
 .ppt-page ul {
 	margin-top: 25px;
 	margin-bottom: 15px;
 	font-size: 18px;
 }
+.ppt-page ol.close,
+.ppt-page ul.close {
+	margin-top: 10px;
+	margin-bottom: 5px;
+}
 .ppt-page li {
 	margin-top: 10px;
 	margin-bottom: 10px;
 }
 
-.center {
-	text-align: center;
+.ppt-page .block {
+	display: block;
+	max-width: 100%;
+	margin-left: auto;
+	margin-right: auto;
 }
+
+.ppt-page .float-container {
+	position: relative;
+}
+.ppt-page .float {
+	position: absolute;
+}
+.ppt-page .float.block {
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+.center {
+	text-align: center !important;
+}
+.left {
+	text-align: left !important;
+}
+.right {
+	text-align: right !important;
+}
+
+h1.left,
+h2.left {
+	padding-left: 15px;
+}
+h1.right,
+h2.right {
+	padding-right: 15px;
+}
+
 .top-margin {
 	margin-top: 10px;
 }
@@ -126,16 +202,50 @@
 .blank[data-height="50"] {
 	height: 50px;
 }
+.blank[data-height="60"] {
+	height: 60px;
+}
+.blank[data-height="80"] {
+	height: 80px;
+}
 .blank[data-height="100"] {
 	height: 100px;
 }
 
 @media (max-width: 500px) {
+	h1.left,
+	h2.left {
+		padding-left: 10px;
+	}
+	h1.right,
+	h2.right {
+		padding-right: 10px;
+	}
+
+	.ppt-page hr {
+		margin-top: 10px;
+		margin-bottom: 10px;
+	}
+	.ppt-page .area {
+		padding-top: 5px;
+		padding-bottom: 5px;
+	}
+
 	.ppt-page h1 {
+		margin-top: 20px;
+		margin-bottom: 15px;
 		font-size: 24px;
 	}
 	.ppt-page h2 {
+		margin-top: 15px;
+		margin-bottom: 10px;
 		font-size: 18px;
+	}
+	.ppt-page h3 {
+		margin-top: 10px;
+		margin-bottom: 10px;
+		margin-left: 10px;
+		font-size: 15px;
 	}
 	.ppt-page .content {
 		font-size: 14px;
@@ -143,5 +253,9 @@
 	.ppt-page ol,
 	.ppt-page ul {
 		font-size: 14px;
+	}
+	.ppt-page li {
+		margin-top: 5px;
+		margin-bottom: 5px;
 	}
 }
