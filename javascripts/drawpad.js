@@ -51,7 +51,7 @@
 
 		// Events
 		this.button.on('click', this.close).on('tap', this.close);
-		this.drawarea.on('mousedown', start).on('mouseup', end).on('mouseover', moving);
+		this.drawarea.on('mousedown', start).on('mouseup', end).on('mousemove', moving);
 
 		// Test
 		this.open();
