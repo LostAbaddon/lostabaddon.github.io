@@ -31,6 +31,11 @@ body {
 	-moz-user-select: none;
 }
 
+.swiper-container.hidden,
+.background.hidden {
+	opacity: 0;
+}
+
 .swiper-slide {
 	padding: 20px;
 	padding-top: 50px;
@@ -94,7 +99,7 @@ body {
 <body>
 
 <!-- Background -->
-<div class="background inactive" data-direction="horizontal" data-view-per-image=3 data-min-scale=1.05>
+<div class="background hidden inactive" data-direction="horizontal" data-view-per-image=3 data-min-scale=1.05>
 	<img data-src="./images/back1.jpg" class="bg">
 	<img data-src="./images/back2.jpg" class="bg">
 	<img data-src="./images/back3.jpg" class="bg">
@@ -104,7 +109,7 @@ body {
 </div>
 
 <!-- Swiper Container -->
-<div class="swiper-container">
+<div class="swiper-container hidden">
 	<!-- Swpier -->
 	<div class="swiper-wrapper">
 		<!-- Pages -->
@@ -114,7 +119,7 @@ body {
 				<div class="subtitle">不完全中二向科普</div>
 				<hr>
 				<h2 class="center top-margin" data-margin="50">主讲人：LostAbaddon（塔塔）</h2>
-				<div class="mention top-margin" data-margin="150">主办：小有文化（上海）<span class="span" data-width="20"></span>协办：集智俱乐部</div>
+				<div class="mention top-margin" data-margin="150">主办：量子与生命读书会<br>协办：奇迹号、集智俱乐部<br>支持：小有文化</div>
 			</div>
 		</div>
 		<div class="swiper-slide">
@@ -683,7 +688,7 @@ body {
 				</div>
 			</div>
 		</div>
-		<div class="swiper-slide" data-hash="life-game">
+		<div class="swiper-slide" data-hash="life-game" data-hint="生命游戏">
 			<div class="ppt-page">
 				<h2 class="left">与经典的差异</h2>
 				<hr>
@@ -751,8 +756,8 @@ body {
 </div>
 
 <div class="drawpad hide" data-padding="30"></div>
-<div class="classic-life life-game" data-grid=20 data-length=20 data-mode="classic"></div>
-<div class="quantum-life life-game" data-grid=20 data-length=20 data-mode="quantum"></div>
+<div class="classic-life life-game" data-grid=30 data-length=15 data-mode="classic"></div>
+<div class="quantum-life life-game" data-grid=30 data-length=15 data-mode="quantum" data-energy-delta=1></div>
 
 <script type="text/javascript" src="../../lib/script/modernizr.js"></script>
 <script type="text/javascript" src="../../lib/script/zepto.min.js"></script>
@@ -796,6 +801,10 @@ $(window).on('resize', function () {
 });
 ImageLoader(function (done, total) {
 	bgc.onResize();
+	setTimeout(function () {
+		mySwiper.container.removeClass('hidden');
+		bgc.dom.removeClass('hidden');
+	}, 500);
 });
 
 // Swiper Object

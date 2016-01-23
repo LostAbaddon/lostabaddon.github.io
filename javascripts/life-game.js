@@ -16,6 +16,8 @@
 		this.options.length = this.container.data('length') || 50;
 		this.options.duration = this.container.data('duration') || 250;
 		this.options.phaseDelta = this.container.data('phase-delta') || 0.1; // For Quantom
+		this.options.energyDelta = this.container.data('energy-delta'); // For Quantom
+		if (isNaN(this.options.energyDelta)) this.options.energyDelta = 1;
 		this.frame.css({
 			width: self.options.grid * (self.options.length + 2),
 			height: self.options.grid * (self.options.length + 2),
@@ -179,8 +181,9 @@
 				neighbor = this.getNeighbor(i, j).filter(function (g) {return g.data('alive');});
 				map[i][j] = neighbor;
 				if (!alive) continue;
-				phase = node.data('phase') + (8 - neighbor.length) * delta;
+				phase = node.data('phase') + (1 + neighbor.length * self.options.energyDelta) * delta;
 				if (phase > dPI) phase -= dPI;
+				else if (phase < -dPI) phase += dPI;
 				node.data('phase', phase);
 			}
 		}
@@ -195,7 +198,9 @@
 				});
 				neighbor = Math.sqrt(neighbor.x * neighbor.x + neighbor.y * neighbor.y);
 				if (alive) {
-					if (neighbor >= 1.5 && neighbor <= 3.5) {
+					// if (neighbor > 1 && neighbor <= 3.5) {
+					if (neighbor > 1 && neighbor < 4) {
+					// if (neighbor >= 1.5 && neighbor <= 3.5) {
 						keep = true;
 					}
 					else {
@@ -203,6 +208,8 @@
 					}
 				}
 				else {
+					// if (neighbor > 2 && neighbor <= 3.5) {
+					// if (neighbor > 2 && neighbor < 4) {
 					if (neighbor >= 2.5 && neighbor <= 3.5) {
 						keep = true;
 					}
