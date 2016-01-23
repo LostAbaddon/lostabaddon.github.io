@@ -23,6 +23,7 @@ body {
 	height: 100%;
 	margin: 0px;
 	background-color: grey;
+	overflow: hidden;
 }
 .inactive {
 	pointer-events: none;
@@ -128,7 +129,7 @@ body {
 				<hr>
 				<div class="content">
 					我们所生活的，是这么一个世界：<br>
-					在这里，人要么在这里，要么在那里，不可能同时既在这里又在那里；<br>
+					在这里，人要么在这，要么在那，不可能同时既在这里又在那里；<br>
 					在这里，你一次只能吃一个煎饼果子，不能同时既吃煎饼果子有吃杂粮煎饼；<br>
 					在这里，一切都几乎是确定的，只不过我们几乎不可能知道一切的初始状态；<br>
 					在这里，牛顿住在一切。
@@ -200,22 +201,22 @@ body {
 				<div class="area float-container">
 					<div class="float" data-fade-step=4>
 						<h3>如果粒子位置确定</h3>
-						<p data-step=2>那么我们看到的应该是两条明亮的细条纹，因为粒子只能从走从源到缝的直线，从而只有两条笔直的路径，最多加上空气中的散射。</p>
+						<p data-step=2>那么我们看到的应该是两条明亮的细条纹，因为粒子只能走从源到缝的直线，从而只有两条笔直的路径，最多加上空气中的散射。</p>
 						<h3>如果是经典分布</h3>
 						<p data-step=3>那么我们看到的应该是有两个较亮区而一些较暗区的连续分布，关键是，不应该出现明显的暗条纹。</p>
 					</div>
 					<div class="float" data-step=4 data-fade-step=5>
 						<h3>微观粒子运动所遵循的基本规律：</h3>
 						<ol>
-							<li>运动具有扩散属性</li>
-							<li>扩散满足复数性质</li>
+							<li>运动具有扩散性</li>
+							<li>扩散满足复数性</li>
 						</ol>
 					</div>
 					<div data-step=5>
 						<h3>微观粒子运动所遵循的基本规律：</h3>
 						<ol>
 							<li>系统可以同时存在于多个状态</li>
-							<li>系统在多个状态上的分布具有复数性质</li>
+							<li>系统在多个状态上的分布具有复数性</li>
 						</ol>
 						<div class="blank" data-height="80"></div>
 					</div>
@@ -249,7 +250,7 @@ body {
 				<div class="area float-container">
 					<div class="float" data-fade-step=2>
 						<h3>数学公式的意义</h3>
-						<p>量子理论的数学部分，是高度算符化的（出去波函数不看）：</p>
+						<p>量子理论的数学部分，是高度算符化的（除去波函数不算）：</p>
 						<p>等式的左面，是能量算符；等式的右面，整体就是哈密顿算法。</p>
 						<p>哈密顿算符可以分解为左边的动能算符和右边的势能算符。</p>
 						<p>这一套方案的基本思路与分析力学是完全相同的，只不过是算符化了。</p>
@@ -353,13 +354,13 @@ body {
 						<p>上面的几率分布已经存在了极大的不同，但在实际测量的时候，AB两处检偏器的夹角θ是不确定的，所以需要引入一些统计的手段。</p>
 						<p>利用上述几率分布，在经典情况下我们有贝尔不等式(CHSH不等式)：</p>
 						<img src="./images/equ-4.jpg" class="block" data-step=7>
-						<p data-step=7>式子中的P<sub>xy</sub>表示A地测得x方向同时B地测得y方向的几率（可正可负）。</p>
+						<p data-step=7>式子中的ρ函数代表了在a地的测量结果与b地的测量结果之间的相关度（可正可负）。</p>
 					</div>
 					<div data-step="8">
 						<h3>不等式的破缺</h3>
 						<p>而在正统的量子诠释下，采用的是余弦函数形的几率分布，从而不等式可以有破缺的情况——</p>
 						<p data-step=9>在量子理论下，上述不等式的左面可以达到的最大值是2√2，从而是大于右面的2的，因此不等式被打破。</p>
-						<p data-step="10">而这2√2的出现，就是因为量子的几率分布是余弦函数式的，从而在45º的位置可以出现比经典几率分布更大的几率值。</p>
+						<p data-step="10">而这2√2的出现，就是因为量子的几率分布是余弦函数式的，从而在一些特定的夹角位置上可以出现比经典几率分布更大的几率值。</p>
 					</div>
 				</div>
 			</div>
@@ -372,7 +373,7 @@ body {
 					<h3>贝尔不等式被打破的意义</h3>
 					<ol class="close">
 						<li data-step=2>量子纠缠是真实存在的</li>
-						<li data-step=3>定域性与实在性，这两者必须放弃一个<br><span data-step=4><b>放弃实在性意味着放弃隐变量</b></span>
+						<li data-step=3>定域性与实在性，两者必须放弃一个<br><span data-step=4><b>放弃实在性意味着放弃隐变量</b></span>
 						<br><span data-step=5><b>目前大家基本认为定域性不能放弃</b></span></li>
 						<li data-step=6>实体性所要求的实值物理量依然被认为是牢不可破的</li>
 					</ol>
@@ -580,7 +581,7 @@ body {
 					<div class="float" data-fade-step="3">
 						<h3>与哥本哈根的不同</h3>
 						<p>退相干诠释的绝大部分内容与思想，都与哥本哈根诠释相同，只差了一点：</p>
-						<p data-step="2">测量的过程是一个包含大量粒子的系统与单个被试粒子发生大量频繁相互作用的过程，从而并不是观测导致塌缩，而是观测过程中那些数量巨大且频繁的相互作用造成了被试粒子发生了退相干。</p>
+						<p data-step="2">测量的过程是一个包含大量粒子的系统与单个被测粒子发生大量频繁相互作用的过程，从而并不是观测导致塌缩，而是观测过程中那些数量巨大且频繁的相互作用造成了被测粒子发生了退相干。</p>
 					</div>
 					<div data-step="3">
 						<h3>量子退相干</h3>
@@ -607,6 +608,7 @@ body {
 					<div class="float" data-step="4">
 						<h3>多重宇宙诠释</h3>
 						<p>而观测者则以波函数所给出的几率“随机”地“掉落”到了所有这些宇宙中的某一个中。</p>
+						<p><b>经典的电子双缝干涉问题中，宇宙发生分裂的时间点并不是电子“究竟通过哪条缝”的时候，而是电子终于落到屏幕上的时候。</b></p>
 					</div>
 				</div>
 			</div>
@@ -658,15 +660,15 @@ body {
 					</div>
 					<div class="float" data-step="3" data-fade-step="5">
 						<h3>量子效应——不确定原理</h3>
-						<p>比如，当我们可以以毋庸置疑的精度测量粒子的位置时，它的动量的不确定度为无穷大。</p>
+						<p>比如，当我们可以以毋庸置疑的精度测量粒子的位置时，它的动量的不确定度此时就会是无穷大。</p>
 						<p>这就构成了一组著名的不确定原理：</p>
 						<p data-step=4>　　位置-动量不确定性</p>
 						<p data-step=4>　　时间-能量不确定性</p>
 					</div>
 					<div class="float" data-step="5" data-fade-step="7">
 						<h3>量子效应——不确定原理</h3>
-						<p>由于历史原因与翻译问题，我国曾已读将不确定关系翻译为“测不准原理”</p>
-						<p data-step="6">不确定原理的本质是波函数上的算符之间的非对易性，从而这些算符对应的物理量无法同时获得，与测量没有丝毫关系。</p>
+						<p>由于历史原因与翻译问题，我国曾一度将不确定关系翻译为“测不准原理”</p>
+						<p data-step="6">不确定原理的本质是波函数上的算符之间的非对易性，从而这些算符对应的物理量无法同时获得，与测量没有丝毫关系——当然测量的确带来更多的误差与不确定。</p>
 					</div>
 					<div class="float" data-step=7 data-fade-step=10>
 						<h3>量子效应——混合态与量子计算</h3>
@@ -780,6 +782,7 @@ if (Devices.isMobile) {
 	$('.swiper-history').css({display: 'none'});
 	navbar.insertAfter($('.background'));
 	bgcOption.imageHeight = 1;
+	$('.swiper-slide').data('reset-ppt', true);
 }
 else {
 	bgcOption.imageWidth = 1.05;
@@ -792,6 +795,9 @@ var initIndex = 0;
 		else initIndex = hash * 1;
 	}
 }) (window.location);
+$('body').on('keydown', function (e) {
+	if (e.keyCode > 36 && e.keyCode < 41) e.preventDefault();
+});
 
 AutoNavigation(navbar);
 
