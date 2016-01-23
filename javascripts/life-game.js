@@ -179,7 +179,7 @@
 				neighbor = this.getNeighbor(i, j).filter(function (g) {return g.data('alive');});
 				map[i][j] = neighbor;
 				if (!alive) continue;
-				phase = node.data('phase') + neighbor.length * delta;
+				phase = node.data('phase') + (8 - neighbor.length) * delta;
 				if (phase > dPI) phase -= dPI;
 				node.data('phase', phase);
 			}
@@ -195,7 +195,7 @@
 				});
 				neighbor = Math.sqrt(neighbor.x * neighbor.x + neighbor.y * neighbor.y);
 				if (alive) {
-					if (neighbor >= 2 && neighbor <= 3) {
+					if (neighbor >= 1.5 && neighbor <= 3.5) {
 						keep = true;
 					}
 					else {

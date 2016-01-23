@@ -126,9 +126,16 @@
 				else item.removeClass('fade');
 			});
 		};
-		swiper.container.on('click', '.swiper-slide', function (e) {
-			if (!e.altKey && !e.ctrlKey && !e.metaKey && !e.shiftKey) {
-				var target = $(e.target);
+		swiper.container.on('click', function (e) {
+			target = $(e.target);
+			var nogo = target.is('.swiper-pagination-bullet');
+			nogo = nogo || target.is('.swiper-slide-jumper');
+			nogo = nogo || target.is('canvas');
+			nogo = nogo || target.is('.swiper-no-ppt-jump');
+			if (!nogo && !e.altKey && !e.ctrlKey && !e.metaKey && !e.shiftKey) {
+				if (!target.is('.swiper-slide')) {
+					target = target.parents('.swiper-slide');
+				}
 				if (target.is('.swiper-slide') || (target.data('can-jump') === true)) {
 					if (e.which === 1 || e.button === 1) pageJump();
 					else if (e.which === 3 || e.button === 2) {
@@ -137,6 +144,8 @@
 					}
 				}
 			}
+		});
+		swiper.container.on('click', '.swiper-slide, .ppt-page', function (e) {
 		});
 		swiper.on('onTransitionStart', pageInit);
 		root.on('keydown', function (e) {
