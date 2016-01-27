@@ -65,6 +65,7 @@
 		data.mutate.value = root.localStorage.mutate === 'true';
 		data.mutable.disable = !data.mutate.value;
 		if (root.localStorage.mutateFactor && LifeGame.Core) LifeGame.Core.mutateFactor = root.localStorage.mutateFactor * 1;
+		data.breaker.value = root.localStorage.breaker === 'true';
 	};
 
 	// Introduction
@@ -163,6 +164,8 @@
 		mutate : { title: '允许变异', type: 'checkbox', value: false },
 		mutable: { title: '变异参数', class: 'button', disable: true, action: 'changeMutate' },
 		line4  : { type: 'line' },
+		breaker: { title: '自动停止', type: 'checkbox', value: false },
+		line5  : { type: 'line' },
 		reset  : { title: '设置', class: "button", disable: false, action: 'reset' },
 	};
 	restoreSetting();
@@ -200,6 +203,12 @@
 	});
 	vControler.$watch('categories.mutate.value', (newValue, oldValue) => {
 		data.mutable.disable = !newValue;
+		root.localStorage.mutate = newValue;
+		LifeGame.Core.allowMutate = newValue;
+	});
+	vControler.$watch('categories.breaker.value', (newValue, oldValue) => {
+		root.localStorage.breaker = newValue;
+		LifeGame.Core.autoStop = newValue;
 	});
 
 	var changeGene = () => {

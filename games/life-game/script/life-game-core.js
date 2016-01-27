@@ -57,12 +57,12 @@
 	};
 
 	LifeGameCore.cycleSpace = false;
-	LifeGameCore.allowMutate = false;
+	LifeGameCore.allowMutate = root.localStorage.mutate === 'true';
 	LifeGameCore.mutateFactor = null;
 	if (root.localStorage.mutateFactor) LifeGameCore.mutateFactor = root.localStorage.mutateFactor * 1;
 	if (isNaN(LifeGameCore.mutateFactor)) LifeGameCore.mutateFactor = 0.1;
 
-	LifeGameCore.autoStop = false;
+	LifeGameCore.autoStop = root.localStorage.breaker === 'true';
 
 	var loopCallback;
 	var shouldStop = false;
