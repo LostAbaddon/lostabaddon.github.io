@@ -24,7 +24,8 @@
 		}
 		envolve () {
 		}
-		update (effect, neighbors) {
+		update (neighbors) {
+			var effect = getTotalEffect(neighbors);
 			this.isRebirth = false;
 			if (this.alive) {
 				if (this.gene.friends.indexOf(effect) < 0 || this.gene.overpop.indexOf(effect) < 0) {
@@ -77,6 +78,13 @@
 		force += gene.overpop.length / 64;
 		force += gene.friends.length / 512;
 		return force;
+	};
+	var getTotalEffect = (neighbors) => {
+		var effect = LifeGameGeneClassic.originEffect;
+		neighbors.map((g) => {
+			effect = LifeGameGeneClassic.addEffect(effect, g.effect);
+		});
+		return LifeGameGeneClassic.getLifeEffect(effect);
 	};
 	var mutateGene = (gene) => {
 		var result = [];

@@ -110,13 +110,6 @@
 		});
 		return result;
 	};
-	var getTotalEffect = (neighbors) => {
-		var effect = gene.originEffect;
-		neighbors.map((g) => {
-			effect = gene.addEffect(effect, g.effect);
-		});
-		return gene.getLifeEffect(effect);
-	};
 	var loop = () => {
 		if (shouldStop) {
 			if (loopCallback) loopCallback();
@@ -131,12 +124,11 @@
 		var neighbors = [];
 		mapAllLife((gene, x, y) => {
 			neighbors[x] = neighbors[x] || [];
-			var n = getNeighbor(x, y), e = getTotalEffect(n);
-			neighbors[x][y] = [e, n];
+			neighbors[x][y] = getNeighbor(x, y);
 		});
 		// Update Life State
 		mapAllLife((gene, x, y) => {
-			gene.update(neighbors[x][y][0], neighbors[x][y][1]);
+			gene.update(neighbors[x][y]);
 		});
 		if (LifeGameCore.allowMutate) {
 			mapAllLife((gene) => {
