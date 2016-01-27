@@ -102,11 +102,18 @@
 		else {
 			yLoop.push(yb);
 		}
-		var effect = gene.originEffect;
+		var result = [];
 		xLoop.map((i) => {
 			yLoop.map((j) => {
-				if (i !== x || j !== y) effect = gene.addEffect(effect, grids[i][j].effect);
+				if (i !== x || j !== y) result.push(grids[i][j]);
 			});
+		});
+		return result;
+	};
+	var getTotalEffect = (neighbors) => {
+		var effect = gene.originEffect;
+		neighbors.map((g) => {
+			effect = gene.addEffect(effect, g.effect);
 		});
 		return gene.getLifeEffect(effect);
 	};
@@ -124,11 +131,12 @@
 		var neighbors = [];
 		mapAllLife((gene, x, y) => {
 			neighbors[x] = neighbors[x] || [];
-			neighbors[x][y] = getNeighbor(x, y);
+			var n = getNeighbor(x, y), e = getTotalEffect(n);
+			neighbors[x][y] = [e, n];
 		});
 		// Update Life State
 		mapAllLife((gene, x, y) => {
-			gene.update(neighbors[x][y]);
+			gene.update(neighbors[x][y][0], neighbors[x][y][1]);
 		});
 		if (LifeGameCore.allowMutate) {
 			mapAllLife((gene) => {

@@ -24,18 +24,19 @@
 		}
 		envolve () {
 		}
-		update (neighbor) {
+		update (effect, neighbors) {
 			this.isRebirth = false;
 			if (this.alive) {
-				if (this.gene.friends.indexOf(neighbor) < 0 || this.gene.overpop.indexOf(neighbor) < 0) {
+				if (this.gene.friends.indexOf(effect) < 0 || this.gene.overpop.indexOf(effect) < 0) {
 					this.die();
 					this.design(LifeGameGeneClassic.SampleGene);
 				}
 			}
 			else {
-				if (this.gene.rebirth.indexOf(neighbor) >= 0) {
+				if (this.gene.rebirth.indexOf(effect) >= 0) {
 					this.isRebirth = true;
 					this.birth();
+					this.design(pickStrongest(neighbors));
 				}
 			}
 		}
@@ -82,7 +83,16 @@
 			if (g) gene.push(i);
 		});
 		return gene;
-	}
+	};
+	var pickStrongest = (genes) => {
+		var gene = genes[0].gene;
+		for (let i = 1, l = genes.length; i < l; i++) {
+			if (genes[i].gene.force > gene.force) {
+				gene = genes[i].gene;
+			}
+		}
+		return gene;
+	};
 
 	LifeGameGeneClassic.SampleGene = {
 		rebirth: [3],
