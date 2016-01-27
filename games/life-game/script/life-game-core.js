@@ -57,6 +57,12 @@
 	};
 
 	LifeGameCore.cycleSpace = false;
+	LifeGameCore.allowMutate = false;
+	LifeGameCore.mutateFactor = null;
+	if (root.localStorage.mutateFactor) LifeGameCore.mutateFactor = root.localStorage.mutateFactor * 1;
+	if (isNaN(LifeGameCore.mutateFactor)) LifeGameCore.mutateFactor = 0.1;
+
+	LifeGameCore.autoStop = false;
 
 	var loopCallback;
 	var shouldStop = false;
@@ -124,21 +130,28 @@
 		mapAllLife((gene, x, y) => {
 			gene.update(neighbors[x][y]);
 		});
+		if (LifeGameCore.allowMutate) {
+			mapAllLife((gene) => {
+				gene.mutate(LifeGameCore.mutateFactor);
+			});
+		}
 
 		// Tell Others
 		var map = LifeGameCore.getLifeMap();
-		var life = 0;
-		map.forEach((alive, index) => {
-			if (alive) life ++;
-		});
 		if (loopCallback) loopCallback(map);
-		if (life === 0) {
-			if (hasEventManager) events.emit('crash');
-		}
-		else {
-			life = checkStatic(map);
-			lastMap = map;
-			if (life && hasEventManager) events.emit('crash');
+		if (LifeGameCore.autoStop) {
+			var life = 0;
+			map.forEach((alive, index) => {
+				if (alive) life ++;
+			});
+			if (life === 0) {
+				if (hasEventManager) events.emit('crash');
+			}
+			else {
+				life = checkStatic(map);
+				lastMap = map;
+				if (life && hasEventManager) events.emit('crash');
+			}
 		}
 
 		setTimeout(loop, duration);

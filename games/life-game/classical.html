@@ -17,6 +17,16 @@
 <!-- Header -->
 <header>生命游戏</header>
 
+<!-- Introduction -->
+<section class="introduction" v-bind:class="{fold: hide}" @click.stop.prevent="hide = !hide;">
+	本游戏基于Conway的生命游戏，但新增了部分新的属性。<br>
+	<ol>
+		<li>可循环环境</li>
+		<li>生死规则基因化</li>
+		<li>增加了可变异性：当从无生命状态进入有生命状态时，几率性触发变异</li>
+	</ol>
+</section>
+
 <!-- Navigation -->
 <nav>
 	<section><b>当前位置：</b><a href="../../index.html">塔尔塔罗斯</a> / 生命游戏</section>
@@ -51,6 +61,15 @@
 
 <!-- Gene Project -->
 <div class="modal-content" id="genePannelContent">
+	<div class="item" v-for="item in items">
+		<span class="title" v-if="item.type!=='button'">{{item.title}}：</span>
+		<input type="text" value="{{item.value}}" v-model="item.value" v-if="item.type!=='button'">
+		<button v-if="item.type==='button'" @click.stop.prevent="click(item.action, item.target)">{{item.title}}</button>
+	</div>
+</div>
+
+<!-- Mutate Project -->
+<div class="modal-content" id="mutatePannelContent">
 	<div class="item" v-for="item in items">
 		<span class="title" v-if="item.type!=='button'">{{item.title}}：</span>
 		<input type="text" value="{{item.value}}" v-model="item.value" v-if="item.type!=='button'">

@@ -4,7 +4,6 @@ html, body {
 	height: 100%;
 	margin: 0px;
 	padding: 0px;
-	overflow: hidden;
 	background-color: white;
 }
 
@@ -60,6 +59,25 @@ body > nav a:hover {
 	border-bottom: 1px solid rgb(205, 205, 205);
 }
 
+section.introduction {
+	padding: 10px;
+	border-bottom: 1px solid rgb(205, 205, 205);
+	overflow-y: hidden;
+	color: rgb(47, 47, 47);
+	cursor: default;
+	transition: height 300ms ease-in-out, color 300ms ease-in-out;
+}
+section.introduction.fold {
+	height: 20px;
+	color: rgb(155, 155, 155);
+	cursor: pointer;
+}
+section.introduction ol {
+	margin-top: 5px;
+	margin-bottom: 5px;
+	padding-left: 20px;
+}
+
 .frame-with-effect {
 	transition: box-shadow 300ms ease-in-out;
 }
@@ -69,9 +87,9 @@ body > nav a:hover {
 
 #controller {
 	position: absolute;
-	top: 55px;
 	left: 10px;
 	width: 150px;
+	margin-top: 10px;
 	padding: 10px;
 	border: 1px solid rgb(205, 205, 205);
 	border-radius: 10px;
@@ -132,6 +150,9 @@ body > nav a:hover {
 	outline: none;
 	font-size: 15px;
 	text-align: center;
+}
+#controller .item .checker {
+	display: inline-flex;
 }
 
 #field {

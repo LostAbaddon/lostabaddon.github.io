@@ -54,14 +54,26 @@
 		Object.keys(options).map(function (key) {
 			root.localStorage[key] = options[key];
 		});
+		if (!isNaN(LifeGame.Core.mutateFactor)) root.localStorage.mutateFactor = LifeGame.Core.mutateFactor;
 	};
 	var restoreSetting = () => {
 		if (root.localStorage.width) data.width.value = root.localStorage.width * 1;
 		if (root.localStorage.height) data.height.value = root.localStorage.height * 1;
 		if (root.localStorage.size) data.size.value = root.localStorage.size * 1;
 		if (root.localStorage.duration) data.delay.value = root.localStorage.duration * 1;
-		if (root.localStorage.cycle) data.cycle.value = root.localStorage.cycle === 'true';
+		data.cycle.value = root.localStorage.cycle === 'true';
+		data.mutate.value = root.localStorage.mutate === 'true';
+		data.mutable.disable = !data.mutate.value;
+		if (root.localStorage.mutateFactor && LifeGame.Core) LifeGame.Core.mutateFactor = root.localStorage.mutateFactor * 1;
 	};
+
+	// Introduction
+	new Vue({
+		el: 'section.introduction',
+		data: {
+			hide: true
+		}
+	});
 
 	// Modals
 	var modalGenePannelData = {
@@ -92,11 +104,29 @@
 			}
 		}
 	});
-	root.modalGenePannelData = modalGenePannelData;
+
+	var modalMutatePannelData = {
+		mutate: { title: '变异系数', value: 0.1 },
+		submit : { title: '确定', type: 'button', action: 'submit', target: 'mutatePannel' },
+	};
+	new Vue ({
+		el: '#mutatePannelContent',
+		data: {
+			items: modalMutatePannelData
+		},
+		methods: {
+			click: (action, target) => {
+				LifeGame.Core.mutateFactor = modalMutatePannelData.mutate.value;
+				root.localStorage.mutateFactor = LifeGame.Core.mutateFactor;
+				modalHide('#' + target);
+			}
+		}
+	});
 
 	// Modal Frame
 	var modalData = {
 		genePannel : { id: 'genePannel', title: '修改基因', target: 'genePannelContent' },
+		mutatePannel : { id: 'mutatePannel', title: '修改变异系数', target: 'mutatePannelContent' },
 	};
 	new Vue ({
 		el: '.modal',
@@ -130,6 +160,8 @@
 		cycle  : { title: '循环', type: 'checkbox', value: false },
 		line3  : { type: 'line' },
 		gene   : { title: '修改基因', class: 'button', disable: false, action: 'changeGene' },
+		mutate : { title: '允许变异', type: 'checkbox', value: false },
+		mutable: { title: '变异参数', class: 'button', disable: true, action: 'changeMutate' },
 		line4  : { type: 'line' },
 		reset  : { title: '设置', class: "button", disable: false, action: 'reset' },
 	};
@@ -159,16 +191,26 @@
 					case 'changeGene':
 						changeGene();
 						break;
+					case 'changeMutate':
+						changeMutate();
+						break;
 				}
 			}
 		}
+	});
+	vControler.$watch('categories.mutate.value', (newValue, oldValue) => {
+		data.mutable.disable = !newValue;
 	});
 
 	var changeGene = () => {
 		modalGenePannelData.friends.value = LifeGame.Core.currentLife.SampleGene.friends.join(', ');
 		modalGenePannelData.overpop.value = LifeGame.Core.currentLife.SampleGene.overpop.join(', ');
 		modalGenePannelData.rebirth.value = LifeGame.Core.currentLife.SampleGene.rebirth.join(', ');
-		root.CommonUtils.modalShow('#genePannel');
+		modalShow('#genePannel');
+	};
+	var changeMutate = () => {
+		modalMutatePannelData.mutate.value = LifeGame.Core.mutateFactor;
+		modalShow('#mutatePannel');
 	};
 
 	var running = false;
@@ -184,6 +226,7 @@
 				size    : Math.floor(data.size.value || 10),
 				duration: Math.floor(data.delay.value || 500),
 				cycle   : data.cycle.value,
+				mutate  : data.mutate.value,
 			};
 			if (option.width < 1) option.width = 1;
 			if (option.height < 1) option.height = 1;
@@ -320,6 +363,7 @@
 		initUI(options);
 		LifeGame.Core.setLoopDelay(options.duration);
 		LifeGame.Core.cycleSpace = !!options.cycle;
+		LifeGame.Core.allowMutate = !!options.mutate;
 	};
 
 	// Export
