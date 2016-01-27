@@ -14,7 +14,7 @@
 			if (gene.rebirth) this.gene.rebirth = gene.rebirth;
 			if (gene.friends) this.gene.friends = gene.friends;
 			if (gene.overpop) this.gene.overpop = gene.overpop;
-			this.gene.force = 32 - this.gene.rebirth.lenght * 2 - this.gene.friends.length - this.gene.overpop.length;
+			this.gene.force = getGeneForce(this.gene);
 		}
 		birth () {
 			this.alive = true;
@@ -54,7 +54,7 @@
 					this.gene.friends = mutateGene(this.gene.friends);
 				}
 			}
-			this.gene.force = 32 - this.gene.rebirth.lenght * 2 - this.gene.friends.length - this.gene.overpop.length;
+			this.gene.force = getGeneForce(this.gene);
 		}
 		get effect () {
 			return this.alive ? 1 : 0;
@@ -71,6 +71,13 @@
 		}
 	}
 
+	var getGeneForce = (gene) => {
+		var force = 32 - gene.rebirth.length * 2 - gene.friends.length - gene.overpop.length;
+		force += gene.rebirth.length / 8;
+		force += gene.overpop.length / 64;
+		force += gene.friends.length / 512;
+		return force;
+	};
 	var mutateGene = (gene) => {
 		var result = [];
 		for (let i = 0; i < 9; i++) result[i] = false;

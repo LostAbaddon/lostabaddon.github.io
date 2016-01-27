@@ -176,6 +176,38 @@
 		if (hasEventManager) events.emit('pause');
 	};
 
+	LifeGameCore.statistics = () => {
+		var result = new Map();
+		mapAllLife((gene) => {
+			if (!gene.alive) return;
+			gene = gene.gene;
+			var key = "F: [" + gene.friends.join(',') + ']; ';
+			key = key + 'O: [' + gene.overpop.join(',') + ']; ';
+			key = key + 'R: [' + gene.rebirth.join(',') + '];';
+			if (result.has(key)) {
+				result.get(key)[1] ++;
+			}
+			else {
+				result.set(key, [gene.force, 1]);
+			}
+		});
+		var array = [];
+		result.forEach((value, key) => {
+			array.push([value[1], value[0], key]);
+		});
+		array.sort((a1, a2) => a2[0] - a1[0]);
+
+		// Test
+		array.forEach((record, index) => {
+			console.log(index + 1, ">>");
+			console.log('生命数：', record[0]);
+			console.log('战斗力：', record[1]);
+			console.log('基因组：', record[2]);
+		});
+		console.log();
+		return array;
+	};
+
 	var hasEventManager = !!root.CommonUtils.EventManager;
 	if (hasEventManager) {
 		var events = new root.CommonUtils.EventManager();
