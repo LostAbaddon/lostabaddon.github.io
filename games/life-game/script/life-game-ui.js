@@ -37,6 +37,19 @@
 	}
 	root.CommonUtils.EventManager = EventManager;
 
+	var body = $('body');
+	var modalBlocker = $('#modalBlocker');
+	var modalShow = root.CommonUtils.modalShow = (selector) => {
+		modalBlocker.addClass('active');
+		$(selector).addClass('active');
+	};
+	var modalHide = root.CommonUtils.modalHide = (selector) => {
+		if (!selector) $('.modal').removeClass('active');
+		else $(selector).removeClass('active');
+		modalBlocker.removeClass('active');
+	};
+
+	// Setting Manager
 	var saveSetting = (options) => {
 		Object.keys(options).map(function (key) {
 			root.localStorage[key] = options[key];
@@ -50,6 +63,60 @@
 		if (root.localStorage.cycle) data.cycle.value = root.localStorage.cycle === 'true';
 	};
 
+	// Modals
+	var modalGenePannelData = {
+		friends: { title: '留存同伴数', value: "2, 3, 4" },
+		overpop: { title: '留存生命数', value: "1, 2, 3" },
+		rebirth: { title: '衍生同伴数', value: "3" },
+		submit : { title: '确定', type: 'button', action: 'submit', target: 'genePannel' },
+	};
+	var convertStringToArray = (array) => {
+		var result = array.split(',')
+			.map((i) => i.trim() * 1)
+			.filter((i) => !isNaN(i));
+		return result;
+	};
+	new Vue ({
+		el: '#genePannelContent',
+		data: {
+			items: modalGenePannelData
+		},
+		methods: {
+			click: (action, target) => {
+				var new_gene = {};
+				new_gene.friends = convertStringToArray(modalGenePannelData.friends.value);
+				new_gene.overpop = convertStringToArray(modalGenePannelData.overpop.value);
+				new_gene.rebirth = convertStringToArray(modalGenePannelData.rebirth.value);
+				LifeGame.Core.redesignGene(new_gene);
+				modalHide('#' + target);
+			}
+		}
+	});
+	root.modalGenePannelData = modalGenePannelData;
+
+	// Modal Frame
+	var modalData = {
+		genePannel : { id: 'genePannel', title: '修改基因', target: 'genePannelContent' },
+	};
+	new Vue ({
+		el: '.modal',
+		data: {
+			modals: modalData
+		},
+		methods: {
+			close: (target) => {
+				modalHide('#' + target);
+			}
+		}
+	});
+	$('.modal .content[data-target]').each((index, modal) => {
+		modal = $(modal);
+		var target = modal.data('target');
+		target = $('#' + target);
+		if (target.length === 0) return;
+		modal.replaceWith(target);
+	});
+
 	// Controller
 	var data = {
 		start  : { title: '开始', class: "button", action: 'start' },
@@ -62,6 +129,8 @@
 		delay  : { title: '时隔', type: 'number', value: 500 },
 		cycle  : { title: '循环', type: 'checkbox', value: false },
 		line3  : { type: 'line' },
+		gene   : { title: '修改基因', class: 'button', disable: false, action: 'changeGene' },
+		line4  : { type: 'line' },
 		reset  : { title: '设置', class: "button", disable: false, action: 'reset' },
 	};
 	restoreSetting();
@@ -87,10 +156,20 @@
 						saveSetting(options);
 						controllerEvents.emit("reset", options);
 						break;
+					case 'changeGene':
+						changeGene();
+						break;
 				}
 			}
 		}
 	});
+
+	var changeGene = () => {
+		modalGenePannelData.friends.value = LifeGame.Core.currentLife.SampleGene.friends.join(', ');
+		modalGenePannelData.overpop.value = LifeGame.Core.currentLife.SampleGene.overpop.join(', ');
+		modalGenePannelData.rebirth.value = LifeGame.Core.currentLife.SampleGene.rebirth.join(', ');
+		root.CommonUtils.modalShow('#genePannel');
+	};
 
 	var running = false;
 	var controllerEvents = new EventManager();
@@ -120,6 +199,7 @@
 		data.start.title = "暂停";
 		data.clear.disable = true;
 		data.reset.disable = true;
+		data.gene.disable = true;
 		running = true;
 		controllerEvents.emit("start");
 	};
@@ -128,6 +208,7 @@
 		data.start.title = "开始";
 		data.clear.disable = false;
 		data.reset.disable = false;
+		data.gene.disable = false;
 		running = false;
 		controllerEvents.emit("pause");
 	};

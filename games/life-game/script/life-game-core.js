@@ -1,7 +1,11 @@
 (function (root) {
 	"use strict";
 
-	var LifeGameCore = {};
+	var LifeGameCore = {
+		get currentLife () {
+			return gene;
+		}
+	};
 
 	var gene = null;
 	var grids = null;
@@ -41,6 +45,15 @@
 		if (isNaN(delay)) return;
 		if (delay < 1) return;
 		duration = delay;
+	};
+
+	LifeGameCore.redesignGene = (newGene) => {
+		gene.SampleGene.friends = newGene.friends;
+		gene.SampleGene.overpop = newGene.overpop;
+		gene.SampleGene.rebirth = newGene.rebirth;
+		mapAllLife((gene) => {
+			gene.design(newGene);
+		});
 	};
 
 	LifeGameCore.cycleSpace = false;

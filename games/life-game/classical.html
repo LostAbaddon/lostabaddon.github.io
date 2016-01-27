@@ -6,6 +6,7 @@
 <meta name="description" content="Life Game Classical Version">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>生命游戏 BT版 经典款</title>
+<link rel="stylesheet" href="../../lib/font-awesome/css/font-awesome.css" media="screen">
 <link rel="stylesheet" href="../../stylesheets/common.css" media="screen">
 <link rel="stylesheet" href="./style/life-game-ui.css" media="screen">
 <style>
@@ -35,6 +36,25 @@
 <div id="field" class="frame-with-effect">
 	<div class="frame" v-bind:style="{ width: frame.width + 'px', height: frame.height + 'px' }">
 		<div class="grid" v-for="grid in grids" @click.stop.prevent="selectGrid(grid[0],grid[1])" v-bind:style="{ left: ((size + 2) * grid[0]) + 'px', top: ((size + 2) * grid[1]) + 'px', width: size + 'px', height: size + 'px', }"></div>
+	</div>
+</div>
+
+<!-- Modal Background -->
+<div id="modalBlocker" class="modal-block"></div>
+
+<!-- Modal -->
+<div id="{{modal.id}}" class="modal" v-for="modal in modals">
+	<div class="close" @click.stop.prevent="close(modal.id)"><i class="fa fa-times-circle"></i></div>
+	<h4>{{modal.title}}</h4>
+	<div class="content" data-target="{{modal.target}}"></div>
+</div>
+
+<!-- Gene Project -->
+<div class="modal-content" id="genePannelContent">
+	<div class="item" v-for="item in items">
+		<span class="title" v-if="item.type!=='button'">{{item.title}}：</span>
+		<input type="text" value="{{item.value}}" v-model="item.value" v-if="item.type!=='button'">
+		<button v-if="item.type==='button'" @click.stop.prevent="click(item.action, item.target)">{{item.title}}</button>
 	</div>
 </div>
 
