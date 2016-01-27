@@ -47,6 +47,13 @@
 
 	var loopCallback;
 	var shouldStop = false;
+	var lastMap = [];
+	var checkStatic = (map) => {
+		for (let l = map.length, i = 0; i < l; i++) {
+			if (map[i] !== lastMap[i]) return false;
+		}
+		return true;
+	};
 	var getNeighbor = (x, y) => {
 		var xa = x - 1, xb = x + 1, ya = y - 1, yb = y + 1;
 		var xLoop = [], yLoop = [];
@@ -105,18 +112,43 @@
 			gene.update(neighbors[x][y]);
 		});
 
-		if (loopCallback) loopCallback();
+		// Tell Others
+		var map = LifeGameCore.getLifeMap();
+		var life = 0;
+		map.forEach((alive, index) => {
+			if (alive) life ++;
+		});
+		if (loopCallback) loopCallback(map);
+		if (life === 0) {
+			if (hasEventManager) events.emit('crash');
+		}
+		else {
+			life = checkStatic(map);
+			lastMap = map;
+			if (life && hasEventManager) events.emit('crash');
+		}
+
 		setTimeout(loop, duration);
 	};
 	LifeGameCore.start = (callback) => {
 		loopCallback = callback;
 		shouldStop = false;
+		if (hasEventManager) events.emit('start');
 		loop();
 	};
 	LifeGameCore.pause = (callback) => {
 		if (callback) loopCallback = callback;
 		shouldStop = true;
+		if (hasEventManager) events.emit('pause');
 	};
+
+	var hasEventManager = !!root.CommonUtils.EventManager;
+	if (hasEventManager) {
+		var events = new root.CommonUtils.EventManager();
+		LifeGameCore.onStart = (callback) => events.hook('start', callback);
+		LifeGameCore.onPause = (callback) => events.hook('pause', callback);
+		LifeGameCore.onCrash = (callback) => events.hook('crash', callback);
+	}
 
 	// Export
 	root.LifeGame = root.LifeGame || {};

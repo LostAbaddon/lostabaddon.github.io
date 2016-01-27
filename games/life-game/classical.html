@@ -54,6 +54,7 @@
 $(() => {
 	LifeGame.Core.initGene(LifeGame.Gene.Classic);
 	LifeGame.FieldUI.reset(LifeGame.Controller.options);
+	LifeGame.Core.onCrash(() => LifeGame.Controller.turnOff());
 	$('body').removeClass('loading');
 });
 </script>

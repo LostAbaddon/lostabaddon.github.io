@@ -211,16 +211,12 @@
 			grid.birth();
 		}
 	};
-	var updateUI = () => {
-		var life = 0;
-		LifeGame.Core.getLifeMap().forEach((alive, index) => {
-			if (alive) {
-				gridGroupUI[index].addClass('active')
-				life ++;
-			}
+	var updateUI = (map) => {
+		if (!map) map = LifeGame.Core.getLifeMap();
+		map.forEach((alive, index) => {
+			if (alive) gridGroupUI[index].addClass('active');
 			else gridGroupUI[index].removeClass('active');
 		});
-		if (life === 0) lifeController.turnOff();
 	};
 
 	var LifeGameUI = {};
