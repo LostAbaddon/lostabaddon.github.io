@@ -44,9 +44,11 @@
 		width  : { title: '横向', type: 'number', value: 10 },
 		height : { title: '纵向', type: 'number', value: 10 },
 		size   : { title: '尺寸', type: 'number', value: 30 },
-		reset  : { title: '设置', class: "button", disable: false, action: 'reset' },
 		line2  : { type: 'line' },
 		delay  : { title: '时隔', type: 'number', value: 500 },
+		cycle  : { title: '循环', type: 'checkbox', value: false },
+		line3  : { type: 'line' },
+		reset  : { title: '设置', class: "button", disable: false, action: 'reset' },
 	};
 	var vControler = new Vue ({
 		el: "#controller",
@@ -84,6 +86,7 @@
 				height  : Math.floor(data.height.value || 10),
 				size    : Math.floor(data.size.value || 10),
 				duration: Math.floor(data.delay.value || 500),
+				cycle   : data.cycle.value,
 			};
 			if (option.width < 1) option.width = 1;
 			if (option.height < 1) option.height = 1;
@@ -221,6 +224,7 @@
 		if (gaming) return;
 		initUI(options);
 		LifeGame.Core.setLoopDelay(options.duration);
+		LifeGame.Core.cycleSpace = !!options.cycle;
 	};
 
 	// Export
