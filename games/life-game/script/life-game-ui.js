@@ -7,8 +7,8 @@
 
 	// Commont
 	root.LifeGame = root.LifeGame || {};
-	Vue.config.debug = true;
 
+	root.CommonUtils = root.CommonUtils || {};
 	const mEventPool = new WeakMap();
 	class EventManager {
 		constructor () {
@@ -35,6 +35,20 @@
 			pool.add(callback);
 		}
 	}
+	root.CommonUtils.EventManager = EventManager;
+
+	var saveSetting = (options) => {
+		Object.keys(options).map(function (key) {
+			root.localStorage[key] = options[key];
+		});
+	};
+	var restoreSetting = () => {
+		if (root.localStorage.width) data.width.value = root.localStorage.width * 1;
+		if (root.localStorage.height) data.height.value = root.localStorage.height * 1;
+		if (root.localStorage.size) data.size.value = root.localStorage.size * 1;
+		if (root.localStorage.duration) data.delay.value = root.localStorage.duration * 1;
+		if (root.localStorage.cycle) data.cycle.value = root.localStorage.cycle === 'true';
+	};
 
 	// Controller
 	var data = {
@@ -50,6 +64,8 @@
 		line3  : { type: 'line' },
 		reset  : { title: '设置', class: "button", disable: false, action: 'reset' },
 	};
+	restoreSetting();
+
 	var vControler = new Vue ({
 		el: "#controller",
 		data: {
@@ -67,7 +83,9 @@
 						controllerEvents.emit("clear");
 						break;
 					case 'reset':
-						controllerEvents.emit("reset", lifeController.options);
+						var options = lifeController.options;
+						saveSetting(options);
+						controllerEvents.emit("reset", options);
 						break;
 				}
 			}
