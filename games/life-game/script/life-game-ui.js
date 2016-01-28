@@ -298,7 +298,7 @@
 			data: LifeGame.Core.getLifeByLocation(x, y),
 			view: gridGroupUI[x * gridGroupWidth + y],
 		}
-	}
+	};
 	var initGrids = (w, h) => {
 		var core = root.LifeGame.Core;
 		core.initGrid(w, h);

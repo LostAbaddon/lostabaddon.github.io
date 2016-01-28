@@ -105,7 +105,7 @@
 		var result = [];
 		xLoop.map((i) => {
 			yLoop.map((j) => {
-				if (i !== x || j !== y) result.push(grids[i][j]);
+				if (i !== x || j !== y) result.push(grids[i][j].copy);
 			});
 		});
 		return result;
@@ -130,6 +130,7 @@
 		mapAllLife((gene, x, y) => {
 			gene.update(neighbors[x][y]);
 		});
+		// Mutate
 		if (LifeGameCore.allowMutate) {
 			mapAllLife((gene) => {
 				gene.mutate(LifeGameCore.mutateFactor);

@@ -6,8 +6,11 @@
 		constructor () {
 			this.alive = false;
 			this.gene = {};
-			this.design(LifeGameGeneClassic.SampleGene);
+			this.init();
+		}
+		init () {
 			this.isRebirth = false;
+			this.design(LifeGameGeneClassic.SampleGene);
 		}
 		design (gene) {
 			if (!gene) return;
@@ -42,7 +45,7 @@
 			}
 		}
 		mutate (property) {
-			if (!this.isRebirth) return;
+			if (!this.isRebirth || !this.alive) return;
 			if (Math.random() > property) return;
 			if (Math.random() < 0.3) {
 				this.gene.rebirth = mutateGene(this.gene.rebirth);
@@ -60,6 +63,13 @@
 		get effect () {
 			return this.alive ? 1 : 0;
 		}
+		get copy () {
+			var self = this;
+			return {
+				alive: self.alive,
+				gene: copyGene(self.gene),
+			}
+		}
 
 		static get originEffect () {
 			return 0;
@@ -72,6 +82,17 @@
 		}
 	}
 
+	var copyGene = (gene) => {
+		var copy = {};
+		copy.friends = [];
+		gene.friends.map((g) => copy.friends.push(g));
+		copy.overpop = [];
+		gene.overpop.map((g) => copy.overpop.push(g));
+		copy.rebirth = [];
+		gene.rebirth.map((g) => copy.rebirth.push(g));
+		copy.force = gene.force;
+		return copy;
+	};
 	var getGeneForce = (gene) => {
 		var force = 32 - gene.rebirth.length * 2 - gene.friends.length - gene.overpop.length;
 		force += gene.rebirth.length / 8;
@@ -80,11 +101,11 @@
 		return force;
 	};
 	var getTotalEffect = (neighbors) => {
-		var effect = LifeGameGeneClassic.originEffect;
-		neighbors.map((g) => {
-			effect = LifeGameGeneClassic.addEffect(effect, g.effect);
+		var effect = 0;
+		neighbors.map((life) => {
+			if (life.alive) effect ++;
 		});
-		return LifeGameGeneClassic.getLifeEffect(effect);
+		return effect;
 	};
 	var mutateGene = (gene) => {
 		var result = [];
