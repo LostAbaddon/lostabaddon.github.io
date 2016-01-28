@@ -66,6 +66,9 @@
 		data.mutable.disable = !data.mutate.value;
 		if (root.localStorage.mutateFactor && LifeGame.Core) LifeGame.Core.mutateFactor = root.localStorage.mutateFactor * 1;
 		data.breaker.value = root.localStorage.breaker === 'true';
+		data.aging.value = root.localStorage.aging === 'true';
+		data.lifeage.disable = !data.aging.value;
+		if (root.localStorage.ageLimit && LifeGame.Core) LifeGame.Core.ageLimit = root.localStorage.ageLimit * 1;
 	};
 
 	// Introduction
@@ -128,6 +131,7 @@
 	var modalData = {
 		genePannel : { id: 'genePannel', title: '修改基因', target: 'genePannelContent' },
 		mutatePannel : { id: 'mutatePannel', title: '修改变异系数', target: 'mutatePannelContent' },
+		staticsPannel : { id: 'staticsPannel', title: '留存基因统计', target: 'staticsPannelContent' },
 	};
 	new Vue ({
 		el: '.modal',
@@ -163,10 +167,14 @@
 		gene   : { title: '修改基因', class: 'button', disable: false, action: 'changeGene' },
 		mutate : { title: '允许变异', type: 'checkbox', value: false },
 		mutable: { title: '变异参数', class: 'button', disable: true, action: 'changeMutate' },
+		aging  : { title: '有限寿命', type: 'checkbox', value: false },
+		lifeage: { title: '寿命上限', class: 'button', disable: true, action: 'changeAge' },
 		line4  : { type: 'line' },
 		breaker: { title: '自动停止', type: 'checkbox', value: false },
 		line5  : { type: 'line' },
 		reset  : { title: '设置', class: "button", disable: false, action: 'reset' },
+		line6  : { type: 'line' },
+		statics: { title: '基因统计', class: "button", action: 'showStatics' },
 	};
 	restoreSetting();
 
@@ -197,6 +205,9 @@
 					case 'changeMutate':
 						changeMutate();
 						break;
+					case 'showStatics':
+						showStatics();
+						break;
 				}
 			}
 		}
@@ -205,6 +216,11 @@
 		data.mutable.disable = !newValue;
 		root.localStorage.mutate = newValue;
 		LifeGame.Core.allowMutate = newValue;
+	});
+	vControler.$watch('categories.aging.value', (newValue, oldValue) => {
+		data.lifeage.disable = !newValue;
+		root.localStorage.aging = newValue;
+		LifeGame.Core.limitedAge = newValue;
 	});
 	vControler.$watch('categories.breaker.value', (newValue, oldValue) => {
 		root.localStorage.breaker = newValue;
@@ -220,6 +236,23 @@
 	var changeMutate = () => {
 		modalMutatePannelData.mutate.value = LifeGame.Core.mutateFactor;
 		modalShow('#mutatePannel');
+	};
+	var showStatics = () => {
+		var result = LifeGame.Core.statistics();
+		if (result.length === 0) return;
+		var pannel = $('#staticsPannelContent');
+		var content = "";
+		result.forEach((record, index) => {
+			content += '<div class="item record">';
+			content += '<div class="title">第' + (index + 1) + '位：</div>';
+			content += '<div class="lemma">生命数：' + record[0] + '</div>';
+			content += '<div class="lemma">战斗力：' + record[1] + '</div>';
+			content += '<div class="lemma">基因组：' + record[2] + '</div>';
+			content += '<div class="lemma">表现型：' + record[3] + '</div>';
+			content += '</div>';
+		});
+		pannel.html(content);
+		modalShow('#staticsPannel');
 	};
 
 	var running = false;

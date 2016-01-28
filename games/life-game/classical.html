@@ -69,13 +69,17 @@
 	</div>
 </div>
 
-<!-- Mutate Project -->
+<!-- Mutate Control -->
 <div class="modal-content" id="mutatePannelContent">
 	<div class="item" v-for="item in items">
 		<span class="title" v-if="item.type!=='button'">{{item.title}}：</span>
 		<input type="text" value="{{item.value}}" v-model="item.value" v-if="item.type!=='button'">
 		<button v-if="item.type==='button'" @click.stop.prevent="click(item.action, item.target)">{{item.title}}</button>
 	</div>
+</div>
+
+<!-- Statics Pannel -->
+<div class="modal-content" id="staticsPannelContent">
 </div>
 
 <!-- JS Libs -->

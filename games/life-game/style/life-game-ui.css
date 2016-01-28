@@ -292,3 +292,9 @@ section.introduction ol {
 	line-height: 20px;
 	cursor: pointer;
 }
+
+#staticsPannelContent {
+	width: 350px;
+	max-height: 600px;
+	overflow-y: auto;
+}

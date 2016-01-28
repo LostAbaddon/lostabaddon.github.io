@@ -61,6 +61,10 @@
 	LifeGameCore.mutateFactor = null;
 	if (root.localStorage.mutateFactor) LifeGameCore.mutateFactor = root.localStorage.mutateFactor * 1;
 	if (isNaN(LifeGameCore.mutateFactor)) LifeGameCore.mutateFactor = 0.1;
+	LifeGameCore.limitedAge = root.localStorage.aging === 'true';
+	LifeGameCore.ageLimit = null;
+	if (root.localStorage.ageLimit) LifeGameCore.ageLimit = root.localStorage.ageLimit * 1;
+	if (isNaN(LifeGameCore.ageLimit)) LifeGameCore.ageLimit = 100;
 
 	LifeGameCore.autoStop = root.localStorage.breaker === 'true';
 
@@ -181,23 +185,20 @@
 				result.get(key)[1] ++;
 			}
 			else {
-				result.set(key, [gene.force, 1]);
+				let represent = [];
+				gene.friends.map((g) => {
+					if (gene.overpop.indexOf(g) >= 0) represent.push(g);
+				});
+				represent = '[' + represent.join(',') + '] [' + gene.rebirth.join(',') + ']';
+				result.set(key, [gene.force, 1, represent]);
 			}
 		});
 		var array = [];
 		result.forEach((value, key) => {
-			array.push([value[1], value[0], key]);
+			array.push([value[1], value[0], key, value[2]]);
 		});
 		array.sort((a1, a2) => a2[0] - a1[0]);
 
-		// Test
-		array.forEach((record, index) => {
-			console.log(index + 1, ">>");
-			console.log('生命数：', record[0]);
-			console.log('战斗力：', record[1]);
-			console.log('基因组：', record[2]);
-		});
-		console.log();
 		return array;
 	};
 
