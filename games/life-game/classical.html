@@ -26,6 +26,7 @@
 		<li>增加了可变异性：当从无生命状态进入有生命状态时，几率性触发变异</li>
 		<li>增加弱肉强食机制：基因最强者的基因会在无生命格获得生命的时候被继承下来</li>
 		<li>增加有限寿命：根据基因的情况决定生物的寿命</li>
+		<li>增加量子机制（一）：生命数复数化；邻点数能量值</li>
 	</ol>
 </section>
 
@@ -101,12 +102,14 @@
 <script type="text/javascript" src="./script/life-game-ui.js"></script>
 <script type="text/javascript" src="./script/life-game-core.js"></script>
 <script type="text/javascript" src="./script/life-game-gene-classic.js"></script>
+<script type="text/javascript" src="./script/life-game-gene-quantum.js"></script>
 
 <!-- Init -->
 <script>
 // Initial UI
 $(() => {
-	LifeGame.Core.initGene(LifeGame.Gene.Classic);
+	if (localStorage.quantum === 'true') LifeGame.Core.initGene(LifeGame.Gene.Quantum);
+	else LifeGame.Core.initGene(LifeGame.Gene.Classic);
 	LifeGame.FieldUI.reset(LifeGame.Controller.options);
 	LifeGame.Core.onCrash(() => LifeGame.Controller.turnOff());
 	$('body').removeClass('loading');

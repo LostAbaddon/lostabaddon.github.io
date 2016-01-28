@@ -57,6 +57,7 @@
 		if (!isNaN(LifeGame.Core.mutateFactor)) root.localStorage.mutateFactor = LifeGame.Core.mutateFactor;
 	};
 	var restoreSetting = () => {
+		data.quantum.value = root.localStorage.quantum === 'true';
 		if (root.localStorage.width) data.width.value = root.localStorage.width * 1;
 		if (root.localStorage.height) data.height.value = root.localStorage.height * 1;
 		if (root.localStorage.size) data.size.value = root.localStorage.size * 1;
@@ -176,6 +177,8 @@
 		start  : { title: '开始', class: "button", action: 'start' },
 		clear  : { title: '清空', class: "button", disable: false, action: 'clear' },
 		line1  : { type: 'line' },
+		quantum: { title: '量子版', type: 'checkbox', value: false },
+		line7  : { type: 'line' },
 		width  : { title: '横向', type: 'number', value: 10 },
 		height : { title: '纵向', type: 'number', value: 10 },
 		size   : { title: '尺寸', type: 'number', value: 30 },
@@ -233,6 +236,12 @@
 				}
 			}
 		}
+	});
+	vControler.$watch('categories.quantum.value', (newValue, oldValue) => {
+		root.localStorage.quantum = newValue;
+		if (newValue) LifeGame.Core.useQuantum();
+		else LifeGame.Core.useClassic();
+		resetUI();
 	});
 	vControler.$watch('categories.mutate.value', (newValue, oldValue) => {
 		data.mutable.disable = !newValue;

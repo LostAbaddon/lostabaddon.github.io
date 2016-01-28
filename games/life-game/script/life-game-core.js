@@ -10,7 +10,10 @@
 	Object.defineProperty(LifeGameCore, 'ageLimit', {
 		get: () => ageLimit,
 		set: (value) => {
-			if (gene) gene.AgeLimit = value;
+			if (gene) {
+				if (LifeGameCore.limitedAge) gene.AgeLimit = value;
+				else gene.AgeLimit = -1;
+			}
 			ageLimit = value;
 		}
 	});
@@ -30,7 +33,8 @@
 
 	LifeGameCore.initGene = (newGene) => {
 		gene = newGene;
-		gene.AgeLimit = LifeGameCore.ageLimit;
+		if (LifeGameCore.limitedAge) gene.AgeLimit = LifeGameCore.ageLimit;
+		else gene.AgeLimit = -1;
 	};
 	LifeGameCore.initGrid = (w, h) => {
 		gridWidth = w;
@@ -211,6 +215,13 @@
 		array.sort((a1, a2) => a2[0] - a1[0]);
 
 		return array;
+	};
+
+	LifeGameCore.useClassic = () => {
+		LifeGameCore.initGene(LifeGame.Gene.Classic);
+	};
+	LifeGameCore.useQuantum = () => {
+		LifeGameCore.initGene(LifeGame.Gene.Quantum);
 	};
 
 	var hasEventManager = !!root.CommonUtils.EventManager;
