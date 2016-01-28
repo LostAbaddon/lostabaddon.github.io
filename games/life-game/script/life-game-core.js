@@ -1,11 +1,19 @@
 (function (root) {
 	"use strict";
 
+	var ageLimit;
 	var LifeGameCore = {
 		get currentLife () {
 			return gene;
 		}
 	};
+	Object.defineProperty(LifeGameCore, 'ageLimit', {
+		get: () => ageLimit,
+		set: (value) => {
+			if (gene) gene.AgeLimit = value;
+			ageLimit = value;
+		}
+	});
 
 	var gene = null;
 	var grids = null;
@@ -20,7 +28,10 @@
 		}
 	};
 
-	LifeGameCore.initGene = (newGene) => gene = newGene;
+	LifeGameCore.initGene = (newGene) => {
+		gene = newGene;
+		gene.AgeLimit = LifeGameCore.ageLimit;
+	};
 	LifeGameCore.initGrid = (w, h) => {
 		gridWidth = w;
 		gridHeight = h;
@@ -56,15 +67,19 @@
 		});
 	};
 
+	var checkNumberParameter = (key, defaultValue) => {
+		var value = root.localStorage[key];
+		if (value === null) return defaultValue;
+		value = value * 1;
+		if (isNaN(value)) return defaultValue;
+		return value;
+	};
+
 	LifeGameCore.cycleSpace = false;
 	LifeGameCore.allowMutate = root.localStorage.mutate === 'true';
-	LifeGameCore.mutateFactor = null;
-	if (root.localStorage.mutateFactor) LifeGameCore.mutateFactor = root.localStorage.mutateFactor * 1;
-	if (isNaN(LifeGameCore.mutateFactor)) LifeGameCore.mutateFactor = 0.1;
+	LifeGameCore.mutateFactor = checkNumberParameter('mutateFactor', 0.1);
 	LifeGameCore.limitedAge = root.localStorage.aging === 'true';
-	LifeGameCore.ageLimit = null;
-	if (root.localStorage.ageLimit) LifeGameCore.ageLimit = root.localStorage.ageLimit * 1;
-	if (isNaN(LifeGameCore.ageLimit)) LifeGameCore.ageLimit = 100;
+	LifeGameCore.ageLimit = checkNumberParameter('ageLimit', 100);
 
 	LifeGameCore.autoStop = root.localStorage.breaker === 'true';
 
@@ -131,8 +146,10 @@
 			neighbors[x][y] = getNeighbor(x, y);
 		});
 		// Update Life State
+		var life = 0;
 		mapAllLife((gene, x, y) => {
 			gene.update(neighbors[x][y]);
+			if (gene.alive) life ++;
 		});
 		// Mutate
 		if (LifeGameCore.allowMutate) {
@@ -144,19 +161,13 @@
 		// Tell Others
 		var map = LifeGameCore.getLifeMap();
 		if (loopCallback) loopCallback(map);
-		if (LifeGameCore.autoStop) {
-			var life = 0;
-			map.forEach((alive, index) => {
-				if (alive) life ++;
-			});
-			if (life === 0) {
-				if (hasEventManager) events.emit('crash');
-			}
-			else {
-				life = checkStatic(map);
-				lastMap = map;
-				if (life && hasEventManager) events.emit('crash');
-			}
+		if (life === 0) {
+			if (hasEventManager) events.emit('crash');
+		}
+		else if (LifeGameCore.autoStop) {
+			life = checkStatic(map);
+			lastMap = map;
+			if (life && hasEventManager) events.emit('crash');
 		}
 
 		setTimeout(loop, duration);

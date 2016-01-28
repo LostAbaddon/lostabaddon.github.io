@@ -25,6 +25,7 @@
 		<li>生死规则基因化</li>
 		<li>增加了可变异性：当从无生命状态进入有生命状态时，几率性触发变异</li>
 		<li>增加弱肉强食机制：基因最强者的基因会在无生命格获得生命的时候被继承下来</li>
+		<li>增加有限寿命：根据基因的情况决定生物的寿命</li>
 	</ol>
 </section>
 
@@ -80,6 +81,15 @@
 
 <!-- Statics Pannel -->
 <div class="modal-content" id="staticsPannelContent">
+</div>
+
+<!-- Age Control -->
+<div class="modal-content" id="agePannelContent">
+	<div class="item" v-for="item in items">
+		<span class="title" v-if="item.type!=='button'">{{item.title}}：</span>
+		<input type="text" value="{{item.value}}" v-model="item.value" v-if="item.type!=='button'">
+		<button v-if="item.type==='button'" @click.stop.prevent="click(item.action, item.target)">{{item.title}}</button>
+	</div>
 </div>
 
 <!-- JS Libs -->

@@ -127,10 +127,29 @@
 		}
 	});
 
+	var modalAgePannelData = {
+		age: { title: '寿命上限', value: 100 },
+		submit : { title: '确定', type: 'button', action: 'submit', target: 'agePannel' },
+	};
+	new Vue ({
+		el: '#agePannelContent',
+		data: {
+			items: modalAgePannelData
+		},
+		methods: {
+			click: (action, target) => {
+				LifeGame.Core.ageLimit = modalAgePannelData.age.value;
+				root.localStorage.ageLimit = LifeGame.Core.ageLimit;
+				modalHide('#' + target);
+			}
+		}
+	});
+
 	// Modal Frame
 	var modalData = {
 		genePannel : { id: 'genePannel', title: '修改基因', target: 'genePannelContent' },
 		mutatePannel : { id: 'mutatePannel', title: '修改变异系数', target: 'mutatePannelContent' },
+		agePannel : { id: 'agePannel', title: '修改寿命上限', target: 'agePannelContent' },
 		staticsPannel : { id: 'staticsPannel', title: '留存基因统计', target: 'staticsPannelContent' },
 	};
 	new Vue ({
@@ -208,6 +227,9 @@
 					case 'showStatics':
 						showStatics();
 						break;
+					case 'changeAge':
+						changeAge();
+						break;
 				}
 			}
 		}
@@ -253,6 +275,10 @@
 		});
 		pannel.html(content);
 		modalShow('#staticsPannel');
+	};
+	var changeAge = () => {
+		modalAgePannelData.age.value = LifeGame.Core.ageLimit;
+		modalShow('#agePannel');
 	};
 
 	var running = false;

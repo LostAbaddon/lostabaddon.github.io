@@ -9,6 +9,7 @@
 			this.init();
 		}
 		init () {
+			this.life = LifeGameGeneClassic.AgeLimit;
 			this.isRebirth = false;
 			this.design(LifeGameGeneClassic.SampleGene);
 		}
@@ -18,14 +19,23 @@
 			if (gene.friends) this.gene.friends = gene.friends;
 			if (gene.overpop) this.gene.overpop = gene.overpop;
 			this.gene.force = getGeneForce(this.gene);
+			this.aging = getGeneAging(this.gene);
 		}
 		birth () {
 			this.alive = true;
+			this.life = LifeGameGeneClassic.AgeLimit;
 		}
 		die () {
 			this.alive = false;
+			this.life = 0;
+			this.design(LifeGameGeneClassic.SampleGene);
 		}
 		envolve () {
+			if (LifeGameGeneClassic.AgeLimit <= 0) return;
+			this.life -= this.aging;
+			if (this.life <= 0) {
+				this.die();
+			}
 		}
 		update (neighbors) {
 			var effect = getTotalEffect(neighbors);
@@ -33,7 +43,6 @@
 			if (this.alive) {
 				if (this.gene.friends.indexOf(effect) < 0 || this.gene.overpop.indexOf(effect) < 0) {
 					this.die();
-					this.design(LifeGameGeneClassic.SampleGene);
 				}
 			}
 			else {
@@ -59,6 +68,7 @@
 				}
 			}
 			this.gene.force = getGeneForce(this.gene);
+			this.aging = getGeneAging(this.gene);
 		}
 		get effect () {
 			return this.alive ? 1 : 0;
@@ -100,6 +110,10 @@
 		force += gene.friends.length / 512;
 		return force;
 	};
+	var getGeneAging = (gene) => {
+		var aging = 24 - (gene.rebirth.length + gene.friends.length + gene.overpop.length);
+		return aging;
+	};
 	var getTotalEffect = (neighbors) => {
 		var effect = 0;
 		neighbors.map((life) => {
@@ -135,6 +149,7 @@
 		friends: [2, 3, 4, 5, 6, 7, 8],
 		overpop: [0, 1, 2, 3],
 	};
+	LifeGameGeneClassic.AgeLimit = -1;
 
 	// Export
 	root.LifeGame = root.LifeGame || {};
