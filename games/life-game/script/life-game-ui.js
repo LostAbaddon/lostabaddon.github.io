@@ -177,7 +177,7 @@
 		start  : { title: '开始', class: "button", action: 'start' },
 		clear  : { title: '清空', class: "button", disable: false, action: 'clear' },
 		line1  : { type: 'line' },
-		quantum: { title: '隐相位策略', type: 'checkbox', value: false },
+		quantum: { title: '隐相位决策', type: 'checkbox', value: false },
 		line7  : { type: 'line' },
 		width  : { title: '横向', type: 'number', value: 10 },
 		height : { title: '纵向', type: 'number', value: 10 },
