@@ -1,0 +1,129 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="description" content="Life Game BT Version">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>生命游戏 BT版</title>
+<link rel="stylesheet" href="../../lib/font-awesome/css/font-awesome.css" media="screen">
+<link rel="stylesheet" href="../../stylesheets/common.css" media="screen">
+<link rel="stylesheet" href="./style/life-game-ui.css" media="screen">
+<style>
+</style>
+</head>
+
+<body class="loading">
+<!-- Header -->
+<header>生命游戏</header>
+
+<!-- Introduction -->
+<section class="introduction" v-bind:class="{fold: hide}" @click.stop.prevent="hide = !hide;">
+	本游戏基于Conway的生命游戏，但新增了部分新的属性。<br>
+	<ol>
+		<li>可循环环境</li>
+		<li>生死规则基因化</li>
+		<li>增加了可变异性：当从无生命状态进入有生命状态时，几率性触发变异</li>
+		<li>增加弱肉强食机制：基因最强者的基因会在无生命格获得生命的时候被继承下来</li>
+		<li>增加有限寿命：根据基因的情况决定生物的寿命</li>
+		<li>增加量子机制（一）：生命数复数化；邻点数能量值</li>
+	</ol>
+</section>
+
+<!-- Navigation -->
+<nav>
+	<section><b>当前位置：</b><a href="../../index.html">塔尔塔罗斯</a> / 生命游戏</section>
+</nav>
+
+<!-- Controller -->
+<div id="controller" class="frame-with-effect">
+	<div class="item" v-for="lemma in categories">
+		<input class="checker" type="{{lemma.type}}" value="{{lemma.value}}" v-if="lemma.title && lemma.type==='checkbox'" v-model="lemma.value">
+		<span class="title {{(lemma.value || lemma.type==='checkbox') ? 'label' : 'btn'}} {{lemma.class || ''}}" disabled={{!!lemma.disable}} v-if="lemma.title" @click.stop.prevent="onclick(lemma.action)">{{lemma.title}}</span>
+		<input class="property" type="{{lemma.type || 'text'}}" value="{{lemma.value}}" v-if="lemma.title && lemma.type==='number'" v-model="lemma.value">
+		<span class="line" v-if="lemma.type==='line'"></span>
+	</div>
+</div>
+
+<!-- Life Area -->
+<div id="field" class="frame-with-effect">
+	<div class="frame" v-bind:style="{ width: frame.width + 'px', height: frame.height + 'px' }">
+		<div class="grid" v-for="grid in grids" @click.stop.prevent="selectGrid(grid[0],grid[1])" v-bind:style="{ left: ((size + 2) * grid[0]) + 'px', top: ((size + 2) * grid[1]) + 'px', width: size + 'px', height: size + 'px', }"></div>
+	</div>
+</div>
+
+<!-- Modal Background -->
+<div id="modalBlocker" class="modal-block"></div>
+
+<!-- Modal -->
+<div id="{{modal.id}}" class="modal" v-for="modal in modals">
+	<div class="close" @click.stop.prevent="close(modal.id)"><i class="fa fa-times-circle"></i></div>
+	<h4>{{modal.title}}</h4>
+	<div class="content" data-target="{{modal.target}}"></div>
+</div>
+
+<!-- Gene Project -->
+<div class="modal-content" id="genePannelContent">
+	<div class="item" v-for="item in items">
+		<span class="title" v-if="item.type!=='button'">{{item.title}}：</span>
+		<input type="text" value="{{item.value}}" v-model="item.value" v-if="item.type!=='button'">
+		<button v-if="item.type==='button'" @click.stop.prevent="click(item.action, item.target)">{{item.title}}</button>
+	</div>
+</div>
+
+<!-- Mutate Control -->
+<div class="modal-content" id="mutatePannelContent">
+	<div class="item" v-for="item in items">
+		<span class="title" v-if="item.type!=='button'">{{item.title}}：</span>
+		<input type="text" value="{{item.value}}" v-model="item.value" v-if="item.type!=='button'">
+		<button v-if="item.type==='button'" @click.stop.prevent="click(item.action, item.target)">{{item.title}}</button>
+	</div>
+</div>
+
+<!-- Statics Pannel -->
+<div class="modal-content" id="staticsPannelContent">
+</div>
+
+<!-- Age Control -->
+<div class="modal-content" id="agePannelContent">
+	<div class="item" v-for="item in items">
+		<span class="title" v-if="item.type!=='button'">{{item.title}}：</span>
+		<input type="text" value="{{item.value}}" v-model="item.value" v-if="item.type!=='button'">
+		<button v-if="item.type==='button'" @click.stop.prevent="click(item.action, item.target)">{{item.title}}</button>
+	</div>
+</div>
+
+<!-- JS Libs -->
+<script type="text/javascript" src="../../lib/script/modernizr.js"></script>
+<script type="text/javascript" src="../../lib/script/zepto.min.js"></script>
+<script type="text/javascript" src="../../lib/script/vue.js"></script>
+<script type="text/javascript" src="../../javascripts/common.js"></script>
+<script type="text/javascript" src="../../javascripts/auto-navigation.js"></script>
+<script type="text/javascript" src="./script/life-game-ui.js"></script>
+<script type="text/javascript" src="./script/life-game-core.js"></script>
+<script type="text/javascript" src="./script/life-game-gene-classic.js"></script>
+<script type="text/javascript" src="./script/life-game-gene-quantum.js"></script>
+
+<!-- Init -->
+<script>
+// Initial UI
+$(() => {
+	if (localStorage.quantum === 'true') LifeGame.Core.initGene(LifeGame.Gene.Quantum);
+	else LifeGame.Core.initGene(LifeGame.Gene.Classic);
+	LifeGame.FieldUI.reset(LifeGame.Controller.options);
+	LifeGame.Core.onCrash(() => LifeGame.Controller.turnOff());
+	$('body').removeClass('loading');
+});
+</script>
+
+<!-- GA -->
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=!!g.match(/^https?:/i)?g:"http:"+g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-4967510-4', 'auto');
+ga('send', 'pageview');
+</script>
+</body>
+</html>
