@@ -2,52 +2,15 @@
  * Based on VUE.js and ES6
  */
 
-(function (root) {
+((root) => {
 	"use strict";
 
 	// Commont
 	root.LifeGame = root.LifeGame || {};
 
-	root.CommonUtils = root.CommonUtils || {};
-	const mEventPool = new WeakMap();
-	class EventManager {
-		constructor () {
-			var pool = {};
-			mEventPool.set(this, pool);
-		}
-		emit (event, ...args) {
-			if (event === 'emit' || event === 'hook') return;
-			var pool = mEventPool.get(this);
-			if (!pool) return;
-			pool = pool[event];
-			if (!pool) return;
-			pool.forEach((callback) => callback.apply(lifeController, args));
-		}
-		hook (event, callback) {
-			if (event === 'emit' || event === 'hook') return;
-			var pool = mEventPool.get(this);
-			if (!pool) return;
-			if (!pool[event]) {
-				pool[event] = new Set();
-			}
-			pool = pool[event];
-			if (pool.has(callback)) return;
-			pool.add(callback);
-		}
-	}
-	root.CommonUtils.EventManager = EventManager;
-
-	var body = $('body');
-	var modalBlocker = $('#modalBlocker');
-	var modalShow = root.CommonUtils.modalShow = (selector) => {
-		modalBlocker.addClass('active');
-		$(selector).addClass('active');
-	};
-	var modalHide = root.CommonUtils.modalHide = (selector) => {
-		if (!selector) $('.modal').removeClass('active');
-		else $(selector).removeClass('active');
-		modalBlocker.removeClass('active');
-	};
+	const EventManager = root.CommonUtils.EventManager;
+	const modalShow = root.CommonUtils.modalShow;
+	const modalHide = root.CommonUtils.modalHide;
 
 	// Setting Manager
 	var saveSetting = (options) => {
