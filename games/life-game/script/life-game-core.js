@@ -226,7 +226,7 @@
 
 	var hasEventManager = !!root.CommonUtils.EventManager;
 	if (hasEventManager) {
-		var events = new root.CommonUtils.EventManager();
+		var events = new root.CommonUtils.EventManager(LifeGameCore);
 		LifeGameCore.onStart = (callback) => events.hook('start', callback);
 		LifeGameCore.onPause = (callback) => events.hook('pause', callback);
 		LifeGameCore.onCrash = (callback) => events.hook('crash', callback);

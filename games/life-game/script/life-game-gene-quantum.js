@@ -135,10 +135,12 @@
 		return gene;
 	};
 	var pickStrongest = (genes) => {
-		var gene = genes[0].gene;
+		var gene = genes[0].gene, force = gene.force * (Math.random() + Math.random()), f;
 		for (let i = 1, l = genes.length; i < l; i++) {
-			if (genes[i].gene.force > gene.force) {
+			f = genes[i].gene.force * (Math.random() + Math.random());
+			if (f > force) {
 				gene = genes[i].gene;
+				force = f;
 			}
 		}
 		return gene;

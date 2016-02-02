@@ -254,7 +254,6 @@
 	};
 
 	var running = false;
-	var controllerEvents = new EventManager();
 	var lifeController = {
 		get running () {
 			return running;
@@ -275,6 +274,7 @@
 			return option;
 		},
 	};
+	var controllerEvents = new EventManager(lifeController);
 
 	// Methods
 	lifeController.turnOn = () => {

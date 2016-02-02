@@ -9,7 +9,8 @@
 	// Event Manager
 	const mEventPool = new WeakMap();
 	class EventManager {
-		constructor () {
+		constructor (host) {
+			this.host = host;
 			var pool = {};
 			mEventPool.set(this, pool);
 		}
@@ -19,7 +20,7 @@
 			if (!pool) return;
 			pool = pool[event];
 			if (!pool) return;
-			pool.forEach((callback) => callback.apply(lifeController, args));
+			pool.forEach((callback) => callback.apply(this.host, args));
 		}
 		hook (event, callback) {
 			if (event === 'emit' || event === 'hook') return;
