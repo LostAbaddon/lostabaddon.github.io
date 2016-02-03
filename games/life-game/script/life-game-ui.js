@@ -102,6 +102,16 @@
 			click: (index) => {
 				modalGenePoolData.forEach((info, i) => modalGenePoolData[i].selected = i === index);
 				LifeGame.Core.currentLifeType = index;
+			},
+			pickColor: (index) => {
+				modalGenePoolData.forEach((info, i) => modalGenePoolData[i].selected = i === index);
+				var checkbox = $('#genePoolContent .item input');
+				checkbox.each((index, input) => {
+					input.checked = false;
+				});
+				checkbox[index].checked = true;
+				LifeGame.Core.currentLifeType = index;
+				pickColorForGene(index);
 			}
 		}
 	});
@@ -161,6 +171,33 @@
 		modalShow('#agePannel');
 	};
 
+	var pickColorData = {
+		red: 100,
+		green: 200,
+		blue: 50
+	};
+	new Vue ({
+		el: '#colorPickerPannel',
+		data: pickColorData,
+		methods: {
+			close: () => {
+				var color = 'rgb(' + pickColorData.red + ',' + pickColorData.green + ',' + pickColorData.blue + ')';
+				LifeGame.Core.GenePool[LifeGame.Core.currentLifeType].color = color;
+				$('#genePoolContent .item .color-picker')[LifeGame.Core.currentLifeType].style.backgroundColor = color;
+				modalHide('#colorPicker');
+			}
+		}
+	});
+	var pickColorForGene = (index) => {
+		var life = LifeGame.Core.GenePool[index];
+		if (!life) return;
+		var color = life.color.replace('rgb(', '').replace(')', '').split(',');
+		pickColorData.red = (color[0] * 1) || 0;
+		pickColorData.green = (color[1] * 1) || 0;
+		pickColorData.blue = (color[2] * 1) || 0;
+		modalShow('#colorPicker');
+	};
+
 	// Modal Frame
 	var modalData = {
 		genePool : { id: 'genePool', title: '基因池', target: 'genePoolContent' },
@@ -168,6 +205,7 @@
 		mutatePannel : { id: 'mutatePannel', title: '修改变异系数', target: 'mutatePannelContent' },
 		agePannel : { id: 'agePannel', title: '修改寿命上限', target: 'agePannelContent' },
 		staticsPannel : { id: 'staticsPannel', title: '留存基因统计', target: 'staticsPannelContent' },
+		colorPicker : { id: 'colorPicker', title: '选颜色', target: 'colorPickerPannel' },
 	};
 	new Vue ({
 		el: '.modal',

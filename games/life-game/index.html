@@ -67,7 +67,7 @@
 	<div class="item" v-for="item in items">
 		<input type="radio" checked="{{item.selected}}" name="gene" @click.stop="click($index)">
 		<span class="title">{{$index+1}}号基因</span>
-		<span class="color-picker" v-bind:style="{ 'background-color': item.color }"></span>
+		<span class="color-picker" v-bind:style="{ 'background-color': item.color }" @click.stop.prevent="pickColor($index)"></span>
 	</div>
 </div>
 
@@ -99,6 +99,22 @@
 		<span class="title" v-if="item.type!=='button'">{{item.title}}：</span>
 		<input type="text" value="{{item.value}}" v-model="item.value" v-if="item.type!=='button'">
 		<button v-if="item.type==='button'" @click.stop.prevent="click(item.action, item.target)">{{item.title}}</button>
+	</div>
+</div>
+
+<!-- Color Picker -->
+<div class="modal-content" id="colorPickerPannel">
+	<input type="range" min="0" max="255" step="1" value="{{red}}" v-model="red">
+	<input type="range" min="0" max="255" step="1" value="{{green}}" v-model="green">
+	<input type="range" min="0" max="255" step="1" value="{{blue}}" v-model="blue">
+	<div class="number">
+		<span class="title red">{{red}}</span>
+		<span class="title green">{{green}}</span>
+		<span class="title blue">{{blue}}</span>
+		<span class="color" v-bind:style="{ 'background-color': 'rgb(' + red + ',' + green + ',' + blue + ')' }"></span>
+	</div>
+	<div class="item">
+		<button @click.stop.prevent="close">确定</button>
 	</div>
 </div>
 

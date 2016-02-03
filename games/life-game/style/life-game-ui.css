@@ -315,3 +315,22 @@ section.introduction ol {
 	cursor: pointer;
 	box-shadow: inset 1px 1px 1px white, inset -1px -1px 1px gray;
 }
+
+#colorPickerPannel input {
+	display: block;
+	width: 100%;
+}
+#colorPickerPannel .title {
+	display: inline-block;
+	width: 40px;
+	margin-left: 10px;
+}
+#colorPickerPannel .color {
+	display: inline-block;
+	width: 50px;
+	height: 15px;
+	box-shadow: inset 1px 1px 1px white, inset -1px -1px 1px gray;
+}
+#colorPickerPannel .item {
+	margin-top: 10px;
+}
