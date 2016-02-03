@@ -2,7 +2,8 @@
 	"use strict";
 
 	class LifeGameGeneClassic {
-		constructor () {
+		constructor (template) {
+			this.template = template || LifeGameGeneClassic.SampleGene;
 			this.alive = false;
 			this.gene = {};
 			this.init();
@@ -10,7 +11,7 @@
 		init () {
 			this.life = LifeGameGeneClassic.AgeLimit;
 			this.isRebirth = false;
-			this.design(LifeGameGeneClassic.SampleGene);
+			this.design(this.template);
 		}
 		design (gene) {
 			if (!gene) return;
@@ -27,7 +28,7 @@
 		die () {
 			this.alive = false;
 			this.life = 0;
-			this.design(LifeGameGeneClassic.SampleGene);
+			this.design(this.template);
 		}
 		envolve () {
 			if (LifeGameGeneClassic.AgeLimit <= 0) return;
