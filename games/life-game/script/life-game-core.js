@@ -116,7 +116,7 @@
 			gene: {
 				rebirth: [3],
 				friends: [0, 1, 2, 3],
-				overpop: [2, 3, 4, 5, 6, 7, 8],
+				overpop: [2, 3, 4, 5],
 				actions: [0, 0, 0, 0, 1, 1, 2, 2, 3],
 			}
 		},
@@ -132,10 +132,10 @@
 		{
 			color: 'rgb(127, 255, 127)',
 			gene: {
-				rebirth: [3, 8],
+				rebirth: [3],
 				friends: [2, 3],
-				overpop: [2, 3],
-				actions: [0, 0, 0, 0, 0, 0, 0, 0, 0],
+				overpop: [0, 1, 2, 3, 4, 5, 6, 7, 8],
+				actions: [0, 0, 0, 0, 0, 1, 1, 1, 1],
 			}
 		},
 		{
