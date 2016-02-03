@@ -33,6 +33,8 @@
 		data.aging.value = root.localStorage.aging === 'true';
 		data.lifeage.disable = !data.aging.value;
 		if (root.localStorage.ageLimit && LifeGame.Core) LifeGame.Core.ageLimit = root.localStorage.ageLimit * 1;
+		data.rndwar.value = root.localStorage.randomFight === 'true';
+		if (LifeGame.Core) LifeGame.Core.randomFight = data.rndwar.value;
 	};
 
 	// Introduction
@@ -140,6 +142,7 @@
 		start  : { title: '开始', class: "button", action: 'start' },
 		clear  : { title: '清空', class: "button", disable: false, action: 'clear' },
 		line1  : { type: 'line' },
+		rndwar : { title: '随机争斗', type: 'checkbox', value: false },
 		quantum: { title: '隐相位决策', type: 'checkbox', value: false },
 		line7  : { type: 'line' },
 		width  : { title: '横向', type: 'number', value: 10 },
@@ -215,6 +218,10 @@
 		data.lifeage.disable = !newValue;
 		root.localStorage.aging = newValue;
 		LifeGame.Core.limitedAge = newValue;
+	});
+	vControler.$watch('categories.rndwar.value', (newValue, oldValue) => {
+		root.localStorage.randomFight = newValue;
+		LifeGame.Core.randomFight = newValue;
 	});
 	vControler.$watch('categories.breaker.value', (newValue, oldValue) => {
 		root.localStorage.breaker = newValue;

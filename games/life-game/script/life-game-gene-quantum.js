@@ -135,11 +135,16 @@
 		return gene;
 	};
 	var pickStrongest = (genes) => {
-		var gene = genes[0].gene, force = gene.force * (Math.random() + Math.random()), f;
+		var random = LifeGame.Core.randomFight;
+		var gene = genes[0].gene, force, f, g;
+		if (random) force = gene.force * (Math.random() + Math.random());
+		else force = gene.force;
 		for (let i = 1, l = genes.length; i < l; i++) {
-			f = genes[i].gene.force * (Math.random() + Math.random());
+			g = genes[i].gene;
+			if (random) f = g.force * (Math.random() + Math.random());
+			else f = g.force;
 			if (f > force) {
-				gene = genes[i].gene;
+				gene = g;
 				force = f;
 			}
 		}

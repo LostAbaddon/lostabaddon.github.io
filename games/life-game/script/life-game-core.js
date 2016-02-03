@@ -84,6 +84,7 @@
 	LifeGameCore.mutateFactor = checkNumberParameter('mutateFactor', 0.1);
 	LifeGameCore.limitedAge = root.localStorage.aging === 'true';
 	LifeGameCore.ageLimit = checkNumberParameter('ageLimit', 100);
+	LifeGameCore.randomFight = root.localStorage.randomFight === 'true';
 
 	LifeGameCore.autoStop = root.localStorage.breaker === 'true';
 
