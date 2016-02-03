@@ -47,6 +47,7 @@
 
 	// Modals
 	var modalGenePannelData = {
+		// quantum: { title: '隐相位决策', value: false, type: 'checkbox' },
 		friends: { title: '留存同伴数', value: "2, 3, 4" },
 		overpop: { title: '留存生命数', value: "1, 2, 3" },
 		rebirth: { title: '衍生同伴数', value: "3" },
@@ -77,17 +78,43 @@
 		}
 	});
 	var changeGene = () => {
-		modalGenePannelData.friends.value = LifeGame.Core.currentLife.SampleGene.friends.join(', ');
-		modalGenePannelData.overpop.value = LifeGame.Core.currentLife.SampleGene.overpop.join(', ');
-		modalGenePannelData.rebirth.value = LifeGame.Core.currentLife.SampleGene.rebirth.join(', ');
-		if (!!LifeGame.Core.currentLife.SampleGene.actions) {
+		var gene = LifeGame.Core.GenePool[LifeGame.Core.currentLifeType].gene;
+		modalGenePannelData.friends.value = gene.friends.join(', ');
+		modalGenePannelData.overpop.value = gene.overpop.join(', ');
+		modalGenePannelData.rebirth.value = gene.rebirth.join(', ');
+		if (!!gene.actions) {
 			modalGenePannelData.actions.hidden = false;
-			modalGenePannelData.actions.value = LifeGame.Core.currentLife.SampleGene.actions.join(', ');
+			modalGenePannelData.actions.value = gene.actions.join(', ');
 		}
 		else {
 			modalGenePannelData.actions.hidden = true;
 		}
 		modalShow('#genePannel');
+	};
+
+	var modalGenePoolData = [];
+	new Vue({
+		el: '#genePoolContent',
+		data: {
+			items: modalGenePoolData
+		},
+		methods: {
+			click: (index) => {
+				modalGenePoolData.forEach((info, i) => modalGenePoolData[i].selected = i === index);
+				LifeGame.Core.currentLifeType = index;
+			}
+		}
+	});
+	var showGenePool = () => {
+		modalGenePoolData.splice(0, modalGenePoolData.length);
+		LifeGame.Core.GenePool.map((info) => {
+			modalGenePoolData.push({
+				color: info.color,
+				selected: false,
+			});
+		});
+		modalGenePoolData[LifeGame.Core.currentLifeType].selected = true;
+		modalShow('#genePool');
 	};
 
 	var modalMutatePannelData = {
@@ -136,6 +163,7 @@
 
 	// Modal Frame
 	var modalData = {
+		genePool : { id: 'genePool', title: '基因池', target: 'genePoolContent' },
 		genePannel : { id: 'genePannel', title: '修改基因', target: 'genePannelContent' },
 		mutatePannel : { id: 'mutatePannel', title: '修改变异系数', target: 'mutatePannelContent' },
 		agePannel : { id: 'agePannel', title: '修改寿命上限', target: 'agePannelContent' },
@@ -175,6 +203,7 @@
 		delay  : { title: '时隔', type: 'number', value: 500 },
 		cycle  : { title: '循环', type: 'checkbox', value: false },
 		line3  : { type: 'line' },
+		group  : { title: '基因池', class: 'button', disable: false, action: 'showGenePool' },
 		gene   : { title: '修改基因', class: 'button', disable: false, action: 'changeGene' },
 		mutate : { title: '允许变异', type: 'checkbox', value: false },
 		mutable: { title: '变异参数', class: 'button', disable: true, action: 'changeMutate' },
@@ -221,6 +250,9 @@
 						break;
 					case 'changeAge':
 						changeAge();
+						break;
+					case 'showGenePool':
+						showGenePool();
 						break;
 				}
 			}
@@ -371,7 +403,7 @@
 	};
 	var resetUI = () => {
 		initGrids(gridGroupWidth, gridGroupHeight);
-		gridGroupUI.map((grid) => grid.removeClass('active'));
+		gridGroupUI.map((grid) => grid.removeClass('active').css({'background-color': ''}));
 	};
 
 	var troggleGrid = (x, y) => {

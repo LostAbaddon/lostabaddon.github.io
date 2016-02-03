@@ -40,17 +40,31 @@
 			}
 		}
 		update (neighbors) {
-			var effect = getTotalEffect(neighbors);
+			var total = getTotalNeighbor(neighbors), alien;
 			this.isRebirth = false;
 			if (this.alive) {
-				if (this.gene.friends.indexOf(effect) < 0 || this.gene.overpop.indexOf(effect) < 0) {
+				alien = getTotalAlien(neighbors, this.type);
+				if (this.gene.friends.indexOf(alien) < 0 || this.gene.overpop.indexOf(total) < 0) {
 					this.die();
 				}
 			}
 			else {
-				if (this.gene.rebirth.indexOf(effect) >= 0) {
+				var types = [], neigh = [];
+				neighbors.map((info) => {
+					if (types.indexOf(info.type) < 0) types.push(info.type);
+				});
+				types.map((type) => {
+					alien = getTotalAlien(neighbors, type);
+					if (LifeGame.Core.GenePool[type].gene.rebirth.indexOf(alien) >= 0) neigh.push(type);
+				});
+				types = neigh;
+				neigh = [];
+				neighbors.map((life) => {
+					if (types.indexOf(life.type) >= 0) neigh.push(life);
+				});
+				if (neigh.length > 0) {
 					this.isRebirth = true;
-					var life = pickStrongest(neighbors);
+					var life = pickStrongest(neigh);
 					this.birth(life.type);
 					this.design(life.gene);
 				}
@@ -78,6 +92,7 @@
 			return {
 				alive: self.alive,
 				type: self.type,
+				angle: 0,
 				gene: copyGene(self.gene),
 			}
 		}
@@ -105,12 +120,19 @@
 		var aging = 24 - (gene.rebirth.length + gene.friends.length + gene.overpop.length);
 		return aging;
 	};
-	var getTotalEffect = (neighbors) => {
-		var effect = 0;
+	var getTotalNeighbor = (neighbors) => {
+		var total = 0;
 		neighbors.map((life) => {
-			if (life.alive) effect ++;
+			if (life.alive) total ++;
 		});
-		return effect;
+		return total;
+	};
+	var getTotalAlien = (neighbors, type) => {
+		var alien = 0;
+		neighbors.map((life) => {
+			if (life.alive && life.type === type) alien ++;
+		});
+		return alien;
 	};
 	var mutateGene = (gene) => {
 		var result = [];

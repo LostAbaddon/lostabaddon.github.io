@@ -298,3 +298,20 @@ section.introduction ol {
 	max-height: 600px;
 	overflow-y: auto;
 }
+
+#genePoolContent .item input {
+	vertical-align: text-bottom;
+	margin-right: 10px;
+}
+#genePoolContent .item .title {
+	display: inline-block;
+	width: 100px;
+}
+#genePoolContent .item .color-picker {
+	display: inline-block;
+	width: 50px;
+	height: 15px;
+	vertical-align: bottom;
+	cursor: pointer;
+	box-shadow: inset 1px 1px 1px white, inset -1px -1px 1px gray;
+}

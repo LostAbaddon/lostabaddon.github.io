@@ -62,10 +62,11 @@
 			life.die();
 		}
 		else {
-			life.birth(currentLifeType);
+			life.design(LifeGameCore.GenePool[LifeGameCore.currentLifeType].gene);
+			life.birth(LifeGameCore.currentLifeType);
 		}
 		var color = '';
-		if (life.alive) color = LifeGameCore.GenePool[currentLifeType].color;
+		if (life.alive) color = LifeGameCore.GenePool[LifeGameCore.currentLifeType].color;
 		return {
 			alive: life.alive,
 			color: color,
@@ -81,14 +82,15 @@
 	};
 
 	LifeGameCore.redesignGene = (newGene) => {
-		gene.SampleGene.friends = newGene.friends;
-		gene.SampleGene.overpop = newGene.overpop;
-		gene.SampleGene.rebirth = newGene.rebirth;
-		if (gene.SampleGene.actions) {
-			gene.SampleGene.actions = newGene.actions;
+		var currentGene = LifeGameCore.GenePool[LifeGameCore.currentLifeType].gene;
+		currentGene.friends = newGene.friends;
+		currentGene.overpop = newGene.overpop;
+		currentGene.rebirth = newGene.rebirth;
+		if (currentGene.actions) {
+			currentGene.actions = newGene.actions;
 		}
 		mapAllLife((gene) => {
-			gene.design(gene.SampleGene);
+			if (gene.type === LifeGameCore.currentLifeType) gene.design(currentGene);
 		});
 	};
 
@@ -107,10 +109,43 @@
 	LifeGameCore.ageLimit = checkNumberParameter('ageLimit', 100);
 	LifeGameCore.randomFight = root.localStorage.randomFight === 'true';
 
-	var currentLifeType = 0;
+	LifeGameCore.currentLifeType = 0;
 	LifeGameCore.GenePool = [
 		{
 			color: 'rgb(255, 127, 127)',
+			gene: {
+				rebirth: [3],
+				friends: [0, 1, 2, 3],
+				overpop: [2, 3, 4, 5, 6, 7, 8],
+				actions: [0, 0, 0, 0, 1, 1, 2, 2, 3],
+			}
+		},
+		{
+			color: 'rgb(127, 127, 255)',
+			gene: {
+				rebirth: [3],
+				friends: [2, 3],
+				overpop: [2, 3],
+				actions: [0, 0, 0, 0, 0, 0, 0, 0, 0],
+			}
+		},
+		{
+			color: 'rgb(127, 255, 127)',
+			gene: {
+				rebirth: [3, 8],
+				friends: [2, 3],
+				overpop: [2, 3],
+				actions: [0, 0, 0, 0, 0, 0, 0, 0, 0],
+			}
+		},
+		{
+			color: 'rgb(47, 47, 47)',
+			gene: {
+				rebirth: [1],
+				friends: [1, 2, 3],
+				overpop: [3, 4],
+				actions: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+			}
 		},
 	];
 

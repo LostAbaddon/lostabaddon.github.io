@@ -62,11 +62,20 @@
 	<div class="content" data-target="{{modal.target}}"></div>
 </div>
 
+<!-- Gene Pool -->
+<div class="modal-content" id="genePoolContent">
+	<div class="item" v-for="item in items">
+		<input type="radio" checked="{{item.selected}}" name="gene" @click.stop="click($index)">
+		<span class="title">{{$index+1}}号基因</span>
+		<span class="color-picker" v-bind:style="{ 'background-color': item.color }"></span>
+	</div>
+</div>
+
 <!-- Gene Project -->
 <div class="modal-content" id="genePannelContent">
 	<div class="item" v-for="item in items" v-if="item.hidden !== true">
 		<span class="title" v-if="item.type!=='button'">{{item.title}}：</span>
-		<input type="text" value="{{item.value}}" v-model="item.value" v-if="item.type!=='button'">
+		<input value="{{item.value}}" type="{{item.type || 'text'}}" v-model="item.value" v-if="item.type!=='button'">
 		<button v-if="item.type==='button'" @click.stop.prevent="click(item.action, item.target)">{{item.title}}</button>
 	</div>
 </div>

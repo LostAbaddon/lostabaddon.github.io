@@ -44,20 +44,31 @@
 			}
 		}
 		update (neighbors) {
-			var effect = getTotalEffect(neighbors);
-			this.angle += lifeEnergy(effect, this.gene);
-			if (this.angle > LifeGameGeneQuantum.AngleLimit) this.angle -= LifeGameGeneQuantum.AngleLimit;
-			effect = Math.round(effect);
+			var total = getTotalNeighbor(neighbors), alien;
 			this.isRebirth = false;
 			if (this.alive) {
-				if (this.gene.friends.indexOf(effect) < 0 || this.gene.overpop.indexOf(effect) < 0) {
+				alien = getTotalAlien(neighbors, this.type);
+				if (this.gene.friends.indexOf(alien) < 0 || this.gene.overpop.indexOf(total) < 0) {
 					this.die();
 				}
 			}
 			else {
-				if (this.gene.rebirth.indexOf(effect) >= 0) {
+				var types = [], neigh = [];
+				neighbors.map((info) => {
+					if (types.indexOf(info.type) < 0) types.push(info.type);
+				});
+				types.map((type) => {
+					alien = getTotalAlien(neighbors, type);
+					if (LifeGame.Core.GenePool[type].gene.rebirth.indexOf(alien) >= 0) neigh.push(type);
+				});
+				types = neigh;
+				neigh = [];
+				neighbors.map((life) => {
+					if (types.indexOf(life.type) >= 0) neigh.push(life);
+				});
+				if (neigh.length > 0) {
 					this.isRebirth = true;
-					var life = pickStrongest(neighbors);
+					var life = pickStrongest(neigh);
 					this.birth(life.type);
 					this.design(life.gene);
 				}
@@ -128,11 +139,22 @@
 		var aging = 24 - (gene.rebirth.length + gene.friends.length + gene.overpop.length);
 		return aging;
 	};
-	var getTotalEffect = (neighbors) => {
+	var getTotalNeighbor = (neighbors) => {
 		var x = 0, y = 0, delta = Math.PI * 2 / LifeGameGeneQuantum.AngleLimit, angle;
 		neighbors.map((life) => {
 			if (life.alive) {
-				angle = life.angle * delta;
+				var angle = life.angle * delta;
+				x += Math.sin(angle);
+				y += Math.cos(angle);
+			}
+		});
+		return Math.sqrt(x * x + y * y);
+	};
+	var getTotalAlien = (neighbors, type) => {
+		var x = 0, y = 0, delta = Math.PI * 2 / LifeGameGeneQuantum.AngleLimit, angle;
+		neighbors.map((life) => {
+			if (life.alive && life.type === type) {
+				var angle = life.angle * delta;
 				x += Math.sin(angle);
 				y += Math.cos(angle);
 			}
