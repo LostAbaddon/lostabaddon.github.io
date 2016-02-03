@@ -50,6 +50,7 @@
 		friends: { title: '留存同伴数', value: "2, 3, 4" },
 		overpop: { title: '留存生命数', value: "1, 2, 3" },
 		rebirth: { title: '衍生同伴数', value: "3" },
+		actions: { title: '　决策系数', value: "1, 2, 3, 4, 5, 6, 7, 8, 9", hidden: true },
 		submit : { title: '确定', type: 'button', action: 'submit', target: 'genePannel' },
 	};
 	var convertStringToArray = (array) => {
@@ -69,11 +70,25 @@
 				new_gene.friends = convertStringToArray(modalGenePannelData.friends.value);
 				new_gene.overpop = convertStringToArray(modalGenePannelData.overpop.value);
 				new_gene.rebirth = convertStringToArray(modalGenePannelData.rebirth.value);
+				new_gene.actions = convertStringToArray(modalGenePannelData.actions.value);
 				LifeGame.Core.redesignGene(new_gene);
 				modalHide('#' + target);
 			}
 		}
 	});
+	var changeGene = () => {
+		modalGenePannelData.friends.value = LifeGame.Core.currentLife.SampleGene.friends.join(', ');
+		modalGenePannelData.overpop.value = LifeGame.Core.currentLife.SampleGene.overpop.join(', ');
+		modalGenePannelData.rebirth.value = LifeGame.Core.currentLife.SampleGene.rebirth.join(', ');
+		if (!!LifeGame.Core.currentLife.SampleGene.actions) {
+			modalGenePannelData.actions.hidden = false;
+			modalGenePannelData.actions.value = LifeGame.Core.currentLife.SampleGene.actions.join(', ');
+		}
+		else {
+			modalGenePannelData.actions.hidden = true;
+		}
+		modalShow('#genePannel');
+	};
 
 	var modalMutatePannelData = {
 		mutate: { title: '变异系数', value: 0.1 },
@@ -92,6 +107,10 @@
 			}
 		}
 	});
+	var changeMutate = () => {
+		modalMutatePannelData.mutate.value = LifeGame.Core.mutateFactor;
+		modalShow('#mutatePannel');
+	};
 
 	var modalAgePannelData = {
 		age: { title: '寿命上限', value: 100 },
@@ -110,6 +129,10 @@
 			}
 		}
 	});
+	var changeAge = () => {
+		modalAgePannelData.age.value = LifeGame.Core.ageLimit;
+		modalShow('#agePannel');
+	};
 
 	// Modal Frame
 	var modalData = {
@@ -228,16 +251,6 @@
 		LifeGame.Core.autoStop = newValue;
 	});
 
-	var changeGene = () => {
-		modalGenePannelData.friends.value = LifeGame.Core.currentLife.SampleGene.friends.join(', ');
-		modalGenePannelData.overpop.value = LifeGame.Core.currentLife.SampleGene.overpop.join(', ');
-		modalGenePannelData.rebirth.value = LifeGame.Core.currentLife.SampleGene.rebirth.join(', ');
-		modalShow('#genePannel');
-	};
-	var changeMutate = () => {
-		modalMutatePannelData.mutate.value = LifeGame.Core.mutateFactor;
-		modalShow('#mutatePannel');
-	};
 	var showStatics = () => {
 		var result = LifeGame.Core.statistics();
 		if (result.length === 0) return;
@@ -254,10 +267,6 @@
 		});
 		pannel.html(content);
 		modalShow('#staticsPannel');
-	};
-	var changeAge = () => {
-		modalAgePannelData.age.value = LifeGame.Core.ageLimit;
-		modalShow('#agePannel');
 	};
 
 	var running = false;

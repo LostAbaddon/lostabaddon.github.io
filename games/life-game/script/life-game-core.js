@@ -66,8 +66,11 @@
 		gene.SampleGene.friends = newGene.friends;
 		gene.SampleGene.overpop = newGene.overpop;
 		gene.SampleGene.rebirth = newGene.rebirth;
+		if (gene.SampleGene.actions) {
+			gene.SampleGene.actions = newGene.actions;
+		}
 		mapAllLife((gene) => {
-			gene.design(newGene);
+			gene.design(gene.SampleGene);
 		});
 	};
 

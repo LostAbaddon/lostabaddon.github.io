@@ -18,6 +18,7 @@
 			if (gene.rebirth) this.gene.rebirth = gene.rebirth;
 			if (gene.friends) this.gene.friends = gene.friends;
 			if (gene.overpop) this.gene.overpop = gene.overpop;
+			if (gene.actions) this.gene.actions = gene.actions;
 			this.gene.force = getGeneForce(this.gene);
 			this.aging = getGeneAging(this.gene);
 		}
@@ -41,7 +42,7 @@
 		}
 		update (neighbors) {
 			var effect = getTotalEffect(neighbors);
-			this.angle += 1 + lifeEnergy(effect);
+			this.angle += lifeEnergy(effect, this.gene);
 			if (this.angle > LifeGameGeneQuantum.AngleLimit) this.angle -= LifeGameGeneQuantum.AngleLimit;
 			effect = Math.round(effect);
 			this.isRebirth = false;
@@ -60,20 +61,25 @@
 		}
 		mutate (property) {
 			if (!this.isRebirth || !this.alive) return;
-			if (Math.random() > property) return;
-			if (Math.random() < 0.3) {
-				this.gene.rebirth = mutateGene(this.gene.rebirth);
-			}
-			else {
-				if (Math.random() < 0.5) {
-					this.gene.overpop = mutateGene(this.gene.overpop);
+			if (Math.random() <= property) {
+				if (Math.random() < 0.3) {
+					this.gene.rebirth = mutateGene(this.gene.rebirth);
 				}
 				else {
-					this.gene.friends = mutateGene(this.gene.friends);
+					if (Math.random() < 0.5) {
+						this.gene.overpop = mutateGene(this.gene.overpop);
+					}
+					else {
+						this.gene.friends = mutateGene(this.gene.friends);
+					}
 				}
+				this.gene.force = getGeneForce(this.gene);
+				this.aging = getGeneAging(this.gene);
 			}
-			this.gene.force = getGeneForce(this.gene);
-			this.aging = getGeneAging(this.gene);
+			if (Math.random() <= property) {
+				var index = Math.floor(this.gene.actions.length * Math.random());
+				this.gene.actions[index] = LifeGameGeneQuantum.AngleLimit * Math.random() * Math.random();
+			}
 		}
 		get copy () {
 			var self = this;
@@ -85,7 +91,14 @@
 		}
 	}
 
-	var lifeEnergy = (life) => {
+	var lifeEnergy = (life, gene) => {
+		var min = Math.floor(life), max = min + 1;
+		if (max >= gene.actions.length) max = gene.actions.length - 1;
+		life -= min;
+		life = life * life * (3 - 2 * life);
+		min = gene.actions[min];
+		max = gene.actions[max];
+		life = min + (max - min) * life;
 		return life;
 	};
 	var copyGene = (gene) => {
@@ -155,6 +168,7 @@
 		rebirth: [3],
 		friends: [2, 3, 4, 5, 6, 7, 8],
 		overpop: [0, 1, 2, 3],
+		actions: [1, 2, 3, 4, 5, 6, 7, 8, 9],
 	};
 	LifeGameGeneQuantum.AgeLimit = -1;
 	LifeGameGeneQuantum.AngleLimit = 50;
