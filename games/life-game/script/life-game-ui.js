@@ -112,6 +112,31 @@
 				checkbox[index].checked = true;
 				LifeGame.Core.currentLifeType = index;
 				pickColorForGene(index);
+			},
+			addnew: () => {
+				var gene = 		{
+					color: 'rgb(255, 127, 127)',
+					gene: {
+						rebirth: [3],
+						friends: [0, 1, 2, 3],
+						overpop: [2, 3, 4, 5],
+						actions: [0, 0, 0, 0, 1, 1, 2, 2, 3],
+					}
+				};
+				LifeGame.Core.GenePool.push(gene);
+				modalGenePoolData.push({
+					color: gene.color,
+					selected: false,
+				});
+			},
+			delete: () => {
+				if (LifeGame.Core.GenePool.length < 2) return;
+				LifeGame.Core.GenePool.splice(LifeGame.Core.currentLifeType, 1);
+				modalGenePoolData.splice(LifeGame.Core.currentLifeType, 1);
+				if (LifeGame.Core.currentLifeType >= LifeGame.Core.GenePool.length) {
+					LifeGame.Core.currentLifeType = LifeGame.Core.GenePool.length - 1;
+				}
+				modalGenePoolData[LifeGame.Core.currentLifeType].selected = true;
 			}
 		}
 	});

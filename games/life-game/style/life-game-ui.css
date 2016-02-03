@@ -315,6 +315,15 @@ section.introduction ol {
 	cursor: pointer;
 	box-shadow: inset 1px 1px 1px white, inset -1px -1px 1px gray;
 }
+#genePoolContent .controller {
+	margin-top: 10px;
+	text-align: center;
+}
+#genePoolContent .controller button {
+	display: inline-block;
+	margin-left: 10px;
+	margin-right: 10px;
+}
 
 #colorPickerPannel input {
 	display: block;
