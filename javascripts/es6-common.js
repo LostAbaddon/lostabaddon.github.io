@@ -36,6 +36,16 @@
 	}
 	root.CommonUtils.EventManager = EventManager;
 
+	// Read-Only Property
+	root.CommonUtils.setReadOnly = (name, value) => {
+		Object.defineProperty(this, name, {
+			value: value,
+			writable: false,
+			enumerable: true,
+			configurable: false,
+		});
+	};
+
 	// Modals
 	var body = $('body');
 	var modalBlocker = $('#modalBlocker');

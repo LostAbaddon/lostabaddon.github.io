@@ -50,8 +50,26 @@
 	LifeGameCore.getLifeByLocation = (x, y) => grids[x][y];
 	LifeGameCore.getLifeMap = () => {
 		var map = [];
-		mapAllLife((gene) => map.push(gene.alive));
+		mapAllLife((gene) => map.push({
+			alive: gene.alive,
+			color: gene.alive ? LifeGameCore.GenePool[gene.type].color : ''
+		}));
 		return map;
+	};
+	LifeGameCore.toggleLife = (x, y) => {
+		var life = LifeGameCore.getLifeByLocation(x, y);
+		if (life.alive) {
+			life.die();
+		}
+		else {
+			life.birth(currentLifeType);
+		}
+		var color = '';
+		if (life.alive) color = LifeGameCore.GenePool[currentLifeType].color;
+		return {
+			alive: life.alive,
+			color: color,
+		}
 	};
 
 	var duration = 500;
@@ -88,6 +106,13 @@
 	LifeGameCore.limitedAge = root.localStorage.aging === 'true';
 	LifeGameCore.ageLimit = checkNumberParameter('ageLimit', 100);
 	LifeGameCore.randomFight = root.localStorage.randomFight === 'true';
+
+	var currentLifeType = 0;
+	LifeGameCore.GenePool = [
+		{
+			color: 'rgb(255, 127, 127)',
+		},
+	];
 
 	LifeGameCore.autoStop = root.localStorage.breaker === 'true';
 

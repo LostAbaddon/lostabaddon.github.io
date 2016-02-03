@@ -341,10 +341,7 @@
 	var gaming = false;
 	var gridGroupUI = null, gridGroupWidth = 1, gridGroupHeight = 1, gridGroupSize = 10;
 	var getGridByLocation = (x, y) => {
-		return {
-			data: LifeGame.Core.getLifeByLocation(x, y),
-			view: gridGroupUI[x * gridGroupWidth + y],
-		}
+		return gridGroupUI[x * gridGroupWidth + y];
 	};
 	var initGrids = (w, h) => {
 		var core = root.LifeGame.Core;
@@ -378,24 +375,26 @@
 	};
 
 	var troggleGrid = (x, y) => {
-		if (gaming) return;
-		var grid = getGridByLocation(x, y);
-		var view = grid.view;
-		grid = grid.data;
+		var view = getGridByLocation(x, y);
+		var grid = LifeGame.Core.toggleLife(x, y);
 		if (grid.alive) {
-			view.removeClass('active');
-			grid.die();
+			view.addClass('active');
 		}
 		else {
-			view.addClass('active');
-			grid.birth();
+			view.removeClass('active');
 		}
+		view.css({'background-color': grid.color});
 	};
 	var updateUI = (map) => {
 		if (!map) map = LifeGame.Core.getLifeMap();
-		map.forEach((alive, index) => {
-			if (alive) gridGroupUI[index].addClass('active');
-			else gridGroupUI[index].removeClass('active');
+		map.forEach((info, index) => {
+			if (info.alive) {
+				gridGroupUI[index].addClass('active');
+			}
+			else {
+				gridGroupUI[index].removeClass('active');
+			}
+			gridGroupUI[index].css({'background-color': info.color});
 		});
 	};
 

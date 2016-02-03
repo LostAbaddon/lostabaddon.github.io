@@ -3,6 +3,7 @@
 
 	class LifeGameGeneQuantum {
 		constructor (template) {
+			this.type = 0;
 			this.template = template || LifeGameGeneQuantum.SampleGene;
 			this.alive = false;
 			this.gene = {};
@@ -23,7 +24,8 @@
 			this.gene.force = getGeneForce(this.gene);
 			this.aging = getGeneAging(this.gene);
 		}
-		birth () {
+		birth (type) {
+			this.type = type;
 			this.alive = true;
 			this.angle = 0;
 			this.life = LifeGameGeneQuantum.AgeLimit;
@@ -55,8 +57,9 @@
 			else {
 				if (this.gene.rebirth.indexOf(effect) >= 0) {
 					this.isRebirth = true;
-					this.birth();
-					this.design(pickStrongest(neighbors));
+					var life = pickStrongest(neighbors);
+					this.birth(life.type);
+					this.design(life.gene);
 				}
 			}
 		}
@@ -86,6 +89,7 @@
 			var self = this;
 			return {
 				alive: self.alive,
+				type: self.type,
 				angle: self.angle,
 				gene: copyGene(self.gene),
 			}
@@ -150,19 +154,19 @@
 	};
 	var pickStrongest = (genes) => {
 		var random = LifeGame.Core.randomFight;
-		var gene = genes[0].gene, force, f, g;
-		if (random) force = gene.force * (Math.random() + Math.random());
-		else force = gene.force;
+		var life = genes[0], force, f, g;
+		if (random) force = life.gene.force * (Math.random() + Math.random());
+		else force = life.gene.force;
 		for (let i = 1, l = genes.length; i < l; i++) {
-			g = genes[i].gene;
-			if (random) f = g.force * (Math.random() + Math.random());
-			else f = g.force;
+			g = genes[i];
+			if (random) f = g.gene.force * (Math.random() + Math.random());
+			else f = g.gene.force;
 			if (f > force) {
-				gene = g;
+				life = g;
 				force = f;
 			}
 		}
-		return gene;
+		return life;
 	};
 
 	LifeGameGeneQuantum.SampleGene = {
