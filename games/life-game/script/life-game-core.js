@@ -116,7 +116,7 @@
 			gene: {
 				rebirth: [3],
 				friends: [0, 1, 2, 3],
-				overpop: [2, 3, 4, 5],
+				overpop: [2, 3, 4, 5, 6],
 				actions: [0, 0, 0, 0, 1, 1, 2, 2, 3],
 			}
 		},
@@ -143,7 +143,7 @@
 			gene: {
 				rebirth: [1],
 				friends: [1, 2, 3],
-				overpop: [3, 4],
+				overpop: [2, 3, 4],
 				actions: [1, 2, 3, 4, 5, 6, 7, 8, 9],
 			}
 		},

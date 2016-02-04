@@ -45,6 +45,9 @@
 		}
 		update (neighbors) {
 			var total = getTotalNeighbor(neighbors), alien;
+			this.angle += lifeEnergy(total, this.gene);
+			if (this.angle > LifeGameGeneQuantum.AngleLimit) this.angle -= LifeGameGeneQuantum.AngleLimit;
+			total = Math.round(total);
 			this.isRebirth = false;
 			if (this.alive) {
 				alien = getTotalAlien(neighbors, this.type);
@@ -159,7 +162,7 @@
 				y += Math.cos(angle);
 			}
 		});
-		return Math.sqrt(x * x + y * y);
+		return Math.round(Math.sqrt(x * x + y * y));
 	};
 	var mutateGene = (gene) => {
 		var result = [];
