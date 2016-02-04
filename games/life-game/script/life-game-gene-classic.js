@@ -41,15 +41,43 @@
 		}
 		update (neighbors) {
 			var total = getTotalNeighbor(neighbors), alien;
+			var neigh = [], types = [], my_type = this.type, new_life;
 			this.isRebirth = false;
 			if (this.alive) {
+				neighbors.map((life) => {
+					if (life.alive && (life.type !== my_type) && (types.indexOf(life.type) < 0)) types.push(life.type);
+				});
+				alien = [];
+				types.map((type) => alien[type] = getTotalAlien(neighbors, type));
+				neighbors.map((life) => {
+					if (!life.alive) return;
+					if (life.type === my_type) return;
+					if (life.gene.rebirth.indexOf(alien[life.type] || 0) < 0) return;
+					neigh.push(life);
+				});
+				if (neigh.length > 0) {
+					new_life = pickStrongest(neigh);
+					if (LifeGame.Core.randomFight) neigh = new_life.gene.force * Math.random();
+					else neigh = new_life.gene.force;
+				}
+				else {
+					neigh = 0;
+				}
 				alien = getTotalAlien(neighbors, this.type);
-				if (this.gene.friends.indexOf(alien) < 0 || this.gene.overpop.indexOf(total) < 0) {
-					this.die();
+				if (LifeGame.Core.randomFight) neigh -= this.gene.force * (1 + alien / 2) * Math.random();
+				else neigh -= this.gene.force * (1 + alien / 2);
+				if (neigh <= 0) {
+					if (this.gene.friends.indexOf(alien) < 0 || this.gene.overpop.indexOf(total) < 0) {
+						this.die();
+					}
+				}
+				else {
+					this.isRebirth = true;
+					this.birth(new_life.type);
+					this.design(new_life.gene);
 				}
 			}
 			else {
-				var neigh = [], types = [];
 				neighbors.map((life) => {
 					if (life.alive && (types.indexOf(life.type) < 0)) types.push(life.type);
 				});
@@ -62,9 +90,9 @@
 				});
 				if (neigh.length > 0) {
 					this.isRebirth = true;
-					var life = pickStrongest(neigh);
-					this.birth(life.type);
-					this.design(life.gene);
+					new_life = pickStrongest(neigh);
+					this.birth(new_life.type);
+					this.design(new_life.gene);
 				}
 			}
 		}

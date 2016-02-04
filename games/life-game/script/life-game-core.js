@@ -121,7 +121,7 @@
 			}
 		},
 		{
-			color: 'rgb(127, 127, 225)',
+			color: 'rgb(127, 127, 255)',
 			gene: {
 				rebirth: [3],
 				friends: [2, 3],
@@ -130,7 +130,7 @@
 			}
 		},
 		{
-			color: 'rgb(127, 255, 127)',
+			color: 'rgb(127, 225, 127)',
 			gene: {
 				rebirth: [3],
 				friends: [2, 3],
