@@ -136,15 +136,16 @@
 		return copy;
 	};
 	var getGeneForce = (gene) => {
-		var force = 32 - gene.rebirth.length * 2 - gene.friends.length - gene.overpop.length;
-		force += gene.rebirth.length / 8;
-		force += gene.overpop.length / 64;
-		force += gene.friends.length / 512;
+		var force = 50 - gene.rebirth.length * 3 - gene.friends.length - gene.overpop.length * 2;
+		force -= gene.rebirth.length / 8;
+		force -= gene.overpop.length / 64;
+		force -= gene.friends.length / 512;
+		if (force < 0) force = 0;
 		return force;
 	};
 	var getGeneAging = (gene) => {
-		var aging = 24 - (gene.rebirth.length + gene.friends.length + gene.overpop.length);
-		return aging;
+		var aging = 40 - (gene.rebirth.length + gene.friends.length + gene.overpop.length * 3);
+		return aging / 2;
 	};
 	var getTotalNeighbor = (neighbors) => {
 		var total = 0;
