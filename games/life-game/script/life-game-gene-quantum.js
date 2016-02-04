@@ -56,18 +56,16 @@
 				}
 			}
 			else {
-				var types = [], neigh = [];
-				neighbors.map((info) => {
-					if (types.indexOf(info.type) < 0) types.push(info.type);
-				});
-				types.map((type) => {
-					alien = getTotalAlien(neighbors, type);
-					if (LifeGame.Core.GenePool[type].gene.rebirth.indexOf(alien) >= 0) neigh.push(type);
-				});
-				types = neigh;
-				neigh = [];
+				var neigh = [], types = [];
 				neighbors.map((life) => {
-					if (types.indexOf(life.type) >= 0) neigh.push(life);
+					if (life.alive && (types.indexOf(life.type) < 0)) types.push(life.type);
+				});
+				alien = [];
+				types.map((type) => alien[type] = getTotalAlien(neighbors, type));
+				neighbors.map((life) => {
+					if (!life.alive) return;
+					if (life.gene.rebirth.indexOf(alien[life.type] || 0) < 0) return;
+					neigh.push(life);
 				});
 				if (neigh.length > 0) {
 					this.isRebirth = true;
