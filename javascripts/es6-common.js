@@ -3,6 +3,8 @@
  */
 
 ((root) => {
+	"use strict";
+
 	// Common Utils
 	root.CommonUtils = root.CommonUtils || {};
 
