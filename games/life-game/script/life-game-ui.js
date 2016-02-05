@@ -532,4 +532,14 @@
 	lifeController.onReset((options) => {
 		LifeGameUI.reset(options);
 	});
+
+	$('body').on('keydown', (e) => {
+		if (e.which === 13) {
+			if (running) lifeController.turnOff();
+			else lifeController.turnOn();
+		}
+		else if (e.which === 27) {
+			$('.modal.active').each((i, modal)=> modalHide('#' + modal.id));
+		}
+	});
 }) (window);
