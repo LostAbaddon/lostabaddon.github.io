@@ -29,6 +29,7 @@
 		<li>增加隐相位决策机制：生命数复数化；邻点数能量值决定生命数相位演化速度</li>
 		<li><b>增加多基因组竞技场模式！</b></li>
 		<li>增加强杀模式：即便是还活着的细胞，也可以被非同源细胞杀死。防御细胞有团队加成。</li>
+		<li>增加自定义地形：可通过右键将某个格子设为虚空，从而无法在其中存在任何生命。</li>
 	</ol>
 </section>
 
@@ -50,7 +51,7 @@
 <!-- Life Area -->
 <div id="field" class="frame-with-effect">
 	<div class="frame" v-bind:style="{ width: frame.width + 'px', height: frame.height + 'px' }">
-		<div class="grid" v-for="grid in grids" @click.stop.prevent="selectGrid(grid[0],grid[1])" v-bind:style="{ left: ((size + 2) * grid[0]) + 'px', top: ((size + 2) * grid[1]) + 'px', width: size + 'px', height: size + 'px', }"></div>
+		<div class="grid" v-for="grid in grids" @mousedown.stop.prevent="selectGrid(grid[0],grid[1],$event)" v-bind:style="{ left: ((size + 2) * grid[0]) + 'px', top: ((size + 2) * grid[1]) + 'px', width: size + 'px', height: size + 'px', }"></div>
 	</div>
 </div>
 
@@ -145,6 +146,14 @@ $(() => {
 	LifeGame.FieldUI.reset(LifeGame.Controller.options);
 	LifeGame.Core.onCrash(() => LifeGame.Controller.turnOff());
 	$('body').removeClass('loading');
+	with (document.body) {
+		oncontextmenu = () => false;
+		ondragstart = () => false;
+		onselectstart = () => false;
+		onbeforecopy = () => false;
+		onselect = () => !!document.selection && document.selection.empty();
+		oncopy = () => !!document.selection && document.selection.empty();
+	}
 });
 </script>
 

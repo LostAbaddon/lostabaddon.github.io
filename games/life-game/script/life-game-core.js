@@ -23,10 +23,10 @@
 	var gridWidth = 0;
 	var gridHeight = 0;
 
-	var mapAllLife = (callback) => {
+	var mapAllLife = (callback, ignoreEmpty) => {
 		for (let i = 0; i < gridWidth; i++) {
 			for (let j = 0; j < gridHeight; j++) {
-				if (callback) callback(grids[i][j], i, j);
+				if (callback && (!ignoreEmpty || !grids[i][j].empty)) callback(grids[i][j].life, i, j);
 			}
 		}
 	};
@@ -43,7 +43,10 @@
 		for (let i = 0; i < w; i++) {
 			grids.push([]);
 			for (let j = 0; j < h; j++) {
-				grids[i].push(new gene());
+				grids[i].push({
+					life: new gene(),
+					empty: false,
+				});
 			}
 		}
 	};
@@ -58,6 +61,13 @@
 	};
 	LifeGameCore.toggleLife = (x, y) => {
 		var life = LifeGameCore.getLifeByLocation(x, y);
+		if (life.empty) {
+			return {
+				alive: false,
+				color: ''
+			};
+		}
+		life = life.life;
 		if (life.alive) {
 			life.die();
 		}
@@ -71,6 +81,17 @@
 			alive: life.alive,
 			color: color,
 		}
+	};
+	LifeGameCore.toggleEmpty = (x, y) => {
+		var grid = LifeGameCore.getLifeByLocation(x, y);
+		if (grid.empty) {
+			grid.empty = false;
+		}
+		else {
+			grid.empty = true;
+			grid.life.die();
+		}
+		return grid.empty;
 	};
 
 	var duration = 500;
@@ -192,7 +213,7 @@
 		var result = [];
 		xLoop.map((i) => {
 			yLoop.map((j) => {
-				if (i !== x || j !== y) result.push(grids[i][j].copy);
+				if ((i !== x || j !== y) && !grids[i][j].empty) result.push(grids[i][j].life.copy);
 			});
 		});
 		return result;
@@ -206,24 +227,24 @@
 		// Envolve Single Life
 		mapAllLife((gene) => {
 			if (gene.alive) gene.envolve();
-		});
+		}, true);
 		// Check Neighborhoods
 		var neighbors = [];
 		mapAllLife((gene, x, y) => {
 			neighbors[x] = neighbors[x] || [];
 			neighbors[x][y] = getNeighbor(x, y);
-		});
+		}, true);
 		// Update Life State
 		var life = 0;
 		mapAllLife((gene, x, y) => {
 			gene.update(neighbors[x][y]);
 			if (gene.alive) life ++;
-		});
+		}, true);
 		// Mutate
 		if (LifeGameCore.allowMutate) {
 			mapAllLife((gene) => {
 				gene.mutate(LifeGameCore.mutateFactor);
-			});
+			}, true);
 		}
 
 		// Tell Others

@@ -429,7 +429,7 @@
 		el  : "#field",
 		data: fieldData,
 		methods: {
-			selectGrid: (x, y) => troggleGrid(x, y),
+			selectGrid: (x, y, e) => troggleGrid(x, y, e),
 		}
 	});
 
@@ -466,19 +466,31 @@
 	};
 	var resetUI = () => {
 		initGrids(gridGroupWidth, gridGroupHeight);
-		gridGroupUI.map((grid) => grid.removeClass('active').css({'background-color': ''}));
+		gridGroupUI.map((grid) => grid.removeClass('active').css({ opacity: 1, 'background-color': '' }));
 	};
 
-	var troggleGrid = (x, y) => {
+	var troggleGrid = (x, y, e) => {
 		var view = getGridByLocation(x, y);
-		var grid = LifeGame.Core.toggleLife(x, y);
-		if (grid.alive) {
-			view.addClass('active');
+		var grid;
+		if (e.which === 1) {
+			grid = LifeGame.Core.toggleLife(x, y);
+			if (grid.alive) {
+				view.addClass('active');
+			}
+			else {
+				view.removeClass('active');
+			}
+			view.css({'background-color': grid.color});
 		}
-		else {
-			view.removeClass('active');
+		else if (e.which === 3) {
+			grid = LifeGame.Core.toggleEmpty(x, y);
+			if (grid) {
+				view.css({opacity: 0});
+			}
+			else {
+				view.css({opacity: 1});
+			}
 		}
-		view.css({'background-color': grid.color});
 	};
 	var updateUI = (map) => {
 		if (!map) map = LifeGame.Core.getLifeMap();
