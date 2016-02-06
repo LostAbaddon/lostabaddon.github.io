@@ -142,21 +142,21 @@
 			}
 		},
 		{
-			color: 'rgb(127, 127, 255)',
-			gene: {
-				rebirth: [3],
-				friends: [2, 3],
-				overpop: [2, 3],
-				actions: [0, 0, 0, 0, 0, 0, 0, 0, 0],
-			}
-		},
-		{
 			color: 'rgb(127, 225, 127)',
 			gene: {
 				rebirth: [3],
 				friends: [2, 3],
 				overpop: [0, 1, 2, 3, 4, 5, 6, 7, 8],
 				actions: [0, 0, 0, 0, 0, 1, 1, 1, 1],
+			}
+		},
+		{
+			color: 'rgb(127, 127, 255)',
+			gene: {
+				rebirth: [3],
+				friends: [0, 2, 3],
+				overpop: [0, 2, 3],
+				actions: [0, 0, 0, 0, 0, 0, 0, 0, 0],
 			}
 		},
 		{

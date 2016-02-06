@@ -125,12 +125,18 @@
 	</div>
 </div>
 
+<!-- Saver -->
+<div class="modal-content" id="saverPannel">
+	<button @click.stop.prevent="save(item.action)" v-for="item in items">{{item.title}}</button>
+</div>
+
 <!-- JS Libs -->
 <script type="text/javascript" src="../../lib/script/modernizr.js"></script>
 <script type="text/javascript" src="../../lib/script/zepto.min.js"></script>
 <script type="text/javascript" src="../../lib/script/vue.js"></script>
 <script type="text/javascript" src="../../javascripts/common.js"></script>
 <script type="text/javascript" src="../../javascripts/es6-common.js"></script>
+<script type="text/javascript" src="../../javascripts/db.js"></script>
 <script type="text/javascript" src="../../javascripts/auto-navigation.js"></script>
 <script type="text/javascript" src="./script/life-game-ui.js"></script>
 <script type="text/javascript" src="./script/life-game-core.js"></script>

@@ -233,14 +233,40 @@
 		modalShow('#colorPicker');
 	};
 
+	var saveData = {
+		saveLife : { title: '保存当前生命布局', action: "life" },
+		saveMap  : { title: '保存当前地形格局', action: "map" },
+		saveWorld: { title: '　保存当前形式　', action: "world" },
+	};
+	new Vue ({
+		el: '#saverPannel',
+		data: {
+			items: saveData,
+		},
+		methods: {
+			save: (action) => !!saverAction[action] && saverAction[action]()
+		}
+	});
+	var saverAction = {};
+	saverAction.life = () => {
+		console.log('Save Life!');
+	};
+	saverAction.map = () => {
+		console.log('Save Map!');
+	};
+	saverAction.world = () => {
+		console.log('Save World!');
+	};
+
 	// Modal Frame
 	var modalData = {
-		genePool : { id: 'genePool', title: '基因池', target: 'genePoolContent' },
-		genePannel : { id: 'genePannel', title: '修改基因', target: 'genePannelContent' },
-		mutatePannel : { id: 'mutatePannel', title: '修改变异系数', target: 'mutatePannelContent' },
-		agePannel : { id: 'agePannel', title: '修改寿命上限', target: 'agePannelContent' },
+		genePool      : { id: 'genePool', title: '基因池', target: 'genePoolContent' },
+		genePannel    : { id: 'genePannel', title: '修改基因', target: 'genePannelContent' },
+		mutatePannel  : { id: 'mutatePannel', title: '修改变异系数', target: 'mutatePannelContent' },
+		agePannel     : { id: 'agePannel', title: '修改寿命上限', target: 'agePannelContent' },
 		staticsPannel : { id: 'staticsPannel', title: '留存基因统计', target: 'staticsPannelContent' },
-		colorPicker : { id: 'colorPicker', title: '选颜色', target: 'colorPickerPannel' },
+		colorPicker   : { id: 'colorPicker', title: '选颜色', target: 'colorPickerPannel' },
+		gameSaver     : { id: 'gameSaver', title: '保存当前', target: 'saverPannel' },
 	};
 	new Vue ({
 		el: '.modal',
@@ -266,28 +292,28 @@
 		start  : { title: '开始', class: "button", action: 'start' },
 		clear  : { title: '清空', class: "button", disable: false, action: 'clear' },
 		line1  : { type: 'line' },
-		rndwar : { title: '随机争斗', type: 'checkbox', value: false },
+		rndwar : { title: '随机争斗　', type: 'checkbox', value: false },
 		quantum: { title: '隐相位决策', type: 'checkbox', value: false },
 		line7  : { type: 'line' },
 		width  : { title: '横向', type: 'number', value: 10 },
 		height : { title: '纵向', type: 'number', value: 10 },
 		size   : { title: '尺寸', type: 'number', value: 30 },
-		line2  : { type: 'line' },
 		delay  : { title: '时隔', type: 'number', value: 500 },
-		cycle  : { title: '循环', type: 'checkbox', value: false },
+		cycle  : { title: '循环　　', type: 'checkbox', value: false },
+		breaker: { title: '自动停止', type: 'checkbox', value: false },
+		reset  : { title: '设置', class: "button", disable: false, action: 'reset' },
 		line3  : { type: 'line' },
 		group  : { title: '基因池', class: 'button', disable: false, action: 'showGenePool' },
-		// gene   : { title: '修改基因', class: 'button', disable: false, action: 'changeGene' },
 		mutate : { title: '允许变异', type: 'checkbox', value: false },
 		mutable: { title: '变异参数', class: 'button', disable: true, action: 'changeMutate' },
 		aging  : { title: '有限寿命', type: 'checkbox', value: false },
 		lifeage: { title: '寿命上限', class: 'button', disable: true, action: 'changeAge' },
 		line4  : { type: 'line' },
-		breaker: { title: '自动停止', type: 'checkbox', value: false },
-		line5  : { type: 'line' },
-		reset  : { title: '设置', class: "button", disable: false, action: 'reset' },
-		line6  : { type: 'line' },
 		statics: { title: '基因统计', class: "button", action: 'showStatics' },
+		save   : { title: '保存', class: "button", action: 'saveGame' },
+		// line2  : { type: 'line' },
+		// line5  : { type: 'line' },
+		// line6  : { type: 'line' },
 	};
 	restoreSetting();
 
@@ -312,9 +338,6 @@
 						saveSetting(options);
 						controllerEvents.emit("reset", options);
 						break;
-					case 'changeGene':
-						changeGene();
-						break;
 					case 'changeMutate':
 						changeMutate();
 						break;
@@ -327,9 +350,16 @@
 					case 'showGenePool':
 						showGenePool();
 						break;
+					case 'saveGame':
+						modalShow('#gameSaver');
+						break;
 				}
 			}
 		}
+	});
+	vControler.$watch('categories.cycle.value', (newValue, oldValue) => {
+		root.localStorage.cycle = newValue;
+		LifeGame.Core.cycleSpace = newValue;
 	});
 	vControler.$watch('categories.quantum.value', (newValue, oldValue) => {
 		root.localStorage.quantum = newValue;
@@ -403,7 +433,6 @@
 		data.start.title = "暂停";
 		data.clear.disable = true;
 		data.reset.disable = true;
-		data.gene.disable = true;
 		running = true;
 		controllerEvents.emit("start");
 	};
@@ -412,7 +441,6 @@
 		data.start.title = "开始";
 		data.clear.disable = false;
 		data.reset.disable = false;
-		data.gene.disable = false;
 		running = false;
 		controllerEvents.emit("pause");
 	};

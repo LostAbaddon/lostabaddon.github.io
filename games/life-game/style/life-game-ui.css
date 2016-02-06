@@ -344,3 +344,19 @@ section.introduction ol {
 #colorPickerPannel .item {
 	margin-top: 10px;
 }
+
+#saverPannel button {
+	display: block;
+	margin-top: 0px;
+	margin-bottom: 15px;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 8px 20px;
+	outline: none;
+	background-color: rgb(205, 225, 255);
+	border-radius: 5px;
+	cursor: pointer;
+}
+#saverPannel button:last-child {
+	margin-bottom: 0px;
+}
