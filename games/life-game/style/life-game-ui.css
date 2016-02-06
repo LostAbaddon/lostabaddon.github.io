@@ -306,6 +306,7 @@ section.introduction ol {
 #genePoolContent .item .title {
 	display: inline-block;
 	width: 100px;
+	cursor: pointer;
 }
 #genePoolContent .item .color-picker {
 	display: inline-block;

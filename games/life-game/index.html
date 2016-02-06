@@ -69,7 +69,7 @@
 <div class="modal-content" id="genePoolContent">
 	<div class="item" v-for="item in items">
 		<input type="radio" checked="{{item.selected}}" name="gene" @click.stop="click($index)">
-		<span class="title">{{$index+1}}号基因</span>
+		<span class="title" @click.stop.prevent="modifyGene($index)">{{$index+1}}号基因</span>
 		<span class="color-picker" v-bind:style="{ 'background-color': item.color }" @click.stop.prevent="pickColor($index)"></span>
 	</div>
 	<div class="item controller">

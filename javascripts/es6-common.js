@@ -58,7 +58,7 @@
 	root.CommonUtils.modalHide = (selector) => {
 		if (!selector) $('.modal').removeClass('active');
 		else $(selector).removeClass('active');
-		modalBlocker.removeClass('active');
+		if ($('.modal.active').length === 0) modalBlocker.removeClass('active');
 	};
 
 }) (window);

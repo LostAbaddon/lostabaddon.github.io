@@ -103,6 +103,16 @@
 				modalGenePoolData.forEach((info, i) => modalGenePoolData[i].selected = i === index);
 				LifeGame.Core.currentLifeType = index;
 			},
+			modifyGene: (index) => {
+				modalGenePoolData.forEach((info, i) => modalGenePoolData[i].selected = i === index);
+				var checkbox = $('#genePoolContent .item input');
+				checkbox.each((index, input) => {
+					input.checked = false;
+				});
+				checkbox[index].checked = true;
+				LifeGame.Core.currentLifeType = index;
+				changeGene();
+			},
 			pickColor: (index) => {
 				modalGenePoolData.forEach((info, i) => modalGenePoolData[i].selected = i === index);
 				var checkbox = $('#genePoolContent .item input');
@@ -267,7 +277,7 @@
 		cycle  : { title: '循环', type: 'checkbox', value: false },
 		line3  : { type: 'line' },
 		group  : { title: '基因池', class: 'button', disable: false, action: 'showGenePool' },
-		gene   : { title: '修改基因', class: 'button', disable: false, action: 'changeGene' },
+		// gene   : { title: '修改基因', class: 'button', disable: false, action: 'changeGene' },
 		mutate : { title: '允许变异', type: 'checkbox', value: false },
 		mutable: { title: '变异参数', class: 'button', disable: true, action: 'changeMutate' },
 		aging  : { title: '有限寿命', type: 'checkbox', value: false },
