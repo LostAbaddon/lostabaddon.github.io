@@ -360,3 +360,31 @@ section.introduction ol {
 #saverPannel button:last-child {
 	margin-bottom: 0px;
 }
+
+#recordsContent .item {
+	margin: 0px;
+	padding: 5px;
+	border-radius: 5px;
+	transition: background-color 250ms ease-in-out;
+}
+#recordsContent .item:hover {
+	background-color: rgba(200, 200, 255, 0.8);
+}
+#recordsContent .item .name {
+	display: inline-block;
+	width: 150px;
+}
+#recordsContent .item button {
+	display: inline-block;
+	width: 45px;
+	height: 25px;
+	padding: 1px 3px;
+	line-height: 18px;
+}
+#recordsContent .item.append_record {
+	text-align: center;
+}
+#recordsContent .item.append_record button {
+	width: 100px;
+	height: 30px;
+}

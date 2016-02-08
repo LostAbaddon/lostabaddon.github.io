@@ -26,7 +26,7 @@
 	var mapAllLife = (callback, ignoreEmpty) => {
 		for (let i = 0; i < gridWidth; i++) {
 			for (let j = 0; j < gridHeight; j++) {
-				if (callback && (!ignoreEmpty || !grids[i][j].empty)) callback(grids[i][j].life, i, j);
+				if (callback && (!ignoreEmpty || !grids[i][j].empty)) callback(grids[i][j].life, i, j, grids[i][j].empty);
 			}
 		}
 	};
@@ -315,7 +315,174 @@
 		LifeGameCore.onStart = (callback) => events.hook('start', callback);
 		LifeGameCore.onPause = (callback) => events.hook('pause', callback);
 		LifeGameCore.onCrash = (callback) => events.hook('crash', callback);
+		LifeGameCore.onDBReady = (callback) => events.hook('DBReady', callback);
 	}
+
+	// DB Manager
+	const DB = CommonUtils.dbManager;
+	var initDB = (db, transaction) => {
+		var tableLife = db.getTable('Life'), tableMap = db.getTable('Map'), tableWorld = db.getTable('World');
+		tableLife.initTableWithRecords('id', [
+			{ id: "What?", type: TAG_TYPED_CLASSIC  },
+			{ id: "Hello 1", type: TAG_TYPED_CLASSIC  },
+			{ id: "Hello 2", type: TAG_TYPED_QUANTUM  },
+			{ id: "Hello X", type: TAG_TYPED_CLASSIC  },
+		]);
+		tableMap.initTableWithRecords('id', [
+			{ id: "Map 1"  },
+			{ id: "Map 2"  },
+			{ id: "Map 3"  },
+			{ id: "Map 4"  },
+		]);
+		tableWorld.initTableWithRecords('id', []);
+		transaction.objectStore('Life').createIndex('Typed', 'type');
+		transaction.objectStore('World').createIndex('Typed', 'type');
+	};
+	var dbOpened = (db) => {
+		DBManager.db = db;
+		if (hasEventManager) events.emit('DBReady');
+	};
+	var openDB = () => {
+		DB.openDB({
+			name: 'LifeGame',
+			version: 1,
+			callbacks: {
+				onsuccess: dbOpened,
+				oninit: initDB,
+			},
+		});
+	};
+	// DB.deleteDB('LifeGame');
+	openDB();
+
+	const TAG_TYPED_CLASSIC = 'classic';
+	const TAG_TYPED_QUANTUM = 'quantum';
+	const DBManager = {};
+	DBManager.clear = () => {
+		DB.deleteDB('LifeGame');
+		openDB();
+	};
+	DBManager.getAllRecordID = (info, callback) => {
+		var table = DBManager.db.getTable(info.table);
+		if (!info.index) {
+			table.getAllRecords('id', (records) => {
+				var ids = [];
+				records.map((r) => ids.push(r.id));
+				if (callback) callback(ids);
+			});
+		}
+		else {
+			table.getAllRecordsWithIndex(info.index, info.key, 'id', (records) => {
+				var ids = [];
+				records.map((r) => ids.push(r.id));
+				if (callback) callback(ids);
+			});
+		}
+	};
+
+	LifeGameCore.DBManager = DBManager;
+	LifeGameCore.getLifeRecordNames = (callback) => {
+		if (!callback) return;
+		DBManager.getAllRecordID({
+			table: 'Life',
+			index: 'Typed',
+			key: gene === LifeGame.Gene.Classic ? TAG_TYPED_CLASSIC : TAG_TYPED_QUANTUM,
+		}, callback);
+	};
+	LifeGameCore.getMapRecordNames = (callback) => {
+		if (!callback) return;
+		DBManager.getAllRecordID({ table: 'Map' }, callback);
+	};
+	LifeGameCore.getWorldRecordNames = (callback) => {
+		if (!callback) return;
+		DBManager.getAllRecordID({
+			table: 'World',
+			index: 'Typed',
+			key: gene === LifeGame.Gene.Classic ? TAG_TYPED_CLASSIC : TAG_TYPED_QUANTUM,
+		}, callback);
+	};
+
+	LifeGameCore.saveLifeData = (id, callback) => {
+		console.log('Save Life: ' + id);
+	};
+	LifeGameCore.loadLifeData = (id, callback) => {
+		console.log('Load Life: ' + id);
+	};
+	LifeGameCore.deleteLifeData = (id, callback) => {
+		console.log('Delete Life: ' + id);
+	};
+	LifeGameCore.saveMapData = (id, callback) => {
+		var result = [];
+		mapAllLife((grid, x, y, isEmpty) => {
+			result[x] = result[x] || [];
+			result[x][y] = isEmpty;
+		}, false);
+		result = {
+			id: id,
+			data: result,
+		};
+		var table = DBManager.db.getTable('Map');
+		table.addRecord(id, result, true,
+			(result, store) => {
+				console.log('Save Successful');
+				if (callback) callback();
+			}, (error) => {
+				console.error('Save Failed');
+				console.error(error);
+			});
+	};
+	LifeGameCore.loadMapData = (id, callback) => {
+		var table = DBManager.db.getTable('Map');
+		table.queryRecordWithKey(id,
+			(result, store) => {
+				var data = result.data, changes = [];
+				data.forEach((line, x) => {
+					if (!grids[x]) return;
+					line.forEach((isEmpty, y) => {
+						if (!grids[x][y]) return;
+						var empty = grids[x][y].empty;
+						if (!!empty === isEmpty) return;
+						changes.push([x, y, isEmpty]);
+						if (empty) {
+							grids[x][y].empty = false;
+						}
+						else {
+							grids[x][y].empty = true;
+							grids[x][y].life.die();
+						}
+					});
+				})
+				if (callback) callback(changes);
+			},
+			() => {
+				console.error("No Such Data!");
+			},
+			(error) => {
+				console.log("Load Data Error");
+				console.error(error);
+			}
+		);
+	};
+	LifeGameCore.deleteMapData = (id, callback) => {
+		var table = DBManager.db.getTable('Map');
+		table.removeRecord(id,
+			(result, store) => {
+				console.log('Delete Successful');
+				if (callback) callback();
+			}, (error) => {
+				console.error('Delete Failed');
+				console.error(error);
+			});
+	};
+	LifeGameCore.saveWorldData = (id, callback) => {
+		console.log('Save World: ' + id);
+	};
+	LifeGameCore.loadWorldData = (id, callback) => {
+		console.log('Load World: ' + id);
+	};
+	LifeGameCore.deleteWorldData = (id, callback) => {
+		console.log('Delete World: ' + id);
+	};
 
 	// Export
 	root.LifeGame = root.LifeGame || {};

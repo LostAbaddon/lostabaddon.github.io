@@ -1,4 +1,6 @@
 (function (root) {
+	"use strict";
+
 	if (!root.indexedDB) return;
 	const indexedDB = root.indexedDB;
 
@@ -20,31 +22,88 @@
 			callback = keywords;
 			keywords = null;
 		}
+		else if (keywords === '') {
+			keywords = null;
+		}
 		else if (type === 'string') {
 			keywords = [keywords];
 		}
 		var store = this.db.transaction(this.table).objectStore(this.table);
 		var result = [];
-		var request = store.openCursor()
+		var request = store.getAll();
 		request.onsuccess = function (event) {
-			var cursor = event.target.result;
 			var rec;
-			if (cursor) {
+			event.target.result.map(function (record) {
 				if (!keywords) {
-					result.push(cursor.value);
+					result.push(record);
 				}
 				else {
-					rec = [];
+					rec = {};
 					keywords.map(function (key) {
-						rec[key] = cursor.value[key];
+						rec[key] = record[key];
 					});
 					result.push(rec);
 				}
-				cursor.continue();
-			}
-			else {
-				if (callback) callback(result);
-			}
+			});
+			if (callback) callback(result, store);
+		};
+		request.onerror = function (event) {
+			if (onerror) onerror(event.target.error);
+		};
+	};
+	TableOperator.prototype.getAllRecordsWithIndex = function (index, key, keywords, callback, onerror) {
+		var type = typeof key;
+		if (type === 'function') {
+			onerror = keywords;
+			callback = key;
+			keywords = null;
+			key = null;
+		}
+		else if (type !== 'string') {
+			onerror = callback;
+			callback = keywords;
+			keywords = key;
+			key = null;
+		}
+		else if (key === undefined || key === null || key === '') {
+			key = null;
+		}
+		type = typeof keywords;
+		if (type === 'function') {
+			onerror = callback;
+			callback = keywords;
+			keywords = null;
+		}
+		else if (keywords === '') {
+			keywords = null;
+		}
+		else if (type === 'string') {
+			keywords = [keywords];
+		}
+		var store = this.db.transaction(this.table).objectStore(this.table).index(index);
+		var result = [];
+		var request;
+		if (!!key) {
+			request = store.getAll(key);
+		}
+		else {
+			request = store.getAll();
+		}
+		request.onsuccess = function (event) {
+			var rec;
+			event.target.result.map(function (record) {
+				if (!keywords) {
+					result.push(record);
+				}
+				else {
+					rec = {};
+					keywords.map(function (key) {
+						rec[key] = record[key];
+					});
+					result.push(rec);
+				}
+			});
+			if (callback) callback(result);
 		};
 		request.onerror = function (event) {
 			if (onerror) onerror(event.target.error);
@@ -76,9 +135,11 @@
 			force = !! force;
 		}
 		var db = this.db, table = this.table;
-		var putRecord = function () {
+		var putRecord = function (isAdd) {
 			var store = db.transaction(table, 'readwrite').objectStore(table);
-			var request = store.put(record);
+			var request;
+			if (isAdd) request = store.add(record);
+			else request = store.put(record);
 			request.onsuccess = function (event) {
 				if (callback) callback(event.target.result, store);
 			};
@@ -95,10 +156,12 @@
 					});
 				}
 				else {
-					putRecord();
+					putRecord(false);
 				}
 			},
-			putRecord,
+			function not_found () {
+				putRecord(true);
+			},
 			onerror
 		);
 	};
@@ -165,10 +228,10 @@
 			var db = new DBOperator(event.target.result);
 			var version = db.version;
 			if (version === 1) {
-				if (callbacks.oninit) callbacks.oninit(db);
+				if (callbacks.oninit) callbacks.oninit(db, event.target.transaction);
 			}
-			else if (version !== dbVersion) {
-				if (callbacks.onupgradeneeded) callbacks.onupgradeneeded(db);
+			else {
+				if (callbacks.onupgradeneeded) callbacks.onupgradeneeded(db, event.target.transaction);
 			}
 		};
 	}
@@ -186,85 +249,4 @@
 
 	// Export
 	root.CommonUtils.dbManager = DBManager;
-
 }) (window);
-
-CommonUtils.dbManager.deleteDB('LifeGame');
-CommonUtils.dbManager.openDB({
-	name: 'LifeGame',
-	version: 1,
-	callbacks: {
-		onsuccess: function (db) {
-			console.log('Open Success!');
-			console.log(db);
-			var table = db.getTable('LifeGame');
-			table.getAllRecords(
-				function (records) {
-					console.log(records);
-					table.queryRecordWithKey(2,
-						function (record) {
-							console.log(record);
-							table.addRecord(2,
-								{
-									Life: 20,
-									value: 48
-								},
-								true,
-								function () {
-									console.log('Added');
-									table.removeRecord(1,
-										function () {
-											console.log('Removed');
-											table.getAllRecords(function (records) {
-												console.log(records);
-											});
-										}
-									);
-								},
-								function (err) {
-									console.error(err);
-								}
-							);
-						},
-						function () {
-							console.log('Not Found');
-						},
-						function (err) {
-							console.error(err);
-						}
-					);
-				},
-				function (err) {
-					console.error(err);
-				}
-			);
-		},
-		onerror: function (err) {
-			console.log('Open Failed!');
-			console.log(err);
-		},
-		oninit: function (db) {
-			console.log('Open Init!');
-			console.log(db);
-			var table = db.getTable('LifeGame');
-			table.initTableWithRecords('Life', [
-				{
-					Life: 1,
-					value: 1,
-				},
-				{
-					Life: 2,
-					value: 2,
-				},
-				{
-					Life: 3,
-					value: 3,
-				},
-			]);
-		},
-		onupgradeneeded: function (db) {
-			console.log('Open Upgraded!');
-			console.log(db);
-		},
-	},
-});

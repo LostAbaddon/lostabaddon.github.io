@@ -249,14 +249,80 @@
 	});
 	var saverAction = {};
 	saverAction.life = () => {
-		console.log('Save Life!');
+		LifeGame.Core.getLifeRecordNames((names) => {
+			saverAction.current = 0;
+			recordListData.splice(0, recordListData.length);
+			names.map((name) => recordListData.push(name));
+			modalShow('#recordList');
+		});
 	};
 	saverAction.map = () => {
-		console.log('Save Map!');
+		LifeGame.Core.getMapRecordNames((names) => {
+			saverAction.current = 1;
+			recordListData.splice(0, recordListData.length);
+			names.map((name) => recordListData.push(name));
+			modalShow('#recordList');
+		});
 	};
 	saverAction.world = () => {
-		console.log('Save World!');
+		LifeGame.Core.getWorldRecordNames((names) => {
+			saverAction.current = 2;
+			recordListData.splice(0, recordListData.length);
+			names.map((name) => recordListData.push(name));
+			modalShow('#recordList');
+		});
 	};
+	saverAction.refreshList = () => {
+		var action = '';
+		if (saverAction.current === 0) action = 'getLifeRecordNames';
+		else if (saverAction.current === 1) action = 'getMapRecordNames';
+		else if (saverAction.current === 2) action = 'getWorldRecordNames';
+		LifeGame.Core[action]((names) => {
+			recordListData.splice(0, recordListData.length);
+			names.map((name) => recordListData.push(name));
+		});
+	};
+	saverAction.refreshMap = (changes) => {
+		changes.map((info) => {
+			var view = getGridByLocation(info[0], info[1]);
+			if (info[2]) {
+				view.css({opacity: 0});
+			}
+			else {
+				view.css({opacity: 1});
+			}
+		});
+	};
+
+	var recordListData = [];
+	new Vue ({
+		el: '#recordsContent',
+		data: { items: recordListData },
+		methods: {
+			save: (id) => {
+				if (saverAction.current === 0) LifeGame.Core.saveLifeData(id, saverAction.refreshList);
+				else if (saverAction.current === 1) LifeGame.Core.saveMapData(id, saverAction.refreshList);
+				else if (saverAction.current === 2) LifeGame.Core.saveWorldData(id, saverAction.refreshList);
+			},
+			load: (id) => {
+				if (saverAction.current === 0) LifeGame.Core.loadLifeData(id);
+				else if (saverAction.current === 1) LifeGame.Core.loadMapData(id, saverAction.refreshMap);
+				else if (saverAction.current === 2) LifeGame.Core.loadWorldData(id);
+			},
+			delete: (id) => {
+				if (saverAction.current === 0) LifeGame.Core.deleteLifeData(id, saverAction.refreshList);
+				else if (saverAction.current === 1) LifeGame.Core.deleteMapData(id, saverAction.refreshList);
+				else if (saverAction.current === 2) LifeGame.Core.deleteWorldData(id, saverAction.refreshList);
+			},
+			new: () => {
+				var fileName = prompt('新档案名：', 'New File');
+				if (!fileName) return;
+				if (saverAction.current === 0) LifeGame.Core.saveLifeData(fileName, saverAction.refreshList);
+				else if (saverAction.current === 1) LifeGame.Core.saveMapData(fileName, saverAction.refreshList);
+				else if (saverAction.current === 2) LifeGame.Core.saveWorldData(fileName, saverAction.refreshList);
+			}
+		}
+	});
 
 	// Modal Frame
 	var modalData = {
@@ -267,6 +333,7 @@
 		staticsPannel : { id: 'staticsPannel', title: '留存基因统计', target: 'staticsPannelContent' },
 		colorPicker   : { id: 'colorPicker', title: '选颜色', target: 'colorPickerPannel' },
 		gameSaver     : { id: 'gameSaver', title: '保存当前', target: 'saverPannel' },
+		recordList    : { id: 'recordList', title: '记录列表', target: 'recordsContent' },
 	};
 	new Vue ({
 		el: '.modal',
@@ -310,7 +377,7 @@
 		lifeage: { title: '寿命上限', class: 'button', disable: true, action: 'changeAge' },
 		line4  : { type: 'line' },
 		statics: { title: '基因统计', class: "button", action: 'showStatics' },
-		save   : { title: '保存', class: "button", action: 'saveGame' },
+		save   : { title: '保存', class: "button", action: 'saveGame', disable: true },
 		// line2  : { type: 'line' },
 		// line5  : { type: 'line' },
 		// line6  : { type: 'line' },
@@ -443,6 +510,9 @@
 		data.reset.disable = false;
 		running = false;
 		controllerEvents.emit("pause");
+	};
+	lifeController.readyToSave = () => {
+		data.save.disable = false;
 	};
 
 	// Events

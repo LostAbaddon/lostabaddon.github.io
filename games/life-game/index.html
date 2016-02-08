@@ -30,6 +30,7 @@
 		<li><b>增加多基因组竞技场模式！</b></li>
 		<li>增加强杀模式：即便是还活着的细胞，也可以被非同源细胞杀死。防御细胞有团队加成。</li>
 		<li>增加自定义地形：可通过右键将某个格子设为虚空，从而无法在其中存在任何生命。</li>
+		<li>增加地形的保存和读取功能。</li>
 	</ol>
 </section>
 
@@ -129,6 +130,15 @@
 <div class="modal-content" id="saverPannel">
 	<button @click.stop.prevent="save(item.action)" v-for="item in items">{{item.title}}</button>
 </div>
+<div class="modal-content" id="recordsContent">
+	<div class="item" v-for="item in items">
+		<span class="name">{{item}}</span>
+		<button @click.stop.prevent="save(item)">覆盖</button>
+		<button @click.stop.prevent="load(item)">读取</button>
+		<button @click.stop.prevent="delete(item)">删除</button>
+	</div>
+	<div class="item append_record"><button @click.stop.prevent="new">新增</button></div>
+</div>
 
 <!-- JS Libs -->
 <script type="text/javascript" src="../../lib/script/modernizr.js"></script>
@@ -151,6 +161,7 @@ $(() => {
 	else LifeGame.Core.initGene(LifeGame.Gene.Classic);
 	LifeGame.FieldUI.reset(LifeGame.Controller.options);
 	LifeGame.Core.onCrash(() => LifeGame.Controller.turnOff());
+	LifeGame.Core.onDBReady(() => LifeGame.Controller.readyToSave());
 	$('body').removeClass('loading');
 	with (document.body) {
 		oncontextmenu = () => false;
