@@ -5,15 +5,9 @@ const MUST_QUASI_ABEL = MUST_ABEL || false;
 const MUST_IMAGE = false;
 const MUST_AXIS = MUST_IMAGE || false;
 
-var N = 3;
+var N = 4;
 
 var tables = [];
-
-var multiple = (table, a, b) => {
-	var result = table[a][b];
-	var coeff = result[1], point = result[0];
-	return [point, coeff];
-};
 
 var checkTable = (table) => {
 	"use strict";
@@ -189,12 +183,12 @@ var showResult = (table) => {
 	"use strict";
 	var result = '';
 	for (let i = 0; i < N; i ++) {
-		let multi = multiple(table, i, i);
+		let multi = table[i][i];
 		result += showLine(i, i, multi[1], multi[0]) + '\n';
 		for (let j = i + 1; j < N; j ++) {
-			multi = multiple(table, i, j);
+			multi = table[i][j];
 			result += showLine(i, j, multi[1], multi[0]) + '\t';
-			multi = multiple(table, j, i);
+			multi = table[j][i];
 			result += showLine(j, i, multi[1], multi[0]) + '\n';
 		}
 	}
