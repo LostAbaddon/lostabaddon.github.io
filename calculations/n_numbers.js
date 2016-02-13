@@ -117,7 +117,11 @@ var loop = (table) => {
 		while (hasChange) {
 			hasChange = false;
 			let value = table[i][j];
-			if (checkTable(table)) tables.push(copy(table));
+			if (checkTable(table)) {
+				console.log(showResult(table));
+				console.log('\n====\n\n');
+				tables.push(copy(table));
+			}
 			if (value[1] === -1) {
 				hasChange = true;
 				value[1] = 0;
@@ -156,7 +160,11 @@ var generate = (last) => {
 				table[i][j] = [0, 0];
 			}
 		}
-		if (checkTable(table)) tables.push(table);
+		if (checkTable(table)) {
+			console.log(showResult(table));
+			console.log('\n====\n\n');
+			tables.push(table);
+		}
 		generate(table);
 	}
 	else {
@@ -197,6 +205,7 @@ var showResult = (table) => {
 
 generate();
 
+console.log("\nVVVVVVVVVVVVVVVV\n");
 console.log(tables.map((t) => {
 	var result = showResult(t);
 	return result;
