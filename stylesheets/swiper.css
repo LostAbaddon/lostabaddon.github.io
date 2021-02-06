@@ -1,0 +1,213 @@
+.swiper-container {
+	width: 100%;
+	height: 100%;
+}
+.swiper-button {
+	transition: opacity 200ms ease-in;
+}
+.swiper-button-disabled {
+	opacity: 0;
+}
+
+.vertical .swiper-button-prev {
+	top: 0px;
+	left: 50%;
+	right: auto;
+	margin-top: 0px;
+	margin-left: -13.5px;
+	transform: rotate(90deg);
+}
+.vertical .swiper-button-next {
+	top: auto;
+	bottom: 0px;
+	left: 50%;
+	right: auto;
+	margin-top: 0px;
+	margin-left: -13.5px;
+	transform: rotate(90deg);
+}
+
+.swiper-slide-jumper {
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
+}
+.swiper-slide-jumper:hover {
+	text-decoration: underline;
+}
+.swiper-slide-jumper::after {
+	content: "\f0a5";
+	display: inline-block;
+	margin-left: 5px;
+	font: normal normal normal 14px/1 FontAwesome;
+	font-size: inherit;
+	text-rendering: auto;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+.swiper-slide-jumper:hover::after {
+	animation-name: jumper-mention;
+	animation-duration: 400ms;
+	animation-iteration-count: infinite;
+	animation-timing-function: ease-out;
+}
+
+.swiper-slide {
+	box-sizing: border-box;
+	background-color: rgba(255, 255, 255, 0.7);
+	background: -webkit-linear-gradient(0deg, rgba(255, 255, 255, 0.0) 0%, rgba(255, 255, 255, 0.7) 20%, rgba(255, 255, 255, 0.7) 80%, rgba(255, 255, 255, 0.0) 100%);
+	background: linear-gradient(0deg, rgba(255, 255, 255, 0.0) 0%, rgba(255, 255, 255, 0.7) 20%, rgba(255, 255, 255, 0.7) 80%, rgba(255, 255, 255, 0.0) 100%);
+}
+.swiper-slide.has-sub-page::after {
+	content: "\f0a7";
+	position: absolute;
+	display: block;
+	bottom: 40px;
+	right: 20px;
+	font: normal normal normal 14px/1 FontAwesome;
+	font-size: 30px;
+	text-rendering: auto;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	animation-name: ppt-mention;
+	animation-duration: 400ms;
+	animation-iteration-count: infinite;
+	animation-timing-function: ease-out;
+}
+
+.swiper-slide [data-step],
+.swiper-slide [data-fade-step] {
+	transition: all 200ms ease-in-out;
+}
+.swiper-slide [data-step] {
+	opacity: 0;
+	pointer-events: none;
+}
+.swiper-slide [data-step].show {
+	opacity: 1;
+	pointer-events: auto;
+}
+.swiper-slide [data-fade-step].fade,
+.swiper-slide [data-step][data-fade-step].fade {
+	opacity: 0;
+	pointer-events: none;
+}
+
+.swiper-container-horizontal > .swiper-pagination {
+	text-align: center;
+}
+.swiper-container-horizontal > .swiper-pagination > .swiper-pagination-inner {
+	position: relative;
+	display: inline-block;
+	padding-bottom: 5px;
+	padding-left: 10px;
+	padding-right: 10px;
+	background-color: rgba(255, 255, 255, 0);
+	border-radius: 15px;
+	box-shadow: inset 0px 0px 5px rgba(255, 255, 255, 0);
+	transition: all 200ms ease-in-out;
+}
+.swiper-container-horizontal > .swiper-pagination:hover > .swiper-pagination-inner {
+	background-color: rgba(255, 255, 255, 0.5);
+	box-shadow: inset 0px 0px 5px rgba(255, 255, 255, 1);
+}
+.swiper-container-horizontal > .swiper-pagination > .swiper-pagination-inner > .swiper-pagination-bullet {
+	margin-top: 7px;
+	border-radius: 4px;
+	transition: all 200ms ease-in-out;
+}
+.swiper-container-horizontal > .swiper-pagination:hover > .swiper-pagination-inner > .swiper-pagination-bullet {
+	opacity: 0.4;
+}
+.swiper-container-horizontal > .swiper-pagination:hover > .swiper-pagination-inner > .swiper-pagination-bullet:hover {
+	width: 15px;
+	opacity: 0.8;
+}
+
+.swiper-pagination-bullet[data-hint] {
+	position: relative;
+}
+.swiper-pagination-bullet[data-hint]::after {
+	position: absolute;
+	bottom: 15px;
+	left: 7px;
+	display: block;
+	padding: 8px;
+	border-radius: 6px;
+	transform: translateX(-50%);
+	opacity: 0;
+	background-color: rgba(0, 0, 0, 0.8);
+	content: attr(data-hint);
+	white-space: pre;
+	color: rgb(255, 255, 255);
+	transition: opacity 200ms linear;
+}
+.swiper-pagination-bullet[data-hint]:hover::after {
+	opacity: 1;
+}
+.mobile .swiper-pagination-bullet[data-hint]::after {
+	display: none;
+}
+
+.swiper-history {
+	position: absolute;
+	display: block;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 35px;
+	z-index: 100;
+	background-color: rgba(255, 255, 255, 0);
+	box-shadow: 0px 2px 5px rgba(0, 0, 0, 0);
+	transition: all 200ms linear;
+}
+.swiper-history:hover {
+	background-color: rgba(255, 255, 255, 0.4);
+	box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.4);
+}
+.swiper-history .swiper-button {
+	position: absolute;
+	width: 30px;
+	height: 30px;
+	font-size: 30px;
+	cursor: pointer;
+	opacity: 0.3;
+	transform: translateY(2px);
+	transition: opacity 200ms linear;
+}
+.swiper-history:hover .swiper-button {
+	opacity: 0.6;
+}
+.swiper-history:hover .swiper-button:hover {
+	opacity: 1;
+}
+.swiper-history .swiper-button.inactive,
+.swiper-history:hover .swiper-button.inactive,
+.swiper-history .swiper-button.inactive:hover {
+	opacity: 0.1;
+}
+.swiper-history .swiper-history-backward {
+	left: 10px;
+	text-align: left;
+}
+.swiper-history .swiper-history-forward {
+	right: 10px;
+	text-align: right;
+}
+
+@keyframes jumper-mention {
+	from {
+		margin-left: 10px;
+	}
+	to {
+		margin-left: 0px;
+	}
+}
+@keyframes ppt-mention {
+	from {
+		bottom: 45px;
+	}
+	to {
+		bottom: 35px;
+	}
+}

@@ -1,0 +1,41 @@
+body {
+	font-family: "宋体";
+	font-size: 14px;
+}
+
+.navbar {
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	font-size: 16px;
+	color: rgb(47, 47, 47);
+	z-index: 200;
+}
+.navbar .title {
+	font-weight: bolder;
+	color: rgb(0, 0, 0);
+}
+.navbar a,
+.navbar a:hover,
+.navbar a:active {
+	color: rgb(47, 47, 47);
+	text-decoration: none;
+}
+.navbar a:hover {
+	text-decoration: underline;
+}
+
+img.loading {
+	display: none;
+}
+
+a, a:hover, a:active, a:visited {
+	color: black;
+	font-weight: bolder;
+}
+a, a:active, a:visited {
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: underline;
+}
