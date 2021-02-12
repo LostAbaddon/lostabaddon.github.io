@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-24d1ed8e"],{"2a7e":function(e,n,t){"use strict";t("a117")},"8cdb":function(e,n,t){"use strict";t.r(n);var a=function(){var e=this,n=e.$createElement,t=e._self._c||n;return t("div",{staticClass:"container"},[e._v(" 星系正在构建中，请星侠稍后！ ")])},c=[],s={name:"Home"},i=s,u=(t("2a7e"),t("e032")),o=Object(u["a"])(i,a,c,!1,null,"25f6bd7a",null);n["default"]=o.exports},a117:function(e,n,t){}}]);
+//# sourceMappingURL=chunk-24d1ed8e.e077a96d.js.map

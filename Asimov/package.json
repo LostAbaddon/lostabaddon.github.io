@@ -1,0 +1,22 @@
+{
+	"name": "Asimov",
+	"version": "1.0.0",
+	"author": {
+		"name": "LostAbaddon",
+		"email": "LostAbaddon@gmail.com"
+	},
+	"description": "自制的 MarkUp（拓展 MarkDown）解析器",
+	"license": "MIT",
+	"homepage": "https://github.com/LostAbaddon/Asimov",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/LostAbaddon/Asimov"
+	},
+	"main": "index.js",
+	"engines": {
+		"node": ">=14.0.0"
+	},
+	"contributors": [
+		"LostAbaddon <lostabaddon@gmail.com>"
+	]
+}
