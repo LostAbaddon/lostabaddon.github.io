@@ -1,2 +1,0 @@
-(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-fbd6f404"],{"8cdb":function(n,e,t){"use strict";t.r(e);var c=function(){var n=this,e=n.$createElement,t=n._self._c||e;return t("div",{staticClass:"container"},[n._v(" 星系正在构建中，请星侠稍后！ ")])},d=[],a={name:"PageNotFound",mounted(){callPageLoaded()}},o=a,u=(t("dd2d"),t("e032")),s=Object(u["a"])(o,c,d,!1,null,"5c1dbefb",null);e["default"]=s.exports},cbd5:function(n,e,t){},dd2d:function(n,e,t){"use strict";t("cbd5")}}]);
-//# sourceMappingURL=chunk-fbd6f404.563b7cf6.js.map
