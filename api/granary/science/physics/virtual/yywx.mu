@@ -259,7 +259,7 @@ $$
 
 现在，两个五行场之间的相互作用最简单的形式是这样的：
 
-![最简单量子过程的费曼图草图（*实在找不到像样的费曼图制作工具了……*）](https://upload-images.jianshu.io/upload_images/19321-321ba960a0e79157.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![最简单量子过程的费曼图草图（*实在找不到像样的费曼图制作工具了……*）](/image/19321-321ba960a0e79157.png)
 
 上下的直线是五行场，中间的红圈是两个生克场。
 
