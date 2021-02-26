@@ -9,6 +9,10 @@
 			this.slideTo(index, speed, callback);
 		}
 	};
+	// 后初始化HintBullet
+	Swiper.prototype.initHintBullet = function () {
+		this.plugins.hintBullet(this);
+	};
 
 	// HintBullet上增加悬停提示
 	Swiper.prototype.plugins.hintBullet = (swiper) => {
