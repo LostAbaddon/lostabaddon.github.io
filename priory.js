@@ -1,4 +1,4 @@
-/* 更新于：2021/03/01 22:42:21 */
+/* 更新于：2021/03/02 00:31:03 */
 const CacheName = 'schwarzschild';
 const CacheUrl = [
 	'/',
@@ -33,6 +33,8 @@ self.addEventListener('fetch', evt => {
 	if (filename === 'priory.js') return;
 	if (filename.match(/(mp3|mp4)$/i)) return;
 	if (!!pathname.match(/^[\/\\]*api[\/\\]/i) || !!pathname.match(/^[\/\\]*api$/i)) return;
+	if (fullpath.match(/^\/*#\/+/)) return;
+	if (fullpath.match(/^\/*#$/)) return;
 	caches.open(CacheName).then(cache => cache.add(fullpath)); // 将适合的请求都缓存起来
 	evt.respondWith(caches.match(evt.request).then(cache => {
 		if (cache) {

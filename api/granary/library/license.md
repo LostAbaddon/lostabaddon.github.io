@@ -6,8 +6,7 @@
 
 这里我[从网上摘取][^fromnet]了最常用的几个大类的标志性开源许可，更多更细分的小许可大家可以自己点上面的链接来查看详细内容。
 
-[fromnet]: 这里感谢知乎、[网友 wadefelix](https://blog.csdn.net/wadefelix/article/details/6384317)
-、[阮一峰](https://www.ruanyifeng.com/blog/2011/05/how_to_choose_free_software_licenses.html)，以及更上游的乌克兰程序员 Paul Bagwell。
+[fromnet]: 这里感谢知乎、[网友 wadefelix](https://blog.csdn.net/wadefelix/article/details/6384317)、[阮一峰](https://www.ruanyifeng.com/blog/2011/05/how_to_choose_free_software_licenses.html)，以及更上游的乌克兰程序员 Paul Bagwell。
 
 ^^^**一张图理清各大类开源许可**^^^
 
