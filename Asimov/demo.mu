@@ -317,9 +317,9 @@ MarkUp 在图片等资源的处理上，和 MarkDown 有较大的不同。
 MarkUp 中图片还有另一个特殊技（视频与音频没有），那就是图片墙：
 
 ![第 1 张图片][pic]
-![第 2 张图片][pic]
-![第 3 张图片][pic]
-![第 4 张图片][pic]
+![第 2 张图片](https://lostabaddon.github.io/image/19321-1b14c166fc5085d3.png)
+![第 3 张图片](https://lostabaddon.github.io/image/19321-4a42ff74ab875e4e.png)
+![第 4 张图片](https://lostabaddon.github.io/image/19321-8ed744ecbfa2c36c.png)
 
 可以看到，图片被成组放置，在默认情况下是可以横向滚动的图片组，大家可以自己写 JS 与 CSS 插件来控制图片墙如何显示。
 
@@ -494,3 +494,4 @@ MarkUp 结合了 ORG 文档的元数据结构，这些元数据平时用户是�
 2.	分页功能：一份文档，多页显示
 3.	跨文件引用（需站点配合）
 4.	编辑器更友好，提供更多功能
+5.	PPT 模式
