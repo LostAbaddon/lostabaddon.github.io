@@ -7,3 +7,4 @@
 ---
 
 -	[无版权音乐网站](/page/freemusic)
+-	[开源许可小小节](/article/library/license.md)
