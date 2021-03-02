@@ -1,0 +1,370 @@
+div.RushGo {
+	position: relative;
+	box-sizing: border-box;
+	width: 800px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: -20px;
+}
+@media screen and (max-width: 800px) {
+	div.RushGo {
+		width: 100%;
+	}
+}
+
+div.RushGo div.gameArea {
+	position: relative;
+	width: 100%;
+	max-width: 800px;
+	margin-left: auto;
+	margin-right: auto;
+}
+div.RushGo div.boardPad {
+	position: relative;
+	box-sizing: border-box;
+	width: 100%;
+	height: 0;
+	padding-bottom: 100%;
+	box-shadow: 0px 0px 2px 1px rgb(167, 142, 68), 2px 2px 5px rgba(107, 104, 130, 0.3);
+	cursor: pointer;
+}
+
+div.RushGo div.actionPad {
+	padding-top: 0px;
+	padding-bottom: 20px;
+	font-size: 0;
+}
+.mobile div.RushGo div.actionPad {
+	padding-top: 20px;
+}
+div.RushGo div.actionPad div.panel div.info_header {
+	font-size: 24px;
+	font-weight: bolder;
+}
+div.RushGo div.actionPad div.panel.info div.info {
+	display: block;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	font-size: 0px;
+	user-select: none;
+}
+div.RushGo div.actionPad div.panel.info div.info span {
+	display: inline-block;
+	font-size: 22px;
+	box-sizing: border-box;
+	pointer-events: none;
+}
+div.RushGo div.actionPad div.panel.info div.info span.name {
+	width: 80px;
+	font-weight: bolder;
+	text-align: left;
+}
+div.RushGo div.actionPad div.panel.info div.info.user span.name {
+	border-left: 4px solid rgba(248, 195, 205, 0);
+	padding-left: 4px;
+	transition: all ease 250ms;
+	pointer-events: auto;
+	cursor: pointer;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+div.RushGo div.actionPad div.panel.info div.info.user.selected span.name {
+	border-left: 4px solid rgb(248, 195, 205, 1);
+}
+div.RushGo div.actionPad div.panel.info div.info span.win {
+	width: 80px;
+}
+div.RushGo div.actionPad div.panel.info div.info span.score {
+	width: 90px;
+}
+div.RushGo div.actionPad div.panel.info div.info span.time {
+	width: 90px;
+}
+div.RushGo div.actionPad div.panel.info div.info.user span {
+	font-size: 16px;
+	vertical-align: middle;
+}
+div.RushGo div.actionPad div.panel div.info_header span.loop span {
+	font-size: 14px;
+	font-weight: 100;
+}
+div.RushGo div.actionPad div.panel.control {
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	font-size: 20px;
+	opacity: 0;
+	text-align: right;
+	transition: opacity 250ms ease;
+	pointer-events: none;
+}
+.reviewing div.RushGo div.actionPad div.panel {
+	opacity: 1;
+	pointer-events: auto;
+}
+div.RushGo div.actionPad div.panel div.subpanel {
+	position: relative;
+	display: inline-block;
+	text-align: center;
+	vertical-align: top;
+}
+div.RushGo div.actionPad div.panel div.subpanel div.btn {
+	padding: 5px 10px;
+	cursor: pointer;
+	user-select: none;
+}
+div.RushGo div.resultPad,
+div.RushGo div.roleSelector,
+div.RushGo div.addRole,
+div.RushGo div.gameMode {
+	position: absolute;
+	box-sizing: border-box;
+	width: 100%;
+	height: 0;
+	top: 0px;
+	padding-bottom: 100%;
+	font-size: 0px;
+	opacity: 0;
+	pointer-events: none;
+	transition: ease 300ms all;
+}
+div.RushGo div.roleSelector,
+div.RushGo div.addRole {
+	background-color: rgba(242, 202, 201, 0.9);
+	user-select: none;
+}
+div.RushGo div.resultPad,
+div.RushGo div.gameMode {
+	background-color: rgba(242, 202, 201, 0.4);
+}
+div.RushGo div.resultPad.show,
+div.RushGo div.roleSelector.show,
+div.RushGo div.addRole.show,
+div.RushGo div.gameMode.show {
+	opacity: 1;
+	pointer-events: auto;
+}
+div.RushGo div.resultPad div.info,
+div.RushGo div.resultPad div.restart,
+div.RushGo div.resultPad div.chooseMode,
+div.RushGo div.resultPad div.review {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translateX(-50%);
+	text-shadow: 1px 1px 2px rgba(24, 22, 35, 0.6);
+	user-select: none;
+}
+.mobile div.RushGo div.resultPad div.info {
+	font-size: 32px;
+}
+.mobile div.RushGo div.resultPad div.restart,
+.mobile div.RushGo div.resultPad div.chooseMode,
+.mobile div.RushGo div.resultPad div.review {
+	font-size: 22px;
+}
+div.RushGo div.resultPad div.info {
+	margin-top: -100px;
+	font-size: 40px;
+	text-align: center;
+}
+div.RushGo div.resultPad div.restart {
+	margin-top: 20px;
+	font-size: 30px;
+	cursor: pointer;
+}
+div.RushGo div.resultPad div.chooseMode {
+	margin-top: 80px;
+	font-size: 30px;
+	cursor: pointer;
+}
+div.RushGo div.resultPad div.review {
+	margin-top: 140px;
+	font-size: 30px;
+	cursor: pointer;
+}
+div.RushGo div.resultPad.init div.review {
+	display: none;
+}
+
+div.RushGo div.roleSelector div.title {
+	margin-top: 30px;
+	font-size: 30px;
+	font-weight: bolder;
+	text-align: center;
+	text-shadow: 1px 1px 2px black
+}
+.mobile div.RushGo div.roleSelector div.title {
+	margin-top: 15px;
+	font-size: 24px;	
+}
+div.RushGo div.roleSelector div.roleList {
+	position: absolute;
+	top: 75px;
+	bottom: 50px;
+	left: 20px;
+	right: 20px;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+div.RushGo div.roleSelector div.roleList div.role {
+	margin: 10px;
+	font-size: 20px;
+	color: rgb(245, 253, 255);
+	text-shadow: 0px 0px 3px rgba(53, 53, 53, 0.7), 0px 0px 1px rgba(85, 85, 85, 0.9), 1px 1px 2px rgba(85, 85, 85, 0.3);
+	cursor: pointer;
+	transition: color ease 250ms;
+}
+div.RushGo div.roleSelector div.roleList div.role:hover {
+	color: black;
+}
+.mobile div.RushGo div.roleSelector div.roleList div.role {
+	font-size: 16px;
+}
+div.RushGo div.roleSelector div.roleList div.role span {
+	display: inline-block;
+	pointer-events: none;
+}
+div.RushGo div.roleSelector div.roleList div.role span.name {
+	width: 180px;
+}
+div.RushGo div.roleSelector div.roleList div.role span.score.black {
+	width: 260px;
+}
+div.RushGo div.roleSelector div.roleList div.intro {
+	margin: 5px 20px 5px 40px;
+	font-size: 16px;
+	color: rgb(245, 253, 255);
+	text-shadow: 1px 1px 3px rgba(53, 53, 53, 0.7);
+	pointer-events: none;
+}
+div.RushGo div.roleSelector div.roleList div.intro span.sep {
+	display: inline-block;
+	width: 25px;
+}
+div.RushGo div.roleSelector div.btnArea {
+	position: absolute;
+	bottom: 15px;
+	width: 100%;
+	text-align: center;
+}
+div.RushGo div.roleSelector div.btnArea div.btn {
+	display: inline-block;
+	margin-left: 50px;
+	margin-right: 50px;
+	color: rgb(245, 253, 255);
+	font-size: 20px;
+	text-shadow: 1px 1px 3px rgba(25, 25, 25, 0.8);
+	cursor: pointer;
+}
+
+div.RushGo div.addRole div {
+	box-sizing: border-box;
+	padding-left: 20px;
+	padding-right: 20px;
+	font-size: 20px;
+	color: rgb(245, 253, 255);
+	text-shadow: 1px 1px 2px rgb(75, 75, 75);
+	vertical-align: middle;
+}
+div.RushGo div.addRole div.title {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	font-size: 28px;
+	text-align: center;
+}
+div.RushGo div.addRole div input,
+div.RushGo div.addRole div select {
+	padding: 2px 5px;
+	border: none;
+	border-bottom: 1px solid rgb(53, 53, 53);
+	outline: none;
+	background-color: transparent;
+	vertical-align: middle;
+}
+div.RushGo div.addRole div input[type="number"] {
+	width: 50px;
+}
+div.RushGo div.addRole div select {
+	width: 60px;
+}
+div.RushGo div.addRole div span.sep {
+	display: inline-block;
+	width: 30px;
+}
+div.RushGo div.addRole div span.label {
+	display: inline-block;
+	width: 100px;
+	text-align: right;
+}
+div.RushGo div.addRole div span.radio,
+div.RushGo div.gameMode div span.radio {
+	cursor: pointer;
+}
+div.RushGo div.addRole div.controller {
+	margin-top: 20px;
+	text-align: center;
+}
+div.RushGo div.addRole div.controller span.btn {
+	margin-left: 20px;
+	margin-right: 20px;
+	font-size: 24px;
+	cursor: pointer;
+}
+div.RushGo div.addRole div.prop.aiThree {
+	display: none;
+}
+div.RushGo div.addRole[currentoption="aiThree"] div.prop.aiThree {
+	display: block;
+}
+
+div.RushGo div.gameMode {
+	background-color: rgba(120, 127, 128, 0.8);
+	color: rgb(250, 250, 255);
+	user-select: none;
+}
+div.RushGo div.gameMode div.title {
+	margin-top: 50px;
+	margin-bottom: 10px;
+	font-size: 36px;
+	text-shadow: 1px 1px 3px rgba(53, 53, 53, 0.6);
+	text-align: center;
+}
+.mobile div.RushGo div.gameMode div.title {
+	margin-top: 20px;
+	font-size: 30px;
+}
+div.RushGo div.gameMode div.subpanel {
+	box-sizing: border-box;
+	padding: 30px;
+	font-size: 20px;
+}
+.mobile div.RushGo div.gameMode div.subpanel {
+	padding: 20px;
+}
+div.RushGo div.gameMode div.subpanel span.subtitle {
+	font-weight: bold;
+}
+div.RushGo div.gameMode div.center {
+	margin-top: 50px;
+	text-align: center;
+}
+div.RushGo div.gameMode div.center span.btn {
+	padding: 5px 10px;
+	border-radius: 10px;
+	box-shadow: 2px 2px 5px rgba(53, 53, 53, 0.9), 1px 1px 3px rgb(25, 25, 25);
+	font-size: 24px;
+	cursor: pointer;
+	transition: all 200ms ease-in-out;
+}
+div.RushGo div.gameMode div.center span.btn:hover {
+	box-shadow: 0px 0px 3px rgba(53, 53, 53, 0.9), 0px 0px 2px rgb(25, 25, 25);
+}
+
+#GoBoard {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background-color: rgb(111, 79, 34);
+}

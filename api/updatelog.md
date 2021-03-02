@@ -1,7 +1,8 @@
 # 更新日志
 
 -	2021/03/02
-	+	迁徙游戏：[诡异哥布林与不靠谱守卫](/page/entertain/bunceball)
+	+	迁徙游戏：[五子棋](/page/entertain/rushgo)
+	+	迁徙游戏：[诡异哥布林与不靠谱守卫](/page/entertain/ballcrush)
 -	2021/03/01
 	+	添加收藏：开源许可
 	+	优化缓存策略
