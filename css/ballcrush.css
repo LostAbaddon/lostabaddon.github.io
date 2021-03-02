@@ -1,0 +1,121 @@
+div.viewer.ballcrush {
+	margin-bottom: -25px;
+}
+.mobile div.viewer.ballcrush {
+	margin-top: -20px;
+	margin-left: -10px !important;
+}
+div.container.ballcrush {
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;
+	overflow: hidden;
+	background-color: black;
+	box-shadow: 2px 2px 5px white;
+	color: white;
+}
+div.container.ballcrush div.controller {
+	padding-top: 9px;
+	padding-bottom: 9px;
+}
+.mobile div.container.ballcrush div.controller {
+	padding-left: 40px;
+}
+div.container.ballcrush div.line div.info {
+	padding-left: 10px;
+	font-size: 14px;
+}
+.mobile div.container.ballcrush div.line div.info {
+	font-size: 12px;
+}
+div.container.ballcrush div.line div.info span {
+	display: inline-block;
+	min-width: 40px;
+	margin-right: 10px;
+}
+div.container.ballcrush canvas {
+	cursor: none;
+}
+div.container.ballcrush div.area {
+	position: relative;
+}
+div.container.ballcrush div.area div.infoPad {
+	position: absolute;
+	top: 0px;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+	background-color: rgba(225, 225, 225, 0.85);
+	opacity: 0;
+	transition: opacity ease-in-out 250ms;
+	pointer-events: none;
+}
+div.container.ballcrush div.area div.infoPad.shown {
+	opacity: 1;
+	pointer-events: auto;
+}
+div.container.ballcrush div.area div.infoPad div.title {
+	position: absolute;
+	top: 50%;
+	width: 100%;
+	transform: translateY(-50%);
+	line-height: 40px;
+	font-size: 24px;
+	font-weight: bolder;
+	text-align: center;
+	color: black;
+	cursor: pointer;
+}
+div.container.ballcrush div.area div.infoPad div.title button {
+	margin: 20px;
+	font-size: 20px;
+}
+div.container.ballcrush div.area div.infoPad div.title ol {
+	padding-inline-start: 50px;
+	font-size: 20px;
+	text-align: left;
+}
+div.container.ballcrush div.area div.infoPad div.title ol p {
+	margin-top: 20px;
+	margin-bottom: 0px;
+}
+div.container.ballcrush div.area div.infoPad div.title ol li {
+	font-size: 16px;
+	font-weight: normal;
+}
+div.container.ballcrush div.area div.infoPad div.title ol span {
+	display: inline-block;
+	margin-right: 10px;
+}
+div.container.ballcrush div.area div.infoPad div.title ol span.date {
+	width: 80px;
+}
+div.container.ballcrush div.area div.infoPad div.title ol span.score {
+	width: 80px;
+}
+div.container.ballcrush div.area div.infoPad div.title ol span.level {
+	width: 60px;
+	margin-right: 0px;
+}
+div.container.ballcrush div.area div.infoPad div.mode {
+	display: block;
+	box-sizing: border-box;
+	width: 200px;
+	margin-top: 40px;
+	margin-bottom: 40px;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 20px;
+	border-radius: 10px;
+	background-color: rgba(235, 235, 235, 0.5);
+	box-shadow: 2px 2px 5px rgba(53, 53, 53, 0.4), inset 0px 0px 2px white;
+	font-size: 24px;
+	text-shadow: 0px 0px 2px black;
+	text-align: center;
+	cursor: pointer;
+	user-select: none;
+}
+div.container.ballcrush div.area div.infoPad div.mode[mode="back"] {
+	margin-top: 60px;
+	padding: 10px 20px;
+}
