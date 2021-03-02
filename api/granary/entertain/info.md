@@ -2,6 +2,8 @@
 
 [toc]
 
+++++
+
 # 诡异哥布林与不靠谱守卫
 
 [点击进入](/page/entertain/ballcrush)
@@ -30,6 +32,8 @@
 -	地狱禅修：五种哥布林都会出场，但守卫生命无限
 
 [点击进入](/page/entertain/ballcrush)
+
+++++
 
 # 五子棋
 
