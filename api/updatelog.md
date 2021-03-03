@@ -1,5 +1,8 @@
 # 更新日志
 
+-	2021/03/03
+	+	从 Vue 2 升级到 Vue 3
+	+	使用自制 Notification 组件以去除对 vue-notification 的依赖
 -	2021/03/02
 	+	迁徙游戏：[五子棋](/page/entertain/rushgo)
 	+	迁徙游戏：[诡异哥布林与不靠谱守卫](/page/entertain/ballcrush)
