@@ -7,4 +7,5 @@
 ++++
 
 -	[无版权音乐网站](/page/freemusic)
+-	[电子书下载站集锦](/article/library/ebooks.md)
 -	[开源许可小小节](/article/library/license.md)
