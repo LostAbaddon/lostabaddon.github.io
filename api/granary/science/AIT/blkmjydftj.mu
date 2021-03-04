@@ -1,4 +1,5 @@
 标题：关于递归可枚举集与丢番图集的一些记录
+作者：LostAbaddon
 更新：2020.01.11 01:19:56
 
 因为网友[十酒三](https://www.jianshu.com/u/edebc9e9b04a)的[文章](https://www.jianshu.com/p/9677089d2017)，突然对丢番图集产生了兴趣。

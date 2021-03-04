@@ -1,4 +1,5 @@
 标题：关于相信 NP 不是 P 的一个奇怪思路
+作者：LostAbaddon
 更新：2020.03.05 17:56:05
 
 首先，如果 [NP = P](https://en.wikipedia.org/wiki/NP_(complexity)) 的话，那就是说任意一个 NP 问题都可以转化为一个 P 问题。

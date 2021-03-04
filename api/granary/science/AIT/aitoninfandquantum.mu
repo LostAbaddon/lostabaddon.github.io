@@ -1,4 +1,5 @@
 标题：AIT on Infinity and Quantum
+作者：LostAbaddon
 更新：2020.03.03 22:04:53
 
 > 因为疫情而在家的这段时间，又看了点关于 AIT 的书，然后想了一些东西，记录下来。
