@@ -1,2 +1,2 @@
 (window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-2d0e95df"],{"8cdb":function(e,c,n){"use strict";n.r(c);var t=n("79c4");const a={class:"page_not_found"},d=Object(t["h"])("div",{class:"frame"},null,-1),o=Object(t["h"])("div",{class:"title"},[Object(t["g"])("星系正在构建中，请星侠稍后！"),Object(t["h"])("br"),Object(t["h"])("span",null,"（如新页面打开后进入这里，请关闭浏览器页面重新打开试试！）")],-1);function s(e,c,n,s,u,b){return Object(t["q"])(),Object(t["d"])("div",a,[d,o])}var u={name:"PageNotFound",mounted(){callPageLoaded()}};u.render=s;c["default"]=u}}]);
-//# sourceMappingURL=chunk-2d0e95df.3f9ad859.js.map
+//# sourceMappingURL=chunk-2d0e95df.js.map
