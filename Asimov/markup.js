@@ -1813,6 +1813,7 @@
 		result.content = text;
 		result.title = docTree.metas.title;
 		result.lineCount = docTree.metas.totalLineCount;
+		result.chapList = docTree.chapList;
 
 		result.meta = {};
 		result.meta.author = docTree.metas.author;
