@@ -2,7 +2,8 @@
 
 >	出品方：**过期网红回收处理中心**{|}
 
-[点击进入节目喜马拉雅频道](https://www.ximalaya.com/yule/46899127/){|}
+[点击进入喜马拉雅频道](https://www.ximalaya.com/yule/46899127/)
+[点击进入小宇宙频道](https://www.xiaoyuzhoufm.com/podcast/6034cf819d8676983dcf81ef){|}
 
 本播客节目是由“过期网红回收处理中心”出品的泛娱乐清谈节目。
 
@@ -11,6 +12,10 @@
 每周一零点更新，敬请期待！
 
 -	**2021年**
-	1.	[《我们为什么不能好好说话？》](https://www.ximalaya.com/yule/46899127/388141549) （2021/02/22）
-	2.	[《现代年轻人为什么恋爱这么难？》](https://www.ximalaya.com/yule/46899127/390464943) （2021/03/01）
-	3.	[《为什么我们活得这么累？》](https://www.ximalaya.com/yule/46899127/392733660) （2021/03/08）
+	1.	《我们为什么不能好好说话？》 （2021/02/22）
+			-	[喜马拉雅入口](https://www.ximalaya.com/yule/46899127/388141549)
+	2.	《现代年轻人为什么恋爱这么难？》 （2021/03/01）
+			-	[喜马拉雅入口](https://www.ximalaya.com/yule/46899127/390464943)
+	3.	《为什么我们活得这么累？》 （2021/03/08）
+			-	[喜马拉雅入口](https://www.ximalaya.com/yule/46899127/392733660)
+			-	[小宇宙入口](https://www.xiaoyuzhoufm.com/episode/6044f85d55a0d3f4b8f96616?s=eyJ1IjogIjYwMjBkMDBjZTBmNWU3MjNiYmE4OTQyZSJ9)
