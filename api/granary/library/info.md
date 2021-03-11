@@ -6,6 +6,12 @@
 
 ++++
 
+-	传统颜色表
+	+	[中国传统颜色](/page/chinesecolor)
+	+	[日本传统颜色](/page/japanesecolor)
+-	常用代码表
+	+	[MarkUp 语法表](/page/markup)
+	+	[LaTeX 数学公式表](/page/latex)
 -	[无版权音乐网站](/page/freemusic)
 -	[电子书下载站集锦](/article/library/ebooks.md)
 -	[开源许可小小节](/article/library/license.md)
