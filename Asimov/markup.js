@@ -411,8 +411,9 @@
 	const parsePlainParaStyle = (line, doc) => {
 		var prefix = '<p', postfix = '</p>', classes = [];
 
-		// 对齐
-		var align = line.match(/^\{[<\|>]\}|\{[<\|>]\}$/);
+		// 前置对齐
+		var lineContent = line.replace(/^[ 　\t]*(<\w+.*?>)?[ 　\t]*/, '');
+		var align = lineContent.match(/^\{[<\|>]\}/);
 		if (!!align) {
 			align = align[0];
 			if (align === '{<}') {
@@ -424,16 +425,32 @@
 			else if (align === '{>}') {
 				classes.push('align-right');
 			}
-			line = line.replace(/^\{[<\|>]\}|\{[<\|>]\}$/g, '');
+			line = line.replace(/^[ 　\t]*(<\w+.*?>)?[ 　\t]*\{[<\|>]\}[ 　\t]*/, (match, head) => head || '');
+		}
+		// 后置对齐
+		lineContent = line.replace(/[ 　\t]*(<\/\w+.*?>)?[ 　\t]*$/, '');
+		align = lineContent.match(/\{[<\|>]\}$/);
+		if (!!align) {
+			align = align[0];
+			if (align === '{<}') {
+				classes.push('align-left');
+			}
+			else if (align === '{|}') {
+				classes.push('align-center');
+			}
+			else if (align === '{>}') {
+				classes.push('align-right');
+			}
+			line = line.replace(/[ 　\t]*\{[<\|>]\}[ 　\t]*(<\/\w+.*?>)?[ 　\t]*$/, (match, tail) => tail || '');
 		}
 
 		// 缩进
-		var lineContent = line.replace(/^[ 　\t]*<\w+.*?>[ 　\t]*/, '');
-		var indent = lineContent.match(/^(:+)/);
+		lineContent = line.replace(/^[ 　\t]*(<\w+.*?>)?[ 　\t]*/, '');
+		var indent = lineContent.match(/^:+/);
 		if (!!indent && !lineContent.match(/^:([\w\-\.]+?):/)) {
 			indent = indent[0];
 			classes.push('indent', 'indent-' + indent.length);
-			line = line.replace(/^([ 　\t]*<\w+.*?>[ 　\t]*):+/, (match, head) => head);
+			line = line.replace(/^[ 　\t]*(<\w+.*?>)?[ 　\t]*:+/, (match, head) => head || '');
 		}
 
 		// 合成样式
