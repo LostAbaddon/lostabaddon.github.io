@@ -77,6 +77,7 @@
 -	[Gallerix](https://gallerix.asia/)
 	巨人网上博物馆，大量油画在线看
 -	[搜书网](https://wsucai.com/)
+-	[Blah书库](https://blah.me)
 -	[FeedBooks](http://www.feedbooks.com/)
 -	[好读](http://haodoo.net/)
 	免费的线上繁体中文图书馆，可在线阅读及下载，可下载的格式有：updb，pdb，prc，epub。
@@ -90,6 +91,7 @@
 	中国哲学书电子化计划是一个线上开放电子图书馆，为中外学者提供中国历代传世文献，力图超越印刷媒体限制，通过电子科技探索新方式与古代文献进行沟通。其收藏的文本已超过三万部著作，并有五十亿字之多，是最大的中文文献资料库。
 -	[高清杂志网](http://www.gqzzw.com/)
 	提供杂志国内热门原版高清电子杂志下载服务,目前有财经理财、电脑数码、故事传奇、婚姻家庭、健康养生、教育教学、经济法律、科技科普、旅游民俗、女性杂志等等。
+-	[晨曦图书馆（知网论文）](https://31sanyi.neocities.org/zwsjk.html)
 -	[蚂蚁搜书](http://book.mybanshu.win/)
 	IT书更多的资源网站，支持下载，不支持kindle推送。注册需要加微信索要邀请码，也是管理很严格了。
 -	[Baen Free Library](https://www.baen.com/)
@@ -98,6 +100,7 @@
 	专为码农提供的电子书下载网站，有些是需要付费的，有些是免费的。
 -	[搬书匠](http://www.banshujiang.cn/)
 	编程书籍一把抓
+-	[脚本之家](https://www.jb51.net/)
 -	[心晴丨心理学书籍](http://www.ixinqing.com/)
 	一家专注于心理学入门与自我成长的网站，在这里你可以分享交流心理学入门学习心得,免费心理学书籍入门在线阅读，学习心理学和行为心理学知识。
 -	[知轩藏书](http://www.zxcs.me/)
