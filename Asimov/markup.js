@@ -113,7 +113,7 @@
 	// 准备文档，进行必要的预处理
 	const prepare = text => {
 		text = '\n' + text + '\n';
-		text = text.replace(/\r\n/g, '\n').replace(/\n([ 　]+)/g, (match, spaces) => {
+		text = text.replace(/(\r\n|\n\r)/g, '\n').replace(/\n([ 　]+)/g, (match, spaces) => {
 			var len = spaces.replace(/　/g, '  ').length;
 			if (len < 4) return '\n';
 			else return match;
@@ -302,8 +302,7 @@
 			blockMap[line[0]] = line;
 		});
 
-		var changed = true;
-		changed = false;
+		var changed = false;
 
 		if (blocks.length > 0) {
 			// LaTeX 数学公式
@@ -429,11 +428,12 @@
 		}
 
 		// 缩进
-		var indent = line.match(/^(:+)/);
-		if (!!indent && !line.match(/^:([\w\-\.]+?):/)) {
+		var lineContent = line.replace(/^[ 　\t]*<\w+.*?>[ 　\t]*/, '');
+		var indent = lineContent.match(/^(:+)/);
+		if (!!indent && !lineContent.match(/^:([\w\-\.]+?):/)) {
 			indent = indent[0];
 			classes.push('indent', 'indent-' + indent.length);
-			line = line.replace(/^:+/, '');
+			line = line.replace(/^([ 　\t]*<\w+.*?>[ 　\t]*):+/, (match, head) => head);
 		}
 
 		// 合成样式
@@ -1112,34 +1112,22 @@
 		}
 
 		// 整理文档
-		var isSub = false;
-		list = quotes.map(info => {
+		var needIndent = true;
+		list = quotes.map((info, i) => {
 			var id = info[0];
 			var ctx = contents[id];
+			if (i > 0) needIndent = needIndent && !!ctx.match(/^(\t|　　|    | 　 |  　|　  )/);
 
 			// 去除前缀
-			var head = ctx.match(/^[ 　\t]+/);
-			if (!!head) {
-				head = head[0];
-				let len = 0;
-				let h = head.match(/ /g);
-				if (!!h) len += h.length;
-				h = head.match(/　/g);
-				if (!!h) len += h.length * 2;
-				h = head.match(/\t/g);
-				if (!!h) len += h.length * 4;
-				h = (Math.floor(len / 4) - 1) * 4;
-				let spaces = '';
-				for (let i = 0; i < h - 4; i ++) spaces += ' ';
-				ctx = ctx.replace(head, spaces);
-				isSub = h > 0;
+			var ct = ctx.replace(/^(\t|　　|    | 　 |  　|　  )/, '');
+			if (ct !== ctx && needIndent) {
+				ctx = ct;
 			}
 			else {
 				head = ctx.match(/^>[ 　\t]*/);
 				if (!!head) {
 					head = head[0];
 					ctx = ctx.replace(head, '');
-					isSub = !!ctx.match(/^>[ 　\t]*/);
 				}
 			}
 			return ctx;
@@ -1180,21 +1168,7 @@
 			}
 
 			// 缩进项
-			head = ctx.match(/^[ 　\t]+/);
-			if (!!head) {
-				head = head[0];
-				let len = 0;
-				let h = head.match(/ /g);
-				if (!!h) len += h.length;
-				h = head.match(/　/g);
-				if (!!h) len += h.length * 2;
-				h = head.match(/\t/g);
-				if (!!h) len += h.length * 4;
-				h = (Math.floor(len / 4) - 1) * 4;
-				let spaces = '';
-				for (let i = 0; i < h - 4; i ++) spaces += ' ';
-				ctx = ctx.replace(head, spaces);
-			}
+			ctx = ctx.replace(/^(\t|　　|    | 　 |  　|　  )/, '');
 			list[lid].push(ctx);
 		});
 		list = list.map(item => {
@@ -1701,7 +1675,6 @@
 				if (!!word) return word;
 				return match;
 			});
-			var content = parseLine(line, doc);
 			doc.refs[key] = line;
 		});
 		Object.keys(doc.blocks).forEach(key => {
