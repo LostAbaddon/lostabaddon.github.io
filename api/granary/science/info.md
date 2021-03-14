@@ -7,3 +7,6 @@
 # 科普系列
 
 -	[量子理论基础科普讲座](/page/popsci/quantum1)
+-	[狭义相对论](/article/science/physics/kpsr.mu)
+-	[广义相对论·1](/article/science/physics/kpgr1.mu)
+-	[广义相对论·2](/article/science/physics/kpgr2.mu)
