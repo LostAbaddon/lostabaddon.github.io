@@ -1,4 +1,4 @@
-/* 更新于：2021/03/13 13:47:31 */
+/* 更新于：2021/03/14 15:35:52 */
 const CacheName = 'schwarzschild';
 const CacheUrl = [
 	'/',
