@@ -1,13 +1,1 @@
-LifeCycle.on.ready(app => {
-	if (Devices.isMobile && Devices.isSafari) {
-		const app = document.querySelector('#app');
-		app.innerHTML = "<p>阁下所用之浏览器似乎是移动版 Safari。</p><p>由于其对 ES6 的支持之恶劣，以及鄙人不吝于屈尊降贵来适配它，故请阁下换用现代浏览器。</p><p>告辞不送。</p>";
-		app.style.position = 'absolute';
-		app.style.height = 'auto';
-		app.style.top = '50%';
-		app.style.transform = 'translateY(-50%)';
-		app.style.textAlign = 'center';
-		app.style.fontWeight = 'bolder';
-		return true;
-	}
-});
+LifeCycle.on.ready(t=>{if(Devices.isMobile&&Devices.isSafari){const e=document.querySelector("#app");return e.innerHTML="<p>\u9601\u4E0B\u6240\u7528\u4E4B\u6D4F\u89C8\u5668\u4F3C\u4E4E\u662F\u79FB\u52A8\u7248 Safari\u3002</p><p>\u7531\u4E8E\u5176\u5BF9 ES6 \u7684\u652F\u6301\u4E4B\u6076\u52A3\uFF0C\u4EE5\u53CA\u9119\u4EBA\u4E0D\u541D\u4E8E\u5C48\u5C0A\u964D\u8D35\u6765\u9002\u914D\u5B83\uFF0C\u6545\u8BF7\u9601\u4E0B\u6362\u7528\u73B0\u4EE3\u6D4F\u89C8\u5668\u3002</p><p>\u544A\u8F9E\u4E0D\u9001\u3002</p>",e.style.position="absolute",e.style.height="auto",e.style.top="50%",e.style.transform="translateY(-50%)",e.style.textAlign="center",e.style.fontWeight="bolder",!0}});

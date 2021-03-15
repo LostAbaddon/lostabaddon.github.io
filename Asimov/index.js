@@ -1,3 +1,1 @@
-require('./markup');
-
-module.exports = MarkUp;
+require("./markup"),module.exports=MarkUp;

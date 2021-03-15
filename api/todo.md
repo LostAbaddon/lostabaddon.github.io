@@ -1,10 +1,9 @@
 # TODO
 
 -	整体
-	1.	发布时自动UGLIY
-	2.	收藏夹与历史记录
+	1.	收藏夹与历史记录
+	2.	集成 SimpleGit
 	3.	与 Extension 联动
-	4.	集成 SimpleGit
 -	目录页
 	1.	分页功能
 	2.	分类功能
