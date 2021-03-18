@@ -249,6 +249,8 @@ MarkDown 中触发引用的语法我们自然也继承了：
 
 ## 公式块与代码块
 
+### 公式块
+
 这部分的语法与 MarkDown 一样，我们同样采用 [MathJax][:mj] 做公式转义。
 
 [mj]: 这里采用的是 [MathJax 2.5](https://www.mathjax.org/mathjax-v2-5-now-available/)。
@@ -260,6 +262,56 @@ R_{\mu\nu} - \frac{1}{2} R g_{\mu\nu} = G T_{\mu\nu}
 $$
 
 也可以是行内公式，比如： $E = m c^2$。
+
+### 代码块
+
+此外，代码块也和 MarkDown 语法一样，在行内用 \` 来做前后缀，或者段落级的用 \`\`\` 或者 \~\~\~ 来做前后缀，在启动前缀后可以跟语言名，目前只支持`text`、`plaintext` 和 `javascript`，比如下面这样：
+
+~~~ text
+``` javascript
+const demoStr1 = "var function = () => '123';";
+const demoStr2 = 'var function = () => "123";';
+const demoStr3 = "var function = () => \"123\";";
+const demoStr4 = 'var function = () => \'123\';';
+const demoStr5 = `var function hello = () => {
+	return "All these are not function... Just test if while for return else new delete..."
+}`;
+
+const tester = function (num) {
+	var result = Math.sqrt(Math.abs(1 - num * num));
+	if (result > 1) return 1 - 1 / result;
+	else return result;
+};
+(async () => {
+	await console.log(tester(123));
+}) ();
+
+let demoStr6 = "This 'is' a 'test'!";
+```
+~~~
+
+解析后的结果为：
+
+``` javascript
+const demoStr1 = "var function = () => '123';";
+const demoStr2 = 'var function = () => "123";';
+const demoStr3 = "var function = () => \"123\";";
+const demoStr4 = 'var function = () => \'123\';';
+const demoStr5 = `var function hello = () => {
+	return "All these are not function... Just test if while for return else new delete..."
+}`;
+
+const tester = function (num) {
+	var result = Math.sqrt(Math.abs(1 - num * num));
+	if (result > 1) return 1 - 1 / result;
+	else return result;
+};
+(async () => {
+	await console.log(tester(123));
+}) ();
+
+let demoStr6 = "This 'is' a 'test'!";
+```
 
 ## 表格
 
@@ -499,3 +551,5 @@ MarkUp 结合了 ORG 文档的元数据结构，这些元数据平时用户是�
 3.	跨文件引用（需站点配合）
 4.	编辑器更友好，提供更多功能
 5.	PPT 模式
+6.	MindMap 模式
+7.	流程图模式
