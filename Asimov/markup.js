@@ -2,7 +2,7 @@
 `+s+`
 `,s=s.replace(/(\r\n|\n\r)/g,`
 `).replace(/\n([ 　]+)/g,(a,t)=>{var i=t.replace(/　/g,"  ").length;return i<4?`
-`:a}),s=s.replace(/(\n[ 　\t>\-\+\*~(\d+\.)]+)(`{3}|~{3}|\${2})/g,(a,t,i)=>t+`
+`:a}),s=s.replace(/(\n[ 　\t>\-\+\*(\d+\.)]+)(`{3}|~{3}|\${2})/g,(a,t,i)=>t+`
 `+i),F.forEach(a=>{var t=new RegExp("([\\w\\W]? *)\\["+a+"\\]( *[\\w\\W]?)","gi");s=s.replace(t,(i,l,r)=>l==="]"||r==="["||r==="("?i:l+"%"+a+"%"+r)}),s),ne=s=>(s=s.replace(/^\n+|\n+$/gi,""),s=s.replace(/\n{3,}/gi,`
 
 
