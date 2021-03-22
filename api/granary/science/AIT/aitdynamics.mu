@@ -15,7 +15,7 @@
 
 假定 S(t) 是可计算的，那么我们可以构造如下程序：
 
-```
+``` javascript
 paradox := (t) =>
     i := 0
     while i <= S(t)
@@ -27,7 +27,7 @@ paradox := (t) =>
 
 同理，构造如下程序：
 
-```
+``` javascript
 canStop := (t) =>
     l := S(t.length)
     for i := 0; i < l; i ++
@@ -45,7 +45,7 @@ canStop := (t) =>
 
 但，我们可以构造一个有意思的程序：
 
-```
+``` javascript
 canStopInStep := (t, s) =>
     for i := 0; i < s; i ++
         stop := doStep(t)
@@ -60,7 +60,7 @@ canStopInStep := (t, s) =>
 
 可以构造如下程序：
 
-```
+``` javascript
 loop := (s) =>
     i := 0
     while i <= s
@@ -93,7 +93,7 @@ $$
 
 现在我们换一个角度来看这个问题，有没有可能把这个下界进一步往上推？比如下面这段程序：
 
-```
+``` javascript
 loop := () =>
     s := generate()
     i := 0
@@ -131,7 +131,7 @@ $$
 
 如果一门语言支持上述这种三目运算 $f(a,b,c) = a \land_c b$，则如下程序可以输出极大值：
 
-```
+``` javascript
 generate := () =>
     return f(N, N, N)
 ```
@@ -154,7 +154,7 @@ generate := () =>
 
 若 $Q(L, T)$ 可计算，则我们可以构造如下一段程序：
 
-```
+``` javascript
 Qs := (T, s) =>
     i := 0
     while (i < T)
@@ -196,7 +196,7 @@ $$
 
 把上面那段程序略作修改：
 
-```
+``` javascript
 Qs := (L, T, s) =>
     i := 0
     while (i < T)
@@ -283,7 +283,7 @@ $$
 
 接着，我们可以构造如下程序：
 
-```
+``` javascript
 find := n =>
     i := 0
     while
@@ -384,7 +384,7 @@ $$
 
 让我们先来看“压缩判定函数” $k(s)$。我们可以构造如下程序：
 
-```
+``` javascript
 find := () =>
     i := 0
     while
@@ -482,7 +482,7 @@ $$
 
 这里，我们将图灵机及输入参数合在一起构成一个字符串，比如如下这样：
 
-```
+``` javascript
 ((a, b) => {
     dosomething....
     return result;

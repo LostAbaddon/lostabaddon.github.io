@@ -28,7 +28,7 @@ $$
 
 那 SSP 问题到底是不是 P 的呢？
 
-在[《AIT 中的信息与熵》](https://www.jianshu.com/p/1a7b5b440be4)和[《AIT on Infinity and Quantum》](https://www.jianshu.com/p/2cd046e0ec39)中我们看到，图灵机的计算过程可以看作是在一个由图灵机构成的编码空间中、根据一组基础图灵机所描述的规则进行跳转的过程。
+在[《AIT 中的信息与熵》](/article/science/AIT/entropyandinfoinait.mu)和[《AIT on Infinity and Quantum》](/article/science/AIT/aitoninfandquantum.mu)中我们看到，图灵机的计算过程可以看作是在一个由图灵机构成的编码空间中、根据一组基础图灵机所描述的规则进行跳转的过程。
 
 也就是说，如果我们将每个图灵机看作一个节点，那图灵机的运转过程就是在这个离散空间中不断跳转的过程。换言之，一个图灵机的运转过程可以视为一条连接代表输入的起点与代表输出的终点的路径。
 
