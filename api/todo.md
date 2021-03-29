@@ -1,9 +1,8 @@
 # TODO
 
 -	整体
-	1.	收藏夹与历史记录
-	2.	集成 SimpleGit
-	3.	与 Extension 联动
+	1.	集成 SimpleGit
+	2.	与 Extension 联动
 -	目录页
 	1.	分页功能
 	2.	分类功能

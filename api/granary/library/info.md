@@ -13,6 +13,6 @@
 	+	[MarkUp 语法表](/page/markup)
 	+	[LaTeX 数学公式表](/page/latex)
 -	[常用数据](/article/library/data.md)
--	[无版权音乐网站](/page/freemusic)
+-	[无版权音乐网站](/article/library/freemusic.md)
 -	[电子书下载站集锦](/article/library/ebooks.md)
 -	[开源许可小小节](/article/library/license.md)
