@@ -20,4 +20,4 @@
 
 由“__过气网红回收处理中心__”出品的泛娱乐清谈节目，每周一零点更新，敬请期待！
 
-最近更新：[《为什么我们讨厌社交？》](https://www.xiaoyuzhoufm.com/episode/604e35a6cb4847efd22801c2?s=eyJ1IjogIjYwMjBkMDBjZTBmNWU3MjNiYmE4OTQyZSJ9) （2020/03/15）
+最近更新：[《太羞耻了！你竟然连这本书都没看！》](https://www.xiaoyuzhoufm.com/episode/60607077f3bbab83b588d434) （2020/03/29）

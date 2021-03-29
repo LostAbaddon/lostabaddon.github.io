@@ -21,7 +21,6 @@
 	5.	记忆力与反应能力测试工具
 -	Asimov MarkUp 解析插件
 	1.	Form 组件
-	2.	图表功能
-	1.	PPT 模式
+	2.	PPT 模式
 	3.	MindMap 模式
 	4.	流程图模式
