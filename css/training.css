@@ -1,0 +1,87 @@
+div.TrainingQuests {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	overflow: hidden;
+}
+div.TrainingQuests div.scorePad {
+	cursor: default;
+	user-select: none;
+}
+div.TrainingQuests div.scorePad span.countdown {
+	margin-left: 50px;
+}
+div.TrainingQuests div.questListPad {
+	width: 200%;
+	user-select: none;
+}
+div.TrainingQuests div.questListPad div.questPad {
+	box-sizing: border-box;
+	display: inline-flex;
+	flex-flow: wrap;
+	justify-content: space-around;
+	width: 50%;
+	padding: 10px 5px;
+	vertical-align: top;
+	transform-origin: 50% 50%;
+}
+div.TrainingQuests div.questListPad div.questPad[show] {
+	transition: all 300ms ease-in-out;
+}
+div.TrainingQuests div.questListPad div.questPad[show="false"] {
+	opacity: 0;
+	pointer-events: none;
+}
+div.TrainingQuests div.questListPad div.questPad[show="true"] {
+	opacity: 1;
+	pointer-events: auto;
+}
+div.TrainingQuests div.questListPad div.questPad[show="false"]:first-child {
+	transform: translateX(100%) scale(0.5);
+}
+div.TrainingQuests div.questListPad div.questPad[show="true"]:first-child {
+	transform: translateX(0%) scale(1);
+}
+div.TrainingQuests div.questListPad div.questPad[show="false"]:last-child {
+	transform: translateX(0%) scale(0.5);
+}
+div.TrainingQuests div.questListPad div.questPad[show="true"]:last-child {
+	transform: translateX(-100%) scale(1);
+}
+div.TrainingQuests div.questListPad div.questPad div.questItem {
+	box-sizing: border-box;
+	flex: 0.1 0.1 300px;
+	margin: 10px;
+	text-align: center;
+}
+div.TrainingQuests div.questListPad div.questPad div.questItem input {
+	width: 50px;
+	padding: 2px 5px;
+	outline: none;
+	border: none;
+	border-bottom: 1px solid black;
+	color: black;
+	background-color: transparent;
+	text-align: center;
+}
+[theme="dark"] div.TrainingQuests div.questListPad div.questPad div.questItem input {
+	border-bottom: 1px solid white;
+	color: white;
+}
+div.TrainingQuests div.buttonPad {
+	margin-top: 20px;
+	text-align: center;
+}
+div.TrainingQuests div.buttonPad button.submitter {
+	width: 100px;
+	height: 30px;
+	background-color: rgb(126, 22, 113);
+	color: rgb(226, 225, 228);
+	text-align: center;
+	font-size: 14px;
+	font-size: bolder;
+	line-height: 30px;
+	outline: none;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+}
