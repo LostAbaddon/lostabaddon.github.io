@@ -57,7 +57,7 @@
 
 +++
 
-# 脑力锻炼（自虐啊）
+# 自虐炼脑
 
 [点击进入](/page/entertain/training)
 
