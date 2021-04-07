@@ -1,0 +1,1 @@
+Math.pick=a=>{if(Array.is(a)){let r=Math.floor(Math.random()*a.length);return a[r]}else if(!isNaN(a))return Math.random()<=a;return null},Math.range=(a,r)=>(isNaN(r)&&(r=a,a=0),a+Math.random()*(r-a));

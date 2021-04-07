@@ -1,5 +1,7 @@
 # 更新日志
 
+-	2021/04/07
+	-	增加文章Redirect功能
 -	2021/03/31
 	-	增加[自虐式脑力练习工具](/page/entertain/training)
 -	2021/03/29
@@ -21,22 +23,22 @@
 	+	CLI增加compress命令，且在publish时默认启用。
 		可将public目录下的所有js都压缩。
 -	2021/03/13
-	+	更新 Asimov 组件，以更好地显示英文与中文
+	+	更新Asimov组件，以更好地显示英文与中文
 -	2021/03/06
 	+	增加一键回顶功能
 	+	增加文章页面目录功能
 -	2021/03/05
-	+	MarkUp 解析的线程化改造
+	+	MarkUp解析的线程化改造
 	+	增加打赏功能
 	+	增加文章自定义知识共享（CC）协议功能
 -	2021/03/04
 	+	添加收藏页：电子书籍搜索与下载列表
-	+	添加工具页：MarkUp 文档在线解析
-	+	添加 tab 组件和 uploader 组件
+	+	添加工具页：MarkUp文档在线解析
+	+	添加tab组件和uploader组件
 -	2021/03/03
 	+	增加生命周期管理模块
-	+	从 Vue 2 升级到 Vue 3
-	+	使用自制 Notification 组件以去除对 vue-notification 的依赖
+	+	从Vue 2升级到Vue 3
+	+	使用自制Notification组件以去除对vue-notification的依赖
 -	2021/03/02
 	+	迁徙游戏：[五子棋](/page/entertain/rushgo)
 	+	迁徙游戏：[诡异哥布林与不靠谱守卫](/page/entertain/ballcrush)

@@ -1,25 +1,25 @@
 # TODO
 
 -	整体
-	1.	集成 SimpleGit
-	2.	与 Extension 联动
+	1.	集成SimpleGit
+	2.	与Extension联动
 -	目录页
 	1.	分页功能
 	2.	分类功能
 	3.	搜索功能
 -	文章页
-	1.	回复功能（基于 IndexedDB）
-	2.	划词评论（基于 IndexedDB）
+	1.	回复功能（基于IndexedDB）
+	2.	划词评论（基于IndexedDB）
 	3.	补完更多过去的文章
 -	工具与游戏
-	1.	MarkUp 编辑器
+	1.	MarkUp编辑器
 	2.	计算器与绘图工具
 	3.	三消俄罗斯方块
 	4.	生命游戏基因竞争版与量子决策版
 	4.	炼丹炉（2048变态版）
 	5.	记忆力与反应能力测试工具
--	Asimov MarkUp 解析插件
-	1.	Form 组件
-	2.	PPT 模式
-	3.	MindMap 模式
+-	Asimov MarkUp解析插件
+	1.	Form组件
+	2.	PPT模式
+	3.	MindMap模式
 	4.	流程图模式
