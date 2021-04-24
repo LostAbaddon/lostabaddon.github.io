@@ -10,4 +10,4 @@
 
 由“__过气网红回收处理中心__”出品的泛娱乐清谈节目，每周一零点更新，敬请期待！
 
-最近更新：[《太羞耻了！你竟然连这本书都没看！》](https://www.xiaoyuzhoufm.com/episode/60607077f3bbab83b588d434) （2020/03/29）
+最近更新：[《这一期我们就是要摸鱼！》](https://www.xiaoyuzhoufm.com/episode/6072f049b3b59ee30e7c1469?s=eyJ1IjogIjYwMjBkMDBjZTBmNWU3MjNiYmE4OTQyZSJ9) （2020/04/11）
