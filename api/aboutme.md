@@ -28,6 +28,8 @@
 	一个时间管理的Chrome/Edge浏览器插件，用来方便地管理时间。
 -	[TextMosaic](https://github.com/LostAbaddon/TextMosaic)
 	一个用来做文件简单混淆与加密的Chrome/Edge浏览器插件，可以用来绕过豆瓣等的审核——虽然似乎也没太大的作用
+-	[FileDB](https://github.com/LostAbaddon/FileDB)
+	一个简单的JSON格式数据存储器，自带定时过期与访问加权过期
 
 ## 小说系列
 

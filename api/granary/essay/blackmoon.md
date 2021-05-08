@@ -19,17 +19,17 @@
 	3.	《为什么我们活得这么累？》 （2021/03/08）
 		-	[喜马拉雅入口](https://www.ximalaya.com/yule/46899127/392733660)
 		-	[小宇宙入口](https://www.xiaoyuzhoufm.com/episode/6044f85d55a0d3f4b8f96616)
-	4.	《为什么我们讨厌社交？》 （2020/03/15）
+	4.	《为什么我们讨厌社交？》 （2021/03/15）
 		人们需要社交，因为人们需要来自他者的回声来定位自己。
 		但人们又不需要社交，因为互联网时代的社交，绝大多数都没有价值。
 		-	[喜马拉雅入口](https://www.ximalaya.com/yule/46899127/395076398)
 		-	[小宇宙入口](https://www.xiaoyuzhoufm.com/episode/604e35a6cb4847efd22801c2)
-	5.	《太羞耻了！你竟然连这本书都没看！》 （2020/03/29）
+	5.	《太羞耻了！你竟然连这本书都没看！》 （2021/03/29）
 		上周跳票后，本周的更新终于来啦~~~
 		这周我们聊一下那些人们认为一定要看但我们实际上没看过的“好书”。
 		-	[喜马拉雅入口](https://www.ximalaya.com/yule/46899127/399889165)
 		-	[小宇宙入口](https://www.xiaoyuzhoufm.com/episode/60607077f3bbab83b588d434)
-	6.	《这一期我们就是要摸鱼！》 （2020/04/11）
+	6.	《这一期我们就是要摸鱼！》 （2021/04/11）
 		摸鱼，是职场人一生的修行。
 		它不是对工作的怠慢，更不是对生命的放纵。它如福柯所说，是我们在这个制度化的社会里，接受外部规训时的一种反抗，是一种最原始自我的本能释放。
 		本期，《你的月亮黑了心》就以摸鱼的方式聊摸鱼，为何摸鱼，如何摸鱼以及如何更好地摸鱼。
@@ -37,3 +37,9 @@
 		Ps. 请大家务必忽略本期的音质，毕竟摸鱼就要摸得彻底，知行合一，就怎么省事儿怎么来啦。
 		-	[喜马拉雅入口](https://www.ximalaya.com/yule/46899127/404582041)
 		-	[小宇宙入口](https://www.xiaoyuzhoufm.com/episode/6072f049b3b59ee30e7c1469?s=eyJ1IjogIjYwMjBkMDBjZTBmNWU3MjNiYmE4OTQyZSJ9)
+	7.	《严肃脸！争论！二手的知识它是知识吗？》 （2021/05/01）
+		-	[喜马拉雅入口](https://www.ximalaya.com/yule/46899127/411020462)
+		-	[小宇宙入口](https://www.xiaoyuzhoufm.com/episode/608c4b1152b0be3dfe6cd3ed?s=eyJ1IjogIjYwMjBkMDBjZTBmNWU3MjNiYmE4OTQyZSJ9)
+	8.	《你确定花两小时排队买茶颜悦色值得吗？》 （2021/05/07）
+		-	[喜马拉雅入口](https://www.ximalaya.com/yule/46899127/413042415)
+		-	[小宇宙入口](https://www.xiaoyuzhoufm.com/episode/60956fbaab52df57f9d06a9f?s=eyJ1IjogIjYwMjBkMDBjZTBmNWU3MjNiYmE4OTQyZSJ9)
