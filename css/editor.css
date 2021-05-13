@@ -1,0 +1,308 @@
+body .nav-bar {
+	transition: transform 300ms ease-in-out;
+}
+body[mode="editor"] .nav-bar {
+	transform: translateY(-100%);
+}
+
+body[mode="editor"] .tail-bar {
+	position: fixed;
+	box-sizing: border-box;
+	bottom: 0px;
+	left: 0px;
+	width: 100%;
+	margin-left: 0px;
+	margin-right: 0px;
+	margin-top: 0px;
+}
+
+body[mode="editor"] div#container {
+	position: absolute;
+	box-sizing: border-box;
+	width: 100%;
+	top: 0px;
+	bottom: 25px;
+	margin-left: 0px;
+	margin-right: 0px;
+	padding-top: 0px;
+	background-color: rgb(19, 17, 36);
+}
+
+body[mode="editor"] div#container > div {
+	max-width: unset;
+}
+
+div.markup-editor.toolbar {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	z-index: 100;
+	width: 100%;
+	height: 50px;
+	background-color: rgb(4, 0, 14);
+	box-shadow: 0px -2px 10px rgba(225, 227, 227, 0.6);
+}
+div.markup-editor.toolbar div.wordcount-hint {
+	float: right;
+	height: 50px;
+	margin-right: 20px;
+	font-size: 12px;
+	line-height: 50px;
+	color: rgb(117, 138, 153);
+	cursor: default;
+}
+
+div.markup-editor.toolbar div.menu-bar div.menu-group {
+	position: relative;
+	display: inline-block;
+	width: 50px;
+	margin-left: 5px;
+	margin-right: 5px;
+	vertical-align: top;
+}
+div.markup-editor.toolbar div.menu-bar div.menu-group > div.menu-item {
+	z-index: 1001;
+	box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
+}
+div.markup-editor.toolbar div.menu-bar div.menu-group > div.menu-item span.menu-item-hint {
+	display: none;
+}
+div.markup-editor.toolbar div.menu-bar div.menu-group div.menu-group-area {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	background-color: rgb(4, 0, 14);
+	box-shadow: 2px 2px 5px 2px black;
+	transform: translateY(-100%);
+	transition: all 250ms ease-in-out;
+}
+div.markup-editor.toolbar div.menu-bar div.menu-group:hover div.menu-group-area {
+	top: 50px;
+	transform: translateY(0px);
+}
+
+div.markup-editor.toolbar div.menu-bar div.menu-group div.menu-break-line {
+	height: 1px;
+	margin-top: 1px;
+	margin-bottom: 1px;
+	background-image: linear-gradient(to right, transparent 0%, rgb(96, 96, 96) 25%, rgb(96, 96, 96) 75%, transparent 100%);
+	background-position: 0 0;
+	background-repeat: repeat-x;
+}
+div.markup-editor.toolbar div.menu-bar > div.menu-break-line {
+	display: inline-block;
+	width: 1px;
+	height: 50px;
+	margin-left: 1px;
+	margin-right: 1px;
+	background-image: linear-gradient(to bottom, transparent 0%, rgb(96, 96, 96) 25%, rgb(96, 96, 96) 75%, transparent 100%);
+	background-position: 0 0;
+	background-repeat: repeat-y;
+}
+
+div.markup-editor.toolbar div.menu-bar div.menu-group > div.menu-group-area > div.menu-group {
+	display: block;
+}
+
+div.markup-editor.toolbar div.menu-bar div.menu-item {
+	position: relative;
+	width: 50px;
+	height: 50px;
+	border-radius: 5px;
+	background-color: rgb(4, 0, 14);
+	box-shadow: inset 0px 0px 1px 0px rgba(240, 240, 244, 0.3);
+	font-size: 20px;
+	line-height: 50px;
+	text-align: center;
+	color: rgb(233, 231, 239);
+	cursor: pointer;
+	transition: all 250ms ease-in-out;
+}
+div.markup-editor.toolbar div.menu-bar div.menu-item:hover {
+	background-color: black;
+	box-shadow: inset 0px 0px 2px 1px rgba(240, 240, 244, 0.3);
+}
+div.markup-editor.toolbar div.menu-bar div.menu-item span.menu-item-hint {
+	position: absolute;
+	top: 8px;
+	left: 50px;
+	height: 24px;
+	padding: 5px 10px;
+	border-radius: 5px;
+	background-color: rgb(22, 24, 35);
+	box-shadow: inset 0px 0px 2px 1px rgba(227, 225, 225, 0.2), 2px 2px 5px 1px rgba(0, 0, 0, 0.6);
+	font-size: 14px;
+	line-height: 24px;
+	white-space: nowrap;
+	opacity: 0;
+	transition: all 250ms ease-in-out;
+	pointer-events: none;
+}
+div.markup-editor.toolbar div.menu-bar div.menu-item:hover span.menu-item-hint {
+	opacity: 1;
+}
+div.markup-editor.toolbar div.menu-bar > div.menu-item {
+	display: inline-block;
+	margin-left: 5px;
+	margin-right: 5px;
+	vertical-align: top;
+}
+div.markup-editor.toolbar div.menu-bar > div.menu-item.top-level > span.menu-item-hint {
+	left: 50%;
+	top: 0px;
+	transform: translateX(-50%);
+}
+div.markup-editor.toolbar div.menu-bar > div.menu-item:hover span.menu-item-hint {
+	top: 50px;
+}
+div.markup-editor.toolbar div.menu-bar div.menu-group > div.menu-group-area > div.menu-group.menu-subgroup {
+	display: block;
+	height: 50px;
+	margin-left: 0px;
+	margin-right: 0px;
+}
+div.markup-editor.toolbar div.menu-bar div.menu-group > div.menu-group-area > div.menu-group.menu-subgroup > div.menu-group-area {
+	top: 0px;
+	left: 0px;
+	opacity: 0;
+	pointer-events: none;
+}
+div.markup-editor.toolbar div.menu-bar div.menu-group > div.menu-group-area > div.menu-group.menu-subgroup:hover > div.menu-group-area {
+	left: 50px;
+	opacity: 1;
+	pointer-events: auto;
+}
+
+div.markup-editor.toolbar div.menu-bar div.menu-item i.fa-color {
+	position: relative;
+	top: 2px;
+	width: 20px;
+	height: 20px;
+	box-shadow: inset 0px 0px 2px 1px white;
+}
+div.markup-editor.toolbar div.menu-bar div.menu-item i.fa-color.red {
+	background-color: rgb(200, 60, 35);
+}
+div.markup-editor.toolbar div.menu-bar div.menu-item i.fa-color.green {
+	background-color: rgb(0, 224, 121);
+}
+div.markup-editor.toolbar div.menu-bar div.menu-item i.fa-color.blue {
+	background-color: rgb(75, 92, 196);
+}
+div.markup-editor.toolbar div.menu-bar div.menu-item i.fa-color.yellow {
+	background-color: rgb(255, 241, 67);
+}
+div.markup-editor.toolbar div.menu-bar div.menu-item i.fa-color.gold {
+	background-color: rgb(242, 190, 69);
+}
+div.markup-editor.toolbar div.menu-bar div.menu-item i.fa-color.white {
+	background-color: rgb(240, 252, 255);
+}
+div.markup-editor.toolbar div.menu-bar div.menu-item i.fa-color.silver {
+	background-color: rgb(186, 202, 198);
+}
+div.markup-editor.toolbar div.menu-bar div.menu-item i.fa-color.gray {
+	background-color: rgb(161, 175, 201);
+}
+div.markup-editor.toolbar div.menu-bar div.menu-item i.fa-color.dark {
+	background-color: rgb(80, 97, 109);
+}
+div.markup-editor.toolbar div.menu-bar div.menu-item i.fa-color.black {
+	background-color: rgb(0, 0, 0);
+}
+div.markup-editor.toolbar div.menu-bar div.menu-item i.font.red {
+	color: rgb(200, 60, 35);
+}
+div.markup-editor.toolbar div.menu-bar div.menu-item i.font.green {
+	color: rgb(0, 224, 121);
+}
+div.markup-editor.toolbar div.menu-bar div.menu-item i.font.blue {
+	color: rgb(75, 92, 196);
+}
+div.markup-editor.toolbar div.menu-bar div.menu-item i.fa-heading.one:after,
+div.markup-editor.toolbar div.menu-bar div.menu-item i.fa-heading.two:after,
+div.markup-editor.toolbar div.menu-bar div.menu-item i.fa-heading.three:after,
+div.markup-editor.toolbar div.menu-bar div.menu-item i.fa-heading.four:after,
+div.markup-editor.toolbar div.menu-bar div.menu-item i.fa-heading.five:after,
+div.markup-editor.toolbar div.menu-bar div.menu-item i.fa-heading.six:after {
+	position: absolute;
+	top: 25px;
+	left: 35px;
+	font-size: 8px;
+}
+div.markup-editor.toolbar div.menu-bar div.menu-item i.fa-heading.one:after {
+	content: '1';
+}
+div.markup-editor.toolbar div.menu-bar div.menu-item i.fa-heading.two:after {
+	content: '2';
+}
+div.markup-editor.toolbar div.menu-bar div.menu-item i.fa-heading.three:after {
+	content: '3';
+}
+div.markup-editor.toolbar div.menu-bar div.menu-item i.fa-heading.four:after {
+	content: '4';
+}
+div.markup-editor.toolbar div.menu-bar div.menu-item i.fa-heading.five:after {
+	content: '5';
+}
+div.markup-editor.toolbar div.menu-bar div.menu-item i.fa-heading.six:after {
+	content: '6';
+}
+
+#container > div.markup-editor.container {
+	position: absolute;
+	width: unset;
+	top: 60px;
+	bottom: 10px;
+	left: 10px;
+	right: 10px;
+}
+#container > div.markup-editor.container > div {
+	position: absolute;
+	box-sizing: border-box;
+}
+
+div.markup-editor.container div.editorContainer,
+div.markup-editor.container div.previewContainer {
+	top: 0px;
+	width: 50%;
+	height: 100%;
+	padding-top: 5px;
+	overflow: auto;
+}
+div.markup-editor.container div.editorContainer {
+	left: 0px;
+	padding-right: 15px;
+	padding-bottom: 10px;
+}
+div.markup-editor.container div.previewContainer {
+	right: 0px;
+	padding-left: 10px;
+	padding-bottom: 5px;
+}
+div.markup-editor.container div.sepBar {
+	top: 0px;
+	left: 50%;
+	z-index: 1;
+	width: 10px;
+	height: 100%;
+	margin-left: -5px;
+	border-left: 1px dashed rgb(93, 101, 95);
+	border-right: 1px dashed rgb(93, 101, 95);
+}
+
+div.markup-editor.container div.editorContainer > div,
+div.markup-editor.container div.previewContainer > div {
+	width: 100%;
+	height: 100%;
+	background-color: transparent;
+}
+div.markup-editor.container div.editorContainer > div {
+	font-family: Georgia, Times New Roman, Times, Songti SC, serif;
+	line-height: 24px;
+	font-size: 16px;
+	color: rgb(225, 225, 225);
+	outline: none;
+	white-space: pre-wrap;
+	caret-color: white;
+}

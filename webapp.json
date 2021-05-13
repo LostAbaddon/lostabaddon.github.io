@@ -1,6 +1,6 @@
 {
-	"name": "过气网红回收站",
-	"short_name": "过气网红回收站",
+	"name": "超科技现象统计局",
+	"short_name": "超科技现象统计局",
 	"description": "有趣、严肃、中二、搞笑的文章、科普、游戏、收藏，这就是我的私人世界！",
 	"display": "standalone",
 	"start_url": "./index.html",
