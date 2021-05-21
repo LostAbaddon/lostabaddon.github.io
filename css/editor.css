@@ -269,6 +269,7 @@ div.markup-editor.container div.previewContainer {
 	height: 100%;
 	padding-top: 5px;
 	overflow: auto;
+	overflow-x: hidden;
 }
 div.markup-editor.container div.editorContainer {
 	left: 0px;
@@ -294,15 +295,16 @@ div.markup-editor.container div.sepBar {
 div.markup-editor.container div.editorContainer > div,
 div.markup-editor.container div.previewContainer > div {
 	width: 100%;
-	height: 100%;
 	background-color: transparent;
+	scroll-behavior: smooth;
 }
 div.markup-editor.container div.editorContainer > div {
-	font-family: Georgia, Times New Roman, Times, Songti SC, serif;
-	line-height: 24px;
-	font-size: 16px;
-	color: rgb(225, 225, 225);
+	padding-bottom: 100px;
 	outline: none;
+	font-family: Georgia, Times New Roman, Times, Songti SC, serif;
+	font-size: 16px;
+	line-height: 24px;
+	color: rgb(225, 225, 225);
 	white-space: pre-wrap;
 	caret-color: white;
 }

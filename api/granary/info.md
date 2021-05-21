@@ -20,4 +20,4 @@
 
 由“__过气网红回收处理中心__”出品的泛娱乐清谈节目，每周一零点更新，敬请期待！
 
-最近更新：[《你确定花两小时排队买茶颜悦色值得吗？》](https://www.xiaoyuzhoufm.com/episode/60956fbaab52df57f9d06a9f?s=eyJ1IjogIjYwMjBkMDBjZTBmNWU3MjNiYmE4OTQyZSJ9) （2021/05/07）
+最近更新：[《对话交流的目的，是达成共识还是促进理解？》](https://www.xiaoyuzhoufm.com/episode/609ea646530b2e534b381f78) （2021/05/07）
