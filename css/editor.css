@@ -261,6 +261,11 @@ div.markup-editor.toolbar div.menu-bar div.menu-item i.fa-heading.six:after {
 	position: absolute;
 	box-sizing: border-box;
 }
+#container > div.markup-editor.container > div p {
+	line-height: 1.2;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
 
 div.markup-editor.container div.editorContainer,
 div.markup-editor.container div.previewContainer {
@@ -299,6 +304,8 @@ div.markup-editor.container div.previewContainer > div {
 	scroll-behavior: smooth;
 }
 div.markup-editor.container div.editorContainer > div {
+	box-sizing: border-box;
+	min-height: 100%;
 	padding-bottom: 100px;
 	outline: none;
 	font-family: Georgia, Times New Roman, Times, Songti SC, serif;
