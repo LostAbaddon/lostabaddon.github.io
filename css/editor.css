@@ -51,6 +51,9 @@ div.markup-editor.toolbar div.wordcount-hint {
 	color: rgb(117, 138, 153);
 	cursor: default;
 }
+div.markup-editor.toolbar div.wordcount-hint.no_preview {
+	display: none;
+}
 
 div.markup-editor.toolbar div.menu-bar div.menu-group {
 	position: relative;
@@ -314,4 +317,21 @@ div.markup-editor.container div.editorContainer > div {
 	color: rgb(225, 225, 225);
 	white-space: pre-wrap;
 	caret-color: white;
+}
+
+#container > div.markup-editor.container.no_preview div.editorContainer {
+	width: 100%;
+}
+#container > div.markup-editor.container.no_preview.show_preview div.editorContainer {
+	display: none;
+}
+#container > div.markup-editor.container.no_preview div.previewContainer {
+	display: none;
+	width: 100%;
+}
+#container > div.markup-editor.container.no_preview.show_preview div.previewContainer {
+	display: block;
+}
+#container > div.markup-editor.container.no_preview div.sepBar {
+	display: none;
 }
