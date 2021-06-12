@@ -20,4 +20,4 @@
 
 由“__过气网红回收处理中心__”出品的泛娱乐清谈节目，每周一零点更新，敬请期待！
 
-最近更新：[《那些与我们渐行渐远的格言和金句》](https://www.xiaoyuzhoufm.com/episode/60b114c2a6d8a36b0621fe9e) （2021/05/28）
+最近更新：[《真人秀是需要剧本的吗？》](https://www.xiaoyuzhoufm.com/episode/60c3875e0131bcd1acdfcd73) （2021/06/11）
