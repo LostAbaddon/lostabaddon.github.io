@@ -1,5 +1,11 @@
 # 更新日志
 
+-	2021/06/15
+	-	调整代码以完成对低版本Safari的支持（在XCode的iOS 11.0 Simulator上测试通过）
+-	2021/06/12
+	-	优化MarkUp编辑器
+	-	将Broadcast替换为EventEmitter
+	-	解决Firefox下因为SharedWorker内环境不同而导致的MarkUp无法正常解析的Bug
 -	2021/05/21
 	-	更新[有趣网站集锦](/article/library/website.md)
 -	2021/05/13
