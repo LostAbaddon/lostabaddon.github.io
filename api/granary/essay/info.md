@@ -10,4 +10,4 @@
 
 由“__过气网红回收处理中心__”出品的泛娱乐清谈节目，每周一零点更新，敬请期待！
 
-最近更新：[《真人秀是需要剧本的吗？》](https://www.xiaoyuzhoufm.com/episode/60c3875e0131bcd1acdfcd73) （2021/06/11）
+最近更新：[《知识分子捞金是道德的吗？》](https://www.xiaoyuzhoufm.com/episode/60ccc079afc14743da17f601) （2021/06/18）
