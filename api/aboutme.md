@@ -17,7 +17,7 @@
 	一个JavsScript库。
 -	[Asimov](https://github.com/LostAbaddon/Asimov)
 	一个MarkDown扩展语法MarkUp的解析器。
-	*点击[这里](@markup)可以看MarkUp语法演示。*
+	*点击[这里](/page/markup)可以看MarkUp语法演示。*
 -	[Schwarzschild](https://github.com/LostAbaddon/Schwarzschild)
 	一个快速构建静态网站的工具，基于Vue-cli。
 -	[Einstein](https://github.com/LostAbaddon/EmptyNodeProject)
