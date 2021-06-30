@@ -10,6 +10,7 @@
 
 # 资讯类
 
+-	[纪录片天地](http://jlpcn.net/)
 -	[斯坦福哲学百科（可视化版）](https://www.visualizingsep.com/)
 -	[WikiHow](https://zh.wikihow.com/)
 	我称它为“万能搜索神器”，只有你不敢问的，没有它搜不到的。
