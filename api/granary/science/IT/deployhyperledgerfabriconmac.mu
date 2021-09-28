@@ -21,6 +21,8 @@ KEYWORD：区块链 Hyperledger
 
 有时候安装或更新XCode后有些程序会出问题，比如我更新XCode后git不可用，此时需要重新安装Git。
 
+如果反复多次出现诸如`“xxxx”命令需要安装命令行开发者工具`这样的提醒，则可能是XCode损坏，建议重新安装最新版XCode。
+
 这个坑比较多，只能自己琢磨……
 
 #	2. Docker
@@ -84,9 +86,37 @@ chmod +x bootstrap.sh
 
 它会下载所需的目录和镜像，Docker开着的时候会自动加载镜像（但不会自己启动）。
 
-接着，是比较重要的，那就是去官网下载bin和config目录，其中有需要的二进制文件与默认配置，不下载的话fabric-samples中的示例无法征程执行。
+接着，是比较重要的，那就是去官网下载bin和config目录，其中有需要的二进制文件与默认配置，可以通过前面下载的fabric文件夹中的源码直接用`make`命令来编译来获得，或者[到官网下载编译好的包](https://github.com/hyperledger/fabric/releases)，其中Mac的话选择`hyperledger-fabric-darwin-amd64-X.X.X.tar.gz`文件。下载下来后解压，然后将两个目录复制到fabric-samples目录中，就可以正常使用了。
 
-这里是[下载地址](https://github.com/hyperledger/fabric/releases)，其中Mac的话选择`hyperledger-fabric-darwin-amd64-X.X.X.tar.gz`文件。
+有时会需要fabric-ca包，源码可以点[这里](https://github.com/hyperledger/fabric-ca)，或者点[这里](https://github.com/hyperledger/fabric-ca/releases)直接下载官方编译好的包。
 
-下载下来后解压，然后将两个目录复制到fabric-samples目录中，就可以正常使用了。
+#   4.  其它
 
+##  test-network
+
+在运行fabric-samples中的test-network测试项目时，可能会在执行`./network.sh createChannel`时遇到`osnadmin: error: unknown long flag '--channelID'`错误，此时需要编辑该目录下/scripts中的createChannel.sh文件，其中40行原本代码为：
+
+```
+osnadmin channel join --channelID $CHANNEL_NAME --config-block ./channel-artifacts/${CHANNEL_NAME}.block -o localhost:7053 --ca-file "$ORDERER_CA" --client-cert "$ORDERER_ADMIN_TLS_SIGN_CERT" --client-key "$ORDERER_ADMIN_TLS_PRIVATE_KEY" >&log.txt
+```
+
+将其中的`--channelID`调整为`--channel-id`即可：
+
+```
+osnadmin channel join --channel-id $CHANNEL_NAME --config-block ./channel-artifacts/${CHANNEL_NAME}.block -o localhost:7053 --ca-file "$ORDERER_CA" --client-cert "$ORDERER_ADMIN_TLS_SIGN_CERT" --client-key "$ORDERER_ADMIN_TLS_PRIVATE_KEY" >&log.txt
+```
+
+>   注意：上述配置文件修改后必须重启Docker才能生效。
+
+
+另一方面，运行一些例子比如Token-ERC-20的时候，会出现network _test不存在这样的错误，此时需要修改`/docker/docker-composer-test-net.yaml`，将其中的两处如下内容做替换：
+
+```
+原本：
+- CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=${COMPOSE_PROJECT_NAME}_test
+
+改为：
+- CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=docker_test
+```
+
+此后，如果之前已经启动了Docker，需要关闭后重启。
