@@ -23,7 +23,7 @@
 -	[Einstein](https://github.com/LostAbaddon/EmptyNodeProject)
 	一个快速构建动态网站的工具，支持简单的分布式协同及命令行控制。
 -	[QuickServer](https://github.com/LostAbaddon/QuickServer)
-	一个便捷的后台服务器，基于KOA、mime-type和socket.io，可直接将多个Vue项目合并在一起提供服务，并支持快速的基于SocketIO的后台服务。
+	一个便捷的后台服务器，基于KOA、mime-type和socket.io，可直接将多个Vue项目（Hash与History模式都支持）合并在一起提供服务，并支持快速的基于SocketIO的后台服务。
 -	[ArticleUtils](https://github.com/LostAbaddon/ArticleUtils)
 	一个很有用的Chrome/Edge浏览器的插件，包括很多有用的功能，包括自动搜索页面资源、转义LaTeX的公式，等等。
 -	[ChronosShrine](https://github.com/LostAbaddon/ChronosShrine)

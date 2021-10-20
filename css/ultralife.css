@@ -1,0 +1,55 @@
+.viewer.ultralife {
+	margin-top: 30px;
+	text-align: center;
+}
+.controlbox.ultralife {
+	box-sizing: border-box;
+	width: 100%;
+	max-width: 800px;
+	margin-top: 20px;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 0px 10px;
+}
+.controlbox.ultralife .line {
+	position: relative;
+	margin-bottom: 10px;
+}
+.controlbox.ultralife .line.button {
+	text-align: center;
+}
+.controlbox.ultralife .line span.hint {
+	display: inline-block;
+	width: 120px;
+	text-align: right;
+}
+.controlbox.ultralife .line.selected span.hint {
+	font-weight: bolder;
+}
+.controlbox.ultralife .line span.inputter {
+	position: absolute;
+	display: inline-block;
+	left: 125px;
+	right: 0px;
+	padding: 2px 5px;
+	border-bottom: 1px solid rgb(126, 22, 113);
+	outline: none;
+	color: rgb(55, 60, 56);
+}
+.controlbox.ultralife button {
+	box-sizing: border;
+	margin-left: 40px;
+	margin-right: 40px;
+	padding: 5px 20px;
+	background-color: transparent;
+	border: 1px solid rgb(126, 22, 113);
+	outline: none;
+	font-size: 16px;
+	color: rgb(55, 60, 56);
+	cursor: pointer;
+}
+
+[theme="dark"] .controlbox.ultralife button,
+[theme="dark"] .controlbox.ultralife .line span.inputter {
+	color: rgb(237, 227, 231);
+}

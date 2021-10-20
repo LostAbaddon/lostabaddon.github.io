@@ -7,6 +7,7 @@
 ++++
 
 -	传统颜色表
+	+	[Web常用色彩表](/page/webcolor)
 	+	[中国传统颜色](/page/chinesecolor)
 	+	[日本传统颜色](/page/japanesecolor)
 -	常用代码表
