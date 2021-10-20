@@ -47,6 +47,7 @@
 	font-size: 16px;
 	color: rgb(55, 60, 56);
 	cursor: pointer;
+	user-select: none;
 }
 
 [theme="dark"] .controlbox.ultralife button,
