@@ -137,8 +137,16 @@
 ++++
 
 -	[全集网](http://www.quanji456.com/)
+-	[91美剧网](https://mjw91.com/)
+-	[低端影视](https://ddrk.me/)
+-	[在线之间](https://www.zxzj.fun/)
+-	[天堂电影](https://www.ttdianying.vip/)
+-	[中国高清网](http://gaoqing.la/)
+-	[BP者](https://www.bpzhe.com/)
+-	[GIMY](https://gimytv.com/)
 
 ++++
 
 -	[盘搜](https://www.pansoso.com/)
 	一个老牌网盘搜索工具，功能非常强大，界面非常简洁。
+-	[Ahhhhfs](https://www.abskoop.com/)
