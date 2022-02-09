@@ -120,6 +120,20 @@
 	斯坦福哲学百科
 -	[读写人](http://www.duxieren.com/about.shtml)
 	“读写人”（duxieren.com）是一个聚合了书评杂志、书评博客、中英文读书资源的读书网站。《南方都市报》评：“读写人，可能是全国内容最全的读书网站。”
+-	[国学导航](http://www.guoxue123.com/)
+-	[古诗文网](https://www.gushiwen.cn/)
+-	[全国图书馆参考咨询联盟](http://www.ucdrs.superlib.net/)
+-	[FreeBookSpot](http://www.freebookspot.club/)
+-	[Free-eBooks](https://www.free-ebooks.net/)
+-	[FreeComputerBooks](https://freecomputerbooks.com/)
+-	[FreeTechBooks](https://www.freetechbooks.com/)
+-	[BookYards](https://www.bookyards.com/)
+-	[Digital.library.upenn.edu](http://digital.library.upenn.edu/books/)
+-	[eBookLobby](http://www.ebooklobby.com/)
+-	[DailyLit](https://dailylit.com/)
+-	[WikiBooks](https://en.wikibooks.org/wiki/Main_Page)
+-	[FreeBooks4Doctors](http://freebooks4doctors.com/)
+-	[DownMagaz](https://downmagaz.net/)
 
 ++++
 
@@ -144,9 +158,13 @@
 -	[中国高清网](http://gaoqing.la/)
 -	[BP者](https://www.bpzhe.com/)
 -	[GIMY](https://gimytv.com/)
+-	[茶杯狐](https://cupfox.app/)
+-	[YouTuber视频下载器](http://www.clipconverter.cc/)
+-	[Classical Music FLAC. Lossless Downloads](https://boxset.me/)
 
 ++++
 
 -	[盘搜](https://www.pansoso.com/)
 	一个老牌网盘搜索工具，功能非常强大，界面非常简洁。
 -	[Ahhhhfs](https://www.abskoop.com/)
+-	[大圣盘](https://www.dashengpan.com/)
