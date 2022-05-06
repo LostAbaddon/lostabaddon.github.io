@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>新西伯利亚之门</title>
+<link rel="stylesheet" type="text/css" href="./css/window.css">
+<link rel="stylesheet" type="text/css" href="./css/main.css">
+<link rel="stylesheet" type="text/css" href="./css/login.css">
+<link rel="stylesheet" type="text/css" href="./css/mundus.css">
+<link rel="stylesheet" type="text/css" href="./fa/css/all.min.css">
+</head>
+<body>
+
+<div class="popup_container">
+	<div class="popup_window">
+		<div class="titlebar"><span class="title"></span><span class="closer">X</span></div>
+		<div class="content"></div>
+	</div>
+</div>
+
+<div id="LoginStage" class="stage show">
+	<div class="center">
+		<div class="title">Gate of Novosibirsk</div>
+		<div id="LoginHint" class="hint">Connecting...</div>
+	</div>
+	<div class="bottom">
+		<div id="LoginResult" class="hint"></div>
+		<div id="LoginHintContainer" class="hint"><span class="clh">[<span id="LoginStageHint">guest@metaverse ~</span>]#</span><span id="CmdLineHint" class="clp"></span></div>
+	</div>
+</div>
+
+<div id="PanelStage" class="stage">
+	<div id="CMDHistory"></div>
+	<div id="CMDLine" class="hint"><span id="CMDHint" class="clh"></span></div>
+</div>
+
+<div id="ForbiddenCity" class="forbiddencity">
+	<div id="CasusStage">
+		<div class="events scrollable">
+			<div class="inner">
+				<div class="title">
+					<span class="label">类型：</span>
+					<span class="terrainName">无</span>
+				</div>
+				<div class="houseInfo">
+					<div>
+						<span class="label">房间类型：</span>
+						<span class="houseType"></span>
+					</div>
+					<div class="desc"></div>
+				</div>
+				<div class="pathInfo">
+					<div class="line building">
+						<div class="label">所受影响</div>
+						<div class="buildingList"></div>
+					</div>
+					<div class="line house">
+						<div class="label">可进入房间</div>
+						<div class="houseList"></div>
+					</div>
+				</div>
+				<div class="sepline"></div>
+				<div id="EventList" class="eventList">新西伯利亚之门的秘密到底有什么呢？</div>
+				<div class="sepline"></div>
+				<div class="targetPanel">
+					<div class="title">探索目标</div>
+					<div id="TargetList" class="targetList"></div>
+				</div>
+			</div>
+		</div>
+		<div class="personel">
+			<div class="inner">
+				<div class="name"></div>
+				<div class="property">
+					<div class="item"><span class="label">能量：</span><span class="value life">0</span></div>
+					<div class="item"><span class="label">转换：</span><span class="value speed">0</span></div>
+					<div class="item"><span class="label">破坏：</span><span class="value attack">0</span></div>
+					<div class="item"><span class="label">防护：</span><span class="value defence">0</span></div>
+					<div class="item"><span class="label">总胜率：</span><span class="value totalWin">0/0</span></div>
+				</div>
+				<div class="package">
+					<div class="item equipment">
+						<span class="icon">
+							<i class="fa-solid fa-suitcase-rolling"></i>
+						</span>
+						<span class="name">行囊</span>
+					</div>
+					<div class="item memory">
+						<span class="icon">
+							<i class="fa-solid fa-book-bookmark"></i>
+						</span>
+						<span class="name">记忆</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="map">
+			<div class="cover"></div>
+			<canvas></canvas>
+			<i id="Player" class="role fa-icon fa-solid fa-user-secret"></i>
+		</div>
+		<div class="status">
+			<div class="timezone">
+				<i id="DayNight" class="fa-solid fa-sun"></i>
+				<span id="TimeZone"></span>
+			</div>
+			<div class="button movement"><i class="fa-solid fa-circle-play"></i></div>
+			<div class="button setting"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+		</div>
+	</div>
+	<div id="Equipments">
+		<div class="line line1"></div><div class="line line2"></div>
+		<div class="area using scrollable">
+			<div class="title">装备中（槽位：<span class="slot"></span>）</div>
+			<div class="content"></div>
+			<div class="halo"></div>
+		</div>
+		<div class="area bag scrollable">
+			<div class="title">行囊（容量：<span class="room"></span>）</div>
+			<div class="content"></div>
+		</div>
+		<div class="area info scrollable">
+			<div class="name">装备名称</div>
+			<div class="desc">
+				<div class="item">
+					<span class="title">能量增幅: </span><span class="value life"></span>
+				</div>
+				<div class="item">
+					<span class="title">转换增速: </span><span class="value speed"></span>
+				</div>
+				<div class="item">
+					<span class="title">破坏力: </span><span class="value attack"></span>
+				</div>
+				<div class="item">
+					<span class="title">防护力: </span><span class="value defence"></span>
+				</div>
+			</div>
+			<div class="area prop"></div>
+		</div>
+	</div>
+	<div id="RqtUnlock">
+		<div class="content">是否想要打开这个房间？</div>
+		<div class="panel">
+			<button class="btn_ok">打开</button>
+			<button class="btn_cancel">走开</button>
+		</div>
+	</div>
+	<div id="RqtBuild">
+		<div class="content">
+			<div class="title">请选择想要的房间</div>
+			<div class="icons"></div>
+		</div>
+		<div class="panel">
+			<button class="btn_ok">确定</button>
+		</div>
+	</div>
+	<div id="StoryLine">
+		<div class="content scrollable"></div>
+		<div class="panel">
+			<div class="btn btn_ok">确定</div>
+			<div class="btn btn_yes">是</div>
+			<div class="btn btn_no">否</div>
+			<div class="btn btn_cancel">取消</div>
+		</div>
+	</div>
+	<div id="SettingPanel">
+		<div name="AutoDay" class="option">
+			<input type="checkbox">自动开始每天的行程
+		</div>
+		<div name="AutoFight" class="option">
+			<input type="checkbox">自动战斗
+		</div>
+		<div name="AutoBuild" class="option">
+			<input type="checkbox">自动建房
+		</div>
+		<div name="AutoUnlock" class="option">
+			<input type="checkbox">自动开锁
+		</div>
+		<div name="AllowMusic" class="option">
+			<input type="checkbox">启用音效
+		</div>
+		<div name="AutoStopAfterBattle" class="option">
+			<input type="checkbox">战斗结束后自动停止
+		</div>
+		<div name="AutoUpdateEquipment" class="option">
+			<input type="checkbox">自动换装
+		</div>
+		<div class="button">
+			<button>确定</button>
+		</div>
+	</div>
+	<div id="PanelResult">
+		<div class="content"></div>
+		<div class="panel">
+			<button class="btn_ok">明白了</button>
+		</div>
+	</div>
+	<div id="WarZone">
+		<div id="MonsterWarZone" class="war_zone"></div>
+		<div id="HeroWarZone" class="war_zone"></div>
+	</div>
+	<audio id="MscUnlock" src="./asset/unlock.mp3" preload="auto"></audio>
+	<audio id="MscOpen" src="./asset/open.mp3" preload="auto"></audio>
+	<audio id="MscWin" src="./asset/battlewin.mp3" preload="auto"></audio>
+	<audio id="MscLose" src="./asset/battlefailed.mp3" preload="auto"></audio>
+</div>
+
+<script type="text/javascript" src="./data/casus1.js"></script>
+<script type="text/javascript" src="./js/window.js"></script>
+<script type="text/javascript" src="./js/lrucache.js"></script>
+<script type="text/javascript" src="./js/cacheddb.js"></script>
+<script type="text/javascript" src="./js/player.js"></script>
+<script type="text/javascript" src="./js/building.js"></script>
+<script type="text/javascript" src="./js/main.js"></script>
+<script type="text/javascript" src="./js/mundus.js"></script>
+<script type="text/javascript" src="./js/panel.js"></script>
+<script type="text/javascript" src="./js/login.js"></script>
+</body>
+</html>

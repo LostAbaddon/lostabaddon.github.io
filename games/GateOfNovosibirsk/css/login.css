@@ -1,0 +1,22 @@
+#LoginStage div.center {
+	position: absolute;
+	top: 50%;
+	left: 0px;
+	width: 100%;
+	transform: translate(0, -50%);
+	text-align: center;
+}
+#LoginStage div.bottom {
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+	width: 100%;
+	padding: 10px;
+}
+
+#LoginStage div.title {
+	margin-bottom: 50px;
+	color: rgb(19, 17, 36);
+	font-size: 80px;
+	text-shadow: 1px 1px white;
+}

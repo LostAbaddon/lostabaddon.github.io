@@ -1,0 +1,66 @@
+@keyframes hintshining {
+	0% {color: rgb(19, 17, 36);}
+	49% {color: rgb(19, 17, 36);}
+	50% {color: rgb(178, 187, 190);}
+}
+
+html, body {
+	width: 100%;
+	height: 100%;
+	margin: 0px;
+	padding: 0px;
+	background-color: rgb(19, 17, 36);
+	font-size: 0px;
+	color: rgb(178, 187, 190);
+}
+
+div {
+	box-sizing: border-box;
+}
+
+div.forbiddencity {
+	display: none;
+}
+
+div.stage {
+	display: none;
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	font-size: 16px;
+}
+div.stage.show {
+	display: block;
+}
+
+div.cmdLine.reply {
+	color: white;
+}
+div.cmdLine.reply.message {
+	color: rgb(102, 193, 140);
+}
+div.cmdLine.reply.error {
+	color: red;
+	font-weight: bolder;
+}
+div.cmdLine span {
+	display: inline-block;
+	vertical-align: top;
+}
+
+span.clh {
+	padding-right: 10px;
+}
+span.clp:after {
+	content:  '|';
+	animation-name: hintshining;
+	animation-duration: 1s;
+	animation-iteration-count: infinite;
+}
+
+audio {
+	display: none;
+}

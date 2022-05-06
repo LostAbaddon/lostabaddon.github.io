@@ -1,0 +1,635 @@
+@keyframes hitter {
+	0% {transform: scale(1);}
+	50% {transform: scale(1.2);}
+	100% {transform: scale(1);}
+}
+@keyframes hitted {
+	0% {color: rgb(248, 244, 237); border-color: rgb(248, 244, 237);}
+	50% {color: rgb(237, 51, 33); border-color: rgb(237, 51, 33);}
+	100% {color: rgb(248, 244, 237); border-color: rgb(248, 244, 237);}
+}
+
+div.popup_container div.popup_window div.content button {
+	display: inline-block;
+	width: 50px;
+	height: 30px;
+	line-height: 28px;
+	margin-left: 5px;
+	margin-right: 5px;
+	border-radius: 5px;
+	border: 1px solid black;
+	background-color: rgba(0, 0, 0, 0.2);
+	color: white;
+	cursor: pointer;
+}
+
+div.scrollable {
+	overflow: overlay;
+}
+div.scrollable::-webkit-scrollbar {
+	width: 10px;
+	background-color: transparent;
+	cursor: pointer;
+}
+div.scrollable::-webkit-scrollbar-thumb {
+	border-radius: 5px;
+	background-color: rgb(75, 75, 75);
+	box-shadow: inset 2px 2px 3px rgba(255, 255, 255, 0.5);
+	cursor: pointer;
+}
+div.scrollable::-webkit-scrollbar-track {
+	border-radius: 5px;
+	background-color: rgba(225, 225, 225, 0.1);
+	box-shadow: inset 2px 2px 3px rgba(53, 53, 53, 0.2);
+	cursor: pointer;
+}
+
+#PanelStage {
+	transition: filter 300ms ease;
+}
+#PanelStage.fadeout {
+	pointer-events: none;
+	filter: grayscale(60%) brightness(0.6);
+}
+
+#Equipments {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	padding: 5px;
+}
+#Equipments div.line {
+	position: absolute;
+	width: 5px;
+	height: 5px;
+	background-color: rgb(54, 52, 51);
+}
+#Equipments div.line.line1 {
+	top: 0px;
+	left: 225px;
+	height: 450px;
+}
+#Equipments div.line.line2 {
+	top: 450px;
+	left: 0px;
+	width: 100%;
+}
+#Equipments div.area {
+	position: absolute;
+	padding: 5px;
+}
+#Equipments div.area.using {
+	top: 0px;
+	left: 0px;
+	width: 225px;
+	height: 450px;
+}
+#Equipments div.area.using div.content div.item {
+	position: relative;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	cursor: default;
+	user-select: none;
+}
+#Equipments div.area.using div.content div.item i {
+	width: 50px;
+	height: 50px;
+	border: 2px solid rgb(248, 244, 237);
+	border-radius: 5px;
+	color: rgb(248, 244, 237);
+	font-size: 30px;
+	text-align: center;
+}
+#Equipments div.area.using div.content div.item i::before {
+	position: relative;
+	top: 10px;
+}
+#Equipments div.area.using div.content div.item span {
+	float: right;
+	margin-top: 13px;
+	padding: 2px 5px;
+	border-bottom: 1px solid white;
+	cursor: pointer;
+}
+#Equipments div.area.bag {
+	top: 0px;
+	left: 230px;
+	right: 0px;
+	height: 450px;
+}
+#Equipments div.area.bag div.content div.item {
+	position: relative;
+	display: inline-block;
+	width: 75px;
+	height: 75px;
+	margin: 3px;
+	border: 2px solid rgb(248, 244, 237);
+	border-radius: 5px;
+	color: rgb(248, 244, 237);
+	vertical-align: bottom;
+	cursor: pointer;
+	user-select: none;
+}
+#Equipments div.area.bag div.content div.item.mounted {
+	border: 2px solid rgb(240, 124, 130);
+	color: rgb(240, 124, 130);
+}
+#Equipments div.area.bag div.content div.item.invalid {
+	cursor: not-allowed;
+}
+#Equipments div.area.bag div.content div.item i {
+	position: absolute;
+	top: 50%;
+	left: 3px;
+	right: 3px;
+	margin-top: -28px;
+	text-align: center;
+	font-size: 56px;
+}
+#Equipments div.area.bag div.content div.item span {
+	position: absolute;
+	bottom: 0px;
+	right: 3px;
+	font-size: 20px;
+	text-shadow: 0px 0px 2px black, 0px 0px 5px white;
+}
+#Equipments div.area.info {
+	top: 455px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+}
+#Equipments div.area > div.title,
+#Equipments div.area.info div.name {
+	margin-bottom: 5px;
+	font-weight: bolder;
+}
+#Equipments div.area.info div.prop {
+	top: 0px;
+	right: 0px;
+	width: 250px;
+}
+
+#CasusStage {
+	width: 100%;
+	height: 100%;
+}
+#CasusStage div.map {
+	position: absolute;
+	top: 0px;
+	bottom: 100px;
+	left: 0px;
+	right: 300px;
+	background-color: rgb(51, 20, 30);
+}
+#CasusStage div.map canvas {
+	position: absolute;
+	cursor: pointer;
+}
+#CasusStage div.map div.cover {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	z-index: 100;
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+	background-color: black;
+	pointer-events: none;
+	transition: all 500ms ease-in-out;
+}
+#CasusStage.dayoff div.map div.cover {
+	opacity: 1;
+	pointer-events: auto;
+}
+#CasusStage div.map i.fa-icon {
+	position: absolute;
+	color: black;
+	text-align: center;
+	pointer-events: none;
+}
+#CasusStage div.map i.fa-icon.ruin {
+	color: dimgray;
+}
+#CasusStage div.map i.fa-icon.fa-lock {
+	transform: translateY(-12%) scale(0.6);
+}
+#CasusStage div.map i.role {
+	z-index: 90;
+	color: rgb(235, 80, 126);
+	transition: left 300ms linear, top 300ms linear;
+}
+#CasusStage div.map #Player {
+	display: none;
+	color: rgb(178, 255, 215);
+}
+#CasusStage div.events {
+	position: absolute;
+	top: 0px;
+	bottom: 100px;
+	right: 0px;
+	width: 300px;
+	padding: 10px 10px 0px 10px;
+	background-color: rgb(130, 130, 130);
+}
+#CasusStage div.events > div.inner {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	padding: 8px;
+	border-radius: 10px;
+	background-color: rgb(71, 72, 76);
+	box-shadow: inset 4px 4px 5px -2px black;
+}
+#CasusStage div.events > div.inner div.title {
+	font-size: 18px;
+	font-weight: bolder;
+}
+#CasusStage div.events > div.inner div.houseInfo,
+#CasusStage div.events > div.inner div.pathInfo,
+#CasusStage div.events > div.inner div.pathInfo > div.line {
+	display: none;
+	margin-top: 5px;
+}
+#CasusStage div.events > div.inner div.houseInfo div.desc {
+	margin-top: 5px;
+}
+#CasusStage div.events > div.inner div.pathInfo > div.line div.label {
+	font-weight: bolder;
+}
+#CasusStage div.events > div.inner div.sepline {
+	display: block;
+	margin: 10px;
+	height: 1px;
+	background-color: rgb(159, 163, 154);
+}
+#CasusStage div.events div.targetList {
+	position: relative;
+	margin-top: 5px;
+}
+#CasusStage div.events div.targetList > i.fa-icon {
+	width: 25px;
+	height: 22px;
+	margin: 5px;
+	padding-top: 3px;
+	border-radius: 50%;
+	border: 1px solid white;
+	font-size: 20px;
+	text-align: center;
+	vertical-align: middle;
+	cursor: pointer;
+}
+#CasusStage div.personel {
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100px;
+	padding: 10px;
+	background-color: rgb(130, 130, 130);
+}
+#CasusStage div.personel > div.inner {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	padding: 8px;
+	border-radius: 10px;
+	background-color: rgb(71, 72, 76);
+	box-shadow: inset 4px 4px 5px -2px black;
+}
+#CasusStage div.personel > div.inner div.name {
+	font-size: 18px;
+	font-weight: bolder;
+}
+#CasusStage div.personel > div.inner div.property {
+	margin-top: 10px;
+}
+#CasusStage div.personel > div.inner div.property div.item {
+	display: inline-block;
+	margin-right: 20px;
+}
+#CasusStage div.personel > div.inner div.property div.item:last-child {
+	margin-right: 0px;
+}
+#CasusStage div.personel > div.inner div.package {
+	position: absolute;
+	top: 5px;
+	right: 10px;
+}
+#CasusStage div.personel > div.inner div.package div.item {
+	position: relative;
+	display: inline-block;
+	width: 40px;
+	height: 70px;
+	margin-right: 10px;
+	cursor: pointer;
+}
+#CasusStage div.personel > div.inner div.package div.item:last-child {
+	margin-right: 0px;
+}
+#CasusStage div.personel > div.inner div.package div.item > span.icon {
+	position: absolute;
+	display: block;
+	bottom: 25px;
+	left: 50%;
+	transform: translateX(-50%);
+	font-size: 30px;
+}
+#CasusStage div.personel > div.inner div.package div.item > span.name {
+	display: inline-block;
+	width: 40px;
+	margin-top: 45px;
+	text-align: center;
+	font-size: 14px;
+	font-weight: bolder;
+}
+#CasusStage div.status {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	z-index: 100000;
+	padding: 5px;
+	border-radius: 0px 0px 8px 0px;
+	background-color: rgba(0, 0, 0, 0.6);
+}
+#CasusStage div.status > div {
+	margin-left: 10px;
+	margin-right: 10px;
+	display: inline-block;
+	user-select: none;
+}
+#CasusStage div.status > div.button {
+	cursor: pointer;
+}
+
+#StoryLine div.content {
+	position: absolute;
+	top: 10px;
+	bottom: 55px;
+	left: 10px;
+	right: 10px;
+	overflow: auto;
+}
+#StoryLine div.content div.storyline {
+	margin-bottom: 5px;
+	text-shadow: 1px 1px 1px black;
+	user-select: none;
+}
+#StoryLine div.content div.storyline:last-child {
+	margin-bottom: 0px;
+}
+#StoryLine div.content div.storyline.narration {
+	text-align: center;
+	font-style: italic;
+	color: rgb(255, 254, 249)
+}
+#StoryLine div.content div.storyline.remote {
+	text-align: left;
+	color: rgb(85, 217, 138);
+}
+#StoryLine div.content div.storyline.local {
+	text-align: right;
+	color: rgb(142, 209, 251);
+}
+#StoryLine div.panel {
+	position: absolute;
+	bottom: 5px;
+	left: 10px;
+	right: 10px;
+	height: 40px;
+	text-align: center;
+}
+#StoryLine div.panel div.btn {
+	display: none;
+	width: 80px;
+	margin-left: 20px;
+	margin-right: 20px;
+	padding: 5px 10px;
+	border-radius: 5px;
+	border: 1px solid white;
+	text-align: center;
+	cursor: pointer;
+}
+
+#SettingPanel {
+	padding: 10px;
+}
+#SettingPanel div.option {
+	margin-bottom: 10px;
+	cursor: pointer;
+}
+#SettingPanel div.option input {
+	position: relative;
+	top: 1.5px;
+	margin-right: 10px;
+	pointer-events: none;
+}
+#SettingPanel div.button {
+	position: absolute;
+	bottom: 10px;
+	left: 0px;
+	width: 100%;
+	text-align: center;
+}
+#SettingPanel div.button button {
+	width: 150px;
+	height: 40px;
+	line-height: 38px;
+}
+
+#RqtUnlock div.content {
+	padding: 10px;
+}
+#RqtUnlock div.panel {
+	margin-top: 10px;
+	text-align: center;
+}
+
+#RqtBuild div.content {
+	padding: 10px;
+}
+#RqtBuild div.content div.icons {
+	margin-top: 10px;
+	text-align: center;
+}
+#RqtBuild div.content div.icons div.item {
+	display: inline-block;
+	margin: 10px;
+	cursor: pointer;
+}
+#RqtBuild div.content div.icons div.item.selected {
+	color: rgb(252, 211, 55);
+}
+#RqtBuild div.content div.icons div.item i {
+	width: 75px;
+	height: 75px;
+	line-height: 75px;
+	border: 1px solid white;
+	border-radius: 50%;
+	font-size: 50px;
+	text-align: center;
+	pointer-events: none;
+}
+#RqtBuild div.content div.icons div.item div {
+	pointer-events: none;
+}
+#RqtBuild div.content div.title {
+	font-weight: bolder;
+}
+#RqtBuild div.panel {
+	position: absolute;
+	bottom: 10px;
+	left: 0px;
+	width: 100%;
+	text-align: center;
+}
+#RqtBuild div.panel button {
+	width: 100px;
+	height: 40px;
+	line-height: 38px;
+	border-radius: 5px;
+	border: 1px solid black;
+	background-color: rgba(0, 0, 0, 0.2);
+	color: white;
+	cursor: pointer;
+}
+
+#PanelResult div.content {
+	padding: 10px;
+}
+#PanelResult div.panel {
+	margin-top: 10px;
+	text-align: center;
+}
+#PanelResult div.panel button {
+	width: 80px;
+}
+
+#WarZone {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+#WarZone div.war_zone {
+}
+#WarZone div#MonsterWarZone {
+	text-align: right;
+}
+#WarZone div#HeroWarZone {
+	display: flex;
+	flex-flow: wrap-reverse;
+	position: absolute;
+	bottom: 0px;
+}
+#WarZone div.war_zone div.war_card {
+	position: relative;
+	display: inline-block;
+	width: 90px;
+	height: 120px;
+	margin: 5px;
+	margin-bottom: 30px;
+	border: 3px solid rgb(248, 244, 237);
+	border-radius: 5px;
+	vertical-align: bottom;
+	transition: opacity 500ms ease-in-out;
+	font-size: 16px;
+	color: rgb(248, 244, 237);
+}
+#WarZone div.war_zone div.war_card.monster {
+	margin-left: 90px;
+}
+#WarZone div.war_zone div.war_card.hero {
+	margin-right: 90px;
+}
+#WarZone div.war_zone div.war_card.coma {
+	color: rgb(90, 18, 22);
+	border-color: rgb(90, 18, 22);
+}
+#WarZone div.war_zone div.war_card.hitter,
+#WarZone div.war_zone div.war_card.hitted {
+	animation-duration: 500ms;
+	animation-iteration-count: 1;
+}
+#WarZone div.war_zone div.war_card.hitter {
+	animation-name: hitter;
+}
+#WarZone div.war_zone div.war_card.hitted {
+	animation-name: hitted;
+}
+#WarZone div#HeroWarZone div.war_card {
+	align-self: self-start;
+	align-self: flex-end;
+}
+#WarZone div.war_zone div.war_card i {
+	position: absolute;
+	top: 50%;
+	left: 0px;
+	width: 100%;
+	font-size: 50px;
+	text-align: center;
+	transform: translateY(-50%);
+}
+#WarZone div.war_zone div.war_card span {
+	position: absolute;
+}
+#WarZone div.war_zone div.war_card span.name {
+	bottom: -25px;
+	left: 0px;
+	right: 0px;
+	overflow: hidden;
+	text-align: center;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+#WarZone div.war_zone div.war_card span.att {
+	top: 2px;
+	left: 2px;
+}
+#WarZone div.war_zone div.war_card span.def {
+	top: 2px;
+	right: 2px;
+}
+#WarZone div.war_zone div.war_card span.life {
+	bottom: 2px;
+	left: 2px;
+}
+#WarZone div.war_zone div.war_card span.speed {
+	bottom: 2px;
+	right: 2px;
+}
+#WarZone div.war_zone div.war_card span.hint {
+	position: absolute;
+	top: 0px;
+	width: 100%;
+	font-size: 10px;
+	color: rgb(238, 166, 183);
+	text-shadow: 1px 1px 1px black;
+}
+#WarZone div.war_zone div.war_card.hero span.hint {
+	left: 100%;
+	margin-left: 7px;
+	text-align: left;
+}
+#WarZone div.war_zone div.war_card.monster span.hint {
+	right: 100%;
+	margin-right: 7px;
+	text-align: right;
+}
+
+div.war_result {
+	text-align: center;
+}
+div.war_result div.title {
+	margin-top: 20px;
+	margin-bottom: 10px;
+	font-size: 20px;
+	font-weight: bolder;
+	text-shadow: 1px 1px 2px black;
+}
+div.war_result div.title.failed {
+	color: rgb(212, 37, 23);
+}
+div.war_result div.title.success {
+	color: rgb(65, 174, 60);
+}
