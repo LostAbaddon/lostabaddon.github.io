@@ -47,12 +47,12 @@
 			await wait(1000);
 		}
 
-		newData.life = 100;
-		newData.speed = 2;
-		newData.attack = 5;
-		newData.defence = 1;
-		newData.slot = 5;
-		newData.bag = 15;
+		newData.bag = GateOfNovosibirsk.Basic.bag;
+		newData.slot = GateOfNovosibirsk.Basic.slot;
+		newData.life = GateOfNovosibirsk.Basic.life;
+		newData.speed = GateOfNovosibirsk.Basic.speed;
+		newData.attack = GateOfNovosibirsk.Basic.attack;
+		newData.defence = GateOfNovosibirsk.Basic.defence;
 		LoginResult.innerText = `新来的菜鸟${newData.id}注意，你当前所用的赛灵格为：\n内存空间: ${newData.slot}MB 硬盘空间: ${newData.bag}GB 基础能量: ${newData.life} 基础转换率: ${newData.speed} 基础破坏力: ${newData.attack} 基础防护力: ${newData.defence}\n确认请输入【ok】，取消生成输入【cancel】`;
 
 		loginStage = 1;

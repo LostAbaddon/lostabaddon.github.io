@@ -217,7 +217,7 @@ div.scrollable::-webkit-scrollbar-track {
 #CasusStage div.map i.role {
 	z-index: 90;
 	color: rgb(235, 80, 126);
-	transition: left 300ms linear, top 300ms linear;
+	transition: left 500ms linear, top 500ms linear;
 }
 #CasusStage div.map #Player {
 	display: none;
@@ -494,15 +494,37 @@ div.scrollable::-webkit-scrollbar-track {
 	cursor: pointer;
 }
 
-#PanelResult div.content {
-	padding: 10px;
+#LoopResult {
+	padding: 5px;
 }
-#PanelResult div.panel {
-	margin-top: 10px;
-	text-align: center;
+#LoopResult div.line {
+	margin: 5px;
 }
-#PanelResult div.panel button {
-	width: 80px;
+#LoopResult div.line span.name {
+	vertical-align: top;
+	font-weight: bolder;
+	text-align: right;
+}
+#LoopResult div.line span.value {
+	display: inline-block;
+	margin-left: 5px;
+}
+#LoopResult div.line span.label {
+	display: inline-block;
+	width: 85px;
+	text-align: right;
+}
+#LoopResult div.line span.num {
+	display: inline-block;
+	width: 35px;
+	text-align: right;
+}
+#LoopResult div.line span.num:last-child {
+	text-align: left;
+}
+#LoopResult div.line i.fa {
+	margin-left: 5px;
+	margin-right: 5px;
 }
 
 #WarZone {

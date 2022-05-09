@@ -4,8 +4,8 @@
 			var list = ['当前可用命令:'];
 			list.push('help  : 显示本条信息');
 			list.push('exit  : 离开新西伯利亚，回到上层元宇宙');
-			list.push('info  : 显示本赛灵格当前状态');
-			list.push('enter : 跨入新西伯利亚之门');
+			list.push('uname : 查看内核信息');
+			list.push('ssh   : 跨入新西伯利亚之门');
 			newResultLine(list.join('\n'));
 		},
 		async exit () {
@@ -22,12 +22,12 @@
 			GateOfNovosibirsk.stage = 0;
 			GateOfNovosibirsk.launchGame();
 		},
-		info () {
+		uname () {
 			var v = GateOfNovosibirsk.Player;
 			var t = `头衔: ${PlayerInfo.titles[v.title]}\n赛灵格属性: \n内存空间: ${v.slot}MB\n硬盘空间: ${v.bag}GB\n基础能量: ${v.life}\n基础转换率: ${v.speed}\n基础破坏力: ${v.attack}\n基础防护力: ${v.defence}`;
 			newResultLine(t);
 		},
-		enter () {
+		ssh (cmd) {
 			GateOfNovosibirsk.canInput = false;
 			var line = newResultLine('正在将你的GHOST抽离SHELL，请稍等……', 'Mundus');
 			var tag = newEle('span');
@@ -53,12 +53,84 @@
 					clearInterval(si);
 					line.removeChild(tag);
 					newResultLine(PlayerInfo.titles[GateOfNovosibirsk.Player.title] + GateOfNovosibirsk.Player.id + '，愿赛博之力与你同在！');
-					startGame();
+					startGame(cmd.option.speed || cmd.option.s);
 				}
 			}, 200);
 		},
+		async reset () {
+			GateOfNovosibirsk.Player.bag = GateOfNovosibirsk.Basic.bag;
+			GateOfNovosibirsk.Player.slot = GateOfNovosibirsk.Basic.slot;
+			GateOfNovosibirsk.Player.life = GateOfNovosibirsk.Basic.life;
+			GateOfNovosibirsk.Player.speed = GateOfNovosibirsk.Basic.speed;
+			GateOfNovosibirsk.Player.attack = GateOfNovosibirsk.Basic.attack;
+			GateOfNovosibirsk.Player.defence = GateOfNovosibirsk.Basic.defence;
+			await GateOfNovosibirsk.DB.set('player', GateOfNovosibirsk.Player.id, GateOfNovosibirsk.Player);
+			newResultLine('数据已重置', undefined, 'message');
+		},
 	};
 
+	const parseParam = p => {
+		var q = p.toLowerCase();
+		if (q === 'true') return true;
+		if (q === 'false') return false;
+		q = p * 1;
+		if (p === q + '') return q;
+		return p;
+	};
+	const analyzeParams = cmd => {
+		var param = [], option = {};
+		var status = 0, last = null, value = [];
+		cmd.forEach(p => {
+			if (p.indexOf('-') === 0) {
+				if (status === 1) {
+					option[last] = true;
+				}
+				else if (status === 2) {
+					if (value.length === 0) {
+						option[last] = true;
+					}
+					else if (value.length === 1) {
+						option[last] = value[0];
+					}
+					else {
+						option[last] = value;
+					}
+				}
+				last = p.replace(/^\-+/, '');
+				value = [];
+				status = 1;
+			}
+			else {
+				let st = 2;
+				if (status === 0) {
+					param.push(parseParam(p));
+					st = 0;
+				}
+				else if (status === 1) {
+					value = [parseParam(p)];
+				}
+				else {
+					value.push(parseParam(p));
+				}
+				status = st;
+			}
+		});
+		if (status === 1) {
+			option[last] = true;
+		}
+		else if (status === 2) {
+			if (value.length === 0) {
+				option[last] = true;
+			}
+			else if (value.length === 1) {
+				option[last] = value[0];
+			}
+			else {
+				option[last] = value;
+			}
+		}
+		return {param, option};
+	};
 	const updateHint = () => {
 		CMDHint.innerText = `[${GateOfNovosibirsk.Player.id}@novosibirsk ${GateOfNovosibirsk.CurrentPlace}]#`;
 	};
@@ -92,22 +164,23 @@
 		newInputLine(cmd);
 		cmd = cmd.split(/ +/).filter(c => !!c);
 		var action = cmd.splice(0, 1)[0];
+		cmd = analyzeParams(cmd);
 		var handler = CommandCenter[action];
 		if (!handler) {
 			newResultLine(`指令【${action}】不存在！`, null, 'error');
 		}
 		else {
-			handler(...cmd);
+			handler(cmd);
 		}
 
 		CMDLine.scrollIntoViewIfNeeded();
 	};
-	const startGame = () => {
+	const startGame = (speed) => {
 		CmdLineHint.style.display = 'none';
 		GateOfNovosibirsk.canInput = false;
 		GateOfNovosibirsk.stage = 2;
 		PanelStage.classList.add('fadeout');
-		GateOfNovosibirsk.startGameLoop();
+		GateOfNovosibirsk.startGameLoop(speed);
 	};
 
 	GateOfNovosibirsk.startGame = async data => {
@@ -130,7 +203,7 @@
 
 		await wait(1000 + 3000 * Math.random());
 		if (GateOfNovosibirsk.stage === 1) {
-			newResultLine('收到新邮件：\n新西伯利亚的时空能量出现异常波动，请前往探查真相！\n探索新西伯利亚请输入指令【enter】', 'Mundus', 'message');
+			newResultLine('收到新邮件：\n新西伯利亚的时空能量出现异常波动，请前往探查真相！\n探索新西伯利亚请输入指令【ssh】', 'Mundus', 'message');
 		}
 	};
 }) ();

@@ -5,7 +5,7 @@
 	const KeyRate = 0.9;
 	const MonsterRate = 0.05;
 
-	const GameSpeed = 500;
+	var GameSpeed = 350;
 	const DayLimit = 28;
 
 	const EquipLifeMax = 200;
@@ -62,7 +62,6 @@
 	var dayID = 0, eventHistory = [], pathBlocks = [], openedBlocks = [], unlockedBlocks = [];
 	var monsterList = [], monsterCount = 1;
 	var houseMap = {};
-	var popStoryLine;
 
 	const MapArea = CasusStage.querySelector('div.map');
 	const MapCanvas = MapArea.querySelector('canvas');
@@ -107,7 +106,6 @@
 	SettingPanel.AutoStopAfterBattle.opt = SettingPanel.AutoStopAfterBattle.querySelector('input');
 	SettingPanel.AutoUpdateEquipment = SettingPanel.querySelector('div.option[name="AutoUpdateEquipment"]');
 	SettingPanel.AutoUpdateEquipment.opt = SettingPanel.AutoUpdateEquipment.querySelector('input');
-	PanelResult.Content = PanelResult.querySelector('div.content');
 	RqtBuild.Content = RqtBuild.querySelector('div.content div.icons');
 	StoryLine.content = StoryLine.querySelector('div.content');
 	StoryLine.Button = {
@@ -904,7 +902,7 @@
 		// 移动怪物
 		moveMonsters();
 
-		tmrMove = setTimeout(movement, 300);
+		tmrMove = setTimeout(movement, GameSpeed);
 	};
 	const addHistory = (...events) => {
 		events = events.filter(e => !!e);
@@ -923,6 +921,14 @@
 		}
 	};
 	const addFinalEventPath = async () => {
+		var name = mapData.eventPath[mapData.eventPath.length - 1][0][0];
+		var has = foundSpotList.some(h => {
+			return h.type === name;
+		});
+		if (has) {
+			return;
+		}
+
 		await addEventPath(mapData.eventPath.length - 1);
 	};
 	const addEventPath = async id => {
@@ -948,7 +954,54 @@
 			pathBlocks.push([x, y]);
 		});
 	};
+	const updateProperty = (oldV, newV, minV) => {
+		return newV === oldV ? oldV : (newV > oldV ? Math.min(999, oldV + 1) : Math.max(minV, oldV - 1));
+	};
+	const getResultLine = (title, oldV, newV) => {
+		return '<div class="inner"><span class="label">' + title + '：</span><span class="num">' + oldV + '</span><i class="fa fa-solid fa-right-long"></i><span class="num">' + newV + '</span></div>';
+	};
 	const loopOff = () => {
+		newPopup('结束本轮循环', {
+			top: '50%',
+			left: '50%',
+			width: '300px',
+			height: '350px',
+			onActive: pop => {
+				var list = '', newBase = {};
+				newBase.life = updateProperty(GateOfNovosibirsk.Player.life, Role.base.life, 80);
+				list += getResultLine('生命', GateOfNovosibirsk.Player.life, newBase.life);
+				newBase.speed = updateProperty(GateOfNovosibirsk.Player.speed, Role.base.speed, 1);
+				list += getResultLine('转换速率', GateOfNovosibirsk.Player.speed, newBase.speed);
+				newBase.attack = updateProperty(GateOfNovosibirsk.Player.attack, Role.base.attack, 2);
+				list += getResultLine('破坏力', GateOfNovosibirsk.Player.attack, newBase.attack);
+				newBase.defence = updateProperty(GateOfNovosibirsk.Player.defence, Role.base.defence, 0);
+				list += getResultLine('防护力', GateOfNovosibirsk.Player.defence, newBase.defence);
+				newBase.slot = updateProperty(GateOfNovosibirsk.Player.slot, Role.base.slot, 4);
+				list += getResultLine('内存空间', GateOfNovosibirsk.Player.slot, newBase.slot);
+				newBase.bag = updateProperty(GateOfNovosibirsk.Player.bag, Role.base.bag, 12);
+				list += getResultLine('硬盘空间', GateOfNovosibirsk.Player.bag, newBase.bag);
+				LoopResult.querySelector('div.line span.value.identity').innerText = Role.title;
+				LoopResult.querySelector('div.line span.value.death').innerText = Role.records.dead;
+				LoopResult.querySelector('div.line span.value.properties').innerHTML = list;
+
+				GateOfNovosibirsk.Player.bag = newBase.bag;
+				GateOfNovosibirsk.Player.slot = newBase.slot;
+				GateOfNovosibirsk.Player.life = newBase.life;
+				GateOfNovosibirsk.Player.speed = newBase.speed;
+				GateOfNovosibirsk.Player.attack = newBase.attack;
+				GateOfNovosibirsk.Player.defence = newBase.defence;
+				GateOfNovosibirsk.DB.set('player', GateOfNovosibirsk.Player.id, GateOfNovosibirsk.Player);
+
+				pop.style.transform = 'translate(-50%, -50%)';
+				pop.UI.content.appendChild(LoopResult);
+				pop.show();
+			},
+			onHide: pop => {
+				ForbiddenCity.appendChild(LoopResult);
+				CasusStage.parentElement.parentElement.parentElement.hide();
+			},
+		});
+
 		console.log('==========================> OVER');
 		var lastT = 0, lastW = 0;
 		Role.records.rates.forEach((rec, i) => {
@@ -967,20 +1020,6 @@
 			loopOff();
 			return;
 		}
-
-		(() => {
-			console.log('Win Rate Daily:');
-			var lastT = 0, lastW = 0;
-			Role.records.rates.forEach((rec, i) => {
-				var r1 = 100, r2 = 100;
-				if (rec[0] > 0) r1 = Math.round(rec[1] / rec[0] * 10000) / 100;
-				var t = rec[0] - lastT, w = rec[1] - lastW;
-				lastT = rec[0];
-				lastW = rec[1];
-				if (t > 0) r2 = Math.round(w / t * 10000) / 100;
-				console.log('Day ' + (i + 1) + ': ' + r1 + '% \t/\t' + r2 + '% (' + t + ')');
-			});
-		}) ();
 
 		plannedPath = null;
 		targetSpotList = [];
@@ -1388,6 +1427,7 @@
 			});
 
 			await showWarZone();
+			anime = WarZone.animating;
 		}
 
 		var notDone = true, gifts = [];
@@ -1396,7 +1436,10 @@
 		if (anime) await wait(GameSpeed);
 		Role.records.total += monsters.length;
 		while (notDone) {
-			if (anime) await wait(GameSpeed);
+			if (anime) {
+				await wait(GameSpeed);
+				anime = WarZone.animating;
+			}
 			let step = 100;
 			players.forEach(info => {
 				var s = Math.ceil(info.process / info.speed);
@@ -1415,7 +1458,10 @@
 			for (let info of goes) {
 				if (info.died || info.life <= 0) continue;
 				if (info.coma) {
-					if (anime) info.ui.classList.remove('coma');
+					if (anime) {
+						info.ui.classList.remove('coma');
+						anime = WarZone.animating;
+					}
 					info.coma = false;
 					continue;
 				}
@@ -1429,6 +1475,7 @@
 					await wait(GameSpeed);
 					info.ui.classList.remove('hitter');
 					target.ui.classList.remove('hitted');
+					anime = WarZone.animating;
 				}
 
 				let attacker = applyHalo(info, target.halo);
@@ -1445,7 +1492,10 @@
 					attacker.attack *= 2;
 				}
 				if (block) {
-					if (anime) target.ui.hint.innerText = '闪避';
+					if (anime) {
+						target.ui.hint.innerText = '闪避';
+						anime = WarZone.animating;
+					}
 					continue;
 				}
 
@@ -1465,7 +1515,10 @@
 				else if (Math.random() <= info.halo.coma) {
 					msgD.push('被击昏');
 					target.coma = true;
-					if (anime) target.ui.classList.add('coma');
+					if (anime) {
+						target.ui.classList.add('coma');
+						anime = WarZone.animating;
+					}
 				}
 
 				if (info.halo.vampire > 0) {
@@ -1497,6 +1550,7 @@
 					target.ui.hint.innerText = msgD.join('\n');
 					info.ui.life.innerText = info.life;
 					target.ui.life.innerText = target.life;
+					anime = WarZone.animating;
 				}
 
 				if (!target.died) continue;
@@ -1505,6 +1559,7 @@
 					target.ui.style.opacity = 0;
 					await wait(GameSpeed);
 					target.ui.parentElement.removeChild(target.ui);
+					anime = WarZone.animating;
 				}
 
 				if (target.monster) {
@@ -1606,27 +1661,6 @@
 
 		if (Settings.autoStopAfterBattle) stopMove();
 		res(hero.died);
-
-		if (1 === 0) {
-			addHistory(`你战死了……`);
-			shouldStop = true;
-			newPopup('离开元宇宙', {
-				top: '50%',
-				left: '50%',
-				width: '250px',
-				height: '140px',
-				onActive: pop => {
-					pop.style.transform = 'translate(-50%, -50%)';
-					PanelResult.Content.innerText = '你被击败，新西伯利亚之门元宇宙将强行将你拍出。';
-					pop.UI.content.appendChild(PanelResult);
-					pop.show();
-				},
-				onHide: pop => {
-					ForbiddenCity.appendChild(PanelResult);
-					CasusStage.parentElement.parentElement.parentElement.hide();
-				},
-			});
-		}
 	});
 	const showWarZone = () => new Promise(res => {
 		newPopup('战斗', {
@@ -1634,8 +1668,8 @@
 			left: "50%",
 			width: "850px",
 			height: "500px",
-			noCloser: true,
 			onActive: pop => {
+				WarZone.animating = true;
 				pop.close = () => new Promise(res => {
 					if (WarZone.onClosed) WarZone.onClosed();
 					WarZone.onClosed = res;
@@ -1649,6 +1683,9 @@
 			},
 			onShow: () => {
 				res();
+			},
+			onDeactive: pop => {
+				WarZone.animating = false;
 			},
 			onHide: () => {
 				ForbiddenCity.appendChild(WarZone);
@@ -1693,7 +1730,7 @@
 				pop.tmrCloser = setTimeout(() => {
 					delete pop.tmrCloser;
 					pop.hide();
-				}, 2000);
+				}, GameSpeed * 4);
 			},
 			onDeactive: pop => {
 				if (!!pop.tmrCloser) {
@@ -2172,6 +2209,76 @@
 			return true;
 		});
 	};
+	const adjustSpeed = () => {
+		var container = document.querySelector('style[name="speed_panel"]');
+		var inner = [];
+		inner.push("#CasusStage div.map div.cover {transition: all " + GameSpeed + "ms ease-in-out;}");
+		inner.push("#CasusStage div.map i.role {transition: left " + GameSpeed + "ms linear, top " + GameSpeed + "ms linear;}");
+		inner.push("#WarZone div.war_zone div.war_card {transition: opacity " + GameSpeed + "ms ease-in-out;}");
+		inner.push("#WarZone div.war_zone div.war_card.hitter, #WarZone div.war_zone div.war_card.hitted {animation-duration: " + GameSpeed + "ms;}");
+		container.innerHTML = inner.join('');
+	};
+	const showStoryLine = () => new Promise(res => {
+		newPopup('来自虚空的声音', {
+			top: '50%',
+			left: '50%',
+			width: '650px',
+			height: '400px',
+			noCloser: true,
+			onActive: pop => {
+				StoryLine.Shown = true;
+				StoryLine.content.innerHTML = '';
+
+				StoryLine.Button.OK.style.display = 'inline-block';
+				StoryLine.Event.OK = () => {
+					pop.hide();
+				};
+
+				pop.style.transform = 'translate(-50%, -50%)';
+				pop.UI.content.appendChild(StoryLine);
+				pop.show();
+			},
+			onShow: async pop => {
+				appendStoreLine('一点亮光融化了四周无尽的黑暗……');
+				await wait(GameSpeed);
+				appendStoreLine('我：这……这里是哪？', 'local');
+				await wait(GameSpeed);
+				appendStoreLine('【我看了看自己的双手】', 'local');
+				await wait(GameSpeed);
+				appendStoreLine('我：我……我的身体又是怎么了？', 'local');
+				await wait(GameSpeed * 1.5);
+				appendStoreLine('虚空之声：现在的你是你本体的赛灵格。', 'remote');
+				await wait(GameSpeed);
+				appendStoreLine('我：赛……赛灵格……', 'local');
+				await wait(GameSpeed * 1.5);
+				appendStoreLine('虚空之声：也就是灵魂碎片。真正的你正在上一层元宇宙看着你。', 'remote');
+				await wait(GameSpeed * 1.5);
+				appendStoreLine('我：这里是哪里？你又是谁？', 'local');
+				await wait(GameSpeed * 1.5);
+				appendStoreLine('虚空之声：这里是新西伯利亚之门，你的本体分化出了你来探索这个异常了的元宇宙。', 'remote');
+				await wait(GameSpeed);
+				appendStoreLine('虚空之声：而我，是这个元宇宙的观察者，我会协助你探索这里。', 'remote');
+				await wait(GameSpeed * 1.5);
+				appendStoreLine('我：那……我应该怎么做？', 'local');
+				await wait(GameSpeed * 2);
+				appendStoreLine('虚空之声：你能在这个世界停留最多28天，28天后这个元宇宙会将你强行挤走，所以你必须在28天内找出线索。', 'remote');
+				await wait(GameSpeed / 2);
+				appendStoreLine('每天清晨你都会想到一些想去的地方，那里有什么没人知道，但你可以通过点击【右侧面板】中的【目标地标】来删除这些预想的目标，同时通过点击地图来让走到那里进行探索。', 'remote');
+				await wait(GameSpeed / 2);
+				appendStoreLine('地图上会出现一些由这个世界的BUG凝聚而成的傀儡，你必须击败它们，否则可能会提前离开这个元宇宙。', 'remote');
+				await wait(GameSpeed / 2);
+				appendStoreLine('每天凌晨，你都会进入最近的房间进行休息，但要小心，如果那是凶宅的话，你会倒霉的哦！', 'remote');
+				await wait(GameSpeed / 2);
+				appendStoreLine('当然，别忘了你可以通过点击左上角的按钮或按下【空格键】来暂停或继续这个世界的运行，这是作为上层元宇宙中的本体对这个元宇宙非常有限的操控权。', 'remote');
+				await wait(GameSpeed / 2);
+				appendStoreLine('好了，' + PlayerInfo.titles[GateOfNovosibirsk.Player.title] + GateOfNovosibirsk.Player.id + '，开始你的探索吧！', 'remote');
+			},
+			onHide: async () => {
+				StoryLine.Shown = false;
+				ForbiddenCity.appendChild(StoryLine);
+			},
+		});
+	});
 
 	window.addEventListener('resize', onResize);
 	MapCanvas.addEventListener('mousemove', evt => {
@@ -2296,9 +2403,6 @@
 		ele.classList.add('selected');
 		RqtBuild.HouseName = name;
 	});
-	PanelResult.querySelector('div.panel button').addEventListener('click', () => {
-		PanelResult.parentElement.parentElement.parentElement.hide();
-	});
 	Equipments.Body.addEventListener('mouseover', evt => {
 		var ele = evt.target;
 		if (ele.tagName === 'SPAN') ele = ele.parentElement;
@@ -2347,8 +2451,21 @@
 	Utils.addEquipmentIntoBag = addEquipmentIntoBag;
 	Utils.addFinalEventPath = addFinalEventPath;
 
-	GateOfNovosibirsk.startGameLoop = () => {
+	GateOfNovosibirsk.startGameLoop = (speed) => {
+		if (speed !== true && speed !== false && speed > 0) {
+			GameSpeed = speed;
+		}
+		else {
+			GameSpeed = GateOfNovosibirsk.SpeedMode || GameSpeed;
+		}
+		adjustSpeed();
+		if (GateOfNovosibirsk.TestMode) {
+			Settings.autoFight = true;
+			Settings.autoUpdateEquipment = true;
+			Settings.allowMusic = false;
+		}
 		window.Role = Role;
+
 		Role.title = PlayerInfo.titles[GateOfNovosibirsk.Player.title];
 		Role.icon = ["fa-solid", "fa-user-secret"];
 		Role.base = {};
@@ -2400,64 +2517,7 @@
 			},
 			onShow: async win => {
 				await wait(GameSpeed);
-				popStoryLine = newPopup('来自虚空的声音', {
-					top: '50%',
-					left: '50%',
-					width: '650px',
-					height: '400px',
-					noCloser: true,
-					onShow: async () => {
-						StoryLine.content.innerHTML = '';
-						StoryLine.Shown = true;
-						StoryLine.Button.OK.style.display = 'inline-block';
-						StoryLine.Event.OK = () => {
-							popStoryLine.hide();
-						};
-
-						appendStoreLine('一点亮光融化了四周无尽的黑暗……');
-						await wait(GameSpeed);
-						appendStoreLine('我：这……这里是哪？', 'local');
-						await wait(GameSpeed);
-						appendStoreLine('【我看了看自己的双手】', 'local');
-						await wait(GameSpeed);
-						appendStoreLine('我：我……我的身体又是怎么了？', 'local');
-						await wait(GameSpeed * 1.5);
-						appendStoreLine('虚空之声：现在的你是你本体的赛灵格。', 'remote');
-						await wait(GameSpeed);
-						appendStoreLine('我：赛……赛灵格……', 'local');
-						await wait(GameSpeed * 1.5);
-						appendStoreLine('虚空之声：也就是灵魂碎片。真正的你正在上一层元宇宙看着你。', 'remote');
-						await wait(GameSpeed * 1.5);
-						appendStoreLine('我：这里是哪里？你又是谁？', 'local');
-						await wait(GameSpeed * 1.5);
-						appendStoreLine('虚空之声：这里是新西伯利亚之门，你的本体分化出了你来探索这个异常了的元宇宙。', 'remote');
-						await wait(GameSpeed);
-						appendStoreLine('虚空之声：而我，是这个元宇宙的观察者，我会协助你探索这里。', 'remote');
-						await wait(GameSpeed * 1.5);
-						appendStoreLine('我：那……我应该怎么做？', 'local');
-						await wait(GameSpeed * 2);
-						appendStoreLine('虚空之声：你能在这个世界停留最多28天，28天后这个元宇宙会将你强行挤走，所以你必须在28天内找出线索。', 'remote');
-						await wait(GameSpeed / 2);
-						appendStoreLine('每天清晨你都会想到一些想去的地方，那里有什么没人知道，但你可以通过点击【右侧面板】中的【目标地标】来删除这些预想的目标，同时通过点击地图来让走到那里进行探索。', 'remote');
-						await wait(GameSpeed / 2);
-						appendStoreLine('地图上会出现一些由这个世界的BUG凝聚而成的傀儡，你必须击败它们，否则可能会提前离开这个元宇宙。', 'remote');
-						await wait(GameSpeed / 2);
-						appendStoreLine('每天凌晨，你都会进入最近的房间进行休息，但要小心，如果那是凶宅的话，你会倒霉的哦！', 'remote');
-						await wait(GameSpeed / 2);
-						appendStoreLine('当然，别忘了你可以通过点击左上角的按钮或按下【空格键】来暂停或继续这个世界的运行，这是作为上层元宇宙中的本体对这个元宇宙非常有限的操控权。', 'remote');
-						await wait(GameSpeed / 2);
-						appendStoreLine('好了，' + PlayerInfo.titles[GateOfNovosibirsk.Player.title] + GateOfNovosibirsk.Player.id + '，开始你的探索吧！', 'remote');
-					},
-					onHide: async () => {
-						StoryLine.Shown = false;
-						ForbiddenCity.appendChild(StoryLine);
-						// await wait(GameSpeed * 2);
-						// if (Settings.autoDay) startMove();
-					},
-				});
-				popStoryLine.style.transform = 'translate(-50%, -50%)';
-				popStoryLine.UI.content.appendChild(StoryLine);
-				popStoryLine.show();
+				await showStoryLine();
 			},
 			onDeactive: win => {
 				CmdLineHint.style.display = '';

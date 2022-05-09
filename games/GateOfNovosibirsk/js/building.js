@@ -469,7 +469,7 @@ const HouseInfo = {
 				eq.fullname = utils.getEquipName(eq);
 				msg.push(eq.fullname);
 				await utils.showFightResult('升级零件', msg);
-				return [msg.join("，").join("：，", "："), 45];
+				return [msg.join("，").replace("：，", "："), 45];
 			}
 		},
 	},

@@ -9,6 +9,7 @@
 <link rel="stylesheet" type="text/css" href="./css/login.css">
 <link rel="stylesheet" type="text/css" href="./css/mundus.css">
 <link rel="stylesheet" type="text/css" href="./fa/css/all.min.css">
+<style name="speed_panel" type="text/css"></style>
 </head>
 <body>
 
@@ -190,15 +191,23 @@
 			<button>确定</button>
 		</div>
 	</div>
-	<div id="PanelResult">
-		<div class="content"></div>
-		<div class="panel">
-			<button class="btn_ok">明白了</button>
-		</div>
-	</div>
 	<div id="WarZone">
 		<div id="MonsterWarZone" class="war_zone"></div>
 		<div id="HeroWarZone" class="war_zone"></div>
+	</div>
+	<div id="LoopResult">
+		<div class="line">
+			<span class="name">当前身份：</span>
+			<span class="value identity"></span>
+		</div>
+		<div class="line">
+			<span class="name">换身次数：</span>
+			<span class="value death"></span>
+		</div>
+		<div class="line">
+			<span class="name">属性变更：</span>
+			<span class="value properties"></span>
+		</div>
 	</div>
 	<audio id="MscUnlock" src="./asset/unlock.mp3" preload="auto"></audio>
 	<audio id="MscOpen" src="./asset/open.mp3" preload="auto"></audio>
