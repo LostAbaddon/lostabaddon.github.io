@@ -47,6 +47,7 @@ button:active {
 
 
 .page {
+	position: relative;
 	width: 600px;
 	height: 100%;
 	margin-left: auto;
@@ -55,6 +56,7 @@ button:active {
 	border: 5px solid rgb(19, 17, 36);
 	border-radius: 10px;
 	box-shadow: 2px 2px 5px black;
+	overflow: hidden;
 }
 
 .page > .scene {
