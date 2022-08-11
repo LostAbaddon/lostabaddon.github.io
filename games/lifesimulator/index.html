@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
+<title>荒谬人生模拟器</title>
+<link rel="stylesheet" type="text/css" href="./css/window.css">
+<link rel="stylesheet" type="text/css" href="./css/main.css">
+<link rel="stylesheet" type="text/css" href="../GateOfNovosibirsk/fa/css/all.min.css">
+</head>
+<body>
+
+<section class="page">
+	<div id="ScnWelcome" class="scene welcome animated">
+		<div class="cover"></div>
+		<div class="panel">
+			<button onclick="LifeSimulator.startNewLife()">荒谬启程</button>
+		</div>
+	</div>
+	<div id="ScnPlay" class="scene worldline animated waiting">
+		<div class="sheet animated">
+			<div class="cover"></div>
+			<div class="hint scrollable animated"></div>
+			<div class="panel">
+				<button name="option1" onclick="LifeSimulator.gotoChoise(0)"></button>
+				<button name="option2" onclick="LifeSimulator.gotoChoise(1)"></button>
+				<button name="option3" onclick="LifeSimulator.gotoChoise(2)"></button>
+				<button name="option4" onclick="LifeSimulator.gotoChoise(3)"></button>
+				<button name="option5" onclick="LifeSimulator.gotoChoise(4)"></button>
+			</div>
+		</div>
+	</div>
+</section>
+
+<script type="text/javascript" src="./js/worldline.js"></script>
+<script type="text/javascript" src="./js/common.js"></script>
+<script type="text/javascript" src="./js/window.js"></script>
+<script type="text/javascript" src="./js/lrucache.js"></script>
+<script type="text/javascript" src="./js/cacheddb.js"></script>
+<script type="text/javascript" src="./js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,156 @@
+html, body {
+	width: 100%;
+	height: 100%;
+	margin: 0px;
+	padding: 0px;
+	background-color: rgb(50, 47, 59);
+}
+div, span, p, button {
+	box-sizing: border-box;
+	user-select: none;
+}
+button {
+	padding: 5px 15px;
+	background-color: transparent;
+	border: 1px solid black;
+	border-radius: 3px;
+	font-size: 20px;
+}
+button:active {
+	background-color: rgb(192, 196, 195);
+	box-shadow: 2px 2px 5px black;
+}
+
+.animated {
+	transition: all 300ms ease-in-out;
+}
+.scrollable {
+	overflow: overlay;
+}
+.scrollable::-webkit-scrollbar {
+	width: 10px;
+	background-color: transparent;
+	cursor: pointer;
+}
+.scrollable::-webkit-scrollbar-thumb {
+	border-radius: 5px;
+	background-color: rgb(75, 75, 75);
+	box-shadow: inset 2px 2px 3px rgba(255, 255, 255, 0.5);
+	cursor: pointer;
+}
+.scrollable::-webkit-scrollbar-track {
+	border-radius: 5px;
+	background-color: rgba(225, 225, 225, 0.1);
+	box-shadow: inset 2px 2px 3px rgba(53, 53, 53, 0.2);
+	cursor: pointer;
+}
+
+
+.page {
+	width: 600px;
+	height: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: white;
+	border: 5px solid rgb(19, 17, 36);
+	border-radius: 10px;
+	box-shadow: 2px 2px 5px black;
+}
+
+.page > .scene {
+	position: absolute;
+	top: 0%;
+	left: 0%;
+	z-index: 1;
+	width: 100%;
+	height: 100%;
+	opacity: 1;
+	font-size: 16px;
+}
+.scene.waiting {
+	top: 100%;
+	z-index: 0;
+	opacity: 0;
+}
+.scene.gone {
+	top: -100%;
+	z-index: 2;
+	opacity: 0;
+}
+.scene.welcome {
+	background-color: rgb(255, 254, 248);
+}
+
+.scene.welcome .cover {
+	position: absolute;
+	top: 5%;
+	bottom: 25%;
+	left: 0px;
+	right: 0px;
+	background-image: url("../assets/cover.png");
+	background-position: center;
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+.scene.welcome .panel {
+	position: absolute;
+	top: 80%;
+	left: 0px;
+	right: 0px;
+	text-align: center;
+}
+
+.scene.worldline .cover {
+	position: absolute;
+	top: 0%;
+	bottom: 35%;
+	left: 0px;
+	right: 0px;
+	background-position: center;
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+.scene.worldline .hint {
+	position: absolute;
+	top: 32.5%;
+	left: 5%;
+	right: 5%;
+	max-height: 50%;
+	padding: 10px;
+	transform: translateY(-50%);
+	background-color: rgba(199, 210, 212, 0.6);
+	backdrop-filter: blur(2px);
+	font-size: 18px;
+	line-height: 20px;
+	opacity: 1;
+}
+.scene.worldline .hint.hide {
+	opacity: 0;
+}
+.scene.worldline .panel {
+	position: absolute;
+	bottom: 20px;
+	left: 0px;
+	right: 0px;
+	text-align: center;
+}
+.scene.worldline .panel button {
+	width: 85%;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 10px;
+	font-size: 16px;
+}
+.scene.worldline .sheet {
+	opacity: 1;
+}
+.scene.worldline .sheet.hide {
+	opacity: 0;
+}
+
+@media screen and (max-width: 600px) {
+	.page {
+		width: 100%;
+		border: none;
+	}
+}
