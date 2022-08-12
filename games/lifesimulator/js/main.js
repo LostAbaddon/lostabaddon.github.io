@@ -5,7 +5,7 @@ const LifeSimulator = {};
 	var playerPoints;
 	var currentSheet;
 
-	LifeSimulator.startNewLife = () => {
+	LifeSimulator.startNewLife = (id) => {
 		playerPoints = {};
 
 		UIS.sheet = ScnPlay.querySelector('div.sheet');
@@ -18,6 +18,7 @@ const LifeSimulator = {};
 		UIS.option.push(ScnPlay.querySelector('button[name="option4"]'));
 		UIS.option.push(ScnPlay.querySelector('button[name="option5"]'));
 
+		window.WorldLine = window['StoryLine' + id];
 		currentSheet = WorldLine.events[WorldLine.start] || {};
 		showStorySheet();
 
