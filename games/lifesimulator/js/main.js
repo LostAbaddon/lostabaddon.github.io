@@ -29,8 +29,16 @@ const LifeSimulator = {};
 			UIS.option[i].style.display = 'none';
 		}
 		if (!currentSheet.choise) {
-			ScnWelcome.classList.remove('gone');
-			ScnPlay.classList.add('waiting');
+			if (currentSheet.finish) {
+				ScnWelcome.classList.remove('gone');
+				ScnPlay.classList.add('waiting');
+			}
+			else {
+				currentSheet = WorldLine.events[currentSheet.next];
+				UIS.sheet.classList.add('hide');
+				await wait(300);
+				showStorySheet();
+			}
 			return;
 		}
 
@@ -40,7 +48,9 @@ const LifeSimulator = {};
 			result = choise.goto(playerPoints);
 		}
 		result = Object.assign({}, choise, result);
-		playerPoints[result.points[0]] = (playerPoints[result.points[0]] || 0) + result.points[1];
+		if (!!result.points && result.points.length >= 2) {
+			playerPoints[result.points[0]] = (playerPoints[result.points[0]] || 0) + result.points[1];
+		}
 
 		UIS.hint.classList.add('hide');
 
@@ -82,11 +92,11 @@ const LifeSimulator = {};
 			}
 		}
 		else if (len === 0) {
-			await wait(2000);
-			currentSheet = WorldLine.events[currentSheet.next];
-			UIS.sheet.classList.add('hide');
-			await wait(300);
-			showStorySheet();
+			UIS.option[0].style.display = 'block';
+			UIS.option[0].innerText = "下一页";
+			for (let i = 1; i < 5; i ++) {
+				UIS.option[i].style.display = 'none';
+			}
 		}
 		else {
 			for (let i = 0; i < len; i ++) {

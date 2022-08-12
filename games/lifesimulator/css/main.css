@@ -122,6 +122,7 @@ button:active {
 	transform: translateY(-50%);
 	background-color: rgba(199, 210, 212, 0.6);
 	backdrop-filter: blur(2px);
+	box-shadow: inset 0px 0px 2px black, 2px 2px 5px gray;
 	font-size: 18px;
 	line-height: 20px;
 	opacity: 1;
