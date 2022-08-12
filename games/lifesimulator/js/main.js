@@ -4,6 +4,7 @@ const LifeSimulator = {};
 	const UIS = {};
 	var playerPoints;
 	var currentSheet;
+	var currentIndex = -1;
 
 	LifeSimulator.startNewLife = (id) => {
 		playerPoints = {};
@@ -40,6 +41,12 @@ const LifeSimulator = {};
 				await wait(300);
 				showStorySheet();
 			}
+			return;
+		}
+		else if (currentIndex >= 0) {
+			UIS.hint.classList.add('hide');
+			await wait(300);
+			showStorySheet();
 			return;
 		}
 
@@ -82,20 +89,41 @@ const LifeSimulator = {};
 			UIS.cover.style.backgroundImage = '';
 		}
 		if (!!currentSheet.hint) {
-			UIS.hint.innerText = currentSheet.hint;
+			if (typeof currentSheet.hint === 'string') {
+				currentIndex = -1;
+				UIS.hint.innerText = currentSheet.hint;
+			}
+			else if (currentIndex === -1) {
+				currentIndex = 0;
+				UIS.hint.innerText = currentSheet.hint[0];
+			}
+			else {
+				currentIndex ++;
+				UIS.hint.innerText = currentSheet.hint[currentIndex];
+			}
 		}
 		else {
+			currentIndex = -1;
 			UIS.hint.innerHTML = '';
 		}
 		var len = (currentSheet.choise || []).length;
 		if (currentSheet.finish) {
+			currentIndex = -1;
 			UIS.option[0].style.display = 'block';
 			UIS.option[0].innerText = WorldLine.finish(playerPoints);
 			for (let i = 1; i < 5; i ++) {
 				UIS.option[i].style.display = 'none';
 			}
 		}
+		else if (currentIndex >= 0 && currentIndex < currentSheet.hint.length - 1) {
+			UIS.option[0].style.display = 'block';
+			UIS.option[0].innerText = "下一页";
+			for (let i = 1; i < 5; i ++) {
+				UIS.option[i].style.display = 'none';
+			}
+		}
 		else if (len === 0) {
+			currentIndex = -1;
 			UIS.option[0].style.display = 'block';
 			UIS.option[0].innerText = "下一页";
 			for (let i = 1; i < 5; i ++) {
@@ -103,6 +131,7 @@ const LifeSimulator = {};
 			}
 		}
 		else {
+			currentIndex = -1;
 			for (let i = 0; i < len; i ++) {
 				let sheet = currentSheet.choise[i];
 				UIS.option[i].style.display = 'block';

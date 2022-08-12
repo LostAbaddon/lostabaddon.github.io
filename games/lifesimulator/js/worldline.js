@@ -304,10 +304,4 @@
 
 	// test
 	console.log(MenTypes);
-	var test = {};
-	for (let key in MenTypes) {
-		let type = MenTypes[key];
-		test[type] = (test[type] || 0) + 1;
-	}
-	console.log(test);
 }) ();
