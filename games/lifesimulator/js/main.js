@@ -2,12 +2,14 @@ const LifeSimulator = {};
 
 (() => {
 	const UIS = {};
-	var playerPoints;
+	var playerPoints = {};
 	var currentSheet;
 	var currentIndex = -1;
+	var resultPoints = null;
 
 	LifeSimulator.startNewLife = (id) => {
 		playerPoints = {};
+		resultPoints = null;
 
 		UIS.sheet = ScnPlay.querySelector('div.sheet');
 		UIS.cover = ScnPlay.querySelector('div.cover');
@@ -32,8 +34,7 @@ const LifeSimulator = {};
 		}
 		if (!currentSheet.choise) {
 			if (currentSheet.finish) {
-				ScnWelcome.classList.remove('gone');
-				ScnPlay.classList.add('waiting');
+				gameOver();
 			}
 			else {
 				currentSheet = WorldLine.events[currentSheet.next];
@@ -110,10 +111,12 @@ const LifeSimulator = {};
 		if (currentSheet.finish) {
 			currentIndex = -1;
 			UIS.option[0].style.display = 'block';
-			UIS.option[0].innerText = WorldLine.finish(playerPoints);
+			let endInfo = WorldLine.finish(playerPoints);
+			UIS.option[0].innerText = endInfo.hint;
 			for (let i = 1; i < 5; i ++) {
 				UIS.option[i].style.display = 'none';
 			}
+			resultPoints = endInfo.gift;
 		}
 		else if (currentIndex >= 0 && currentIndex < currentSheet.hint.length - 1) {
 			UIS.option[0].style.display = 'block';
@@ -142,5 +145,10 @@ const LifeSimulator = {};
 			}
 		}
 		UIS.sheet.classList.remove('hide');
+	};
+	const gameOver = async () => {
+		console.log(playerPoints, resultPoints);
+		ScnWelcome.classList.remove('gone');
+		ScnPlay.classList.add('waiting');
 	};
 }) ();

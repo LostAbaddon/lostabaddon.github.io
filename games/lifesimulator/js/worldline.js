@@ -16,7 +16,6 @@
 		}
 		var next;
 		if (range.length === 0 || AllMen.length - range.length >= StoryLine1.menLimit) {
-			console.log(status); // test
 			if (status.money > status.man) {
 				next = 'end3';
 			}
@@ -243,7 +242,7 @@
 				hint: "一位每天都在你去的咖啡馆里静静看着你的女孩引起了你的注意。\n她每天都不说话，只是安静地看着你，微笑，就这么陪伴了你整整一年的下午。\n今天，她突然对你说，这是你们相识的第365天，希望能知道你的名字。",
 				choise: [
 					{
-						hint: "你被她笑起来的双眸深深的吸引了，给了她你的而联系方式。",
+						hint: "你被她笑起来的双眸深深的吸引了，给了她你的联系方式。",
 						points: {great: 1},
 						result: "女孩每天都陪伴着你，并没有要求更多。\n你们就这么一起相伴走了一年，一年，又一年。\n直到有一天，她告诉你，她觉得金钱已经腐蚀了你的心灵，她想要更广阔的自由。\n再次见到她时，她已经陪伴在了世界第一女富豪的身边。"
 					},
@@ -278,8 +277,17 @@
 		start: 'start',
 		menLimit: 4,
 		finish: (points) => {
-			console.log(points);
-			return "你的人生就这么结束了……";
+			var result = {hint: "你的人生就这么结束了……"};
+			var stone = points.zhonger || 0;
+			var scissors = points.dandiao || 0;
+			var cloth = points.great || 0;
+			var max = Math.max(stone, scissors, cloth);
+			var list = [];
+			if (max === stone) list.push('stone');
+			if (max === scissors) list.push('scissors');
+			if (max === cloth) list.push('cloth');
+			result.gift = list[Math.floor(list.length * Math.random())];
+			return result;
 		}
 	};
 	for (let key in StoryLine1.events) {
