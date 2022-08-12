@@ -48,8 +48,11 @@ const LifeSimulator = {};
 			result = choise.goto(playerPoints);
 		}
 		result = Object.assign({}, choise, result);
-		if (!!result.points && result.points.length >= 2) {
-			playerPoints[result.points[0]] = (playerPoints[result.points[0]] || 0) + result.points[1];
+		if (!!result.points) {
+			for (let key in result.points) {
+				let value = result.points[key] || 0;
+				playerPoints[key] = (playerPoints[key] || 0) + value;
+			}
 		}
 
 		UIS.hint.classList.add('hide');

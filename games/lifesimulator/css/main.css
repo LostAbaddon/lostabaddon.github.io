@@ -11,7 +11,7 @@ div, span, p, button {
 }
 button {
 	padding: 5px 15px;
-	background-color: transparent;
+	background-color: rgba(186, 204, 217, 0.8);
 	border: 1px solid black;
 	border-radius: 3px;
 	font-size: 20px;
@@ -85,18 +85,18 @@ button:active {
 
 .scene.welcome .cover {
 	position: absolute;
-	top: 5%;
-	bottom: 25%;
+	top: 0%;
+	bottom: 0%;
 	left: 0px;
 	right: 0px;
 	background-image: url("../assets/cover.png");
 	background-position: center;
-	background-size: contain;
+	background-size: cover;
 	background-repeat: no-repeat;
 }
 .scene.welcome .panel {
 	position: absolute;
-	top: 80%;
+	top: 85%;
 	left: 0px;
 	right: 0px;
 	text-align: center;
@@ -109,7 +109,7 @@ button:active {
 	left: 0px;
 	right: 0px;
 	background-position: center;
-	background-size: contain;
+	background-size: auto 100%;
 	background-repeat: no-repeat;
 }
 .scene.worldline .hint {
