@@ -3,7 +3,7 @@ const LifeSimulator = {};
 (() => {
 	const UIS = {};
 	var playerPoints = {};
-	var currentSheet;
+	var currentSheet, currentChoises;
 	var currentIndex = -1;
 	var resultPoints = null;
 	var popGameOverInfo;
@@ -23,7 +23,7 @@ const LifeSimulator = {};
 		UIS.option.push(ScnPlay.querySelector('button[name="option5"]'));
 
 		window.WorldLine = window['StoryLine' + id];
-		if (WorldLine.init) WorldLine.init();
+		if (WorldLine.init) WorldLine.init(playerPoints);
 		currentSheet = WorldLine.events[WorldLine.start] || {};
 		await initDB('game:' + WorldLine.name);
 
@@ -36,7 +36,7 @@ const LifeSimulator = {};
 		for (let i = 0; i < 5; i ++) {
 			UIS.option[i].style.display = 'none';
 		}
-		if (!currentSheet.choise) {
+		if (currentChoises.length === 0) {
 			if (currentSheet.finish) {
 				if (!!WorldLine.step) WorldLine.step(playerPoints);
 				gameOver();
@@ -56,7 +56,7 @@ const LifeSimulator = {};
 			return;
 		}
 
-		var choise = currentSheet.choise[id];
+		var choise = currentChoises[id];
 		var result = {};
 		if (choise.goto instanceof Function) {
 			result = choise.goto(playerPoints);
@@ -113,7 +113,19 @@ const LifeSimulator = {};
 			currentIndex = -1;
 			UIS.hint.innerHTML = '';
 		}
-		var len = (currentSheet.choise || []).length;
+
+		currentChoises = [];
+		if (!!currentSheet.choise) currentSheet.choise.forEach(ch => {
+			if (!ch.condition) {
+				currentChoises.push(ch);
+			}
+			else {
+				if (ch.condition(playerPoints)) {
+					currentChoises.push(ch);
+				}
+			}
+		});
+		var len = currentChoises.length;
 		if (currentSheet.finish) {
 			currentIndex = -1;
 			UIS.option[0].style.display = 'block';
@@ -142,7 +154,7 @@ const LifeSimulator = {};
 		else {
 			currentIndex = -1;
 			for (let i = 0; i < len; i ++) {
-				let sheet = currentSheet.choise[i];
+				let sheet = currentChoises[i];
 				UIS.option[i].style.display = 'block';
 				UIS.option[i].innerText = sheet.hint;
 			}

@@ -19,7 +19,7 @@
 
 		var love = waste;
 		if (TargetMen.includes(type)) {
-			love *= 2.5; // 真爱暴击
+			if (value < 0) love *= 2.5; // 真爱暴击
 			if (value > 0) ChoiseMatch[0] ++;
 			console.log('真爱暴击！！！！');
 		}
@@ -136,8 +136,15 @@
 				choise: [
 					{
 						hint: "小哥哥看着好可爱哦，聊聊吧~",
+						condition: false,
 						points: {zhonger: 1, heart: -5},
 						result: "没多久你就觉得这个小哥哥有点无聊，配不上深邃优雅的你。\n悲痛欲绝的小哥哥伤心地跳了河，但因为过于怕死，最后成功在河里学会了游泳，游回了岸边。"
+					},
+					{
+						hint: "这个小哥虽然看上去呆呆傻傻的，但文质彬彬清秀得紧，也许可以好好调教哦~",
+						condition: true,
+						points: {zhonger: 1, heart: 2},
+						result: "你和小哥幸福地生活了一段时间，直到突然有一天他对你说，他其实是日本宫本一组的预备组长，现在要回去重整宫本一组，所以不得不和你分别。"
 					},
 					{
 						hint: "垃圾，滚粗！",
@@ -152,8 +159,15 @@
 				choise: [
 					{
 						hint: "强壮男士我的爱，就你了！",
+						condition: false,
 						points: {dandiao: 1, heart: -10},
 						result: "这位绅士的确很给人安全感，但实在是太单调乏味了，一点都不懂浪漫。\n你已经不是过去的小女生了，你需要生活中有更多惊喜与刺激，所以你认为两人并不合适。\n伤心欲绝的绅士离开你之后痛定思痛，跑去MI6当了一名特工。"
+					},
+					{
+						hint: "在孔武粗狂的外表下，有一种让人信赖的安全感，我很中意哦！",
+						condition: true,
+						points: {dandiao: 1, heart: 5},
+						result: "你们幸福地生活了几年后，一天来了一群绑匪想要劫持你，他为了保护你而将他们都收服，做了他们的老大，最后不得不为了不把你牵连进危险事件而带着小弟们离去了。"
 					},
 					{
 						hint: "哼，就是一个馋我身子，啊，不，是我馋身子的无聊鬼罢了，不要！",
@@ -168,8 +182,15 @@
 				choise: [
 					{
 						hint: "恶心！滚粗！",
+						condition: false,
 						points: {zhonger: -1, heart: -2},
 						result: "被你抛弃后，他发愤图强，最终成为了举世闻名的，漫画家。"
+					},
+					{
+						hint: "你让保安礼貌地将他请了出去。",
+						condition: true,
+						points: {zhonger: 1, heart: 5},
+						result: "你一眼就看上了前来带走这位成熟男性的帅气保安，你们愉快地度过了激情四射的几天后，无意中发现原来是保安特地雇了这位成熟的男性来找你，从而造成了你和保安的一眼万年。\n得知真相地你果断奖励了保安一笔钱，因为实在是太有创意了。"
 					},
 					{
 						hint: "啊！好可爱啊！好想捏捏啊！",
@@ -185,12 +206,19 @@
 					{
 						hint: "好看的皮囊千篇一律，空虚的内心万里挑一，不要！",
 						points: {great: -1, heart: -3},
-						result: "离开你后，他专心沉醉在自己的怪盗事业中，\n并最终成为了一名，\n劳改犯。"
+						result: "离开你后，他专心沉醉在自己的怪盗事业中，\n并最终成为了一名受万千少女敬仰的，\n魔术师。"
 					},
 					{
 						hint: "好帅啊！星星眼！",
+						condition: false,
 						points: {great: 1, heart: -12},
-						result: "桃花债太多，被他拿去做装备的钱，你最后还是无奈选择了放手。\n而他也在离开你之后，专心沉迷在怪盗事业中，\n成为了一名，\n劳改犯。"
+						result: "桃花债太多，被他拿去做装备的钱，你最后还是无奈选择了放手。\n而他也在离开你之后，专心沉迷在怪盗事业中，\n成为了一名令万千少女尖叫的，\n魔术师。"
+					},
+					{
+						hint: "怪盗哎！我的最爱啊！",
+						condition: true,
+						points: {great: 1, heart: 2},
+						result: "从小就立志要当一名杰出侠盗的你和怪盗绅士一拍即合，不用几年就成了名噪全球的，夫妻魔术师。"
 					}
 				]
 			},
@@ -200,8 +228,15 @@
 				choise: [
 					{
 						hint: "Smart is new Sexy! 我要了！",
+						condition: false,
 						points: {great: 1, heart: -18},
 						result: "你们一起做了一套高等量子力学的卷子，然后因为你没能拿到满分，他失望地离开了你。\n留下一句余音绕梁三日的临别赠言：“待到高量满分时，你我再续前缘日。”"
+					},
+					{
+						hint: "智慧的头脑是我最无法抵抗的尤物了啊！",
+						condition: true,
+						points: {great: 1, heart: -5},
+						result: "你们一起做了一套高等量子力学的卷子，并双双发现对方和自己一样拿了满分。\n三年后，你们一起找到了统一广义相对论与量子场论的方法，并获得了诺贝尔奖。\n再然后，你梦醒了。"
 					},
 					{
 						hint: "臭美的人，乱棒打出去！",
@@ -216,6 +251,7 @@
 				choise: [
 					{
 						hint: "这种男人最讨厌了，赶走赶走！",
+						condition: false,
 						points: {dandiao: -1, heart: -3},
 						result: "他一直在你的别墅周围徘徊不走，最后不得不请警察叔叔把他送进了牢房。\n一年后你们再度相遇时，他告诉你，他在里面学会了用缝纫机，现在已经是一位小有名气的裁缝了，他很感谢你让他有了学习新技能的机会。"
 					},
@@ -223,6 +259,12 @@
 						hint: "我最喜欢痴情的男子了，起来聊聊啊~~",
 						points: {dandiao: 1, heart: -12},
 						result: "这货的最大优点是痴情；这货的最小优点也是痴情。\n简单说，这货除了痴情，啥都没有。\n所以你果断甩了他，而他也真如自己所言粘在你家门口不肯走，最后被保安送进了牢房。\n一年后你们再度相遇时，他告诉你，他在里面学会了用缝纫机，现在已经是一位小有名气的裁缝了，他很感谢你让他有了学习新技能的机会。"
+					},
+					{
+						hint: "这种人是怎么混进来的？快来人，拖走拖走！",
+						condition: true,
+						points: {dandiao: -1, heart: -1},
+						result: "他发现你的态度居然如此后，叹气摇了摇头：\n“我本将心向明月，奈何明月照沟渠。我虽有万亿身价，但就是想找一个普通女性安度余生，没想到各个都嫌贫爱富，看我没钱就把我赶走。算了，别人笑我太疯癫，我笑他人看不穿。去也！”\n说罢，他迈出六亲不认的步伐拂袖离去，被前来迎接他的宛平南路600号专车接走了。"
 					}
 				]
 			},
@@ -232,6 +274,7 @@
 				choise: [
 					{
 						hint: "你的十几年，便是它的一辈子，你选择陪它走完这辈子！",
+						condition: false,
 						points: {zhonger: 1, heart: 2},
 						result: "第二年，狗狗便魂归故里，十几个保安冲了出来，都说自己是狗狗的好儿子，想要继承它的遗产，成为你的遗产继承人。"
 					},
@@ -239,6 +282,12 @@
 						hint: "人狗毕竟殊途，还是来生共谐连理吧。",
 						points: {zhonger: -1, heart: -11},
 						result: "伤心欲绝的狗狗当场就咽了气，十几个保安冲了出来，都说自己是狗狗的好儿子，说你害死了他们的父亲，希望你能支付高额赔偿，你果断报警抓走了这些人形两脚兽。"
+					},
+					{
+						hint: "啊！好可爱啊！要了要了！",
+						condition: true,
+						points: {zhonger: 1, heart: -11},
+						result: "但狗狗的寿命实在太短暂了，你们在一起愉快地生活了没几年，它便驾鹤西去，留下你孤独一人。"
 					}
 				]
 			},
@@ -253,8 +302,15 @@
 					},
 					{
 						hint: "你冲着它笑了起来，点点头说：好啊，家电君！",
+						condition: false,
 						points: {dandiao: 1, heart: 3},
 						result: "在你迷人的微笑下，电饭煲君高兴地想要跳起来，但结果由于过于高兴引起了短路，主板烧毁了。"
+					},
+					{
+						hint: "和一台电饭煲谈恋爱？好神奇哦！一定要试试！",
+						condition: true,
+						points: {dandiao: 1, heart: 15},
+						result: "在听了电饭煲说了一晚上用烹调词汇尤其是煲饭术语组装的情话后，你发现，你终于学会了泡方便面！\n兴奋地你抱着电饭煲君愉快地亲亲抱抱举高高，然后顺理成章地把它的电源线拉掉了。\n再度插回插座的电饭煲君，终于，恢复成了一台纯粹的电饭煲。"
 					}
 				]
 			},
@@ -264,6 +320,7 @@
 				choise: [
 					{
 						hint: "你被她笑起来的双眸深深的吸引了，给了她你的联系方式。",
+						condition: false,
 						points: {great: 1, heart: 3},
 						result: "女孩每天都陪伴着你，并没有要求更多。\n你们就这么一起相伴走了一年，一年，又一年。\n直到有一天，她告诉你，她觉得金钱已经腐蚀了你的心灵，她想要更广阔的自由。\n再次见到她时，她已经陪伴在了世界第一女富豪的身边。"
 					},
@@ -271,6 +328,12 @@
 						hint: "你对她轻轻摇了摇头：你已经去到了新的世界，但我还留恋旧世界的浮尘，抱歉。",
 						points: {great: -1, heart: 1},
 						result: "女孩笑了笑：我会一直等你。\n她继续在咖啡馆里安静地陪伴着你，一年，一年，又一年。\n一直到这天，她没有来，你派人去打听她的下落，发现她已经和世界第一女富豪结婚周游世界去了。"
+					},
+					{
+						hint: "你用手纸轻轻抵住了她的唇，说：我懂。",
+						condition: true,
+						points: {great: 1, heart: 10},
+						result: "你们幸福地生活在了一起，虽然有无数前来想要与你喜结连理的男性同胞表示完全无法理解，但，这个世界上能理解彼此的本来就是极少数人。"
 					}
 				]
 			},
@@ -302,13 +365,14 @@
 		},
 		start: 'start',
 		menLimit: 9,
-		init: () => {
+		init: (status) => {
 			ChoiseMatch[0] = 0;
 			ChoiseMatch[1] = 0;
 			HintMoney.innerText = '';
 			HintHeart.innerText = '';
 			TargetMen.splice(0);
-			var num = 1 + Math.round(Math.random());
+			var num = Math.round(1.2 + 1.8 * Math.random());
+			console.log('TRUE LOVE: ' + num);
 			var list = Object.keys(StoryLine1.events);
 			list = list.filter(key => !!key.match(/man\d+/));
 			for (let i = 0; i < num; i ++) {
@@ -353,6 +417,12 @@
 			else m = 0;
 			option.goto = chooseNext(key, v, m, option.points.heart);
 			option.points[key] = 1;
+			if (option.condition === true) {
+				option.condition = () => TargetMen.includes(key);
+			}
+			else if (option.condition === false) {
+				option.condition = () => !TargetMen.includes(key);
+			}
 		});
 	}
 
