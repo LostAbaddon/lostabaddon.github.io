@@ -45,7 +45,6 @@ button:active {
 	cursor: pointer;
 }
 
-
 .page {
 	position: relative;
 	width: 600px;
@@ -81,6 +80,9 @@ button:active {
 }
 .scene.welcome {
 	background-color: rgb(255, 254, 248);
+}
+.scene.arena {
+	background-color: black;
 }
 
 .scene.welcome .cover {
@@ -149,6 +151,95 @@ button:active {
 }
 .scene.worldline .sheet.hide {
 	opacity: 0;
+}
+
+.scene.arena .cover {
+	position: absolute;
+	top: 0%;
+	bottom: 0%;
+	left: 0px;
+	right: 0px;
+	background-image: url("../assets/arena.jpg");
+	background-position: center;
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+.scene.arena .title {
+	position: absolute;
+	top: 10%;
+	width: 100%;
+	color: white;
+	font-size: 32px;
+	font-weight: bolder;
+	text-align: center;
+}
+.scene.arena .panel {
+	position: absolute;
+	top: 50%;
+	width: 100%;
+	text-align: center;
+}
+.scene.arena .panel button {
+	display: block;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+body.Arena .card {
+	position: relative;
+	display: inline-block;
+	width: 180px;
+	height: 240px;
+	padding: 15px;
+	background-color: rgba(0, 0, 0, 0.6);
+	border: 5px solid black;
+	border-radius: 10px;
+}
+body.Arena .card .type,
+body.Arena .card .point {
+	position: absolute;
+	top: 10px;
+	color: white;
+	font-size: 25px;
+	text-shadow: 1px 1px 3px black;
+}
+body.Arena .card .type {
+	left: 10px;
+}
+body.Arena .card .point {
+	right: 10px;
+}
+body.Arena .card .pic {
+	position: absolute;
+	top: 5px;
+	bottom: 5px;
+	left: 5px;
+	right: 5px;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+}
+
+#GameOverInfo .hint {
+	padding: 20px;
+}
+#GameOverInfo .panel {
+	margin-top: 50px;
+	text-align: center;
+}
+
+#NewCardInfo .hint {
+	margin-top: 10px;
+	font-size: 20px;
+	text-align: center;
+}
+#NewCardInfo .card {
+	display: block;
+	margin-top: 20px;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 @media screen and (max-width: 600px) {

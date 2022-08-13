@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
+<title>傀儡角斗场</title>
+<link rel="stylesheet" type="text/css" href="./css/window.css">
+<link rel="stylesheet" type="text/css" href="./css/main.css">
+<link rel="stylesheet" type="text/css" href="../GateOfNovosibirsk/fa/css/all.min.css">
+</head>
+<body class="Arena">
+
+<section class="page">
+	<div id="ScnWelcome" class="scene arena animated">
+		<div class="cover"></div>
+		<div class="title">欢迎来到傀儡竞技场！</div>
+		<div class="panel">
+			<button>挑一下啊</button>
+			<button>我的卡组</button>
+		</div>
+	</div>
+</section>
+
+<div class="popup_container">
+	<div class="popup_window">
+		<div class="titlebar"><span class="title"></span><span class="closer">X</span></div>
+		<div class="content"></div>
+	</div>
+</div>
+<div id="NewCardInfo" class="popup_container_inner">
+	<div class="hint">获得一张新牌！</div>
+	<div class="card">
+		<div class="pic"></div>
+		<div class="type"></div>
+		<div class="point"></div>
+	</div>
+</div>
+
+<script type="text/javascript" src="./js/common.js"></script>
+<script type="text/javascript" src="./js/window.js"></script>
+<script type="text/javascript" src="./js/lrucache.js"></script>
+<script type="text/javascript" src="./js/cacheddb.js"></script>
+<script type="text/javascript" src="./js/arena.js"></script>
+</body>
+</html>

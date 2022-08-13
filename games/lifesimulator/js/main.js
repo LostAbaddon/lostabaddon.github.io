@@ -6,8 +6,9 @@ const LifeSimulator = {};
 	var currentSheet;
 	var currentIndex = -1;
 	var resultPoints = null;
+	var popGameOverInfo;
 
-	LifeSimulator.startNewLife = (id) => {
+	LifeSimulator.startNewLife = async (id) => {
 		playerPoints = {};
 		resultPoints = null;
 
@@ -23,6 +24,8 @@ const LifeSimulator = {};
 
 		window.WorldLine = window['StoryLine' + id];
 		currentSheet = WorldLine.events[WorldLine.start] || {};
+		await initDB('game:' + WorldLine.name);
+
 		showStorySheet();
 
 		ScnWelcome.classList.add('gone');
@@ -146,9 +149,43 @@ const LifeSimulator = {};
 		}
 		UIS.sheet.classList.remove('hide');
 	};
+	const showGameOverInfo = () => new Promise(res => {
+		newPopup('来自瓦尔哈拉的信', {
+			top: '50%',
+			left: '50%',
+			width:'500px',
+			height:'220px',
+			onActive: pop => {
+				pop.style.transform = "translate(-50%, -50%)";
+				pop.UI.content.appendChild(GameOverInfo);
+				popGameOverInfo = pop;
+
+				pop.show();
+			},
+			onHide: pop => {
+				document.body.appendChild(GameOverInfo);
+				res();
+			},
+		});
+	});
+	const gotoFightField = async () => {
+		await popGameOverInfo.hide();
+		sessionStorage.set('newCard', resultPoints);
+		location.href = './fight.html';
+	};
 	const gameOver = async () => {
-		console.log(playerPoints, resultPoints);
+		var info = '';
+		if (playerPoints.money > playerPoints.man) {
+			info = '虽然你这辈子并没有找到真爱，但你还是在生命的最后一刻获得了属于你的真爱骑士，快去看看他吧！';
+		}
+		else {
+			info = "虽然你这辈子被各种无良骑士各种欺骗，但你在生命的最后一刻还是获得了属于你的真爱骑士，快去看看他吧！"
+		}
+		GameOverInfo.querySelector('div.hint').innerHTML = info;
+		await showGameOverInfo();
 		ScnWelcome.classList.remove('gone');
 		ScnPlay.classList.add('waiting');
 	};
+
+	GameOverInfo.querySelector('button').addEventListener('click', gotoFightField);
 }) ();

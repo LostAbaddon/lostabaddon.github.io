@@ -36,7 +36,7 @@
 
 			await wait();
 			popup.classList.add('fadein');
-			if (!config.notBlurBG) popup.style.backdropFilter = 'blur(2px)';
+			if (!config.notBlurBG) popup.style.backdropFilter = 'blur(5px)';
 
 			if (!!config.onShow) {
 				await wait(550);

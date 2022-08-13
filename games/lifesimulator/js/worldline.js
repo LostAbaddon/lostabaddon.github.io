@@ -58,6 +58,7 @@
 		return {goto: next};
 	};
 	window.StoryLine1 = {
+		name: 'fancylady',
 		events: {
 			start: {
 				cover: "./assets/sun01.webp",
