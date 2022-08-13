@@ -152,6 +152,26 @@ button:active {
 .scene.worldline .sheet.hide {
 	opacity: 0;
 }
+.scene.worldline .money,
+.scene.worldline .heart {
+	position: absolute;
+	top: 10px;
+	color: white;
+	font-size: 18px;
+	text-shadow: 0px 0px 1px black, 1px 1px 3px black;
+}
+.scene.worldline .money {
+	left: 10px;
+}
+.scene.worldline .heart {
+	right: 10px;
+}
+.scene.worldline .fa-solid::before {
+	margin-right: 5px;
+}
+.scene.worldline .fa-solid:empty::before {
+	content: '';
+}
 
 .scene.arena .cover {
 	position: absolute;
@@ -221,7 +241,7 @@ body.Arena .card .pic {
 	padding: 20px;
 }
 #GameOverInfo .panel {
-	margin-top: 50px;
+	margin-top: 30px;
 	text-align: center;
 }
 

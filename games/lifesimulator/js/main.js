@@ -23,6 +23,7 @@ const LifeSimulator = {};
 		UIS.option.push(ScnPlay.querySelector('button[name="option5"]'));
 
 		window.WorldLine = window['StoryLine' + id];
+		if (WorldLine.init) WorldLine.init();
 		currentSheet = WorldLine.events[WorldLine.start] || {};
 		await initDB('game:' + WorldLine.name);
 
@@ -37,6 +38,7 @@ const LifeSimulator = {};
 		}
 		if (!currentSheet.choise) {
 			if (currentSheet.finish) {
+				if (!!WorldLine.step) WorldLine.step(playerPoints);
 				gameOver();
 			}
 			else {
@@ -66,6 +68,7 @@ const LifeSimulator = {};
 				playerPoints[key] = (playerPoints[key] || 0) + value;
 			}
 		}
+		if (!!WorldLine.step) WorldLine.step(playerPoints);
 
 		UIS.hint.classList.add('hide');
 
@@ -153,7 +156,7 @@ const LifeSimulator = {};
 		newPopup('来自瓦尔哈拉的信', {
 			top: '50%',
 			left: '50%',
-			width:'500px',
+			width:'300px',
 			height:'220px',
 			onActive: pop => {
 				pop.style.transform = "translate(-50%, -50%)";
@@ -182,7 +185,7 @@ const LifeSimulator = {};
 			info = "虽然你这辈子被各种无良骑士各种欺骗，但你在生命的最后一刻还是获得了属于你的真爱骑士，快去看看他吧！"
 		}
 		GameOverInfo.querySelector('div.hint').innerHTML = info;
-		await showGameOverInfo();
+		// await showGameOverInfo();
 		ScnWelcome.classList.remove('gone');
 		ScnPlay.classList.add('waiting');
 	};

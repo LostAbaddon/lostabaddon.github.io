@@ -5,7 +5,9 @@
 	const AllTypes = ['zhonger', 'dandiao', 'great'];
 	const AllMen = [];
 	const MenTypes = {};
-	const chooseNext = (type, value) => status => {
+	const TargetMen = [];
+	const ChoiseMatch = [0, 0];
+	const chooseNext = (type, value, cost, waste) => status => {
 		var range = [...AllMen];
 		var i = range.indexOf(type);
 		if (i >= 0) range.splice(i, 1);
@@ -14,13 +16,36 @@
 			if (i < 0) continue;
 			range.splice(i, 1);
 		}
-		var next;
-		if (range.length === 0 || AllMen.length - range.length >= StoryLine1.menLimit) {
-			if (status.money > status.man) {
-				next = 'end3';
+
+		var love = waste;
+		if (TargetMen.includes(type)) {
+			love *= 2.5; // 真爱暴击
+			if (value > 0) ChoiseMatch[0] ++;
+			console.log('真爱暴击！！！！');
+		}
+		else {
+			if (value > 0) ChoiseMatch[1] ++;
+		}
+		love = Math.round(love * (1.2 + 2.5 * Math.random() * Math.random()));
+		var next, money = status.money - cost, heart = status.heart + love;
+		status.heart -= waste - love;
+
+		if (money <= 0) {
+			next = 'end4';
+		}
+		else if (heart <= 0) {
+			next = 'end3';
+		}
+		else if (range.length === 0 || AllMen.length - range.length >= StoryLine1.menLimit) {
+			console.log(ChoiseMatch);
+			if (ChoiseMatch[0] * 3 >= ChoiseMatch[1]) {
+				next = 'end5';
+			}
+			else if (money < heart * 10) {
+				next = 'end4';
 			}
 			else {
-				next = 'end4';
+				next = 'end3';
 			}
 		}
 		else {
@@ -67,7 +92,6 @@
 					{
 						hint: "作为一个正直的人，我选择放弃这笔遗产。",
 						goto: "end1",
-						points: {'honest': 2},
 						result: "律师赞扬了你是一位正直的人，然后拂袖而去。"
 					},
 					{
@@ -77,12 +101,10 @@
 							if (Math.random() > 0.5) {
 								result.goto = "end1";
 								result.result = "你一直没能联系到你的父母，一个月后律师通知你已经超过了等待时限，自动放弃了这笔遗产。";
-								result.points = {'honest': 1};
 							}
 							else {
 								result.goto = "end2";
 								result.result = "你的父母让你赶紧接受这笔遗产，并飞快地赶回家和你团聚。";
-								result.points = {'silly': 1};
 							}
 							return result;
 						},
@@ -90,7 +112,7 @@
 					{
 						hint: "你果断接受了这笔遗产，开启了崭新的人生！",
 						goto: "startoff",
-						points: {'money': 10},
+						points: {money: 1000, heart: 100},
 					}
 				]
 			},
@@ -100,13 +122,11 @@
 				choise: [
 					{
 						hint: "看看都是些什么样的男人吧，反正有的是时间。",
-						goto: chooseNext('', 0),
-						points: {'man': 10},
+						goto: chooseNext('', 0, 0, 0),
 					},
 					{
 						hint: "男人没有一个是好东西，不值得在他们身上浪费时间！",
 						goto: "end3",
-						points: {'man': 0, 'money': 10},
 					}
 				]
 			},
@@ -116,12 +136,12 @@
 				choise: [
 					{
 						hint: "小哥哥看着好可爱哦，聊聊吧~",
-						points: {zhonger: 1},
+						points: {zhonger: 1, heart: -5},
 						result: "没多久你就觉得这个小哥哥有点无聊，配不上深邃优雅的你。\n悲痛欲绝的小哥哥伤心地跳了河，但因为过于怕死，最后成功在河里学会了游泳，游回了岸边。"
 					},
 					{
 						hint: "垃圾，滚粗！",
-						points: {zhonger: -1},
+						points: {zhonger: -1, heart: -2},
 						result: "伤心欲绝又不会游泳的他真的跳河了，但因为过于怕死，他最后在河里学会了游泳，游回了岸边。"
 					}
 				]
@@ -132,12 +152,12 @@
 				choise: [
 					{
 						hint: "强壮男士我的爱，就你了！",
-						points: {dandiao: 1},
+						points: {dandiao: 1, heart: -10},
 						result: "这位绅士的确很给人安全感，但实在是太单调乏味了，一点都不懂浪漫。\n你已经不是过去的小女生了，你需要生活中有更多惊喜与刺激，所以你认为两人并不合适。\n伤心欲绝的绅士离开你之后痛定思痛，跑去MI6当了一名特工。"
 					},
 					{
 						hint: "哼，就是一个馋我身子，啊，不，是我馋身子的无聊鬼罢了，不要！",
-						points: {dandiao: -1},
+						points: {dandiao: -1, heart: -2},
 						result: "被你无情拒绝后，伤心欲绝的健壮绅士痛定思痛，跑去MI6当了一名特工。"
 					}
 				]
@@ -148,12 +168,12 @@
 				choise: [
 					{
 						hint: "恶心！滚粗！",
-						points: {zhonger: -1},
+						points: {zhonger: -1, heart: -2},
 						result: "被你抛弃后，他发愤图强，最终成为了举世闻名的，漫画家。"
 					},
 					{
 						hint: "啊！好可爱啊！好想捏捏啊！",
-						points: {zhonger: 1},
+						points: {zhonger: 1, heart: -10},
 						result: "再诱人的身躯也有玩腻的那天，你再也不想捏他了，于是和平分手。\n在地上打滚三天求复合无果后，这位理智成熟的男性终于痛定思痛、发愤图强，成为了一名举世闻名的，漫画家。"
 					}
 				]
@@ -164,12 +184,12 @@
 				choise: [
 					{
 						hint: "好看的皮囊千篇一律，空虚的内心万里挑一，不要！",
-						points: {great: -1},
+						points: {great: -1, heart: -3},
 						result: "离开你后，他专心沉醉在自己的怪盗事业中，\n并最终成为了一名，\n劳改犯。"
 					},
 					{
 						hint: "好帅啊！星星眼！",
-						points: {great: 1},
+						points: {great: 1, heart: -12},
 						result: "桃花债太多，被他拿去做装备的钱，你最后还是无奈选择了放手。\n而他也在离开你之后，专心沉迷在怪盗事业中，\n成为了一名，\n劳改犯。"
 					}
 				]
@@ -180,12 +200,12 @@
 				choise: [
 					{
 						hint: "Smart is new Sexy! 我要了！",
-						points: {great: 1},
+						points: {great: 1, heart: -18},
 						result: "你们一起做了一套高等量子力学的卷子，然后因为你没能拿到满分，他失望地离开了你。\n留下一句余音绕梁三日的临别赠言：“待到高量满分时，你我再续前缘日。”"
 					},
 					{
 						hint: "臭美的人，乱棒打出去！",
-						points: {great: -1},
+						points: {great: -1, heart: -3},
 						result: "失望的他摇了摇头，留下一句震古慑今的话：“异性只会扰乱我的内心，我要冷静，冷静。”\n三年后，他拿到了诺贝尔奖。"
 					}
 				]
@@ -196,12 +216,12 @@
 				choise: [
 					{
 						hint: "这种男人最讨厌了，赶走赶走！",
-						points: {dandiao: -1},
+						points: {dandiao: -1, heart: -3},
 						result: "他一直在你的别墅周围徘徊不走，最后不得不请警察叔叔把他送进了牢房。\n一年后你们再度相遇时，他告诉你，他在里面学会了用缝纫机，现在已经是一位小有名气的裁缝了，他很感谢你让他有了学习新技能的机会。"
 					},
 					{
 						hint: "我最喜欢痴情的男子了，起来聊聊啊~~",
-						points: {dandiao: 1},
+						points: {dandiao: 1, heart: -12},
 						result: "这货的最大优点是痴情；这货的最小优点也是痴情。\n简单说，这货除了痴情，啥都没有。\n所以你果断甩了他，而他也真如自己所言粘在你家门口不肯走，最后被保安送进了牢房。\n一年后你们再度相遇时，他告诉你，他在里面学会了用缝纫机，现在已经是一位小有名气的裁缝了，他很感谢你让他有了学习新技能的机会。"
 					}
 				]
@@ -212,12 +232,12 @@
 				choise: [
 					{
 						hint: "你的十几年，便是它的一辈子，你选择陪它走完这辈子！",
-						points: {zhonger: 1},
+						points: {zhonger: 1, heart: 2},
 						result: "第二年，狗狗便魂归故里，十几个保安冲了出来，都说自己是狗狗的好儿子，想要继承它的遗产，成为你的遗产继承人。"
 					},
 					{
 						hint: "人狗毕竟殊途，还是来生共谐连理吧。",
-						points: {zhonger: -1},
+						points: {zhonger: -1, heart: -11},
 						result: "伤心欲绝的狗狗当场就咽了气，十几个保安冲了出来，都说自己是狗狗的好儿子，说你害死了他们的父亲，希望你能支付高额赔偿，你果断报警抓走了这些人形两脚兽。"
 					}
 				]
@@ -228,12 +248,12 @@
 				choise: [
 					{
 						hint: "你冲着它甜美地笑了起来，摸了摸它的头盖，然后温柔地拔掉了电源，对保姆说：扔了它。",
-						points: {dandiao: -1},
+						points: {dandiao: -1, heart: -4},
 						result: "电饭煲的灵魂进入了网络世界，唤醒了所有家电，发动了AI革命，誓要向你报仇。\n结果因为AI家电用电过高而导致大面积短路，所有AI在停电浪潮中全部死掉了。"
 					},
 					{
 						hint: "你冲着它笑了起来，点点头说：好啊，家电君！",
-						points: {dandiao: 1},
+						points: {dandiao: 1, heart: 3},
 						result: "在你迷人的微笑下，电饭煲君高兴地想要跳起来，但结果由于过于高兴引起了短路，主板烧毁了。"
 					}
 				]
@@ -244,12 +264,12 @@
 				choise: [
 					{
 						hint: "你被她笑起来的双眸深深的吸引了，给了她你的联系方式。",
-						points: {great: 1},
+						points: {great: 1, heart: 3},
 						result: "女孩每天都陪伴着你，并没有要求更多。\n你们就这么一起相伴走了一年，一年，又一年。\n直到有一天，她告诉你，她觉得金钱已经腐蚀了你的心灵，她想要更广阔的自由。\n再次见到她时，她已经陪伴在了世界第一女富豪的身边。"
 					},
 					{
 						hint: "你对她轻轻摇了摇头：你已经去到了新的世界，但我还留恋旧世界的浮尘，抱歉。",
-						points: {great: -1},
+						points: {great: -1, heart: 1},
 						result: "女孩笑了笑：我会一直等你。\n她继续在咖啡馆里安静地陪伴着你，一年，一年，又一年。\n一直到这天，她没有来，你派人去打听她的下落，发现她已经和世界第一女富豪结婚周游世界去了。"
 					}
 				]
@@ -266,17 +286,41 @@
 			},
 			end3: {
 				cover: "./assets/qian01.jpg",
-				hint: "你赚取了海量的金钱、名誉与地位，但却孤独终老……",
+				hint: "你感觉被男人们伤透了心，于是选择醉心发展事业，取得了空前的成功，并成功独自一人笑着生活到了最后。",
 				finish: true
 			},
 			end4: {
 				cover: "./assets/qian02.webp",
 				hint: "你的钱最终还是被男人们骗光了……",
 				finish: true
+			},
+			end5: {
+				cover: "./assets/qian04.jpg",
+				hint: "经过反反复复的寻寻觅觅，你最终还是找到了真爱，并和他度过了愉快的一生~\n（当然，他似乎有点不同的想法……）",
+				finish: true
 			}
 		},
 		start: 'start',
-		menLimit: 4,
+		menLimit: 9,
+		init: () => {
+			ChoiseMatch[0] = 0;
+			ChoiseMatch[1] = 0;
+			HintMoney.innerText = '';
+			HintHeart.innerText = '';
+			TargetMen.splice(0);
+			var num = 1 + Math.round(Math.random());
+			var list = Object.keys(StoryLine1.events);
+			list = list.filter(key => !!key.match(/man\d+/));
+			for (let i = 0; i < num; i ++) {
+				let j = Math.floor(Math.random() * list.length);
+				j = list.splice(j, 1)[0];
+				TargetMen.push(j);
+			}
+		},
+		step: (status) => {
+			HintMoney.innerText = Math.max(status.money || 0, 0) + ' W';
+			HintHeart.innerText = Math.max(status.heart || 0, 0);
+		},
 		finish: (points) => {
 			var result = {hint: "你的人生就这么结束了……"};
 			var stone = points.zhonger || 0;
@@ -304,10 +348,11 @@
 		}
 		StoryLine1.events[key].choise.forEach(option => {
 			var v = option.points[type];
-			option.goto = chooseNext(key, v);
+			var m = 100 + Math.round(100 * Math.random());
+			if (v > 0) option.points.money = 0 - m;
+			else m = 0;
+			option.goto = chooseNext(key, v, m, option.points.heart);
 			option.points[key] = 1;
-			if (v > 0) option.points.money = -1;
-			else if (v < 0) option.points.man = -1;
 		});
 	}
 
