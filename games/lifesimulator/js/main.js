@@ -210,3 +210,7 @@ const LifeSimulator = {};
 	var gotFLC = localStorage.get('get_fancylady_card', false);
 	console.log(gotFLC);
 }) ();
+
+const backIndex = () => {
+	location.href = './index.html';
+};

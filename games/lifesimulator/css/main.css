@@ -96,12 +96,58 @@ button:active {
 	background-repeat: no-repeat;
 }
 
+.scene.index .cover {
+	background-image: url("../assets/index.jpg");
+}
+.scene.index .title {
+	position: relative;
+	margin-top: 30px;
+	font-size: 48px;
+	font-weight: bolder;
+	text-align: center;
+	color: white;
+	text-shadow: 0px 0px 2px black, 3px 3px 6px black;
+}
+.scene.index .panel {
+	position: absolute;
+	display: flex;
+	flex-flow: wrap;
+	justify-content: space-around;
+	top: 100px;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+	padding: 10px;
+	text-align: center;
+}
+.scene.index .card {
+	position: relative;
+	width: 250px;
+	height: 250px;
+	border-radius: 10px;
+	border: 8px solid black;
+	overflow: hidden;
+}
+.scene.index .card .title {
+	position: absolute;
+	bottom: 15px;
+	left: 15px;
+	right: 15px;
+	font-size: 20px;
+}
+.scene.index .card .cover.fancy {
+	background-image: url("../assets/cover.jpg");
+}
+.scene.index .card .cover.fight {
+	background-image: url("../assets/arena.jpg");
+}
+
 .scene.welcome .cover {
 	background-image: url("../assets/cover.jpg");
 }
 .scene.welcome .panel {
 	position: absolute;
-	top: 85%;
+	bottom: 5%;
 	left: 0px;
 	right: 0px;
 	text-align: center;

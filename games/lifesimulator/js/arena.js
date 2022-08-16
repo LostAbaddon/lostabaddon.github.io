@@ -436,3 +436,7 @@ const Arena = {};
 		Arena.startBattle(launchParams.t);
 	}
 }) ();
+
+const backIndex = () => {
+	location.href = './index.html';
+};

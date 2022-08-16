@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
+<title>荒谬人生模拟器</title>
+<link rel="manifest" href="../../webapp.json">
+<link rel="stylesheet" type="text/css" href="./css/window.css">
+<link rel="stylesheet" type="text/css" href="./css/main.css">
+<link rel="stylesheet" type="text/css" href="../GateOfNovosibirsk/fa/css/all.min.css">
+</head>
+<body>
+
+<section class="page">
+	<div id="ScnWelcome" class="scene welcome animated">
+		<div class="cover"></div>
+		<div class="panel">
+			<button onclick="LifeSimulator.startNewLife(1)">荒谬启程</button>
+			<button onclick="LifeSimulator.gotoArena()">前往骑士竞技场</button>
+			<button onclick="backIndex()">返回元宇宙</button>
+		</div>
+	</div>
+	<div id="ScnPlay" class="scene worldline animated waiting">
+		<div class="sheet animated">
+			<div class="cover"></div>
+			<div class="hint scrollable animated"></div>
+			<div id="HintMoney" class="money fa-solid fa-dollar-sign"></div>
+			<div id="HintHeart" class="heart fa-solid fa-heart"></div>
+			<div class="panel">
+				<button name="option1" onclick="LifeSimulator.gotoChoise(0)"></button>
+				<button name="option2" onclick="LifeSimulator.gotoChoise(1)"></button>
+				<button name="option3" onclick="LifeSimulator.gotoChoise(2)"></button>
+				<button name="option4" onclick="LifeSimulator.gotoChoise(3)"></button>
+				<button name="option5" onclick="LifeSimulator.gotoChoise(4)"></button>
+			</div>
+		</div>
+	</div>
+</section>
+
+<div class="popup_container">
+	<div class="popup_window">
+		<div class="titlebar"><span class="title"></span><span class="closer">X</span></div>
+		<div class="content"></div>
+	</div>
+</div>
+<div id="GameOverInfo" class="popup_container_inner">
+	<div class="hint"></div>
+	<div class="panel">
+		<button>去瓦尔哈拉看看</button>
+	</div>
+</div>
+
+<script type="text/javascript" src="./js/worldline.js"></script>
+<script type="text/javascript" src="./js/common.js"></script>
+<script type="text/javascript" src="./js/window.js"></script>
+<script type="text/javascript" src="./js/lrucache.js"></script>
+<script type="text/javascript" src="./js/cacheddb.js"></script>
+<script type="text/javascript" src="./js/main.js"></script>
+</body>
+</html>
