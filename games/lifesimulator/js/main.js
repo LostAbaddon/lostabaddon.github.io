@@ -171,7 +171,7 @@ const LifeSimulator = {};
 			top: '50%',
 			left: '50%',
 			width:'240px',
-			height:'220px',
+			height: '260px',
 			onActive: pop => {
 				pop.style.transform = "translate(-50%, -50%)";
 				pop.UI.content.appendChild(GameOverInfo);
