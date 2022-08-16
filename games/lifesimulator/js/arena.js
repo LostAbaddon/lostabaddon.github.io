@@ -380,6 +380,8 @@ const Arena = {};
 	};
 
 	MyCardList.addEventListener('click', ({target}) => {
+		if (!target.classList.contains('card')) return;
+
 		var idx = target.index, pos = CurrentCards.indexOf(idx);
 		var changed = false;
 		if (pos < 0) {
