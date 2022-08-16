@@ -170,7 +170,7 @@ const LifeSimulator = {};
 		newPopup('来自瓦尔哈拉的信', {
 			top: '50%',
 			left: '50%',
-			width:'300px',
+			width:'240px',
 			height:'220px',
 			onActive: pop => {
 				pop.style.transform = "translate(-50%, -50%)";

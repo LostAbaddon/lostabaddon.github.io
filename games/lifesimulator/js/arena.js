@@ -415,7 +415,7 @@ const Arena = {};
 		BattleHintCloser.pop.hide();
 	});
 
-	DB = await initDB('game:arena', db => {
+	DB = await initDB('miniarena', db => {
 		db.open("data", "id");
 	});
 	await initCardList();
