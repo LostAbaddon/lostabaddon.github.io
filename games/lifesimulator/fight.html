@@ -15,9 +15,15 @@
 		<div class="cover"></div>
 		<div class="title">欢迎来到傀儡竞技场！</div>
 		<div class="panel">
-			<button>挑一下啊</button>
-			<button>我的卡组</button>
+			<button onclick="Arena.startBattle()">挑一下啊</button>
+			<button onclick="Arena.showMyCards()">我的卡组</button>
 		</div>
+	</div>
+	<div id="ScnBattleField" class="scene field animated waiting">
+		<div class="cover"></div>
+		<div id="FieldEnemy" class="area top"></div>
+		<div id="FieldMine" class="area bottom"></div>
+		<div class="area result"></div>
 	</div>
 </section>
 
@@ -27,12 +33,30 @@
 		<div class="content"></div>
 	</div>
 </div>
+
 <div id="NewCardInfo" class="popup_container_inner">
 	<div class="hint">获得一张新牌！</div>
 	<div class="card">
 		<div class="pic"></div>
 		<div class="type"></div>
-		<div class="point"></div>
+	</div>
+</div>
+
+<div id="MyCardList" class="popup_container_inner">
+	<div class="hint">注：选为红边，未选为黑边</div>
+	<div id="SpellPicker" class="hint">召唤秘语（点击复制）：<span id="SpellShower"></span></div>
+	<div class="cardarea scrollable">
+		<div class="card">
+			<div class="pic"></div>
+			<div class="type"></div>
+		</div>
+	</div>
+</div>
+
+<div id="BattleHint" class="popup_container_inner">
+	<div class="hint"></div>
+	<div class="panel">
+		<button id="BattleHintCloser">开始战斗</button>
 	</div>
 </div>
 

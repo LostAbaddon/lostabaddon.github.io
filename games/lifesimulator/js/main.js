@@ -25,7 +25,6 @@ const LifeSimulator = {};
 		window.WorldLine = window['StoryLine' + id];
 		if (WorldLine.init) WorldLine.init(playerPoints);
 		currentSheet = WorldLine.events[WorldLine.start] || {};
-		await initDB('game:' + WorldLine.name);
 
 		showStorySheet();
 
@@ -84,6 +83,9 @@ const LifeSimulator = {};
 		UIS.sheet.classList.add('hide');
 		await wait(300);
 		showStorySheet();
+	};
+	LifeSimulator.gotoArena = () => {
+		location.href = './fight.html';
 	};
 
 	const showStorySheet = async () => {
@@ -197,10 +199,14 @@ const LifeSimulator = {};
 			info = "虽然你这辈子被各种无良骑士各种欺骗，但你在生命的最后一刻还是获得了属于你的真爱骑士，快去看看他吧！"
 		}
 		GameOverInfo.querySelector('div.hint').innerHTML = info;
-		// await showGameOverInfo();
+		localStorage.set('get_fancylady_card', true);
+		await showGameOverInfo();
 		ScnWelcome.classList.remove('gone');
 		ScnPlay.classList.add('waiting');
 	};
 
 	GameOverInfo.querySelector('button').addEventListener('click', gotoFightField);
+
+	var gotFLC = localStorage.get('get_fancylady_card', false);
+	console.log(gotFLC);
 }) ();

@@ -85,16 +85,19 @@ button:active {
 	background-color: black;
 }
 
-.scene.welcome .cover {
+.scene .cover {
 	position: absolute;
 	top: 0%;
 	bottom: 0%;
 	left: 0px;
 	right: 0px;
-	background-image: url("../assets/cover.jpg");
 	background-position: center;
 	background-size: cover;
 	background-repeat: no-repeat;
+}
+
+.scene.welcome .cover {
+	background-image: url("../assets/cover.jpg");
 }
 .scene.welcome .panel {
 	position: absolute;
@@ -103,16 +106,16 @@ button:active {
 	right: 0px;
 	text-align: center;
 }
+.scene.welcome .panel button {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 10px;
+}
 
 .scene.worldline .cover {
-	position: absolute;
-	top: 0%;
 	bottom: 35%;
-	left: 0px;
-	right: 0px;
-	background-position: center;
 	background-size: auto 100%;
-	background-repeat: no-repeat;
 }
 .scene.worldline .hint {
 	position: absolute;
@@ -174,15 +177,7 @@ button:active {
 }
 
 .scene.arena .cover {
-	position: absolute;
-	top: 0%;
-	bottom: 0%;
-	left: 0px;
-	right: 0px;
 	background-image: url("../assets/arena.jpg");
-	background-position: center;
-	background-size: cover;
-	background-repeat: no-repeat;
 }
 .scene.arena .title {
 	position: absolute;
@@ -205,6 +200,59 @@ button:active {
 	margin-bottom: 20px;
 	margin-left: auto;
 	margin-right: auto;
+}
+
+.scene.field .cover {
+	background-image: url("../assets/field.jpg");
+}
+.scene.field .area {
+	position: absolute;
+	top: 0%;
+	left: 0px;
+	right: 0px;
+	height: 45%;
+}
+.scene.field .area.bottom {
+	top: auto;
+	bottom: 0%;
+}
+.scene.field .area .card {
+	position: absolute;
+	width: 120px;
+	height: 160px;
+	overflow: hidden;
+}
+.scene.field .area .card .pic {
+	top: 0px;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+}
+.scene.field .area .score {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	font-size: 18px;
+	font-weight: bolder;
+	color: white;
+	text-shadow: 0px 0px 1px black, 1px 1px 3px black;
+}
+.scene.field .area.bottom .score {
+	top: auto;
+	bottom: 5px;
+}
+.scene.field .area.result {
+	position: absolute;
+	top: 50%;
+	left: 5%;
+	right: 5%;
+	height: auto;
+	transform: translateY(-50%);
+	font-size: 36px;
+	font-weight: bolder;
+	color: white;
+	text-shadow: 0px 0px 1px black, 1px 1px 3px black;
+	text-align: center;
 }
 
 body.Arena .card {
@@ -255,6 +303,57 @@ body.Arena .card .pic {
 	margin-top: 20px;
 	margin-left: auto;
 	margin-right: auto;
+}
+
+#MyCardList .hint {
+	padding: 5px;
+	padding-bottom: 0px;
+}
+#MyCardList .cardarea {
+	position: absolute;
+	display: flex;
+	flex-flow: wrap;
+	justify-content: space-around;
+	top: 75px;
+	bottom: 10px;
+	left: 0px;
+	right: 0px;
+	text-align: center;
+}
+#MyCardList .cardarea .card {
+	width: 150px;
+	height: 200px;
+	margin-bottom: 10px;
+}
+#MyCardList .cardarea .card.selected {
+	border-color: red;
+}
+#MyCardList .cardarea .card div {
+	pointer-events: none;
+}
+#MyCardList .cardarea .card .index {
+	position: absolute;
+	bottom: 5px;
+	left: 5px;
+	font-size: 18px;
+	font-weight: bolder;
+	color: white;
+	text-shadow: 0px 0px 1px black, 1px 1px 3px black;
+}
+#MyCardList #SpellShower {
+	display: block;
+	font-size: 10px;
+	white-space: nowrap;
+}
+
+#BattleHint {
+	text-align: center;
+}
+#BattleHint .hint {
+	margin-top: 10px;
+}
+#BattleHint .panel {
+	margin-top: 20px;
 }
 
 @media screen and (max-width: 600px) {

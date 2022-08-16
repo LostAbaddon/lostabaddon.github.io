@@ -63,18 +63,70 @@ window.setStyle = (ele, css) => {
 	}
 };
 
-window.initDB = async (dbGameName) => {
+window.initDB = async (dbGameName, onInit) => {
 	var db;
 	try {
-		db = await prepareDB(dbGameName, db => {
-			db.open("player", "id");
-		});
+		db = await prepareDB(dbGameName, onInit);
 	}
 	catch (err) {
 		alert(err);
 		console.error(err);
 		return;
 	}
+	return db;
+};
+window.utf8tobase64 = str => window.btoa(window.unescape(window.encodeURIComponent(str)));
+window.base64toutf8 = str => window.decodeURIComponent(window.escape(window.atob(str)));
+window.base64tobuffer = str => {
+	var dec = window.escape(window.atob(str)), len = dec.length, result = [];
+	for (let i = 0; i < len; i ++) {
+		let s = dec.substr(i, 1);
+		if (s === '%') {
+			s = dec.substr(i + 1, 2);
+			try {
+				s = parseInt(s, 16);
+			}
+			catch (err) {
+				console.error("输入 base64 字符串格式错误：", err);
+				return null;
+			}
+			result.push(s);
+			i += 2;
+		}
+		else {
+			result.push(s.charCodeAt(0));
+		}
+	}
+	result = new Uint8Array(result);
+	return result;
+};
+window.buffertobase64 = (buf) => btoa(
+	new Uint8Array(buf)
+	.reduce((data, byte) => data + String.fromCharCode(byte), '')
+);
+window.encrypt = async context => {
+	var key = base64tobuffer('ob5n5mojn0f6XgqSL1p/rIn9EiSOGUxFjpofSKb6PDc=');
+	key = await window.crypto.subtle.importKey("raw", key, "AES-GCM", true, ["encrypt", "decrypt"]);
+	var iv = base64tobuffer('lostabaddon');
+	context = utf8tobase64(context);
+	context = base64tobuffer(context);
+	var info = await window.crypto.subtle.encrypt({
+		name: "AES-GCM", iv
+	}, key, context);
+	info = buffertobase64(info);
+	return info;
+};
+window.decrypt = async context => {
+	var key = base64tobuffer('ob5n5mojn0f6XgqSL1p/rIn9EiSOGUxFjpofSKb6PDc=');
+	key = await window.crypto.subtle.importKey("raw", key, "AES-GCM", true, ["encrypt", "decrypt"]);
+	var iv = base64tobuffer('lostabaddon');
+	context = base64tobuffer(context);
+	var info = await window.crypto.subtle.decrypt({
+		name: "AES-GCM", iv
+	}, key, context);
+	info = buffertobase64(info);
+	info = base64toutf8(info);
+	return info;
 };
 
 (async () => {
