@@ -410,7 +410,7 @@ const Arena = {};
 	});
 	SpellPicker.addEventListener('click', () => {
 		var spell = SpellShower.innerText;
-		navigator.clipboard.writeText(spell);
+		navigator.clipboard.writeText(location.origin + location.pathname + '?t=' + spell);
 	});
 	BattleHintCloser.addEventListener('click', () => {
 		if (!BattleHintCloser.pop) return;
