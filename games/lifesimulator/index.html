@@ -3,26 +3,30 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
-<title>不存在的元宇宙</title>
+<title>富婆宇宙</title>
 <link rel="manifest" href="../../webapp.json">
 <link rel="stylesheet" type="text/css" href="./css/window.css">
 <link rel="stylesheet" type="text/css" href="./css/main.css">
-<link rel="stylesheet" type="text/css" href="../GateOfNovosibirsk/fa/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="../../fa/css/all.min.css">
 </head>
 <body>
 
 <section class="page">
 	<div id="ScnIndex" class="scene index animated">
 		<div class="cover"></div>
-		<div class="title">不存在的元宇宙</div>
+		<div class="title">富婆宇宙</div>
 		<div class="panel scrollable">
 			<div class="card" onclick="goto('fancy')">
 				<div class="cover fancy"></div>
-				<div class="title">荒谬人生模拟器</div>
+				<div class="title">富婆与骑士</div>
 			</div>
 			<div class="card" onclick="goto('fight')">
 				<div class="cover fight"></div>
-				<div class="title">垃圾骑士竞技场</div>
+				<div class="title">骑士决斗</div>
+			</div>
+			<div id="CyberAvator" class="card" onclick="redirect('/games/cyberavatorarena')">
+				<div class="cover fight"></div>
+				<div class="title">赛博化身擂台赛</div>
 			</div>
 		</div>
 	</div>
@@ -34,6 +38,10 @@
 <script type="text/javascript" src="./js/cacheddb.js"></script>
 <script type="text/javascript">
 const goto = target => location.href = './' + target + '.html';
+const redirect = target => location.href = location.origin + target + '/index.html';
+if (launchParams.all !== 'true') {
+	CyberAvator.style.display = 'none';
+}
 </script>
 </body>
 </html>

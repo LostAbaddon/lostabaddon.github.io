@@ -166,8 +166,13 @@ const Arena = {};
 			list.push('000');
 		}
 		list = list.join('');
-		var word = await encrypt(list);
-		SpellShower.innerText = word;
+		try {
+			let word = await encrypt(list);
+			SpellShower.innerText = word;
+		}
+		catch (err) {
+			alert(err);
+		}
 	};
 	const initCardList = async () => {
 		var [mine, current] = await Promise.all([
@@ -223,14 +228,24 @@ const Arena = {};
 			},
 		});
 	};
-	Arena.startBattle = async (spell) => {
+	Arena.startBattle = async () => {
+		var spell = launchParams.t;
 		var list = [];
 		if (!!spell) {
+			BtnStartFight.innerText = '开启一场对决';
+			delete launchParams.t;
 			let result = await DB.get('data', spell);
 			let done = false;
 			let hint;
 			if (result === undefined) {
-				let enemy = await decrypt(spell);
+				let enemy;
+				try {
+					enemy = await decrypt(spell);
+				}
+				catch (err) {
+					alert(err);
+					return;
+				}
 				let len = Math.floor(enemy.length / 3);
 				for (let i = 0; i < len; i ++) {
 					let type = enemy.substr(i * 3, 1) * 1;
@@ -320,6 +335,7 @@ const Arena = {};
 				cardE.ui.style.marginTop = '-80px';
 				cardE.ui.style.zIndex = i;
 			}
+
 			await wait(300);
 			if (won === 1) {
 				scoreM ++;
@@ -339,21 +355,44 @@ const Arena = {};
 					cardE.ui.style.borderColor = 'green';
 				}
 			}
+
 			FieldMine._score.innerText = '积分：' + scoreM;
 			FieldEnemy._score.innerText = '积分：' + scoreE;
+
 			await wait(300);
 			if (cardM.ui) {
 				cardM.ui.style.borderColor = '';
 				if (won !== 1) {
 					cardM.ui.style.opacity = 0;
+					cardM.ui.style.transform = "scale(0.8)";
 				}
 			}
 			if (cardE.ui) {
 				cardE.ui.style.borderColor = '';
 				if (won !== -1) {
 					cardE.ui.style.opacity = 0;
+					cardE.ui.style.transform = "scale(0.8)";
 				}
 			}
+
+			if (won !== 0) {
+				await wait(150);
+				if (cardM.ui) {
+					cardM.ui.style.borderColor = '';
+					if (won === 1) {
+						cardM.ui.style.opacity = 0;
+						cardM.ui.style.transform = "scale(1.2)";
+					}
+				}
+				if (cardE.ui) {
+					cardE.ui.style.borderColor = '';
+					if (won === -1) {
+						cardE.ui.style.opacity = 0;
+						cardE.ui.style.transform = "scale(1.2)";
+					}
+				}
+			}
+
 			await wait(1000);
 		}
 
@@ -416,6 +455,9 @@ const Arena = {};
 		if (!BattleHintCloser.pop) return;
 		BattleHintCloser.pop.hide();
 	});
+	BtnNewBattleHintCloser.addEventListener('click', () => {
+		BtnNewBattleHintCloser.pop.hide();
+	});
 
 	DB = await initDB('miniarena', db => {
 		db.open("data", "id");
@@ -433,7 +475,29 @@ const Arena = {};
 	}
 
 	if (!!launchParams.t) {
-		Arena.startBattle(launchParams.t);
+		let result = await DB.get('data', launchParams.t);
+		if (result !== undefined) {
+			delete launchParams.t;
+			BtnStartFight.innerText = '开启一场对决';
+			return;
+		}
+		BtnStartFight.innerText = '迎战传送门';
+
+		newPopup('传送门提醒', {
+			top: '50%',
+			left: '15%',
+			right:'15%',
+			height: '220px',
+			onActive: pop => {
+				BtnNewBattleHintCloser.pop = pop;
+				pop.UI.content.appendChild(NewBattleHint);
+
+				pop.show();
+			},
+			onHide: pop => {
+				document.body.appendChild(NewBattleHint);
+			},
+		});
 	}
 }) ();
 

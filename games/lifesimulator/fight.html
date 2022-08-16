@@ -3,22 +3,22 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
-<title>傀儡角斗场</title>
+<title>骑士对决</title>
 <link rel="manifest" href="../../webapp.json">
 <link rel="stylesheet" type="text/css" href="./css/window.css">
 <link rel="stylesheet" type="text/css" href="./css/main.css">
-<link rel="stylesheet" type="text/css" href="../GateOfNovosibirsk/fa/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="../../fa/css/all.min.css">
 </head>
 <body class="Arena">
 
 <section class="page">
 	<div id="ScnWelcome" class="scene arena animated">
 		<div class="cover"></div>
-		<div class="title">欢迎来到傀儡竞技场！</div>
+		<div class="title">欢迎来到骑士的对决场！</div>
 		<div class="panel">
-			<button onclick="Arena.startBattle()">挑一下啊</button>
-			<button onclick="Arena.showMyCards()">我的卡组</button>
-			<button onclick="backIndex()">返回元宇宙</button>
+			<button id="BtnStartFight" onclick="Arena.startBattle()">开启一场对决</button>
+			<button onclick="Arena.showMyCards()">编辑我的卡组</button>
+			<button onclick="backIndex()">返回富婆宇宙</button>
 		</div>
 	</div>
 	<div id="ScnBattleField" class="scene field animated waiting">
@@ -33,6 +33,14 @@
 	<div class="popup_window">
 		<div class="titlebar"><span class="title"></span><span class="closer">X</span></div>
 		<div class="content"></div>
+	</div>
+</div>
+
+<div id="NewBattleHint" class="popup_container_inner">
+	<div class="hint">你遇到了一个打开着的传送门，</div>
+	<div class="hint">可以先编辑卡组再迎战哦！</div>
+	<div class="panel">
+		<button id="BtnNewBattleHintCloser">明白</button>
 	</div>
 </div>
 

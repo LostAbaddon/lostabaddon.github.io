@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
-<title>荒谬人生模拟器</title>
+<title>富婆与骑士</title>
 <link rel="manifest" href="../../webapp.json">
 <link rel="stylesheet" type="text/css" href="./css/window.css">
 <link rel="stylesheet" type="text/css" href="./css/main.css">
-<link rel="stylesheet" type="text/css" href="../GateOfNovosibirsk/fa/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="../../fa/css/all.min.css">
 </head>
 <body>
 
@@ -15,17 +15,17 @@
 	<div id="ScnWelcome" class="scene welcome animated">
 		<div class="cover"></div>
 		<div class="panel">
-			<button onclick="LifeSimulator.startNewLife(1)">荒谬启程</button>
-			<button onclick="LifeSimulator.gotoArena()">前往骑士竞技场</button>
-			<button onclick="backIndex()">返回元宇宙</button>
+			<button onclick="LifeSimulator.startNewLife(1)">开始富婆的一生</button>
+			<button onclick="LifeSimulator.gotoArena()">欣赏骑士的对决</button>
+			<button onclick="backIndex()">返回富婆宇宙</button>
 		</div>
 	</div>
 	<div id="ScnPlay" class="scene worldline animated waiting">
 		<div class="sheet animated">
 			<div class="cover"></div>
 			<div class="hint scrollable animated"></div>
-			<div id="HintMoney" class="money fa-solid fa-dollar-sign"></div>
-			<div id="HintHeart" class="heart fa-solid fa-heart"></div>
+			<div id="HintMoney" class="hinter money animated fa-solid fa-dollar-sign"></div>
+			<div id="HintHeart" class="hinter heart animated fa-solid fa-heart"></div>
 			<div class="panel">
 				<button name="option1" onclick="LifeSimulator.gotoChoise(0)"></button>
 				<button name="option2" onclick="LifeSimulator.gotoChoise(1)"></button>

@@ -29,6 +29,12 @@
 		love = Math.round(love * (1.2 + 2.5 * Math.random() * Math.random()));
 		var next, money = status.money - cost, heart = status.heart + love;
 		status.heart -= waste - love;
+		if (cost !== 0) {
+			HintMoney._needHighlight = true;
+		}
+		if (love !== 0) {
+			HintHeart._needHighlight = true;
+		}
 
 		if (money <= 0) {
 			next = 'end4';
@@ -381,9 +387,16 @@
 				TargetMen.push(j);
 			}
 		},
-		step: (status) => {
+		step: async (status) => {
+			if (HintMoney._needHighlight) HintMoney.classList.add('highlight');
 			HintMoney.innerText = Math.max(status.money || 0, 0) + ' W';
+			if (HintHeart._needHighlight) HintHeart.classList.add('highlight');
 			HintHeart.innerText = Math.max(status.heart || 0, 0);
+			await wait(300);
+			HintMoney.classList.remove('highlight');
+			HintHeart.classList.remove('highlight');
+			HintMoney._needHighlight = false;
+			HintHeart._needHighlight = false;
 		},
 		finish: (points) => {
 			var result = {hint: "你的人生就这么结束了……"};
@@ -425,7 +438,4 @@
 			}
 		});
 	}
-
-	// test
-	console.log(MenTypes);
 }) ();
