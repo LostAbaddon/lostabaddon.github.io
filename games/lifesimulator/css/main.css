@@ -124,6 +124,7 @@ button:active {
 	position: relative;
 	width: 250px;
 	height: 250px;
+	margin: 20px;
 	border-radius: 10px;
 	border: 8px solid black;
 	overflow: hidden;
