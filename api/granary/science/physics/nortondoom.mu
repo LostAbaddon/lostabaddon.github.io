@@ -200,3 +200,7 @@ $$
 用 David Mermin 的话来说就是：
 
 >	Shut up and calculate!
+
+
+
+>	PS: 除了上面提到的几乎可以算是哲学信仰的解释诺顿穹顶问题的方案之外，我们还可以从一个至少看上去更数学的角度来解释该问题的方案，可以[点这里](/article/science/physics/nortonsolution.mu)。

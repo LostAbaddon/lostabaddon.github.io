@@ -2,16 +2,27 @@
 <html>
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
+<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
 <title>赛博化身擂台赛</title>
 <link rel="manifest" href="../../webapp.json">
 <link rel="stylesheet" type="text/css" href="../common/css/window.css">
 <link rel="stylesheet" type="text/css" href="../../fa/css/all.min.css">
 <link rel="stylesheet" type="text/css" href="./css/main.css">
 </head>
-<body>
+<body class="loading">
 
-<section class="page">
+<section id="Page" class="page">
+	<div id="FullScreenTrigger" class="fullscreen fa-solid fa-maximize"></div>
+	<div id="Mask" class="mask_background"></div>
+
+	<div id="Qualifier" class="qualify animated hide">
+		<div class="title">请输入游戏邀请码：</div>
+		<input type="text" placeholder="输入邀请码" />
+		<div class="panel">
+			<button class="submit">验证</button>
+			<button class="cancel">放弃</button>
+		</div>
+	</div>
 </section>
 
 <script type="text/javascript" src="../../js/browser.js"></script>

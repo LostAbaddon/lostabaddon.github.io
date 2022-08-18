@@ -3,4 +3,121 @@ html, body {
 	height: 100%;
 	margin: 0px;
 	padding: 0px;
+	background-color: rgb(34, 32, 46);
+	text-size-adjust: 100%;
+	-webkit-text-size-adjust: 100%;
+}
+section, article, div, p, button {
+	box-sizing: border-box;
+	user-select: none;
+}
+button {
+	padding: 5px 15px;
+	background-color: rgba(186, 204, 217, 0.8);
+	border: 1px solid black;
+	border-radius: 3px;
+	font-size: 20px;
+}
+button:active {
+	background-color: rgb(192, 196, 195);
+	box-shadow: 2px 2px 5px black;
+}
+button, input, textarea {
+	outline: none;
+}
+input[type="text"] {
+	padding: 2px 5px;
+	background-color: transparent;
+	border: none;
+	border-bottom: 1px solid white;
+	color: white;
+}
+
+.animated {
+	transition: all 300ms ease-in-out;
+}
+
+section.page {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	font-size: 16px;
+	color: white;
+	transition: opacity 300ms ease-in-out;
+}
+.loading section.page {
+	opacity: 0;
+}
+[platform="desktop"] section.page {}
+[platform="mobile"] section.page {}
+[platform="mobile"][screen="vertical"] section.page {
+	transform: rotate(90deg);
+}
+
+div.fullscreen {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	z-index: 101;
+}
+[platform="desktop"] div.fullscreen {
+	display: none;
+}
+
+.mask_background {
+	position: absolute;
+	top: 0px;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+	z-index: 100;
+	background-color: rgba(50, 47, 59, 0.8);
+	backdrop-filter: blur(2px);
+	opacity: 0;
+	transition: opacity 300ms ease-in-out;
+	pointer-events: none;
+}
+.mask_background.show {
+	pointer-events: all;
+	opacity: 1;
+}
+
+.qualify {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	z-index: 102;
+	width: 300px;
+	height: 140px;
+	margin-top: -70px;
+	margin-left: -150px;
+	padding: 10px;
+	background-color: rgb(19, 17, 36);
+	border: 2px solid black;
+	border-radius: 10px;
+	box-shadow: 3px 3px 5px black;
+	opacity: 1;
+	transform: translateY(0%);
+}
+.qualify.hide {
+	opacity: 0;
+	transform: translateY(-50%);
+	pointer-events: none;
+}
+.qualify .title {
+	margin-bottom: 10px;
+	font-size: 18px;
+	font-weight: bolder;
+}
+.qualify input {
+	width: -webkit-fill-available;
+}
+.qualify .panel {
+	margin-top: 20px;
+	text-align: center;
+}
+.qualify .panel button {
+	margin: 0px 10px;
+	padding: 5px 15px;
+	font-size: 16px;
 }
