@@ -1,5 +1,5 @@
 const init = () => {
-	console.log(getBrowserType());
+	console.log(getBrowserInfo());
 };
 
 init();
