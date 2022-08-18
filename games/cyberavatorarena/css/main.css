@@ -56,8 +56,9 @@ section.page {
 
 div.fullscreen {
 	position: absolute;
-	top: 5px;
-	right: 5px;
+	top: 15px;
+	right: 15px;
+	font-size: 20px;
 	z-index: 101;
 }
 [platform="desktop"] div.fullscreen {

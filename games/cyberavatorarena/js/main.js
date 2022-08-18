@@ -1,17 +1,26 @@
 const onResize = () => {
 	var info = getBrowserInfo();
 	var width = window.innerWidth, height = window.innerHeight;
+	var body = document.body;
 
-	document.body.setAttribute('platform', info.platform);
+	body.setAttribute('platform', info.platform);
+	if (info.isStandAlone) {
+		body.setAttribute('mode', 'standalone');
+		FullScreenTrigger.style.display = 'none';
+	}
+	else {
+		body.setAttribute('mode', 'normal');
+		FullScreenTrigger.style.display = 'block';
+	}
 	if (info.platform === 'mobile') {
 		if (width > height) {
-			document.body.setAttribute('screen', 'horizontal');
+			body.setAttribute('screen', 'horizontal');
 			Page.style.width = width + 'px';
 			Page.style.height = height + 'px';
 			Page.style.transformOrigin = '';
 		}
 		else {
-			document.body.setAttribute('screen', 'vertical');
+			body.setAttribute('screen', 'vertical');
 			Page.style.width = height + 'px';
 			Page.style.height = width + 'px';
 			let half = width / 2;
@@ -19,7 +28,7 @@ const onResize = () => {
 		}
 	}
 	else {
-		document.body.removeAttribute('screen');
+		body.removeAttribute('screen');
 		Page.style.width = width + 'px';
 		Page.style.height = height + 'px';
 		Page.style.transformOrigin = '';
@@ -38,15 +47,20 @@ const init = () => {
 	document.body.classList.remove('loading');
 
 	FullScreenTrigger.addEventListener('click', () => {
+		var mode = document.body.getAttribute('mode');
+		if (mode === 'standalone') return;
+
 		if (!!document.fullscreenElement) {
 			document.exitFullscreen();
 			FullScreenTrigger.classList.add('fa-maximize');
 			FullScreenTrigger.classList.remove('fa-minimize');
+			document.body.setAttribute('mode', 'normal');
 		}
 		else {
 			document.body.requestFullscreen();
 			FullScreenTrigger.classList.remove('fa-maximize');
 			FullScreenTrigger.classList.add('fa-minimize');
+			document.body.setAttribute('mode', 'fullscreen');
 		}
 	});
 
