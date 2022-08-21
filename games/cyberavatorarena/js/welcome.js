@@ -201,7 +201,7 @@ CyberAvatorArena.Welcome = {};
 			return;
 		}
 
-		console.log(currentInput);
+		console.log(currentInput, idx);
 	};
 
 	CyberAvatorArena.Welcome.onInit = () => {
