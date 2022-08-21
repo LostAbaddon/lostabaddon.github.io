@@ -3,15 +3,32 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
-<title>赛博化身擂台赛</title>
+<title>赛博格命斗场</title>
 <link rel="manifest" href="../../webapp.json">
 <link rel="stylesheet" type="text/css" href="../common/css/window.css">
 <link rel="stylesheet" type="text/css" href="../../fa/css/all.min.css">
 <link rel="stylesheet" type="text/css" href="./css/main.css">
 </head>
-<body class="loading">
+<body class="loading scrollable">
 
 <section id="Page" class="page">
+	<div id="ScnWelcome" class="scene welcome">
+		<div class="commandLine">
+			<div class="currentLine">
+				<span class="input"></span>
+				<span class="cursor"></span>
+			</div>
+		</div>
+		<div class="screen waiting animated">
+			<div class="title">欢迎来到赛博格命斗场</div>
+			<div name="storyMode" command="connect cyborg trip" class="option fa-solid fa-hand-point-right">赛博格之旅</div>
+			<div name="duelMode" command="connect cyborg duel" class="option fa-solid fa-hand-point-right">对战赛博格</div>
+			<div name="cardCollection" command="cd halloffame" class="option fa-solid fa-hand-point-right">赛博英灵殿</div>
+			<div name="mailZone" command="list main" class="option fa-solid fa-hand-point-right">信息中心</div>
+			<div class="hint">&copy Copyright LostAbaddon</div>
+		</div>
+	</div>
+
 	<div id="FullScreenTrigger" class="fullscreen fa-solid fa-maximize"></div>
 	<div id="Mask" class="mask_background"></div>
 
@@ -30,6 +47,11 @@
 <script type="text/javascript" src="../common/js/window.js"></script>
 <script type="text/javascript" src="../common/js/lrucache.js"></script>
 <script type="text/javascript" src="../common/js/cacheddb.js"></script>
+<script type="text/javascript" src="./js/welcome.js"></script>
 <script type="text/javascript" src="./js/main.js"></script>
+<!-- GA -->
+<script>
+	if(!location.host.match(/localhost/i)){(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=location.protocol+g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', "UA-4967510-4", 'auto');ga('send', 'pageview');}
+</script>
 </body>
 </html>
