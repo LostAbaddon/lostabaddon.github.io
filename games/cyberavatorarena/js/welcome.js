@@ -3,11 +3,14 @@ CyberAvatorArena.Welcome = {};
 
 (() => {
 	const BlockCount = 10;
-	const PrintSpeed = 150;
+	const PrintSpeed = 100;
 	const Grids = [];
 	const HintList = [];
+	const Commands = [];
 	var inited = false;
 	var running = false;
+	var canInput = false;
+	var currentInput = '';
 
 	const startAction = function () {
 		this.__available = true;
@@ -138,8 +141,67 @@ CyberAvatorArena.Welcome = {};
 		ele.__cursor.classList.add('hide');
 	};
 	const onPress = ({target}) => {
+		if (!canInput) return;
 		var command = target.getAttribute('command');
-		console.log(command, target);
+		simulateInput(command);
+	};
+	const onInput = async evt => {
+		if (!canInput) return;
+		if (evt.altKey || evt.ctrlKey || evt.metaKey) return;
+		if (evt.key === "Enter") {
+			await onEnterCommand();
+			currentInput = '';
+		}
+		else {
+			currentInput = currentInput + evt.key;
+		}
+		ScnWelcome._commandLine._inner.innerText = currentInput;
+	};
+	const simulateInput = async cmd => {
+		canInput = false;
+
+		if (currentInput !== '') {
+			currentInput = '';
+			ScnWelcome._commandLine._inner.innerText = currentInput;
+		}
+
+		var len = cmd.length;
+		for (let i = 1; i <= len; i ++) {
+			let str = cmd.substr(0, i);
+			await wait(PrintSpeed);
+			ScnWelcome._commandLine._inner.innerText = str;
+		}
+		currentInput = cmd;
+		await onEnterCommand();
+		currentInput = '';
+		ScnWelcome._commandLine._inner.innerText = currentInput;
+
+		canInput = true;
+	};
+	const addNewCmdLine = (input, isReply=false) => {
+		var line = newEle('div', 'line');
+		if (isReply) line.classList.add('reply');
+		line.innerText = input;
+
+		if (!!ScnWelcome._commandLine._current.nextElementSibling) {
+			ScnWelcome._commandLine.insertBefore(line, ScnWelcome._commandLine._current.nextElementSibling);
+		}
+		else {
+			ScnWelcome._commandLine.appendChild(line);
+		}
+	};
+	const onEnterCommand = async () => {
+		var cmd = currentInput;
+		addNewCmdLine(cmd);
+		await wait(0);
+
+		var idx = Commands.indexOf(cmd);
+		if (idx < 0) {
+			addNewCmdLine('invalid command!', true);
+			return;
+		}
+
+		console.log(currentInput);
 	};
 
 	CyberAvatorArena.Welcome.onInit = () => {
@@ -156,10 +218,18 @@ CyberAvatorArena.Welcome = {};
 			ele = ScnWelcome.querySelector(ele);
 			if (handler) {
 				ele.addEventListener('click', onPress);
+				let cmd = ele.getAttribute('command');
+				Commands.push(cmd);
 			}
 			HintList.push(ele);
 			prepareWords(ele);
 		}
+
+		ScnWelcome._commandLine = ScnWelcome.querySelector('.commandLine');
+		ScnWelcome._commandLine._current = ScnWelcome._commandLine.querySelector('.line.current');
+		ScnWelcome._commandLine._inner = ScnWelcome._commandLine.querySelector('.line.current .input');
+		ScnWelcome._commandLine._cursor = ScnWelcome._commandLine.querySelector('.cursor');
+		document.addEventListener('keypress', onInput);
 
 		running = true;
 		onResize();
@@ -183,6 +253,8 @@ CyberAvatorArena.Welcome = {};
 		for (let ele of HintList) {
 			await showWords(ele);
 		}
+		ScnWelcome._commandLine._cursor.classList.remove('hide');
+		canInput = true;
 	};
 	CyberAvatorArena.Welcome.hide = async () => {};
 }) ();

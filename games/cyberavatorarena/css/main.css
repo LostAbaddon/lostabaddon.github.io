@@ -203,6 +203,87 @@ div.fullscreen {
 .scene.welcome .screen .option:before {
 	margin-right: 10px;
 }
+.scene.welcome .screen .option span {
+	pointer-events: none;
+}
+.scene.welcome .screen .hint {
+	position: absolute;
+	bottom: 0px;
+	right: 0px;
+	font-size: 10px;
+	color: rgb(86, 152, 195);
+}
+.scene.welcome .commandLine {
+	position: absolute;
+	display: flex;
+	flex-direction: column-reverse;;
+	left: 0px;
+	right: 0px;
+	top: 0px;
+	bottom: 0px;
+	z-index: 14;
+	padding: 5px;
+	overflow: hidden;
+	font-size: 10px;
+}
+.scene.welcome .commandLine .line {
+	color: rgb(99, 127, 119);
+	line-height: 15px;
+}
+.scene.welcome .commandLine .line.reply {
+	color: rgb(99, 119, 127);
+}
+.scene.welcome .commandLine .line.current {
+	color: rgb(131, 203, 172);
+}
+.scene.welcome .commandLine .line:nth-child(2) {
+	color: rgb(102, 193, 140);
+}
+.scene.welcome .commandLine .line:nth-child(3) {
+	color: rgb(102, 185, 137);
+}
+.scene.welcome .commandLine .line:nth-child(4) {
+	color: rgb(101, 177, 135);
+}
+.scene.welcome .commandLine .line:nth-child(5) {
+	color: rgb(101, 168, 132);
+}
+.scene.welcome .commandLine .line:nth-child(6) {
+	color: rgb(101, 160, 130);
+}
+.scene.welcome .commandLine .line:nth-child(7) {
+	color: rgb(100, 152, 127);
+}
+.scene.welcome .commandLine .line:nth-child(8) {
+	color: rgb(100, 144, 124);
+}
+.scene.welcome .commandLine .line:nth-child(9) {
+	color: rgb(99, 135, 122);
+}
+.scene.welcome .commandLine .line.reply:nth-child(2) {
+	color: rgb(41, 131, 187);
+}
+.scene.welcome .commandLine .line.reply:nth-child(3) {
+	color: rgb(48, 130, 180);
+}
+.scene.welcome .commandLine .line.reply:nth-child(4) {
+	color: rgb(56, 128, 172);
+}
+.scene.welcome .commandLine .line.reply:nth-child(5) {
+	color: rgb(63, 127, 165);
+}
+.scene.welcome .commandLine .line.reply:nth-child(6) {
+	color: rgb(70, 125, 157);
+}
+.scene.welcome .commandLine .line.reply:nth-child(7) {
+	color: rgb(77, 124, 150);
+}
+.scene.welcome .commandLine .line.reply:nth-child(8) {
+	color: rgb(85, 122, 142);
+}
+.scene.welcome .commandLine .line.reply:nth-child(9) {
+	color: rgb(92, 121, 135);
+}
 .scene.welcome .cursor {
 	display: inline-block;
 	width: 1px;
@@ -221,15 +302,9 @@ div.fullscreen {
 .scene.welcome .screen .option .cursor {
 	height: 20px;
 }
-.scene.welcome .screen .option span {
-	pointer-events: none;
-}
-.scene.welcome .screen .hint {
-	position: absolute;
-	bottom: 0px;
-	right: 0px;
-	font-size: 10px;
-	color: rgb(86, 152, 195);
+.scene.welcome .commandLine .cursor {
+	height: 12px;
+	background-color: rgb(131, 203, 172);
 }
 .scene.welcome .block {
 	position: absolute;
