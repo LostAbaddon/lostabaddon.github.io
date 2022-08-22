@@ -186,6 +186,7 @@ div.fullscreen {
 	font-size: 40px;
 	font-weight: bolder;
 	text-align: center;
+	transition: opacity 200ms linear, transform 200ms linear;
 }
 .scene.welcome .screen .option {
 	display: block;
@@ -198,7 +199,7 @@ div.fullscreen {
 	font-weight: normal;
 	text-align: left;
 	cursor: pointer;
-	transition: opacity 200ms linear;
+	transition: opacity 200ms linear, transform 200ms linear;
 }
 .scene.welcome .screen .option:before {
 	margin-right: 10px;
@@ -212,6 +213,7 @@ div.fullscreen {
 	right: 0px;
 	font-size: 10px;
 	color: rgb(86, 152, 195);
+	transition: opacity 200ms linear, transform 200ms linear;
 }
 .scene.welcome .commandLine {
 	position: absolute;
@@ -227,8 +229,12 @@ div.fullscreen {
 	font-size: 10px;
 }
 .scene.welcome .commandLine .line {
+	position: relative;
+	left: 0px;
+	opacity: 1;
 	color: rgb(99, 127, 119);
 	line-height: 15px;
+	transition: left 200ms ease-in, opacity 200ms ease-in;
 }
 .scene.welcome .commandLine .line.reply {
 	color: rgb(99, 119, 127);
@@ -284,6 +290,10 @@ div.fullscreen {
 .scene.welcome .commandLine .line.reply:nth-child(9) {
 	color: rgb(92, 121, 135);
 }
+.scene.welcome .commandLine .line.hide {
+	left: -100px;
+	opacity: 0;
+}
 .scene.welcome .cursor {
 	display: inline-block;
 	width: 1px;
@@ -311,7 +321,7 @@ div.fullscreen {
 	background-color: rgb(71, 72, 76);
 	border: 1px solid rgb(71, 72, 76);
 	transform: scale(1);
-	transition: background-color 1500ms ease-in-out, transform 1500ms ease-in-out;
+	transition: background-color 1500ms ease-in-out, transform 1500ms ease-in-out, left 1000ms ease-in, top 1000ms ease-in;
 }
 .scene.welcome .block.activeBG {
 	background-color: rgba(53, 51, 60, 0.8);

@@ -67,7 +67,8 @@ CyberAvatorArena.Welcome = {};
 			if (!!line) {
 				for (let j = 0; j < W; j ++) {
 					let g = line[j];
-					if (!g) {
+					let isNew = !g;
+					if (isNew) {
 						g = newEle('div', 'block');
 						g.doAction = startAction;
 						g.offAction = exitAction;
@@ -78,8 +79,16 @@ CyberAvatorArena.Welcome = {};
 					}
 					g.style.width = w + '%';
 					g.style.height = h + '%';
-					g.style.left = (l + w * j) + '%';
-					g.style.top = (t + h * i) + '%';
+					g.__left = l + w * j;
+					g.__top = t + h * i;
+					if (running) {
+						g.style.left = g.__left + '%';
+						g.style.top = g.__top + '%';
+					}
+					else if (isNew) {
+						g.style.left = Math.random() > 0.5 ? "-10%" : "110%";
+						g.style.top = Math.random() > 0.5 ? "-10%" : "110%";
+					}
 				}
 				for (let j = line.length - 1; j >= W; j --) {
 					let g = line[j];
@@ -97,8 +106,16 @@ CyberAvatorArena.Welcome = {};
 					g.style.zIndex = 0;
 					g.style.width = w + '%';
 					g.style.height = h + '%';
-					g.style.left = (l + w * j) + '%';
-					g.style.top = (t + h * i) + '%';
+					g.__left = l + w * j;
+					g.__top = t + h * i;
+					if (running) {
+						g.style.left = g.__left + '%';
+						g.style.top = g.__top + '%';
+					}
+					else {
+						g.style.left = Math.random() > 0.5 ? "-10%" : "110%";
+						g.style.top = Math.random() > 0.5 ? "-10%" : "110%";
+					}
 					ScnWelcome.appendChild(g);
 					line[j] = g;
 					g.doAction();
@@ -140,8 +157,27 @@ CyberAvatorArena.Welcome = {};
 		}
 		ele.__cursor.classList.add('hide');
 	};
+	const showAllWords = () => {
+		for (let line of HintList) {
+			line.style.transform = 'scale(1.0)';
+		}
+		var hint = ScnWelcome.querySelector('.screen > .hint');
+		hint.style.opacity = 1;
+		hint.style.transform = 'scale(1.0)';
+	};
+	const hideAllWords = async () => {
+		for (let line of HintList) {
+			line.style.opacity = 0;
+			line.style.transform = 'scale(0.8)';
+			await wait(PrintSpeed);
+		}
+		var hint = ScnWelcome.querySelector('.screen > .hint');
+		hint.style.opacity = 0;
+		hint.style.transform = 'scale(0.8)';
+	};
 	const onPress = ({target}) => {
 		if (!canInput) return;
+		canInput = false;
 		var command = target.getAttribute('command');
 		simulateInput(command);
 	};
@@ -149,13 +185,12 @@ CyberAvatorArena.Welcome = {};
 		if (!canInput) return;
 		if (evt.altKey || evt.ctrlKey || evt.metaKey) return;
 		if (evt.key === "Enter") {
-			await onEnterCommand();
-			currentInput = '';
+			canInput = await onEnterCommand();
 		}
 		else {
 			currentInput = currentInput + evt.key;
+			ScnWelcome._commandLine._inner.innerText = currentInput;
 		}
-		ScnWelcome._commandLine._inner.innerText = currentInput;
 	};
 	const simulateInput = async cmd => {
 		canInput = false;
@@ -172,11 +207,7 @@ CyberAvatorArena.Welcome = {};
 			ScnWelcome._commandLine._inner.innerText = str;
 		}
 		currentInput = cmd;
-		await onEnterCommand();
-		currentInput = '';
-		ScnWelcome._commandLine._inner.innerText = currentInput;
-
-		canInput = true;
+		canInput = await onEnterCommand();
 	};
 	const addNewCmdLine = (input, isReply=false) => {
 		var line = newEle('div', 'line');
@@ -192,16 +223,118 @@ CyberAvatorArena.Welcome = {};
 	};
 	const onEnterCommand = async () => {
 		var cmd = currentInput;
+		currentInput = '';
+		ScnWelcome._commandLine._inner.innerText = '';
 		addNewCmdLine(cmd);
 		await wait(0);
 
 		var idx = Commands.indexOf(cmd);
 		if (idx < 0) {
 			addNewCmdLine('invalid command!', true);
-			return;
+			return true;
 		}
 
-		console.log(currentInput, idx);
+		var action = null;
+		if (idx === 0) action = gotoCyborgTrip;
+		else if (idx === 1) action = gotoCyborgDuel;
+		else if (idx === 2) action = gotoHallOfFame;
+		else if (idx === 3) action = gotoMailBox;
+		if (!action) {
+			addNewCmdLine('command doesn\'t work now...', true);
+			return;
+		}
+		action();
+
+		return false;
+	};
+	const hideCommandLines = async () => {
+		var list = [].map.call(ScnWelcome._commandLine.querySelectorAll('.line'), l => l);
+		for (let line of list) {
+			line.classList.add('hide');
+			await wait(PrintSpeed);
+		}
+	};
+	const showCommandLines = async () => {
+		var list = [].map.call(ScnWelcome._commandLine.querySelectorAll('.line'), l => l);
+		for (let line of list) {
+			line.classList.remove('hide');
+			await wait(PrintSpeed);
+		}
+	};
+	const leaveBlocks = async () => {
+		await Promise.all(Grids.map(async (line, y) => {
+			var dirs = [];
+			var half = Grids.length / 2;
+			if (y === half) {
+				dirs.push('up', 'down');
+			}
+			else if (y > half) {
+				dirs.push('down');
+			}
+			else {
+				dirs.push('up');
+			}
+			half = line.length / 2;
+			await Promise.all(line.map(async (block, x) => {
+				var ds = [...dirs];
+				if (x === half) {
+					ds.push('left', 'right');
+				}
+				else if (x > half) {
+					ds.push('right');
+				}
+				else {
+					ds.push('left');
+				}
+				var d = ds[Math.floor(ds.length * Math.random())];
+				await wait(Math.random() * 500);
+				if (d === 'up') {
+					block.style.top = '-10%';
+				}
+				else if (d === 'down') {
+					block.style.top = '110%';
+				}
+				else if (d === 'left') {
+					block.style.left = '-10%';
+				}
+				else if (d === 'right') {
+					block.style.left = '110%';
+				}
+				await wait(1000);
+			}));
+		}));
+	};
+	const resetBlocks = async () => {
+		running = true;
+		await Promise.all(Grids.map(async (line, y) => {
+			await Promise.all(line.map(async (block, x) => {
+				await wait(Math.random() * 300);
+				block.style.top = block.__top + '%';
+				block.style.left = block.__left + '%';
+				block.doAction();
+				await wait(1000);
+			}));
+		}));
+	};
+	const gotoCyborgTrip = async () => {
+		addNewCmdLine('loading...', true);
+		await wait(200);
+		await CyberAvatorArena.Welcome.hide();
+	};
+	const gotoCyborgDuel = async () => {
+		addNewCmdLine('loading...', true);
+		await wait(200);
+		await CyberAvatorArena.Welcome.hide();
+	};
+	const gotoHallOfFame = async () => {
+		addNewCmdLine('loading...', true);
+		await wait(200);
+		await CyberAvatorArena.Welcome.hide();
+	};
+	const gotoMailBox = async () => {
+		addNewCmdLine('loading...', true);
+		await wait(200);
+		await CyberAvatorArena.Welcome.hide();
 	};
 
 	CyberAvatorArena.Welcome.onInit = () => {
@@ -212,7 +345,7 @@ CyberAvatorArena.Welcome = {};
 		list.push('.screen .option[name="storyMode"]');
 		list.push('.screen .option[name="duelMode"]');
 		list.push('.screen .option[name="cardCollection"]');
-		list.push('.screen .option[name="mailZone"]');
+		list.push('.screen .option[name="mailBox"]');
 		for (let ele of list) {
 			let handler = ele.indexOf('name') > 0;
 			ele = ScnWelcome.querySelector(ele);
@@ -247,8 +380,12 @@ CyberAvatorArena.Welcome = {};
 		}, 300);
 	};
 	CyberAvatorArena.Welcome.show = async () => {
+		running = true;
 		ScnWelcome.querySelector('.screen').classList.remove('waiting');
-		await wait(1000);
+		showAllWords();
+		showCommandLines();
+		resetBlocks();
+		await wait(500);
 
 		for (let ele of HintList) {
 			await showWords(ele);
@@ -256,5 +393,19 @@ CyberAvatorArena.Welcome = {};
 		ScnWelcome._commandLine._cursor.classList.remove('hide');
 		canInput = true;
 	};
-	CyberAvatorArena.Welcome.hide = async () => {};
+	CyberAvatorArena.Welcome.hide = async () => {
+		await Promise.any([
+			wait (1000),
+			Promise.all([
+				hideCommandLines(),
+				hideAllWords()
+			])
+		]);
+
+		await leaveBlocks();
+		running = false;
+
+		await wait(2000);
+		CyberAvatorArena.Welcome.show();
+	};
 }) ();
