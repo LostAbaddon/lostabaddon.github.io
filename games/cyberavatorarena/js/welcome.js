@@ -86,8 +86,8 @@ CyberAvatorArena.Welcome = {};
 						g.style.top = g.__top + '%';
 					}
 					else if (isNew) {
-						g.style.left = Math.random() > 0.5 ? "-10%" : "110%";
-						g.style.top = Math.random() > 0.5 ? "-10%" : "110%";
+						g.style.left = Math.random() > 0.5 ? "-20%" : "110%";
+						g.style.top = Math.random() > 0.5 ? "-20%" : "110%";
 					}
 				}
 				for (let j = line.length - 1; j >= W; j --) {
@@ -113,8 +113,8 @@ CyberAvatorArena.Welcome = {};
 						g.style.top = g.__top + '%';
 					}
 					else {
-						g.style.left = Math.random() > 0.5 ? "-10%" : "110%";
-						g.style.top = Math.random() > 0.5 ? "-10%" : "110%";
+						g.style.left = Math.random() > 0.5 ? "-20%" : "110%";
+						g.style.top = Math.random() > 0.5 ? "-20%" : "110%";
 					}
 					ScnWelcome.appendChild(g);
 					line[j] = g;
@@ -289,13 +289,13 @@ CyberAvatorArena.Welcome = {};
 				var d = ds[Math.floor(ds.length * Math.random())];
 				await wait(Math.random() * 500);
 				if (d === 'up') {
-					block.style.top = '-10%';
+					block.style.top = '-20%';
 				}
 				else if (d === 'down') {
 					block.style.top = '110%';
 				}
 				else if (d === 'left') {
-					block.style.left = '-10%';
+					block.style.left = '-20%';
 				}
 				else if (d === 'right') {
 					block.style.left = '110%';
@@ -406,6 +406,6 @@ CyberAvatorArena.Welcome = {};
 		running = false;
 
 		await wait(2000);
-		CyberAvatorArena.Welcome.show();
+		await CyberAvatorArena.Welcome.show();
 	};
 }) ();
