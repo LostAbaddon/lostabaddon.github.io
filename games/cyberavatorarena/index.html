@@ -8,6 +8,8 @@
 <link rel="stylesheet" type="text/css" href="../common/css/window.css">
 <link rel="stylesheet" type="text/css" href="../../fa/css/all.min.css">
 <link rel="stylesheet" type="text/css" href="./css/main.css">
+<link rel="stylesheet" type="text/css" href="./css/welcome.css">
+<link rel="stylesheet" type="text/css" href="./css/hall.css">
 </head>
 <body class="loading scrollable">
 
@@ -29,6 +31,14 @@
 		</div>
 	</div>
 
+	<div id="ScnFameHall" class="scene hall hide">
+		<div class="title">赛博英灵殿<i class="backer fa-solid fa-right-to-bracket fa-flip-horizontal" onclick="CyberAvatorArena.FameHall.leave()"></i></div>
+		<div class="container">
+			<div class="left"></div>
+			<div class="right"></div>
+		</div>
+	</div>
+
 	<div id="FullScreenTrigger" class="fullscreen fa-solid fa-maximize"></div>
 	<div id="Mask" class="mask_background"></div>
 
@@ -47,6 +57,7 @@
 <script type="text/javascript" src="../common/js/window.js"></script>
 <script type="text/javascript" src="../common/js/lrucache.js"></script>
 <script type="text/javascript" src="../common/js/cacheddb.js"></script>
+<script type="text/javascript" src="./js/card.js"></script>
 <script type="text/javascript" src="./js/welcome.js"></script>
 <script type="text/javascript" src="./js/main.js"></script>
 <!-- GA -->

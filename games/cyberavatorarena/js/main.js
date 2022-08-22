@@ -6,6 +6,8 @@ window.CyberAvatorArena.Screen = {};
 		var info = getBrowserInfo();
 		var width = window.innerWidth, height = window.innerHeight;
 		var body = document.body;
+		window.CyberAvatorArena.Screen.platform = info.platform;
+		window.CyberAvatorArena.Screen.isStandAlone = info.isStandAlone;
 
 		body.setAttribute('platform', info.platform);
 		if (info.isStandAlone) {
@@ -19,6 +21,7 @@ window.CyberAvatorArena.Screen = {};
 		if (info.platform === 'mobile') {
 			if (width > height) {
 				body.setAttribute('screen', 'horizontal');
+				window.CyberAvatorArena.Screen.orientation = 'horizontal';
 				window.CyberAvatorArena.Screen.width = width;
 				window.CyberAvatorArena.Screen.height = height;
 				Page.style.width = width + 'px';
@@ -27,6 +30,7 @@ window.CyberAvatorArena.Screen = {};
 			}
 			else {
 				body.setAttribute('screen', 'vertical');
+				window.CyberAvatorArena.Screen.orientation = 'vertical';
 				window.CyberAvatorArena.Screen.width = height;
 				window.CyberAvatorArena.Screen.height = width;
 				Page.style.width = height + 'px';
@@ -37,6 +41,7 @@ window.CyberAvatorArena.Screen = {};
 		}
 		else {
 			body.removeAttribute('screen');
+			window.CyberAvatorArena.Screen.orientation = 'none';
 			window.CyberAvatorArena.Screen.width = width;
 			window.CyberAvatorArena.Screen.height = height;
 			Page.style.width = width + 'px';

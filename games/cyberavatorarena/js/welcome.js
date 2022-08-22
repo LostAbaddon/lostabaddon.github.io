@@ -16,27 +16,53 @@ CyberAvatorArena.Welcome = {};
 		this.__available = true;
 
 		const actionBG = async () => {
-			if (!running || !this.__available) return;
+			if (!!this.__case1) return;
+
+			this.__case1 = true;
+			if (!running || !this.__available) {
+				this.__case1 = false;
+				return;
+			}
 			await wait(3000 * Math.random());
-			if (!running || !this.__available) return;
+			if (!running || !this.__available) {
+				this.__case1 = false;
+				return;
+			}
 			this.classList.add('activeBG');
 			await wait(2000 + 2000 * Math.random());
 			this.classList.remove('activeBG');
 			await wait(2000);
-			if (!running || !this.__available) return;
+			if (!running || !this.__available) {
+				this.__case1 = false;
+				return;
+			}
+			this.__case1 = false;
 			if (!!this.__available) actionBG();
 		};
 		const actionSZ = async () => {
-			if (!running || !this.__available) return;
+			if (!!this.__case2) return;
+
+			this.__case2 = true;
+			if (!running || !this.__available) {
+				this.__case2 = false;
+				return;
+			}
 			await wait(3000 * Math.random());
-			if (!running || !this.__available) return;
+			if (!running || !this.__available) {
+				this.__case2 = false;
+				return;
+			}
 			this.classList.add('activeSZ');
 			this.style.zIndex = Math.ceil(Math.random() * 10);
 			await wait(2000 + 2000 * Math.random());
 			this.classList.remove('activeSZ');
 			await wait(2000);
 			this.style.zIndex = 0;
-			if (!running || !this.__available) return;
+			if (!running || !this.__available) {
+				this.__case2 = false;
+				return;
+			}
+			this.__case2 = false;
 			if (!!this.__available) actionSZ();
 		};
 
@@ -220,6 +246,7 @@ CyberAvatorArena.Welcome = {};
 		else {
 			ScnWelcome._commandLine.appendChild(line);
 		}
+		return line;
 	};
 	const onEnterCommand = async () => {
 		var cmd = currentInput;
@@ -239,9 +266,27 @@ CyberAvatorArena.Welcome = {};
 		else if (idx === 1) action = gotoCyborgDuel;
 		else if (idx === 2) action = gotoHallOfFame;
 		else if (idx === 3) action = gotoMailBox;
+		else if (idx === 4) {
+			let line = addNewCmdLine("Here's Johnny!", true);
+			line.style.color = 'red';
+			await bonus1();
+			return true;
+		}
+		else if (idx === 5) {
+			let line = addNewCmdLine("I'm your father.", true);
+			line.style.color = 'red';
+			await bonus2();
+			return true;
+		}
+		else if (idx === 6) {
+			let line = addNewCmdLine("He shot first!", true);
+			line.style.color = 'red';
+			await bonus3();
+			return true;
+		}
 		if (!action) {
 			addNewCmdLine('command doesn\'t work now...', true);
-			return;
+			return true;
 		}
 		action();
 
@@ -316,6 +361,97 @@ CyberAvatorArena.Welcome = {};
 			}));
 		}));
 	};
+	const bonus1 = async () => {
+		var lastRunning = running;
+		running = false;
+
+		for (let line of Grids) {
+			let half = line.length / 2;
+			line.forEach(async (block, i) => {
+				var delay = Math.abs(i - half);
+				await wait(delay * 300);
+				block.style.top = "110%";
+				block.style.backgroundColor = 'red';
+				await wait(1000);
+				block.style.display = 'none';
+			});
+			await wait(300);
+		}
+		await wait(2500);
+
+		running = lastRunning;
+		Grids.forEach(async line => {
+			line.forEach(async block => {
+				await wait(Math.random * 300);
+				block.style.top = block.__top + '%';
+				block.style.backgroundColor = '';
+				await wait(1000);
+				block.style.display = 'block';
+				await wait(0);
+				block.doAction();
+			});
+		});
+	};
+	const bonus2 = async () => {
+		var lastRunning = running;
+		running = false;
+
+		var halfY = Grids.length / 2;
+		await Promise.all(Grids.map(async (line, j) => {
+			var halfX = line.length / 2;
+			await Promise.all(line.map(async (block, i) => {
+				var delay = ((i - halfX) ** 2 + (j - halfY) ** 2) ** 0.5;
+				await wait(delay * 300);
+				block.style.transform = "scale(3)";
+				block.style.backgroundColor = 'red';
+				block.style.opacity = 0;
+				await wait(1500);
+				block.style.transform = "";
+				block.style.opacity = '';
+				block.style.backgroundColor = '';
+			}));
+		}));
+		await wait(1000);
+
+		running = lastRunning;
+		Grids.forEach(line => {
+			line.forEach(block => {
+				block.doAction();
+			});
+		});
+	};
+	const bonus3 = async () => {
+		var lastRunning = running;
+		running = false;
+
+		await Promise.all(Grids.map(async (line, j) => {
+			await Promise.all(line.map(async (block, i) => {
+				await wait(Math.random() * 1000);
+				block.style.top = (150 * Math.random() - 30) + '%';
+				block.style.left = (150 * Math.random() - 30) + '%';
+				block.style.transform = "scale(5)";
+				block.style.backgroundColor = 'red';
+				block.style.opacity = 0;
+				await wait(1500);
+				block.style.display = 'none';
+				block.style.top = block.__top + '%';
+				block.style.left = block.__left + '%';
+				block.style.transform = "";
+				block.style.opacity = '';
+				block.style.backgroundColor = '';
+			}));
+		}));
+		await wait(1000);
+
+		running = lastRunning;
+		Grids.forEach(line => {
+			line.forEach(async block => {
+				block.style.display = 'block';
+				await wait(0);
+				block.doAction();
+			});
+		});
+	};
 	const gotoCyborgTrip = async () => {
 		addNewCmdLine('loading...', true);
 		await wait(200);
@@ -329,7 +465,9 @@ CyberAvatorArena.Welcome = {};
 	const gotoHallOfFame = async () => {
 		addNewCmdLine('loading...', true);
 		await wait(200);
-		await CyberAvatorArena.Welcome.hide();
+		CyberAvatorArena.Welcome.hide();
+		await wait(1000);
+		await CyberAvatorArena.FameHall.enter();
 	};
 	const gotoMailBox = async () => {
 		addNewCmdLine('loading...', true);
@@ -357,6 +495,9 @@ CyberAvatorArena.Welcome = {};
 			HintList.push(ele);
 			prepareWords(ele);
 		}
+		Commands.push('LostAbaddon');
+		Commands.push('TartarusRiddle');
+		Commands.push('CyberAvatorArena');
 
 		ScnWelcome._commandLine = ScnWelcome.querySelector('.commandLine');
 		ScnWelcome._commandLine._current = ScnWelcome._commandLine.querySelector('.line.current');
@@ -381,6 +522,7 @@ CyberAvatorArena.Welcome = {};
 	};
 	CyberAvatorArena.Welcome.show = async () => {
 		running = true;
+		ScnWelcome.classList.remove('hide');
 		ScnWelcome.querySelector('.screen').classList.remove('waiting');
 		showAllWords();
 		showCommandLines();
@@ -394,6 +536,7 @@ CyberAvatorArena.Welcome = {};
 		canInput = true;
 	};
 	CyberAvatorArena.Welcome.hide = async () => {
+		ScnWelcome.classList.add('hide');
 		await Promise.any([
 			wait (1000),
 			Promise.all([
@@ -404,8 +547,8 @@ CyberAvatorArena.Welcome = {};
 
 		await leaveBlocks();
 		running = false;
-
-		await wait(2000);
-		await CyberAvatorArena.Welcome.show();
 	};
+	CyberAvatorArena.Welcome.addNewCmdLine = addNewCmdLine;
+
+	// setTimeout(gotoHallOfFame, 8000);
 }) ();
