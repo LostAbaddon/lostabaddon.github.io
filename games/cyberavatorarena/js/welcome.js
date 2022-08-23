@@ -257,6 +257,12 @@ CyberAvatorArena.Welcome = {};
 
 		var idx = Commands.indexOf(cmd);
 		if (idx < 0) {
+			if (cmd.match(/^echo .+$/)) {
+				let target = cmd.replace('echo ', '');
+				await CyberAvatorArena.MailBox.openMail(target);
+				showUnreadMailCount();
+				return;
+			}
 			addNewCmdLine('invalid command!', true);
 			return true;
 		}
@@ -476,6 +482,22 @@ CyberAvatorArena.Welcome = {};
 		await wait(1000);
 		await CyberAvatorArena.MailBox.enter();
 	};
+	const showUnreadMailCount = async () => {
+		var btnMailBox = ScnWelcome.querySelector('.screen .option[name="mailBox"]');
+		if (CyberAvatorArena.MailBox.unread > 0) {
+			let hintMail = newEle('span', 'mailcount', 'hide');
+			hintMail.innerText = CyberAvatorArena.MailBox.unread;
+			btnMailBox.appendChild(hintMail);
+			await wait(500);
+			hintMail.classList.remove('hide');
+		}
+		else {
+			let hintMail = btnMailBox.querySelector('span.mailcount');
+			if (!!hintMail) {
+				hintMail.classList.add('hide');
+			}
+		}
+	};
 
 	CyberAvatorArena.Welcome.onInit = () => {
 		inited = true;
@@ -524,17 +546,24 @@ CyberAvatorArena.Welcome = {};
 	};
 	CyberAvatorArena.Welcome.show = async () => {
 		running = true;
+		var hintMail = ScnWelcome.querySelector('span.mailcount');
+
 		ScnWelcome.classList.remove('hide');
 		ScnWelcome.querySelector('.screen').classList.remove('waiting');
 		showAllWords();
 		showCommandLines();
 		resetBlocks();
+		if (!!hintMail) {
+			hintMail.classList.add('hide');
+		}
 		await wait(500);
 
 		for (let ele of HintList) {
 			await showWords(ele);
 		}
 		ScnWelcome._commandLine._cursor.classList.remove('hide');
+		showUnreadMailCount();
+
 		canInput = true;
 	};
 	CyberAvatorArena.Welcome.hide = async () => {

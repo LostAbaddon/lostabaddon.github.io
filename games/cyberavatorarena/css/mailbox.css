@@ -1,0 +1,97 @@
+.scene.mailbox .container {
+	padding: 5px 0px;
+}
+
+.scene.mailbox .container .mail {
+	position: relative;
+	display: block;
+	margin-bottom: 10px;
+	padding: 5px 10px;
+	border-left: 5px solid rgb(22, 97, 171);
+	border-bottom: 1px solid rgb(21, 85, 154);
+	cursor: pointer;
+}
+.scene.mailbox .container .mail:last-child {
+	margin-bottom: 0px;
+}
+.scene.mailbox .container .mail.unread {
+	border-left: 5px solid rgb(186, 47, 123);
+	border-bottom: 1px solid rgb(126, 22, 113);
+}
+
+.mail_background {
+	position: fixed;
+	top: 0px;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+	z-index: 95;
+	opacity: 0;
+	background-color: rgba(25, 25, 25, 0.25);
+	transition: opacity 300ms ease-in-out;
+	pointer-events: none;
+}
+.mail_background.show {
+	opacity: 1;
+	pointer-events: all;
+}
+.mail_background .mail_container {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 90%;
+	max-width: 800px;
+	height: 80%;
+	max-height: 600px;
+	background-color: rgba(20, 35, 52, 0.8);
+	backdrop-filter: blur(2px);
+	border: 1px solid rgb(18, 110, 130);
+	transform: translate(-50%, -50%);
+	color: rgb(186, 204, 217);
+}
+.mail_background .mail_container .closer {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	font-size: 32px;
+	font-weight: bolder;
+	cursor: pointer;
+}
+.mail_background .mail_container .title {
+	padding: 10px;
+	background-color: rgba(25, 25, 25, 0.5);
+	border-bottom: 1px solid rgb(18, 110, 130);
+	font-size: 24px;
+	font-weight: bolder;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.mail_background .mail_container .subtitle {
+	padding: 5px 10px;
+	border-bottom: 1px solid rgba(18, 110, 130, 0.6);
+	font-size: 16px;
+}
+.mail_background .mail_container .subtitle .sender {
+	max-width: 100%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.mail_background .mail_container .subtitle .sender:before {
+	content: '发件人：';
+}
+.mail_background .mail_container .subtitle .timestamp {
+	float: right;
+	margin-top: 4px;
+	font-size: 8px;
+	font-style: italic;
+}
+.mail_background .mail_container .content {
+	position: absolute;
+	top: 84px;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+	padding: 10px;
+}

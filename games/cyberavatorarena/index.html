@@ -59,10 +59,30 @@
 			<span>信息中心</span>
 			<i class="backer fa-solid fa-right-to-bracket fa-flip-horizontal" onclick="CyberAvatorArena.MailBox.leave()"></i>
 		</div>
+		<div class="container scrollable"></div>
 	</div>
 
 	<div id="FullScreenTrigger" class="fullscreen fa-solid fa-maximize"></div>
 	<div id="Mask" class="mask_background"></div>
+	<div id="Loader" class="loading_hint">
+		<i class="fa-solid fa-spinner fa-spin-pulse"></i>
+	</div>
+	<div id="Alarmer" class="alarm_win">
+		<i class="closer fa-solid fa-xmark" onclick="CyberAvatorArena.Tool.hideAlarm()"></i>
+		<div class="title"></div>
+		<div class="content"></div>
+	</div>
+	<div id="MailViewer" class="mail_background">
+		<div class="mail_container">
+			<i class="closer fa-solid fa-xmark" onclick="CyberAvatorArena.MailBox.close()"></i>
+			<div class="title"></div>
+			<div class="subtitle">
+				<span class="sender"></span>
+				<span class="timestamp"></span>
+			</div>
+			<div class="content scrollable"></div>
+		</div>
+	</div>
 
 	<div id="Qualifier" class="qualify animated hide">
 		<div class="title">请输入游戏邀请码：</div>

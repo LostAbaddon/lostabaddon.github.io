@@ -47,20 +47,20 @@ input[type="text"] {
 	overflow: overlay;
 }
 .scrollable::-webkit-scrollbar {
-	width: 10px;
+	width: 4px;
 	background-color: transparent;
 	cursor: pointer;
 }
 .scrollable::-webkit-scrollbar-thumb {
-	border-radius: 5px;
-	background-color: rgb(75, 75, 75);
-	box-shadow: inset 2px 2px 3px rgba(255, 255, 255, 0.5);
+	border-radius: 2px;
+	background-color: rgb(35, 35, 35);
+	box-shadow: inset 1px 1px 2px rgba(255, 255, 255, 0.5);
 	cursor: pointer;
 }
 .scrollable::-webkit-scrollbar-track {
-	border-radius: 5px;
+	border-radius: 2px;
 	background-color: rgba(225, 225, 225, 0.1);
-	box-shadow: inset 2px 2px 3px rgba(53, 53, 53, 0.2);
+	box-shadow: inset 1px 1px 2px rgba(53, 53, 53, 0.2);
 	cursor: pointer;
 }
 
@@ -107,6 +107,69 @@ div.fullscreen {
 .mask_background.show {
 	pointer-events: all;
 	opacity: 1;
+}
+
+.loading_hint {
+	position: fixed;
+	top: 0px;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+	z-index: 101;
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 300ms ease-in-out;
+}
+.loading_hint.show {
+	opacity: 1;
+	pointer-events: all;
+}
+.loading_hint .fa-solid {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-top: -40px;
+	margin-left: -40px;
+	font-size: 80px;
+	font-weight: bolder;
+}
+
+.alarm_win {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	z-index: 101;
+	min-width: 150px;
+	min-height: 100px;
+	background-color: rgba(31, 32, 64, 0.8);
+	border-radius: 20px;
+	border: 1px solid black;
+	opacity: 0;
+	transform: translate(-50%, -50%);
+	pointer-events: none;
+	transition: opacity 300ms ease-in-out;
+}
+.alarm_win.show {
+	opacity: 1;
+	pointer-events: all;
+}
+.alarm_win .closer {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	font-size: 24px;
+	cursor: pointer;
+}
+.alarm_win .title {
+	padding: 10px 20px;
+	border-bottom: 1px solid white;
+	font-size: 20px;
+	font-weight: bolder;
+}
+.alarm_win .content {
+	padding: 10px;
+	font-size: 16px;
+	line-height: 24px;
 }
 
 .qualify {
@@ -186,4 +249,13 @@ div.fullscreen {
 	top: 11px;
 	right: 45px;
 	cursor: pointer;
+}
+
+.scene > .container {
+	position: absolute;
+	top: 45px;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+	border-bottom: 1px solid rgb(22, 97, 171);
 }

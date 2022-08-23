@@ -48,6 +48,24 @@
 .scene.welcome .screen .option span {
 	pointer-events: none;
 }
+.scene.welcome .screen .option span.mailcount {
+	position: relative;
+	display: inline-block;
+	top: -5px;
+	left: 5px;
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	background-color: rgb(124, 24, 35);
+	box-shadow: 1px 1px 3px black;
+	font-size: 8px;
+	line-height: 20px;
+	text-align: center;
+	transition: opacity 300ms ease;
+}
+.scene.welcome .screen .option span.mailcount.hide {
+	opacity: 0;
+}
 .scene.welcome .screen .hint {
 	position: absolute;
 	bottom: 0px;

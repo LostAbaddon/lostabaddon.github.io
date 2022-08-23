@@ -1,5 +1,5 @@
-const prepareDB = async (dbName, onUpdate) => {
-	var cacheDB = new CachedDB(dbName, 1);
+const prepareDB = async (dbName, onUpdate, version=1) => {
+	var cacheDB = new CachedDB(dbName, version);
 	cacheDB.onUpdate(() => {
 		if (!!onUpdate) onUpdate(cacheDB);
 		console.log(dbName + ': Updated');
