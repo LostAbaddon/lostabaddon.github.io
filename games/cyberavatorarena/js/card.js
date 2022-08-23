@@ -13,33 +13,6 @@
  * 10: 凤凰重生
  */
 
-const SkillType = [
-	'复制',
-	'摧毁',
-	'绝对防御',
-	'黄金铠甲',
-	'镭射光束',
-	'神怒天罚',
-	'末日病毒',
-	'绝对零度',
-	'次元口袋',
-	'怪盗绅士',
-	'凤凰重生',
-];
-const SkillDesc = [
-	'复制自身程序到指定门位。',
-	'摧毁门位处的代码。',
-	'满足构型的程序阵列不会被摧毁类程序移除（不必由当前生成程序触发，但不满足构型的程序阵列不拥有绝对防御）。',
-	'通过阵列构型激活后，下次己方遭遇程序摧毁时，摧毁无效（无论同时有多少门位被触发）。',
-	'选择赛博空间的一行或一列，其上所有程序被摧毁（对绝对防御和黄金铠甲无效）。',
-	'指定一个3x3区域，将其中所有非己方程序摧毁（对绝对防御无效）。',
-	'门位上程序所属各赛博格移除一张升级槽或外部接口槽中程序卡。',
-	'门位上程序所属各赛博格，下一轮无作为跳过。',
-	'立刻获得一张程序卡。',
-	'抽取门位上程序所属各赛博格的手牌中的一张程序卡。',
-	'选择一个已经存在的程序，它将被认定为当前程序，触发所有可触发的程序一次。',
-];
-
 class Skill {
 	name = "";
 	poses = [];
@@ -153,15 +126,6 @@ class Hero {
 	}
 }
 
-const SkillList = [];
-SkillList.push(new Skill('前进', [[0, 1]], [[0, 2]], 1, 0));
-SkillList.push(new Skill('斜刺', [[1, 1]], [[2, 2]], 1, 1));
-SkillList.push(new Skill('横扫', [[1, 1], [2, 2]], [[2, 1], [1, 2]], 2, 1));
-
-const HeroList = [];
-HeroList.push(new Hero('逐日魔', '../lifesimulator/assets/kid01.jpg', [SkillList[0], SkillList[1], SkillList[2]]));
-HeroList.push(new Hero('追风者', '../lifesimulator/assets/shelton01.jpg', [SkillList[0], SkillList[1], SkillList[2]]));
-
 window.CyberAvatorArena = window.CyberAvatorArena || {};
 CyberAvatorArena.FameHall = {};
 
@@ -242,6 +206,9 @@ CyberAvatorArena.FameHall = {};
 		await wait(500);
 
 		await CyberAvatorArena.Welcome.show();
+		LeftArea.innerHTML = '';
+		RightArea.__cardArea.innerHTML = '';
+		RightArea.__skillArea.innerHTML = '';
 	};
 	CyberAvatorArena.FameHall.onResize = () => {
 		var width = Math.min(225, CyberAvatorArena.Screen.width / 4);

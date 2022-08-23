@@ -472,7 +472,9 @@ CyberAvatorArena.Welcome = {};
 	const gotoMailBox = async () => {
 		addNewCmdLine('loading...', true);
 		await wait(200);
-		await CyberAvatorArena.Welcome.hide();
+		CyberAvatorArena.Welcome.hide();
+		await wait(1000);
+		await CyberAvatorArena.MailBox.enter();
 	};
 
 	CyberAvatorArena.Welcome.onInit = () => {
@@ -550,5 +552,5 @@ CyberAvatorArena.Welcome = {};
 	};
 	CyberAvatorArena.Welcome.addNewCmdLine = addNewCmdLine;
 
-	setTimeout(gotoMailBox, 8000);
+	// setTimeout(gotoMailBox, 8000);
 }) ();
