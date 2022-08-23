@@ -1,0 +1,98 @@
+.scene.hall {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	background-color: rgb(20, 35, 52);
+	opacity: 1;
+	transform: scale(1);
+	transition: all 1500ms ease;
+}
+.scene.hall.hide {
+	opacity: 0;
+	transform: scale(0.5);
+	pointer-events: none;
+}
+
+.scene.hall .title {
+	position: relative;
+	height: 45px;
+	z-index: 1;
+	padding: 5px 10px;
+	border-top: 1px solid rgb(22, 97, 171);
+	border-left: 10px solid rgb(22, 97, 171);
+	box-shadow: 2px 2px 5px black;
+	font-size: 24px;
+	font-weight: bolder;
+	transform: translateZ(1px);
+}
+.scene.hall .title .backer {
+	position: absolute;
+	top: 11px;
+	right: 45px;
+	cursor: pointer;
+}
+
+.scene.hall .container {
+	position: absolute;
+	top: 45px;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+	border-bottom: 1px solid rgb(22, 97, 171);
+}
+
+.scene.hall .container .left,
+.scene.hall .container .right {
+	position: absolute;
+	top: 0px;
+	bottom: 0px;
+	overflow: hidden;
+}
+.scene.hall .container .left {
+	left: 0px;
+	width: 34%;
+	border-right: 1px solid black;
+	perspective-origin: center;
+	perspective: 500px;
+}
+.scene.hall .container .right {
+	right: 0px;
+	width: 66%;
+	border-left: 1px solid black;
+}
+
+.scene.hall .container .left .card {
+	position: absolute;
+	left: 50%;
+	width: 200px;
+	height: 275px;
+	margin-left: -100px;
+	background-color: rgb(15, 89, 164);
+	border-radius: 20px;
+	border: 10px solid rgb(20, 74, 116);
+	box-shadow: inset 0px 0px 5px black;
+	overflow: hidden;
+	transform-style: preserve-3d;
+	transform-origin: center;
+}
+.scene.hall .container .left .card .name {
+	position: absolute;
+	top: -10px;
+	left: -10px;
+	padding: 10px;
+	border-radius: 0px 0px 20px 0px;
+	background-color: rgb(20, 74, 116);
+	pointer-events: none;
+}
+.scene.hall .container .left .card .avator {
+	position: absolute;
+	top: 0px;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+	background-repeat: no-repeat;
+	background-size: cover;
+	pointer-events: none;
+}
