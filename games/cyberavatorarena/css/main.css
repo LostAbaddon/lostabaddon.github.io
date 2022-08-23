@@ -157,3 +157,22 @@ div.fullscreen {
 	height: 100%;
 	overflow: hidden;
 }
+
+.scene > .title {
+	position: relative;
+	height: 45px;
+	z-index: 1;
+	padding: 5px 10px;
+	border-top: 1px solid rgb(22, 97, 171);
+	border-left: 10px solid rgb(22, 97, 171);
+	box-shadow: 2px 2px 5px black;
+	font-size: 24px;
+	font-weight: bolder;
+	transform: translateZ(1px);
+}
+.scene > .title .backer {
+	position: absolute;
+	top: 11px;
+	right: 45px;
+	cursor: pointer;
+}

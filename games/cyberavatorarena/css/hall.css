@@ -15,25 +15,6 @@
 	pointer-events: none;
 }
 
-.scene.hall .title {
-	position: relative;
-	height: 45px;
-	z-index: 1;
-	padding: 5px 10px;
-	border-top: 1px solid rgb(22, 97, 171);
-	border-left: 10px solid rgb(22, 97, 171);
-	box-shadow: 2px 2px 5px black;
-	font-size: 24px;
-	font-weight: bolder;
-	transform: translateZ(1px);
-}
-.scene.hall .title .backer {
-	position: absolute;
-	top: 11px;
-	right: 45px;
-	cursor: pointer;
-}
-
 .scene.hall .container {
 	position: absolute;
 	top: 45px;
@@ -54,21 +35,147 @@
 	left: 0px;
 	width: 34%;
 	border-right: 1px solid black;
-	perspective-origin: center;
+	perspective-origin: center 200px;
 	perspective: 500px;
 }
 .scene.hall .container .right {
+	left: 34%;
 	right: 0px;
-	width: 66%;
 	border-left: 1px solid black;
 }
 
-.scene.hall .container .left .card {
+.scene.hall .container .right .card_container {
+	position: absolute;
+	top: 0px;
+	bottom: 0px;
+	left: 0px;
+	width: 220px;
+	padding: 10px;
+}
+.scene.hall .container .right .skill_container {
+	position: absolute;
+	top: 0px;
+	left: 220px;
+	right: 0px;
+	height: 40%;
+	white-space: nowrap;
+}
+.scene.hall .container .right .skill_description {
+	position: absolute;
+	top: 40%;
+	bottom: 10px;
+	left: 220px;
+	right: 0px;
+}
+
+.scene.hall .container .right .scrollable::-webkit-scrollbar {
+	height: 6px;
+}
+.scene.hall .container .right .scrollable::-webkit-scrollbar-thumb {
+	border-radius: 0px;
+	background-color: rgb(23, 23, 23);
+	box-shadow: none;
+}
+.scene.hall .container .right .scrollable::-webkit-scrollbar-track {
+	border-radius: 0px;
+	box-shadow: none;
+}
+.scene.hall .container .right .scrollable::-webkit-scrollbar-track-piece {
+	border-radius: 0px;
+	background-color: rgb(94, 97, 109);
+}
+
+.scene.hall .container .right .skill_container .skill {
+	position: relative;
+	display: inline-block;
+	top: 10px;
+	padding: 5px;
+	margin-right: 10px;
+	border-radius: 10px;
+	border: 5px solid rgb(21, 85, 154);
+	background-color: rgb(39, 117, 182);
+	box-shadow: 2px 2px 5px black, 1px 1px 2px white;
+	transition-duration: 200ms;
+}
+.scene.hall .container .right .skill_container .skill.selected,
+.scene.hall .container .right .skill_container .skill:hover {
+	top: 0px;
+}
+.scene.hall .container .right .skill_container .skill div{
+	position: absolute;
+	padding: 5px;
+	background-color: rgb(21, 85, 154);
+	pointer-events: none;
+}
+.scene.hall .container .right .skill_container .skill .name,
+.scene.hall .container .right .skill_container .skill .level {
+	top: 0px;
+}
+.scene.hall .container .right .skill_container .skill .name {
+	left: 0px;
+	padding-left: 0px;
+	padding-right: 10px;
+	border-radius: 0px 0px 10px 0px;
+}
+.scene.hall .container .right .skill_container .skill .level {
+	right: 0px;
+	padding-left: 10px;
+	padding-right: 0px;
+	border-radius: 0px 0px 0px 10px;
+}
+.scene.hall .container .right .skill_container .skill .type {
+	bottom: 0px;
+	left: 50%;
+	padding-bottom: 0px;
+	padding-left: 10px;
+	padding-right: 10px;
+	border-radius: 10px 10px 0px 0px;
+	transform: translateX(-50%);
+	font-size: 10px;
+	font-style: italic;
+	color: rgb(167, 168, 189);
+}
+.scene.hall .container .right .skill_container .skill .map {
+	top: 30%;
+	left: 16%;
+	width: 68%;
+	height: 51%;
+	padding: 0px;
+	white-space: break-spaces;
+	line-height: 0px;
+}
+.scene.hall .container .right .skill_container .skill .map .grid {
+	display: inline-block;
+	width: 20%;
+	height: 20%;
+	border: 1px solid black;
+	background-color: rgb(255, 254, 249);
+}
+.scene.hall .container .right .skill_container .skill .map .grid.pos {
+	background-color: rgb(254, 215, 26);
+}
+.scene.hall .container .right .skill_container .skill .map .grid.gate {
+	background-color: rgb(21, 35, 27);
+}
+
+.scene.hall .container .skill_description .hint {
+	margin-top: 5px;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+.scene.hall .container .skill_description .hint .name {
+	display: inline-block;
+	width: 100px;
+	text-align: right;
+}
+
+.scene.hall .container .card {
 	position: absolute;
 	left: 50%;
-	width: 200px;
-	height: 275px;
-	margin-left: -100px;
+	width: 90%;
+	height: 0px;
+	padding-top: 120%;
+	margin-left: -45%;
 	background-color: rgb(15, 89, 164);
 	border-radius: 20px;
 	border: 10px solid rgb(20, 74, 116);
@@ -77,22 +184,43 @@
 	transform-style: preserve-3d;
 	transform-origin: center;
 }
-.scene.hall .container .left .card .name {
+.scene.hall .container .card div {
 	position: absolute;
+	pointer-events: none;
+}
+.scene.hall .container .card .name {
 	top: -10px;
 	left: -10px;
 	padding: 10px;
 	border-radius: 0px 0px 20px 0px;
 	background-color: rgb(20, 74, 116);
-	pointer-events: none;
 }
-.scene.hall .container .left .card .avator {
-	position: absolute;
+.scene.hall .container .card .avator {
 	top: 0px;
 	bottom: 0px;
 	left: 0px;
 	right: 0px;
 	background-repeat: no-repeat;
 	background-size: cover;
-	pointer-events: none;
+	font-size: 16px;
+	color: rgb(186, 204, 217);
+}
+.scene.hall .container .card .point {
+	bottom: 0px;
+	height: 18px;
+	padding: 5px;
+	background-color: rgb(20, 74, 116);
+	font-size: 14px;
+	line-height: 14px;
+	color: rgb(147, 181, 207);
+}
+.scene.hall .container .card .extend {
+	left: 0;
+	padding-right: 10px;
+	border-radius: 0px 10px 0px 0px;
+}
+.scene.hall .container .card .combine {
+	right: 0;
+	padding-left: 10px;
+	border-radius: 10px 0px 0px 0px;
 }

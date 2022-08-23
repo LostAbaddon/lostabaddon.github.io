@@ -18,6 +18,7 @@ window.CyberAvatorArena.Screen = {};
 			body.setAttribute('mode', 'normal');
 			FullScreenTrigger.style.display = 'block';
 		}
+
 		if (info.platform === 'mobile') {
 			if (width > height) {
 				body.setAttribute('screen', 'horizontal');
@@ -49,7 +50,10 @@ window.CyberAvatorArena.Screen = {};
 			Page.style.transformOrigin = '';
 		}
 
-		await CyberAvatorArena.Welcome.onResize();
+		await Promise.all([
+			CyberAvatorArena.Welcome.onResize(),
+			CyberAvatorArena.FameHall.onResize()
+		]);
 	};
 
 	const needQualify = () => {

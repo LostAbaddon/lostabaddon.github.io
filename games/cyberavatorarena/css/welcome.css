@@ -59,7 +59,7 @@
 .scene.welcome .commandLine {
 	position: absolute;
 	display: flex;
-	flex-direction: column-reverse;;
+	flex-direction: column-reverse;
 	left: 0px;
 	right: 0px;
 	top: 0px;

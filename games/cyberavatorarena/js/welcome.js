@@ -550,5 +550,5 @@ CyberAvatorArena.Welcome = {};
 	};
 	CyberAvatorArena.Welcome.addNewCmdLine = addNewCmdLine;
 
-	// setTimeout(gotoHallOfFame, 8000);
+	setTimeout(gotoMailBox, 8000);
 }) ();
