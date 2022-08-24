@@ -70,7 +70,7 @@ CyberAvatorArena.MailBox = {};
 		var mail = await CyberAvatorArena.DB.get('mailbox', id);
 		CyberAvatorArena.Tool.hideLoading();
 
-		CyberAvatorArena.Welcome.addNewCmdLine('echo ' + id);
+		CyberAvatorArena.Welcome.addNewCmdLine('mail ' + id + ' loaded', true);
 		if (!mail) {
 			CyberAvatorArena.Welcome.addNewCmdLine('mail ' + id + ' does not exist.', true);
 			await CyberAvatorArena.Tool.showAlarm('信息队列警报', '指定ID的信息在队列中不存在。\n请联系管理进程进行内存清理，谢谢。');
@@ -113,6 +113,8 @@ CyberAvatorArena.MailBox = {};
 		if (!target.classList.contains('mail')) return;
 		var id = target.getAttribute('mail');
 		if (!id) return;
+
+		CyberAvatorArena.Welcome.addNewCmdLine('echo ' + id);
 		await CyberAvatorArena.MailBox.openMail(id);
 		target.classList.remove('unread');
 	});

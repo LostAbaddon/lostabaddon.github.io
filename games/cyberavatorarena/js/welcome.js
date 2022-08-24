@@ -211,6 +211,7 @@ CyberAvatorArena.Welcome = {};
 		if (!canInput) return;
 		if (evt.altKey || evt.ctrlKey || evt.metaKey) return;
 		if (evt.key === "Enter") {
+			canInput = false;
 			canInput = await onEnterCommand();
 		}
 		else {
@@ -219,8 +220,6 @@ CyberAvatorArena.Welcome = {};
 		}
 	};
 	const simulateInput = async cmd => {
-		canInput = false;
-
 		if (currentInput !== '') {
 			currentInput = '';
 			ScnWelcome._commandLine._inner.innerText = currentInput;
@@ -238,6 +237,7 @@ CyberAvatorArena.Welcome = {};
 	const addNewCmdLine = (input, isReply=false) => {
 		var line = newEle('div', 'line');
 		if (isReply) line.classList.add('reply');
+		if (!running) line.classList.add('hide');
 		line.innerText = input;
 
 		if (!!ScnWelcome._commandLine._current.nextElementSibling) {
@@ -261,7 +261,7 @@ CyberAvatorArena.Welcome = {};
 				let target = cmd.replace('echo ', '');
 				await CyberAvatorArena.MailBox.openMail(target);
 				showUnreadMailCount();
-				return;
+				return true;
 			}
 			addNewCmdLine('invalid command!', true);
 			return true;
