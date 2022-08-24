@@ -57,7 +57,6 @@ window.CyberAvatorArena.Tool = {};
 			CyberAvatorArena.MailBox.onResize(),
 		]);
 	};
-
 	const needQualify = () => {
 		return location.hostname !== 'localhost' && !location.hostname.match(/^192\.\d+\.\d+\.\d+$/);
 	};
@@ -76,37 +75,6 @@ window.CyberAvatorArena.Tool = {};
 		Qualifier.querySelector('input').value = '';
 		CyberAvatorArena.Welcome.show();
 	};
-
-	CyberAvatorArena.Tool.showLoading = async () => {
-		Mask.classList.add('show');
-		Loader.classList.add('show');
-		await wait(300);
-	};
-	CyberAvatorArena.Tool.hideLoading = async () => {
-		Mask.classList.remove('show');
-		Loader.classList.remove('show');
-		await wait(300);
-	};
-	CyberAvatorArena.Tool.showAlarm = (title, content) => new Promise(res => {
-		Alarmer.querySelector('.title').innerText = title;
-		Alarmer.querySelector('.content').innerText = content;
-
-		var last = CyberAvatorArena.Tool.showAlarm._res;
-		if (!!last) last();
-
-		CyberAvatorArena.Tool.showAlarm._res = res;
-		Mask.classList.add('show');
-		Alarmer.classList.add('show');
-	});
-	CyberAvatorArena.Tool.hideAlarm = async () => {
-		Mask.classList.remove('show');
-		Alarmer.classList.remove('show');
-		await wait(300);
-		var res = CyberAvatorArena.Tool.showAlarm._res;
-		delete CyberAvatorArena.Tool.showAlarm._res;
-		if (!!res) res();
-	};
-
 	const init = async () => {
 		window.onresize = onResize;
 
@@ -154,6 +122,36 @@ window.CyberAvatorArena.Tool = {};
 		else {
 			CyberAvatorArena.Welcome.show();
 		}
+	};
+
+	CyberAvatorArena.Tool.showLoading = async () => {
+		Mask.classList.add('show');
+		Loader.classList.add('show');
+		await wait(300);
+	};
+	CyberAvatorArena.Tool.hideLoading = async () => {
+		Mask.classList.remove('show');
+		Loader.classList.remove('show');
+		await wait(300);
+	};
+	CyberAvatorArena.Tool.showAlarm = (title, content) => new Promise(res => {
+		Alarmer.querySelector('.title').innerText = title;
+		Alarmer.querySelector('.content').innerText = content;
+
+		var last = CyberAvatorArena.Tool.showAlarm._res;
+		if (!!last) last();
+
+		CyberAvatorArena.Tool.showAlarm._res = res;
+		Mask.classList.add('show');
+		Alarmer.classList.add('show');
+	});
+	CyberAvatorArena.Tool.hideAlarm = async () => {
+		Mask.classList.remove('show');
+		Alarmer.classList.remove('show');
+		await wait(300);
+		var res = CyberAvatorArena.Tool.showAlarm._res;
+		delete CyberAvatorArena.Tool.showAlarm._res;
+		if (!!res) res();
 	};
 
 	init();

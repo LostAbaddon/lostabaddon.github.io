@@ -464,6 +464,7 @@ CyberAvatorArena.Welcome = {};
 		await CyberAvatorArena.Welcome.hide();
 	};
 	const gotoCyborgDuel = async () => {
+		return;
 		addNewCmdLine('loading...', true);
 		await wait(200);
 		await CyberAvatorArena.Welcome.hide();
