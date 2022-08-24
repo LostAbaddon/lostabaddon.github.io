@@ -7,6 +7,10 @@
 	max-width: 100%;
 	height: 600px;
 	max-height: 100%;
+	transform: translate(-50%, -50%);
 	background-color: rgba(46, 49, 124, 0.75);
 	backdrop-filter: blur(5px);
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 300ms ease-in-out;
 }
