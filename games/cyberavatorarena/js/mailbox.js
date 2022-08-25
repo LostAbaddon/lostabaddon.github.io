@@ -44,7 +44,8 @@ CyberAvatorArena.MailBox = {};
 				content: '欢迎来到赛博命斗场。\n\n命斗场基本玩法：\n1，每个角色都有不同的技能与拓展能力，结合手牌进行布局以触发这些能力，目标是抢夺生存空间与消灭对方。\n2，每一轮玩家都会根据一定的顺序轮流落子、触发技能、安置升级技能与接口技能、弃牌，此后下一轮以场上棋子数由少到多开始。\n3，场上棋子数等于每回合玩家可用的能量数，不同技能会消耗不同的能量哦，当能量不足以发动技能、或者玩家自动放弃技能触发时，进入下一阶段。\n\n祝你在这里玩得愉快！',
 				readed: false
 			}];
-			if ((await CyberAvatorArena.Duel.getMyHeroList()).length === 0) {
+			let heros = await CyberAvatorArena.Duel.getMyHeros();
+			if (Object.keys(heros).length === 0) {
 				await CyberAvatorArena.Duel.initCards();
 				mails.push({
 					id: 'initheromail',

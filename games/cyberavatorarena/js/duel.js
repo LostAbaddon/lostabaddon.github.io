@@ -17,10 +17,8 @@ CyberAvatorArena.Duel = {};
 			timestamp
 		});
 	};
-	CyberAvatorArena.Duel.getMyHeroList = async () => {
-		var list = await CyberAvatorArena.DB.all('myheros');
-		list = Object.keys(list).map(name => list[name]);
-		return list;
+	CyberAvatorArena.Duel.getMyHeros = async () => {
+		return await CyberAvatorArena.DB.all('myheros');
 	};
 	CyberAvatorArena.Duel.showModeChooser = () => new Promise(res => {
 		var last = CyberAvatorArena.Duel.showModeChooser.__res;

@@ -185,11 +185,16 @@ CyberAvatorArena.FameHall = {};
 	CyberAvatorArena.FameHall.enter = async () => {
 		cardList.splice(0);
 		cardList.push(...HeroList);
+		var ownList = await CyberAvatorArena.Duel.getMyHeros();
 
 		currIdx = 0;
 		LeftArea.innerHTML = '';
 		cardList.forEach((hero, i) => {
+			var info = ownList[hero.name];
 			var card = hero.getCard();
+			if (!!info && !!info.got) {
+				card.classList.add('got');
+			}
 			hero.ui = card;
 			LeftArea.appendChild(card);
 		});

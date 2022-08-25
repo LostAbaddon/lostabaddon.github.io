@@ -151,13 +151,17 @@
 	height: 0px;
 	padding-top: 120%;
 	margin-left: -45%;
-	background-color: rgb(15, 89, 164);
+	background-color: rgb(94, 97, 109);
 	border-radius: 20px;
-	border: 10px solid rgb(20, 74, 116);
+	border: 10px solid rgb(116, 120, 122);
 	box-shadow: inset 0px 0px 5px black;
 	overflow: hidden;
 	transform-style: preserve-3d;
 	transform-origin: center;
+}
+.scene.hall .container .card.got {
+	background-color: rgb(15, 89, 164);
+	border-color: rgb(20, 74, 116);
 }
 .scene.hall .container .card div {
 	position: absolute;
