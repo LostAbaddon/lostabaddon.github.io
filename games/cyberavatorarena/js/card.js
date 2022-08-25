@@ -182,6 +182,80 @@ CyberAvatorArena.FameHall = {};
 		area.querySelector('span[name="gates"]').innerText = skill.gates.length;
 	};
 
+	CyberAvatorArena.FameHall.init = () => {
+		LeftArea.addEventListener('mousewheel', evt => {
+			if (evt.deltaY === 0) return;
+			if (evt.deltaY > 0) {
+				if (currIdx >= cardList.length - 1) return;
+				currIdx ++;
+			}
+			else {
+				if (currIdx < 1) return;
+				currIdx --;
+			}
+			alignCards();
+		});
+		LeftArea.addEventListener('touchstart', evt => {
+			if (evt.touches.length !== 1) {
+				cardTouchPoint = -1;
+				cardMovePoint = -1;
+				return;
+			}
+			var point = evt.touches[0];
+			if (window.CyberAvatorArena.Screen.orientation === 'vertical') {
+				cardTouchPoint = point.clientX;
+			}
+			else {
+				cardTouchPoint = point.clientY;
+			}
+		});
+		LeftArea.addEventListener('touchend', evt => {
+			if (cardTouchPoint < 1) return;
+			var delta = Math.abs(cardTouchPoint - cardMovePoint);
+			if (delta < 50) return;
+			if (window.CyberAvatorArena.Screen.orientation === 'vertical') {
+				if (cardMovePoint > cardTouchPoint) {
+					if (currIdx >= cardList.length - 1) return;
+					currIdx ++;
+				}
+				else {
+					if (currIdx < 1) return;
+					currIdx --;
+				}
+			}
+			else {
+				if (cardMovePoint < cardTouchPoint) {
+					if (currIdx >= cardList.length - 1) return;
+					currIdx ++;
+				}
+				else {
+					if (currIdx < 1) return;
+					currIdx --;
+				}
+			}
+			alignCards();
+		});
+		LeftArea.addEventListener('touchmove', evt => {
+			if (cardTouchPoint < 0) return;
+			if (evt.touches.length !== 1) {
+				cardTouchPoint = -1;
+				cardMovePoint = -1;
+				return;
+			}
+			var point = evt.touches[0];
+			if (window.CyberAvatorArena.Screen.orientation === 'vertical') {
+				cardMovePoint = point.clientX;
+			}
+			else {
+				cardMovePoint = point.clientY;
+			}
+		});
+		LeftArea.addEventListener('touchcancel', evt => {
+			cardTouchPoint = -1;
+		});
+
+		CyberAvatorArena.Tool.initHorizontalScroller(RightArea.__skillArea);
+	};
 	CyberAvatorArena.FameHall.enter = async () => {
 		cardList.splice(0);
 		cardList.push(...HeroList);
@@ -232,130 +306,4 @@ CyberAvatorArena.FameHall = {};
 			card.style.height = skillCardHeight + 'px';
 		});
 	};
-
-	LeftArea.addEventListener('mousewheel', evt => {
-		if (evt.deltaY === 0) return;
-		if (evt.deltaY > 0) {
-			if (currIdx >= cardList.length - 1) return;
-			currIdx ++;
-		}
-		else {
-			if (currIdx < 1) return;
-			currIdx --;
-		}
-		alignCards();
-	});
-	LeftArea.addEventListener('touchstart', evt => {
-		if (evt.touches.length !== 1) {
-			cardTouchPoint = -1;
-			cardMovePoint = -1;
-			return;
-		}
-		var point = evt.touches[0];
-		if (window.CyberAvatorArena.Screen.orientation === 'vertical') {
-			cardTouchPoint = point.clientX;
-		}
-		else {
-			cardTouchPoint = point.clientY;
-		}
-	});
-	LeftArea.addEventListener('touchend', evt => {
-		if (cardTouchPoint < 1) return;
-		var delta = Math.abs(cardTouchPoint - cardMovePoint);
-		if (delta < 50) return;
-		if (window.CyberAvatorArena.Screen.orientation === 'vertical') {
-			if (cardMovePoint > cardTouchPoint) {
-				if (currIdx >= cardList.length - 1) return;
-				currIdx ++;
-			}
-			else {
-				if (currIdx < 1) return;
-				currIdx --;
-			}
-		}
-		else {
-			if (cardMovePoint < cardTouchPoint) {
-				if (currIdx >= cardList.length - 1) return;
-				currIdx ++;
-			}
-			else {
-				if (currIdx < 1) return;
-				currIdx --;
-			}
-		}
-		alignCards();
-	});
-	LeftArea.addEventListener('touchmove', evt => {
-		if (cardTouchPoint < 0) return;
-		if (evt.touches.length !== 1) {
-			cardTouchPoint = -1;
-			cardMovePoint = -1;
-			return;
-		}
-		var point = evt.touches[0];
-		if (window.CyberAvatorArena.Screen.orientation === 'vertical') {
-			cardMovePoint = point.clientX;
-		}
-		else {
-			cardMovePoint = point.clientY;
-		}
-	});
-	LeftArea.addEventListener('touchcancel', evt => {
-		cardTouchPoint = -1;
-	});
-	RightArea.__skillArea.addEventListener('mousewheel', ({deltaY}) => {
-		var max = RightArea.__skillArea.scrollWidth - RightArea.__skillArea.offsetWidth;
-		RightArea.__skillArea.scrollLeft = Math.max(Math.min(RightArea.__skillArea.scrollLeft + deltaY, max), 0);
-	});
-	RightArea.__skillArea.addEventListener('touchstart', evt => {
-		if (evt.touches.length !== 1) {
-			skillTouchPoint = -1;
-			return;
-		}
-		var point = evt.touches[0];
-		if (window.CyberAvatorArena.Screen.orientation === 'vertical') {
-			skillTouchPoint = point.clientY;
-		}
-		else {
-			skillTouchPoint = point.clientX;
-		}
-		skillScrollLeft = RightArea.__skillArea.scrollLeft;
-	});
-	RightArea.__skillArea.addEventListener('touchend', evt => {
-		skillTouchPoint = -1;
-		skillScrollLeft = -1;
-	});
-	RightArea.__skillArea.addEventListener('touchmove', evt => {
-		if (skillTouchPoint < 0) return;
-		if (evt.touches.length !== 1) {
-			skillTouchPoint = -1;
-			return;
-		}
-		var point = evt.touches[0], x;
-		if (window.CyberAvatorArena.Screen.orientation === 'vertical') {
-			x = point.clientY;
-		}
-		else {
-			x = point.clientX;
-		}
-		var max = RightArea.__skillArea.scrollWidth - RightArea.__skillArea.offsetWidth;
-		RightArea.__skillArea.scrollLeft = Math.max(Math.min(skillScrollLeft - x + skillTouchPoint, max), 0);
-		evt.preventDefault();
-	});
-	RightArea.__skillArea.addEventListener('touchcancel', evt => {
-		skillTouchPoint = -1;
-		skillScrollLeft = -1;
-	});
-	RightArea.__skillArea.addEventListener('click', ({target}) => {
-		if (!target.classList.contains('skill')) return;
-		[].forEach.call(RightArea.__skillArea.children, card => {
-			if (card === target) {
-				card.classList.add('selected');
-			}
-			else {
-				card.classList.remove('selected');
-			}
-		});
-		showSkillDetail(target.__skill);
-	});
 }) ();

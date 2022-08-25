@@ -592,5 +592,5 @@ CyberAvatorArena.Welcome = {};
 	};
 	CyberAvatorArena.Welcome.addNewCmdLine = addNewCmdLine;
 
-	// setTimeout(gotoHallOfFame, 1000);
+	setTimeout(gotoCyborgDuel, 1000);
 }) ();

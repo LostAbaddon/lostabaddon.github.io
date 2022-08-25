@@ -68,7 +68,40 @@
 			<span>赛博命斗场</span>
 			<i class="backer fa-solid fa-right-to-bracket fa-flip-horizontal" onclick="CyberAvatorArena.Duel.leave()"></i>
 		</div>
-		<div class="container"></div>
+		<div class="container">
+			<div class="left">
+				<div class="top hero_area foe">
+					<div class="left"></div>
+					<div class="right">
+						<div class="line skill"></div>
+						<div class="line extend"></div>
+						<div class="line combine"></div>
+					</div>
+				</div>
+				<div class="middle">
+					<div class="left">
+						<div class="score foe"></div>
+						<div class="vs">VS</div>
+						<div class="score ego"></div>
+					</div>
+					<div class="right"></div>
+				</div>
+				<div class="bottom hero_area ego">
+					<div class="left"></div>
+					<div class="right">
+						<div class="line skill"></div>
+						<div class="line extend"></div>
+						<div class="line combine"></div>
+					</div>
+				</div>
+			</div>
+			<div class="right">
+				<div class="top">
+					<div class="board"></div>
+				</div>
+				<div class="bottom"></div>
+			</div>
+		</div>
 	</div>
 
 	<div id="FullScreenTrigger" class="fullscreen fa-solid fa-maximize"></div>
@@ -108,6 +141,13 @@
 				<span class="desc">随机匹配若干相近等级玩家进行网络</span>
 			</div>
 			<div class="line button" onclick="CyberAvatorArena.Duel.chooseMode()">取消</div>
+		</div>
+	</div>
+	<div id="HeroChooer" class="duelmode_chooser">
+		<div class="title">请选择英雄</div>
+		<div class="container">
+			<div class="chooser_area scrollable"></div>
+			<div class="line button invalid" onclick="	CyberAvatorArena.Duel.chooseHero()">确定</div>
 		</div>
 	</div>
 	<div id="Qualifier" class="qualify animated hide">

@@ -54,6 +54,7 @@ window.CyberAvatorArena.Tool = {};
 		await Promise.all([
 			CyberAvatorArena.Welcome.onResize(),
 			CyberAvatorArena.FameHall.onResize(),
+			CyberAvatorArena.Duel.onResize(),
 		]);
 	};
 	const needQualify = () => {
@@ -76,6 +77,9 @@ window.CyberAvatorArena.Tool = {};
 	};
 	const init = async () => {
 		window.onresize = onResize;
+
+		CyberAvatorArena.FameHall.init();
+		CyberAvatorArena.Duel.init();
 
 		FullScreenTrigger.addEventListener('click', () => {
 			var mode = document.body.getAttribute('mode');
@@ -152,6 +156,56 @@ window.CyberAvatorArena.Tool = {};
 		var res = CyberAvatorArena.Tool.showAlarm._res;
 		delete CyberAvatorArena.Tool.showAlarm._res;
 		if (!!res) res();
+	};
+	CyberAvatorArena.Tool.initHorizontalScroller = (ele, callback) => {
+		ele.__touchPoint = -1;
+		ele.__scrollLeft = 0;
+		ele.addEventListener('mousewheel', ({deltaY}) => {
+			var max = ele.scrollWidth - ele.offsetWidth;
+			var last = ele.scrollLeft;
+			ele.scrollLeft = Math.max(Math.min(last + deltaY, max), 0);
+			if (!!callback) callback(ele.scrollLeft - last);
+		});
+		ele.addEventListener('touchstart', evt => {
+			if (evt.touches.length !== 1) {
+				ele.__touchPoint = -1;
+				return;
+			}
+			var point = evt.touches[0];
+			if (CyberAvatorArena.Screen.orientation === 'vertical') {
+				ele.__touchPoint = point.clientY;
+			}
+			else {
+				ele.__touchPoint = point.clientX;
+			}
+			ele.__scrollLeft = ele.scrollLeft;
+		});
+		ele.addEventListener('touchend', evt => {
+			ele.__touchPoint = -1;
+			ele.__scrollLeft = 0;
+		});
+		ele.addEventListener('touchmove', evt => {
+			if (ele.__touchPoint < 0) return;
+			if (evt.touches.length !== 1) {
+				ele.__touchPoint = -1;
+				return;
+			}
+			var point = evt.touches[0], x;
+			if (CyberAvatorArena.Screen.orientation === 'vertical') {
+				x = point.clientY;
+			}
+			else {
+				x = point.clientX;
+			}
+			var max = ele.scrollWidth - ele.offsetWidth;
+			ele.scrollLeft = Math.max(Math.min(ele.__scrollLeft - x + ele.__touchPoint, max), 0);
+			evt.preventDefault();
+			if (!!callback) callback(ele.scrollLeft - ele.__scrollLeft);
+		});
+		ele.addEventListener('touchcancel', evt => {
+			ele.__touchPoint = -1;
+			ele.__scrollLeft = 0;
+		});
 	};
 
 	init();

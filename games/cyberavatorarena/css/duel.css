@@ -33,10 +33,6 @@
 	font-size: 24px;
 	font-weight: bolder;
 }
-
-.duelmode_chooser .container {
-}
-
 .duelmode_chooser .container .line {
 	display: block;
 	width: 500px;
@@ -84,6 +80,121 @@
 .duelmode_chooser .container .line:hover .desc {
 	top: 0px;
 	opacity: 1;
+}
+.duelmode_chooser .container .chooser_area {
+	position: absolute;
+	top: 60px;
+	bottom: 60px;
+	left: 0px;
+	right: 0px;
+	white-space: nowrap;
+}
+.duelmode_chooser .container .chooser_area::-webkit-scrollbar {
+	height: 5px;
+}
+
+.duelmode_chooser .container .chooser_area .card,
+.scene.arena .container .card {
+	position: relative;
+	display: inline-block;
+	margin-left: 10px;
+	background-color: rgb(15, 89, 164);
+	border-radius: 20px;
+	border: 10px solid rgb(20, 74, 116);
+	box-shadow: inset 0px 0px 5px black;
+	overflow: hidden;
+	cursor: pointer;
+}
+.duelmode_chooser .container .chooser_area .card:last-child {
+	margin-right: 10px;
+}
+.duelmode_chooser .container .chooser_area .card.selected {
+	border-color: rgba(90, 18, 22, 1.0);
+}
+.duelmode_chooser .container .chooser_area .card div,
+.scene.arena .container .card div {
+	position: absolute;
+	pointer-events: none;
+}
+.duelmode_chooser .container .chooser_area .card .name,
+.scene.arena .container .card .name {
+	top: -10px;
+	left: -10px;
+	padding: 10px;
+	border-radius: 0px 0px 20px 0px;
+	background-color: rgb(20, 74, 116);
+}
+.duelmode_chooser .container .chooser_area .card .avator,
+.scene.arena .container .card .avator {
+	top: 0px;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+	font-size: 16px;
+	color: rgb(186, 204, 217);
+}
+.duelmode_chooser .container .chooser_area .card .point,
+.scene.arena .container .card .point {
+	bottom: 0px;
+	height: 18px;
+	padding: 5px;
+	background-color: rgb(20, 74, 116);
+	font-size: 14px;
+	line-height: 14px;
+	color: rgb(147, 181, 207);
+}
+.duelmode_chooser .container .chooser_area .card .extend,
+.scene.arena .container .card .extend {
+	left: 0;
+	padding-right: 10px;
+	border-radius: 0px 10px 0px 0px;
+}
+.duelmode_chooser .container .chooser_area .card .combine,
+.scene.arena .container .card .combine {
+	right: 0;
+	padding-left: 10px;
+	border-radius: 10px 0px 0px 0px;
+}
+
+.scene.arena .container div {
+	/*box-shadow: 0px 0px 2px black;*/
+}
+
+.scene.arena .container > .left,
+.scene.arena .container > .right {
+	position: absolute;
+	display: inline-block;
+	top: 0px;
+	height: 100%;
+}
+.scene.arena .container > .left {
+	left: 0px;
+	width: 35%;
+}
+.scene.arena .container > .right {
+	right: 0px;
+	width: 65%;
+}
+
+.scene.arena .container > .left > div {
+	position: absolute;
+	width: 100%;
+}
+.scene.arena .container > .left > .top {
+	top: 0px;
+}
+.scene.arena .container > .left > .bottom {
+	bottom: 0px;
+}
+.scene.arena .container > .left > .middle {
+	top: 50%;
+	transform: translateY(-50%);
+}
+.scene.arena .container .card .name {
+	display: none;
 }
 
 @media screen and (max-height: 420px) {
