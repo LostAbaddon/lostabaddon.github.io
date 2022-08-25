@@ -54,7 +54,6 @@ window.CyberAvatorArena.Tool = {};
 		await Promise.all([
 			CyberAvatorArena.Welcome.onResize(),
 			CyberAvatorArena.FameHall.onResize(),
-			CyberAvatorArena.MailBox.onResize(),
 		]);
 	};
 	const needQualify = () => {
@@ -98,6 +97,7 @@ window.CyberAvatorArena.Tool = {};
 
 		var db = await prepareDB("cyberarena", db => {
 			db.open("mailbox", "id");
+			db.open('myheros', 'name');
 		}, 1);
 		CyberAvatorArena.DB = db;
 

@@ -294,9 +294,7 @@ CyberAvatorArena.Welcome = {};
 			addNewCmdLine('command doesn\'t work now...', true);
 			return true;
 		}
-		action();
-
-		return false;
+		return await action() || false;
 	};
 	const hideCommandLines = async () => {
 		var list = [].map.call(ScnWelcome._commandLine.querySelectorAll('.line'), l => l);
@@ -464,10 +462,16 @@ CyberAvatorArena.Welcome = {};
 		await CyberAvatorArena.Welcome.hide();
 	};
 	const gotoCyborgDuel = async () => {
-		return;
+		var choise = await CyberAvatorArena.Duel.showModeChooser();
+		if (!(choise >=1 && choise <=3)) {
+			return true;
+		}
+
 		addNewCmdLine('loading...', true);
 		await wait(200);
-		await CyberAvatorArena.Welcome.hide();
+		CyberAvatorArena.Welcome.hide();
+		await wait(1000);
+		await CyberAvatorArena.FameHall.enter();
 	};
 	const gotoHallOfFame = async () => {
 		addNewCmdLine('loading...', true);
@@ -486,9 +490,15 @@ CyberAvatorArena.Welcome = {};
 	const showUnreadMailCount = async () => {
 		var btnMailBox = ScnWelcome.querySelector('.screen .option[name="mailBox"]');
 		if (CyberAvatorArena.MailBox.unread > 0) {
-			let hintMail = newEle('span', 'mailcount', 'hide');
+			let hintMail = btnMailBox.querySelector('span.mailcount');
+			if (!hintMail) {
+				hintMail = newEle('span', 'mailcount', 'hide');
+				btnMailBox.appendChild(hintMail);
+			}
+			else {
+				hintMail.classList.add('hide');
+			}
 			hintMail.innerText = CyberAvatorArena.MailBox.unread;
-			btnMailBox.appendChild(hintMail);
 			await wait(500);
 			hintMail.classList.remove('hide');
 		}
@@ -582,5 +592,5 @@ CyberAvatorArena.Welcome = {};
 	};
 	CyberAvatorArena.Welcome.addNewCmdLine = addNewCmdLine;
 
-	// setTimeout(gotoMailBox, 8000);
+	// setTimeout(gotoHallOfFame, 1000);
 }) ();

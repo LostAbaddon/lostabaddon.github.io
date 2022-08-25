@@ -44,8 +44,8 @@ class Skill {
 			if (b[1] < topBound) topBound = b[1];
 			if (b[1] > bottomBound) bottomBound = b[1];
 		});
-		this.offsetLeft = Math.floor((5 - (rightBound - leftBound)) / 2);
-		this.offsetTop = Math.floor((5 - (bottomBound - topBound)) / 2);
+		this.offsetLeft = Math.floor((5 - (rightBound + leftBound)) / 2);
+		this.offsetTop = Math.floor((5 - (bottomBound + topBound)) / 2);
 	}
 	getCard () {
 		var ui = newEle('div', 'skill', 'animated'), ele, grid = [];

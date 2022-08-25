@@ -84,7 +84,24 @@
 			<div class="content scrollable"></div>
 		</div>
 	</div>
-	<div id="DuelModeChooer" class="duelmode_chooser"></div>
+	<div id="DuelModeChooer" class="duelmode_chooser">
+		<div class="title">请选择对决模式</div>
+		<div class="container">
+			<div class="line" onclick="CyberAvatorArena.Duel.chooseMode(1)">
+				<span class="name">自我对弈</span>
+				<span class="desc">玩家同时控制两个角色自我对局</span>
+			</div>
+			<div class="line" onclick="CyberAvatorArena.Duel.chooseMode(2)">
+				<span class="name">与AI手谈</span>
+				<span class="desc">和1个或者3个AI玩家进行模拟的一对一或团队对局</span>
+			</div>
+			<div class="line invalid" onclick="CyberAvatorArena.Duel.chooseMode(3)">
+				<span class="name">网络对决</span>
+				<span class="desc">随机匹配若干相近等级玩家进行网络</span>
+			</div>
+			<div class="line button" onclick="CyberAvatorArena.Duel.chooseMode()">取消</div>
+		</div>
+	</div>
 	<div id="Qualifier" class="qualify animated hide">
 		<div class="title">请输入游戏邀请码：</div>
 		<input type="text" placeholder="输入邀请码" />
@@ -106,6 +123,7 @@
 <script type="text/javascript" src="./js/skilllist.js"></script>
 <script type="text/javascript" src="./js/herolist.js"></script>
 <script type="text/javascript" src="./js/mailbox.js"></script>
+<script type="text/javascript" src="./js/duel.js"></script>
 <script type="text/javascript" src="./js/main.js"></script>
 <!-- GA -->
 <script>

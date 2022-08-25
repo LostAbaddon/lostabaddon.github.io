@@ -5,12 +5,152 @@
 	z-index: 94;
 	width: 800px;
 	max-width: 100%;
-	height: 600px;
+	height: 0px;
 	max-height: 100%;
-	transform: translate(-50%, -50%);
-	background-color: rgba(46, 49, 124, 0.75);
+	padding: 10px 0px;
+	background-color: rgba(31, 32, 64, 0.75);
 	backdrop-filter: blur(5px);
+	border-top: 3px solid rgba(21, 85, 154, 1.0);
+	border-bottom: 3px solid rgba(21, 85, 154, 1.0);
+	box-shadow: inset 0px -3px 5px rgba(126, 22, 113, 0.75);
 	opacity: 0;
+	transform: translate(-50%, -50%);
+	transition: opacity 300ms ease-in-out, height 300ms ease-in-out, transform 300ms ease-in-out;
+	overflow: hidden;
 	pointer-events: none;
-	transition: opacity 300ms ease-in-out;
+}
+.duelmode_chooser.show {
+	height: 450px;
+	opacity: 1;
+	pointer-events: all;
+}
+
+.duelmode_chooser .title {
+	padding: 10px;
+	padding-top: 0px;
+	border-bottom: 1px solid rgba(21, 85, 154, 1.0);
+	box-shadow: 0px 3px 5px rgba(126, 22, 113, 0.75);
+	font-size: 24px;
+	font-weight: bolder;
+}
+
+.duelmode_chooser .container {
+}
+
+.duelmode_chooser .container .line {
+	display: block;
+	width: 500px;
+	margin-top: 50px;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: rgba(31, 32, 64, 0.0);
+	border-left: 5px solid rgba(21, 85, 154, 1.0);
+	border-bottom: 1px solid rgba(21, 85, 154, 1.0);
+	box-shadow: 2px 3px 5px rgba(126, 22, 113, 0.75);
+	cursor: pointer;
+	transition: box-shadow 200ms ease-in-out, background-color 200ms ease-in-out;
+}
+.duelmode_chooser .container .line:hover {
+	background-color: rgba(31, 32, 64, 0.5);
+	box-shadow: 4px 6px 10px rgba(126, 22, 113, 1.0);
+}
+.duelmode_chooser .container .line.invalid {
+	color: rgba(94, 97, 109, 1.0);
+	pointer-events: none;
+}
+.duelmode_chooser .container .line.button {
+	position: absolute;
+	bottom: 20px;
+	right: 20px;
+	width: auto;
+	padding: 5px 25px;
+}
+.duelmode_chooser .container .line .name {
+	display: inline-block;
+	padding: 10px 20px;
+	font-size: 24px;
+	font-weight: bolder;
+	text-align: left;
+}
+.duelmode_chooser .container .line .desc {
+	display: inline-block;
+	top: 10px;
+	opacity: 0;
+	font-size: 14px;
+	vertical-align: super;
+	transition: top 200ms ease-in-out, opacity 200ms ease-in-out;
+}
+[platform="mobile"] .duelmode_chooser .container .line .desc,
+.duelmode_chooser .container .line:hover .desc {
+	top: 0px;
+	opacity: 1;
+}
+
+@media screen and (max-height: 420px) {
+	[platform="mobile"][screen="horizontal"] .duelmode_chooser .container .line {
+		margin-top: 30px;
+	}
+	[platform="mobile"][screen="horizontal"] .duelmode_chooser .container .line .name {
+		padding: 8px 20px;
+		font-size: 20px;
+	}
+	[platform="mobile"][screen="horizontal"] .duelmode_chooser .container .line .desc {
+		vertical-align: baseline;
+	}
+}
+@media screen and (max-width: 420px) {
+	[platform="mobile"][screen="vertical"] .duelmode_chooser .container .line {
+		margin-top: 30px;
+	}
+	[platform="mobile"][screen="vertical"] .duelmode_chooser .container .line .name {
+		padding: 8px 20px;
+		font-size: 20px;
+	}
+	[platform="mobile"][screen="vertical"] .duelmode_chooser .container .line .desc {
+		vertical-align: baseline;
+	}
+}
+
+@media screen and (max-height: 340px) {
+	[platform="mobile"][screen="horizontal"] .duelmode_chooser .container .line {
+		margin-top: 25px;
+	}
+	[platform="mobile"][screen="horizontal"] .duelmode_chooser .container .line .name {
+		padding: 5px 20px;
+		font-size: 18px;
+	}
+	[platform="mobile"][screen="horizontal"] .duelmode_chooser .container .line .desc {
+		font-size: 12px;
+	}
+}
+@media screen and (max-width: 340px) {
+	[platform="mobile"][screen="vertical"] .duelmode_chooser .container .line {
+		margin-top: 25px;
+	}
+	[platform="mobile"][screen="vertical"] .duelmode_chooser .container .line .name {
+		padding: 5px 20px;
+		font-size: 18px;
+	}
+	[platform="mobile"][screen="vertical"] .duelmode_chooser .container .line .desc {
+		font-size: 12px;
+	}
+}
+
+@media screen and (max-height: 300px) {
+	[platform="mobile"][screen="horizontal"] .duelmode_chooser .container .line {
+		margin-top: 15px;
+	}
+	[platform="mobile"][screen="horizontal"] .duelmode_chooser .container .line .name {
+		padding: 5px 20px;
+		font-size: 15px;
+	}
+}
+@media screen and (max-width: 300px) {
+	[platform="mobile"][screen="vertical"] .duelmode_chooser .container .line {
+		margin-top: 15px;
+	}
+	[platform="mobile"][screen="vertical"] .duelmode_chooser .container .line .name {
+		padding: 5px 20px;
+		font-size: 15px;
+	}
 }

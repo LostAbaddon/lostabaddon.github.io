@@ -20,6 +20,7 @@ CyberAvatorArena.MailBox = {};
 		return list;
 	};
 	const listMails = list => {
+		MailContainer.innerHTML = '';
 		list.forEach(mail => {
 			var ui = newEle('div', 'mail');
 			if (!mail.readed) ui.classList.add('unread');
@@ -35,16 +36,27 @@ CyberAvatorArena.MailBox = {};
 		CyberAvatorArena.MailBox.unread = 0;
 		var list = await getMailList();
 		if (list.length === 0) {
-			let mail = {
+			let mails = [{
 				id: "defaultmail",
 				timestamp: 1660538096000,
 				from: 'CyberAvatorArena',
 				title: '欢迎来到赛博命斗场',
-				content: '欢迎欢迎，热烈欢迎！',
+				content: '欢迎来到赛博命斗场。\n\n命斗场基本玩法：\n1，每个角色都有不同的技能与拓展能力，结合手牌进行布局以触发这些能力，目标是抢夺生存空间与消灭对方。\n2，每一轮玩家都会根据一定的顺序轮流落子、触发技能、安置升级技能与接口技能、弃牌，此后下一轮以场上棋子数由少到多开始。\n3，场上棋子数等于每回合玩家可用的能量数，不同技能会消耗不同的能量哦，当能量不足以发动技能、或者玩家自动放弃技能触发时，进入下一阶段。\n\n祝你在这里玩得愉快！',
 				readed: false
-			};
-			await CyberAvatorArena.DB.set('mailbox', mail.id, mail);
-			CyberAvatorArena.MailBox.unread = 1;
+			}];
+			if ((await CyberAvatorArena.Duel.getMyHeroList()).length === 0) {
+				await CyberAvatorArena.Duel.initCards();
+				mails.push({
+					id: 'initheromail',
+					timestamp: 1660538096000,
+					from: 'CyberAvatorArena',
+					title: '获得初始卡组',
+					content: '恭喜！你已经获得初始卡组！',
+					readed: false
+				});
+			}
+			await Promise.all(mails.map(async mail => await CyberAvatorArena.DB.set('mailbox', mail.id, mail)));
+			CyberAvatorArena.MailBox.unread = mails.length;
 		}
 		else {
 			CyberAvatorArena.MailBox.unread = list.filter(m => !m.readed).length;
@@ -52,7 +64,6 @@ CyberAvatorArena.MailBox = {};
 	};
 	CyberAvatorArena.MailBox.enter = async () => {
 		var list = await getMailList();
-		CyberAvatorArena.MailBox.onResize();
 		listMails(list);
 		await wait(0);
 		ScnMailBox.classList.remove('hide');
@@ -64,7 +75,6 @@ CyberAvatorArena.MailBox = {};
 
 		await CyberAvatorArena.Welcome.show();
 	};
-	CyberAvatorArena.MailBox.onResize = () => {};
 	CyberAvatorArena.MailBox.openMail = id => new Promise(async res => {
 		CyberAvatorArena.Tool.showLoading();
 		var mail = await CyberAvatorArena.DB.get('mailbox', id);
@@ -92,7 +102,7 @@ CyberAvatorArena.MailBox = {};
 
 		MailViewer.querySelector('div.title').innerText = mail.title;
 		MailViewer.querySelector('span.sender').innerText = mail.from;
-		MailViewer.querySelector('span.timestamp').innerText = mail.timestamp;
+		MailViewer.querySelector('span.timestamp').innerText = getFullTimeString(mail.timestamp);
 		MailViewer.querySelector('div.content').innerText = mail.content;
 
 		MailViewer.classList.add('show');

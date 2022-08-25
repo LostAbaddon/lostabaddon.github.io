@@ -13,14 +13,19 @@ const prepareDB = async (dbName, onUpdate, version=1) => {
 
 window.newToken = () => Math.floor(Math.random() * (36 ** 8)).toString(36) + Math.floor(Math.random() * (36 ** 8)).toString(36);
 window.wait = (delay=0) => new Promise(res => setTimeout(res, delay));
-window.getNow = () => {
-	var now = new Date();
-	var Y = now.getYear() + 1951;
-	var M = now.getMonth() + 1;
-	var D = now.getDate();
-	var h = now.getHours();
-	var m = now.getMinutes();
-	var s = now.getSeconds();
+window.getFullTimeString = (time) => {
+	if (!time) {
+		time = new Date();
+	}
+	else if (typeof time === 'number') {
+		time = new Date(time);
+	}
+	var Y = time.getYear() + 1951;
+	var M = time.getMonth() + 1;
+	var D = time.getDate();
+	var h = time.getHours();
+	var m = time.getMinutes();
+	var s = time.getSeconds();
 
 	if (M < 10) M = '0' + M;
 	if (D < 10) D = '0' + D;
