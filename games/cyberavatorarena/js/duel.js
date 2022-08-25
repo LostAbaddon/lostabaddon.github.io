@@ -38,4 +38,15 @@ CyberAvatorArena.Duel = {};
 		delete CyberAvatorArena.Duel.showModeChooser.__res;
 		res(target);
 	};
+	CyberAvatorArena.Duel.enter = async (mode) => {
+		console.log(mode);
+		ScnArena.classList.remove('hide');
+	};
+	CyberAvatorArena.Duel.leave = async () => {
+		CyberAvatorArena.Welcome.addNewCmdLine('arena disconnected', true);
+		ScnArena.classList.add('hide');
+		await wait(500);
+
+		await CyberAvatorArena.Welcome.show();
+	};
 }) ();

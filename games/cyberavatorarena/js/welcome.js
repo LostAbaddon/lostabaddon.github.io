@@ -471,7 +471,7 @@ CyberAvatorArena.Welcome = {};
 		await wait(200);
 		CyberAvatorArena.Welcome.hide();
 		await wait(1000);
-		await CyberAvatorArena.FameHall.enter();
+		await CyberAvatorArena.Duel.enter(choise);
 	};
 	const gotoHallOfFame = async () => {
 		addNewCmdLine('loading...', true);
