@@ -462,8 +462,8 @@ CyberAvatorArena.Welcome = {};
 		await CyberAvatorArena.Welcome.hide();
 	};
 	const gotoCyborgDuel = async () => {
-		var choise = await CyberAvatorArena.Duel.showModeChooser();
-		if (!(choise >=1 && choise <=3)) {
+		var [mode, team, count] = await CyberAvatorArena.Duel.showModeChooser();
+		if (mode < 0 || team < 0 || count < 0) {
 			return true;
 		}
 
@@ -471,7 +471,7 @@ CyberAvatorArena.Welcome = {};
 		await wait(200);
 		CyberAvatorArena.Welcome.hide();
 		await wait(1000);
-		await CyberAvatorArena.Duel.enter(choise);
+		await CyberAvatorArena.Duel.enter(mode, team, count);
 	};
 	const gotoHallOfFame = async () => {
 		addNewCmdLine('loading...', true);
@@ -592,5 +592,5 @@ CyberAvatorArena.Welcome = {};
 	};
 	CyberAvatorArena.Welcome.addNewCmdLine = addNewCmdLine;
 
-	// setTimeout(gotoCyborgDuel, 1000);
+	setTimeout(gotoCyborgDuel, 1000);
 }) ();

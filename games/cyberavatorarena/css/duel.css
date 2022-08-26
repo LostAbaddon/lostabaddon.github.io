@@ -36,6 +36,7 @@
 .duelmode_chooser .container .line {
 	display: block;
 	width: 500px;
+	height: 45px;
 	margin-top: 50px;
 	margin-left: auto;
 	margin-right: auto;
@@ -44,7 +45,7 @@
 	border-bottom: 1px solid rgba(21, 85, 154, 1.0);
 	box-shadow: 2px 3px 5px rgba(126, 22, 113, 0.75);
 	cursor: pointer;
-	transition: box-shadow 200ms ease-in-out, background-color 200ms ease-in-out;
+	transition: all 500ms ease-in-out;
 }
 .duelmode_chooser .container .line:hover {
 	background-color: rgba(31, 32, 64, 0.5);
@@ -54,11 +55,19 @@
 	color: rgba(94, 97, 109, 1.0);
 	pointer-events: none;
 }
+.duelmode_chooser .container .line.hide {
+	height: 0px;
+	margin-top: 0px !important;
+	opacity: 0;
+	transform: scaleY(0);
+	pointer-events: none;
+}
 .duelmode_chooser .container .line.button {
 	position: absolute;
 	bottom: 20px;
 	right: 20px;
 	width: auto;
+	height: 32px;
 	padding: 5px 25px;
 }
 .duelmode_chooser .container .line .name {

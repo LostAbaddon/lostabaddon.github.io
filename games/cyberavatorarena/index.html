@@ -128,17 +128,38 @@
 	<div id="DuelModeChooer" class="duelmode_chooser">
 		<div class="title">请选择对决模式</div>
 		<div class="container">
-			<div class="line" onclick="CyberAvatorArena.Duel.chooseMode(1)">
+			<div class="line" group="mode" onclick="CyberAvatorArena.Duel.chooseMode(1)">
 				<span class="name">自我对弈</span>
 				<span class="desc">玩家同时控制两个角色自我对局</span>
 			</div>
-			<div class="line invalid" onclick="CyberAvatorArena.Duel.chooseMode(2)">
+			<div class="line" group="mode" onclick="CyberAvatorArena.Duel.chooseMode(2)">
 				<span class="name">与AI手谈</span>
-				<span class="desc">和1个或者3个AI玩家进行模拟的一对一或团队对局</span>
+				<span class="desc">和1个或多个AI玩家进行模拟的一对一或团队对局</span>
 			</div>
-			<div class="line invalid" onclick="CyberAvatorArena.Duel.chooseMode(3)">
+			<div class="line invalid" group="mode" onclick="CyberAvatorArena.Duel.chooseMode(3)">
 				<span class="name">网络对决</span>
 				<span class="desc">随机匹配若干相近等级玩家进行网络</span>
+			</div>
+			<div class="line hide" group="team" onclick="CyberAvatorArena.Duel.chooseMode(1)">
+				<span class="name">单挑</span>
+				<span class="desc">1 vs 1 的对决</span>
+			</div>
+			<div class="line hide" group="team" onclick="CyberAvatorArena.Duel.chooseMode(2)">
+				<span class="name">群战</span>
+				<span class="desc">各自为政的血斗</span>
+			</div>
+			<div class="line hide" group="team" onclick="CyberAvatorArena.Duel.chooseMode(3)">
+				<span class="name">组队</span>
+				<span class="desc">与他人合作的团战</span>
+			</div>
+			<div class="line hide" group="count" onclick="CyberAvatorArena.Duel.chooseMode(3)">
+				<span class="name">3人</span>
+			</div>
+			<div class="line hide" group="count" onclick="CyberAvatorArena.Duel.chooseMode(4)">
+				<span class="name">4人</span>
+			</div>
+			<div class="line hide" group="count" onclick="CyberAvatorArena.Duel.chooseMode(6)">
+				<span class="name">6人</span>
 			</div>
 			<div class="line button" onclick="CyberAvatorArena.Duel.chooseMode()">取消</div>
 		</div>
