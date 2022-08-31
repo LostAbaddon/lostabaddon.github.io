@@ -3,24 +3,66 @@ CyberAvatorArena.Duel = {};
 
 (() => {
 	const HeroListArea = HeroChooer.querySelector('div.chooser_area');
+	const SideBar = ScnArena.querySelector('div.container > div.side_bar');
+	const CardArea = ScnArena.querySelector('div.container > div.card_area');
+	const ArenaArea = ScnArena.querySelector('div.container > div.arena_area');
 
 	var duelMode = 0, teamMode = 0;
+	var mySide = [], opSide = [], allHeros = [], currHero = 0, selectedHero = 0;
+
+	const resizeChooser = () => {
+		var rect = HeroListArea.getBoundingClientRect();
+		var height = rect.height - 10;
+		var width = height * 0.75;
+		[].forEach.call(HeroListArea.children, card => {
+			card.style.width = width + 'px';
+			card.style.height = height + 'px';
+		});
+	};
+	const arangeHeros = (isFirst=false) => {
+		if (isFirst) allHeros.forEach(h => h.points = Math.random());
+		allHeros.sort((ha, hb) => hb.points - ha.points);
+		if (isFirst) allHeros.forEach(h => h.points = 0);
+
+		currHero = allHeros.length - 1;
+		selectedHero = allHeros.indexOf(mySide[0]);
+		allHeros.forEach((hero, i) => {
+			var tab = newEle('div', 'hero_tab', 'animated');
+			if (i === selectedHero) {
+				tab.classList.add('selected');
+			}
+			if (i === currHero) {
+				tab.classList.add('current');
+			}
+			if (mySide.includes(hero)) {
+				tab.classList.add('my_side');
+			}
+			else {
+				tab.classList.add('op_side');
+			}
+			tab.innerText = hero.name + ' (' + hero.points + ')';
+			tab._id = i;
+			SideBar.appendChild(tab);
+		});
+		changeHero();
+	};
+	const changeHero = () => {
+		var hero = allHeros[selectedHero];
+		if (!hero) return;
+		var isMine = mySide.includes(hero);
+		if (isMine) {
+			CardArea.classList.remove('op_side');
+			ArenaArea.classList.remove('op_side');
+		}
+		else {
+			CardArea.classList.add('op_side');
+			ArenaArea.classList.add('op_side');
+		}
+		console.log(selectedHero, isMine, hero);
+	};
 
 	CyberAvatorArena.Duel.init = () => {
 		CyberAvatorArena.Tool.initHorizontalScroller(HeroListArea);
-		HeroListArea.addEventListener('click', ({target}) => {
-			if (!target.classList.contains('card')) return;
-			HeroChooer.querySelector('div.line.button').classList.remove('invalid');
-			[].forEach.call(HeroListArea.children, node => {
-				if (node === target) {
-					node.classList.add('selected');
-				}
-				else {
-					node.classList.remove('selected');
-				}
-			});
-			HeroListArea.__chooseOne = target.__chooseId;
-		});
 	};
 	CyberAvatorArena.Duel.initCards = async () => {
 		var timestamp = Date.now();
@@ -130,7 +172,7 @@ CyberAvatorArena.Duel = {};
 		});
 		HeroChooer.classList.add('show');
 		await wait(350);
-		CyberAvatorArena.Duel.onResize();
+		resizeChooser();
 	});
 	CyberAvatorArena.Duel.chooseHero = () => {
 		var res = CyberAvatorArena.Duel.showHeroChooser.__res;
@@ -154,8 +196,10 @@ CyberAvatorArena.Duel = {};
 			if (!info.got) return;
 			return true;
 		});
-		var mySide = [], opSide = [];
 
+		mySide.splice(0);
+		opSide.splice(0);
+		allHeros.splice(0);
 		if (duelMode === 1) {
 			// SvS
 			if (team < 3) {
@@ -219,7 +263,9 @@ CyberAvatorArena.Duel = {};
 			mySide.push(hero.copy());
 		}
 
-		console.log(mySide, opSide);
+		mySide.forEach(h => allHeros.push(h));
+		opSide.forEach(h => allHeros.push(h));
+		arangeHeros(true);
 
 		ScnArena.classList.remove('hide');
 	};
@@ -229,14 +275,34 @@ CyberAvatorArena.Duel = {};
 		await wait(500);
 
 		await CyberAvatorArena.Welcome.show();
+		SideBar.innerHTML = '';
 	};
 	CyberAvatorArena.Duel.onResize = () => {
-		var rect = HeroListArea.getBoundingClientRect();
-		var height = rect.height - 10;
-		var width = height * 0.75;
-		[].forEach.call(HeroListArea.children, card => {
-			card.style.width = width + 'px';
-			card.style.height = height + 'px';
-		});
+		if (!!CyberAvatorArena.Duel.showHeroChooser.__res) resizeChooser();
 	};
+
+	HeroListArea.addEventListener('click', ({target}) => {
+		if (!target.classList.contains('card')) return;
+		HeroChooer.querySelector('div.line.button').classList.remove('invalid');
+		[].forEach.call(HeroListArea.children, node => {
+			if (node === target) {
+				node.classList.add('selected');
+			}
+			else {
+				node.classList.remove('selected');
+			}
+		});
+		HeroListArea.__chooseOne = target.__chooseId;
+	});
+	SideBar.addEventListener('click', ({target}) => {
+		if (!target.classList.contains('hero_tab')) return;
+		var last = SideBar.querySelector('.hero_tab.selected');
+		if (!!last) {
+			if (last === target) return;
+			last.classList.remove('selected');
+		}
+		target.classList.add('selected');
+		selectedHero = target._id;
+		changeHero();
+	});
 }) ();

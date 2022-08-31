@@ -172,39 +172,86 @@
 	/*box-shadow: 0px 0px 2px black;*/
 }
 
-.scene.arena .container > .left,
-.scene.arena .container > .right {
+.scene.arena .container > div {
 	position: absolute;
-	display: inline-block;
-	top: 0px;
-	height: 100%;
+	top: 5px;
+	bottom: 5px;
 }
-.scene.arena .container > .left {
+.scene.arena .container .side_bar {
 	left: 0px;
-	width: 35%;
+	z-index: 1;
+	width: 210px;
+	padding-left: 10px;
 }
-.scene.arena .container > .right {
-	right: 0px;
-	width: 65%;
+[platform="mobile"] .scene.arena .container .side_bar {
+	width: 170px;
+}
+.scene.arena .container .side_bar .hero_tab {
+	width: 180px;
+	margin-top: 10px;
+	margin-left: auto;
+	padding: 5px 10px;
+	background-color: rgba(50, 47, 59, 1.0);
+	border-bottom: 2px solid rgba(20, 74, 116, 1.0);
+	border-left: 5px solid rgba(20, 74, 116, 1.0);
+	font-size: 16px;
+	cursor: pointer;
+}
+.scene.arena .container .side_bar .hero_tab:first-child {
+	margin-top: 20px;
+}
+[platform="mobile"] .scene.arena .container .side_bar .hero_tab {
+	width: 150px;
+	font-size: 14px;
+}
+[platform="mobile"] .scene.arena .container .side_bar .hero_tab:first-child {
+	margin-top: 15px;
+}
+.scene.arena .container .side_bar .hero_tab.current {
+	border-top-width: 2px;
+	border-top-style: solid;
+}
+.scene.arena .container .side_bar .hero_tab.selected {
+	width: 200px;
+	padding-left: 30px;
+}
+[platform="mobile"] .scene.arena .container .side_bar .hero_tab.selected {
+	width: 160px;
+	padding-left: 20px;
+}
+.scene.arena .container .side_bar .hero_tab.my_side {
+	border-color: rgba(20, 74, 116, 1.0);
+}
+.scene.arena .container .side_bar .hero_tab.op_side {
+	border-color: rgba(126, 22, 113, 1.0);
+}
+.scene.arena .container .card_area {
+	left: 208px;
+	right: 40%;
+	background-color: rgba(50, 47, 59, 1.0);
+	border-radius: 10px 0px 0px 10px;
+	border: 2px solid rgba(20, 74, 116, 1.0);
+	border-right-width: 1px;
+}
+[platform="mobile"] .scene.arena .container .card_area {
+	left: 168px;
+}
+.scene.arena .container .card_area.op_side {
+	border-color: rgba(126, 22, 113, 1.0);
+}
+.scene.arena .container .arena_area {
+	left: 60%;
+	right: 5px;
+	background-color: rgba(50, 47, 59, 1.0);
+	border-radius: 0px 10px 10px 0px;
+	border: 2px solid rgba(20, 74, 116, 1.0);
+	border-left-width: 1px;
+}
+.scene.arena .container .arena_area.op_side {
+	border-color: rgba(126, 22, 113, 1.0);
 }
 
-.scene.arena .container > .left > div {
-	position: absolute;
-	width: 100%;
-}
-.scene.arena .container > .left > .top {
-	top: 0px;
-}
-.scene.arena .container > .left > .bottom {
-	bottom: 0px;
-}
-.scene.arena .container > .left > .middle {
-	top: 50%;
-	transform: translateY(-50%);
-}
-.scene.arena .container .card .name {
-	display: none;
-}
+
 
 @media screen and (max-height: 420px) {
 	[platform="mobile"][screen="horizontal"] .duelmode_chooser .container .line {
