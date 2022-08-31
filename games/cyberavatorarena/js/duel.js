@@ -3,18 +3,8 @@ CyberAvatorArena.Duel = {};
 
 (() => {
 	const HeroListArea = HeroChooer.querySelector('div.chooser_area');
-	const EgoHeroArea = ScnArena.querySelector('div.hero_area.ego');
-	const FoeHeroArea = ScnArena.querySelector('div.hero_area.foe');
 
 	var duelMode = 0, teamMode = 0;
-
-	const showHero = (hero, isEgo, containerHeight) => {
-		var card = hero.getCard(), container = isEgo ? EgoHeroArea : FoeHeroArea;
-		card.style.height = containerHeight + 'px';
-		card.style.width = (containerHeight * 0.75) + 'px';
-		container.querySelector('div.left').appendChild(card);
-		console.log(hero, card, isEgo, containerHeight);
-	};
 
 	CyberAvatorArena.Duel.init = () => {
 		CyberAvatorArena.Tool.initHorizontalScroller(HeroListArea);
@@ -230,18 +220,6 @@ CyberAvatorArena.Duel = {};
 		}
 
 		console.log(mySide, opSide);
-		return;
-
-		var width = CyberAvatorArena.Screen.width * 0.35;
-		var height = CyberAvatorArena.Screen.height - 46;
-		height = Math.min(width / 2, Math.floor(height * 0.35));
-		EgoHeroArea.style.height = height + 'px';
-		FoeHeroArea.style.height = height + 'px';
-		EgoHeroArea.querySelector('div.left').style.width = (height * 0.75) + 'px';
-		FoeHeroArea.querySelector('div.left').style.width = (height * 0.75) + 'px';
-
-		showHero(myside, true, height);
-		showHero(opside, false, height);
 
 		ScnArena.classList.remove('hide');
 	};
@@ -260,18 +238,5 @@ CyberAvatorArena.Duel = {};
 			card.style.width = width + 'px';
 			card.style.height = height + 'px';
 		});
-		return;
-
-		var width = CyberAvatorArena.Screen.width * 0.35;
-		var height = CyberAvatorArena.Screen.height - 46;
-		height = Math.min(width / 2, Math.floor(height * 0.35));
-		EgoHeroArea.style.height = height + 'px';
-		FoeHeroArea.style.height = height + 'px';
-		EgoHeroArea.querySelector('div.left').style.width = (height * 0.75) + 'px';
-		FoeHeroArea.querySelector('div.left').style.width = (height * 0.75) + 'px';
-		EgoHeroArea.querySelector('div.left .card.hero').style.width = (height * 0.75) + 'px';
-		EgoHeroArea.querySelector('div.left .card.hero').style.height = height + 'px';
-		FoeHeroArea.querySelector('div.left .card.hero').style.width = (height * 0.75) + 'px';
-		FoeHeroArea.querySelector('div.left .card.hero').style.height = height + 'px';
 	};
 }) ();

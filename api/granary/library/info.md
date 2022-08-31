@@ -18,3 +18,4 @@
 -	[无版权音乐网站](/article/library/freemusic.md)
 -	[电子书下载站集锦](/article/library/ebooks.md)
 -	[开源许可小小节](/article/library/license.md)
+-	[免费NodeJS托管平台](/article/library/freenodeplatform.md)
