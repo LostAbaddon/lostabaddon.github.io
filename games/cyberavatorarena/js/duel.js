@@ -344,6 +344,7 @@ CyberAvatorArena.Duel = {};
 		res(choise);
 	};
 	CyberAvatorArena.Duel.enter = async (mode, team, count) => {
+		fighting = true;
 		duelMode = mode;
 		teamMode = team;
 
@@ -432,6 +433,8 @@ CyberAvatorArena.Duel = {};
 		CyberAvatorArena.Duel.onResize();
 	};
 	CyberAvatorArena.Duel.leave = async () => {
+		if (fighting) return;
+
 		CyberAvatorArena.Welcome.addNewCmdLine('arena disconnected', true);
 		ScnArena.classList.add('hide');
 		await wait(500);
