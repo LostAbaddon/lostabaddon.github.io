@@ -19,10 +19,16 @@
 	overflow: hidden;
 	pointer-events: none;
 }
+[platform="mobile"] .duelmode_chooser {
+	width: 100%;
+}
 .duelmode_chooser.show {
 	height: 450px;
 	opacity: 1;
 	pointer-events: all;
+}
+[platform="mobile"] .duelmode_chooser.show {
+	height: 100%;
 }
 
 .duelmode_chooser .title {
@@ -184,7 +190,7 @@
 	padding-left: 10px;
 }
 [platform="mobile"] .scene.arena .container .side_bar {
-	width: 170px;
+	width: 160px;
 }
 .scene.arena .container .side_bar .hero_tab {
 	width: 180px;
@@ -201,7 +207,7 @@
 	margin-top: 20px;
 }
 [platform="mobile"] .scene.arena .container .side_bar .hero_tab {
-	width: 150px;
+	width: 140px;
 	font-size: 14px;
 }
 [platform="mobile"] .scene.arena .container .side_bar .hero_tab:first-child {
@@ -216,7 +222,7 @@
 	padding-left: 30px;
 }
 [platform="mobile"] .scene.arena .container .side_bar .hero_tab.selected {
-	width: 160px;
+	width: 150px;
 	padding-left: 20px;
 }
 .scene.arena .container .side_bar .hero_tab.my_side {
@@ -234,10 +240,234 @@
 	border-right-width: 1px;
 }
 [platform="mobile"] .scene.arena .container .card_area {
-	left: 168px;
+	left: 158px;
 }
 .scene.arena .container .card_area.op_side {
 	border-color: rgba(126, 22, 113, 1.0);
+}
+.scene.arena .container .card_area .hero_area {
+	position: absolute;
+	top: 5px;
+	left: 5px;
+}
+.scene.arena .container .card_area .hero_area .card {
+	width: 100%;
+	height: 100%;
+	margin-left: 0px;
+	border-width: 2px;
+	font-size: 10px;
+}
+.scene.arena .container .card_area .hero_area .card .name {
+	top: -2px;
+	left: -2px;
+	font-size: 1.6em;
+}
+[platform="mobile"] .scene.arena .container .card_area .hero_area .card .name {
+	max-width: 85%;
+	overflow: hidden;
+	font-size: 0.8em;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+.scene.arena .container .card_area .hero_area .card .extend,
+.scene.arena .container .card_area .hero_area .card .combine {
+	height: auto;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 10px;
+	padding-right: 10px;
+	font-size: 1.2em;
+}
+[platform="mobile"] .scene.arena .container .card_area .hero_area .card .extend,
+[platform="mobile"] .scene.arena .container .card_area .hero_area .card .combine {
+	font-size: 0.6em;
+}
+.scene.arena .container .card_area .info_area {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+}
+.scene.arena .container .card_area .info_area .line {
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
+.scene.arena .container .card_area .info_area .line .hint {
+	display: inline-block;
+	width: 100px;
+	text-align-last: justify;
+	font-weight: bolder;
+}
+.scene.arena .container .card_area .info_area .line .info {}
+[platform="mobile"] .scene.arena .container .card_area .info_area .line {
+	margin-top: 2px;
+	margin-bottom: 2px;
+}
+[platform="mobile"] .scene.arena .container .card_area .info_area .line .hint {
+	width: 70px;
+	font-size: 8px;
+}
+[platform="mobile"] .scene.arena .container .card_area .info_area .line .info {
+	font-size: 8px;
+}
+.scene.arena .container .card_area .card_area {
+	position: absolute;
+	left: 5px;
+	right: 5px;
+	bottom: 5px;
+	padding: 10px;
+	border-radius: 5px;
+	border: 2px solid rgba(20, 74, 116, 1.0);
+}
+.scene.arena .container .card_area.op_side .card_area {
+	border-color: rgba(126, 22, 113, 1.0);
+}
+.scene.arena .container .card_area .card_area .legend {
+	width: 80px;
+	padding: 5px 10px;
+	border-radius: 8px 8px 0px 0px;
+	background-color: rgba(20, 74, 116, 1.0);
+	font-size: 9px;
+}
+.scene.arena .container .card_area.op_side .card_area .legend {
+	background-color: rgba(126, 22, 113, 1.0);
+}
+[platform="desktop"] .scene.arena .container .card_area .card_area .legend {
+	width: 100px;
+	text-align: center;
+	pointer-events: none;
+}
+[platform="mobile"] .scene.arena .container .card_area .card_area .legend {
+	position: absolute;
+	top: 5px;
+	width: 80px;
+	min-width: 25%;
+	background-color: rgba(116, 120, 122, 1.0);
+	box-shadow: inset 0px 0px 2px black, 1px 1px 3px rgba(0, 0, 0, 0.6);
+	font-size: 8px;
+}
+[platform="mobile"] .scene.arena .container .card_area .card_area .legend.selected {
+	z-index: 1;
+	background-color: rgba(20, 74, 116, 1.0);
+	box-shadow: inset 0px 0px 2px black, 0px 0px 0px rgba(0, 0, 0, 0);
+}
+[platform="mobile"] .scene.arena .container .card_area.op_side .card_area .legend.selected {
+	background-color: rgba(126, 22, 113, 1.0);
+}
+[platform="mobile"] .scene.arena .container .card_area .card_area .legend[name="hero"] {
+	left: 0%;
+	margin-left: 5px;
+	transform: translateX(0%);
+}
+[platform="mobile"] .scene.arena .container .card_area .card_area .legend[name="extends"] {
+	left: 33.3333333%;
+	margin-left: 1.3333px;
+	transform: translateX(-33.333333%);
+}
+[platform="mobile"] .scene.arena .container .card_area .card_area .legend[name="combine"] {
+	left: 66.6666667%;
+	margin-left: -1.3334px;
+	transform: translateX(-66.666667%);
+}
+[platform="mobile"] .scene.arena .container .card_area .card_area .legend[name="hands"] {
+	left: 100%;
+	margin-left: -5px;
+	transform: translateX(-100%);
+}
+.scene.arena .container .card_area.op_side .card_area [name="hands"] {
+	display: none;
+}
+.scene.arena .container .card_area .card_area .skill_list {
+	margin-bottom: 10px;
+	padding: 10px;
+	border-radius: 0px 5px 5px 5px;
+	border: 1px solid rgba(20, 74, 116, 1.0);
+	overflow-y: hidden;
+	overflow-x: overlay;
+	white-space: nowrap;
+}
+.scene.arena .container .card_area .card_area .skill_list:last-child {
+	margin-bottom: 0px;
+}
+.scene.arena .container .card_area.op_side .card_area .skill_list {
+	border-color: rgba(126, 22, 113, 1.0);
+}
+[platform="mobile"] .scene.arena .container .card_area .card_area .skill_list {
+	position: absolute;
+	top: 30px;
+	left: 5px;
+	right: 5px;
+	z-index: 2;
+	opacity: 0;
+	pointer-events: none;
+}
+[platform="mobile"] .scene.arena .container .card_area .card_area .skill_list.selected {
+	opacity: 1;
+	pointer-events: auto;
+}
+.scene.arena .container .card_area .card_area .skill_list .skill {
+	position: relative;
+	display: inline-block;
+	margin-right: 10px;
+	border-radius: 5px;
+	border: 1px solid rgba(20, 74, 116, 1.0);
+}
+.scene.arena .container .card_area .card_area .skill_list .skill:last-child {
+	margin-right: 0px;
+}
+[platform="desktop"] .scene.arena .container .card_area .card_area .skill_list .skill {
+	cursor: pointer;
+}
+.scene.arena .container .card_area .card_area .skill_list .skill .name,
+.scene.arena .container .card_area .card_area .skill_list .skill .level,
+.scene.arena .container .card_area .card_area .skill_list .skill .type,
+.scene.arena .container .card_area .card_area .skill_list .skill .map {
+	position: absolute;
+	padding: 2px;
+	background-color: rgb(21, 85, 154);
+	font-size: 8px;
+	pointer-events: none;
+}
+.scene.arena .container .card_area .card_area .skill_list .skill .name,
+.scene.arena .container .card_area .card_area .skill_list .skill .level {
+	top: 0px;
+}
+.scene.arena .container .card_area .card_area .skill_list .skill .name {
+	left: 0px;
+	border-radius: 0px 0px 5px 0px;
+}
+.scene.arena .container .card_area .card_area .skill_list .skill .level {
+	right: 0px;
+	border-radius: 0px 0px 0px 5px;
+}
+.scene.arena .container .card_area .card_area .skill_list .skill .type {
+	bottom: 0px;
+	left: 50%;
+	border-radius: 5px 5px 0px 0px;
+	transform: translateX(-50%);
+	font-style: italic;
+	color: rgb(167, 168, 189);
+}
+.scene.arena .container .card_area .card_area .skill_list .skill .map {
+	top: 30%;
+	left: 16%;
+	width: 68%;
+	height: 51%;
+	padding: 0px;
+	white-space: break-spaces;
+	line-height: 0px;
+}
+.scene.arena .container .card_area .card_area .skill_list .skill .map .grid {
+	display: inline-block;
+	width: 20%;
+	height: 20%;
+	border: 1px solid black;
+	background-color: rgb(255, 254, 249);
+}
+.scene.arena .container .card_area .card_area .skill_list .skill .map .grid.pos {
+	background-color: rgb(254, 215, 26);
+}
+.scene.arena .container .card_area .card_area .skill_list .skill .map .grid.gate {
+	background-color: rgb(21, 35, 27);
 }
 .scene.arena .container .arena_area {
 	left: 60%;
@@ -250,8 +480,6 @@
 .scene.arena .container .arena_area.op_side {
 	border-color: rgba(126, 22, 113, 1.0);
 }
-
-
 
 @media screen and (max-height: 420px) {
 	[platform="mobile"][screen="horizontal"] .duelmode_chooser .container .line {

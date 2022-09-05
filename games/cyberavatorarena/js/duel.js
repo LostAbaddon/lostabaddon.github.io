@@ -7,16 +7,89 @@ CyberAvatorArena.Duel = {};
 	const CardArea = ScnArena.querySelector('div.container > div.card_area');
 	const ArenaArea = ScnArena.querySelector('div.container > div.arena_area');
 
+	CardArea._heroArea = CardArea.querySelector('div.hero_area');
+	CardArea._infoArea = CardArea.querySelector('div.info_area');
+	CardArea._cardArea = CardArea.querySelector('div.card_area');
+
+	var fighting = false;
 	var duelMode = 0, teamMode = 0;
 	var mySide = [], opSide = [], allHeros = [], currHero = 0, selectedHero = 0;
 
 	const resizeChooser = () => {
-		var rect = HeroListArea.getBoundingClientRect();
-		var height = rect.height - 10;
+		var HEIGHT = CyberAvatorArena.Screen.height;
+		var height;
+		if (CyberAvatorArena.Screen.platform === 'mobile') {
+			height = HEIGHT;
+		}
+		else {
+			height = Math.min(450, HEIGHT);
+		}
+		height -= 120 + 10;
 		var width = height * 0.75;
 		[].forEach.call(HeroListArea.children, card => {
 			card.style.width = width + 'px';
 			card.style.height = height + 'px';
+		});
+	};
+	const resizeArea = (WIDTH, HEIGHT) => {
+		var width, height, isMobile = CyberAvatorArena.Screen.platform === 'mobile';
+		if (isMobile) {
+			height = HEIGHT * 0.6;
+			width = WIDTH * 0.35;
+		}
+		else {
+			height = Math.min(HEIGHT / 3, 300);
+			width = WIDTH / 2;
+		}
+		width -= 5;
+		height -= 5;
+
+		var w = height * 0.75;
+		if (w > width) {
+			height = width / 0.75;
+		}
+		else {
+			width = w;
+		}
+
+		CardArea._heroArea.style.width = width + 'px';
+		CardArea._heroArea.style.height = height + 'px';
+		CardArea._infoArea.style.left = (width + 15) + 'px';
+		CardArea._infoArea.style.height = height + 'px';
+		CardArea._cardArea.style.top = (height + 10) + 'px';
+
+		var line_height, card_height, card_width;
+
+		if (isMobile) {
+			line_height = HEIGHT - height - 19 - 24 - 26;
+			card_width = WIDTH - 37 - 22 - 10 * 3;
+			card_width /= 4;
+			card_height = line_height - 22;
+			line_height = card_width / 0.75;
+			if (card_height >= line_height) {
+				card_height = (line_height + card_height) / 2;
+			}
+		}
+		else {
+			line_height = HEIGHT - height - 19 - 24 - 26 * 4 - 10 * 3;
+			line_height /= 4;
+			card_width = WIDTH - 37 - 22 - 10 * 7;
+			card_width /= 8;
+			card_height = line_height - 22;
+			line_height = card_width / 0.75;
+			if (card_height >= line_height) {
+				card_height = (line_height + card_height) / 2;
+			}
+		}
+		card_width = card_height * 0.75;
+		line_height = card_height + 22;
+
+		[].forEach.call(CardArea._cardArea.querySelectorAll('div.skill_list'), line => {
+			line.style.height = line_height + 'px';
+			[].forEach.call(line.querySelectorAll('div.skill'), card => {
+				card.style.width = card_width + 'px';
+				card.style.height = card_height + 'px';
+			});
 		});
 	};
 	const arangeHeros = (isFirst=false) => {
@@ -25,7 +98,7 @@ CyberAvatorArena.Duel = {};
 		if (isFirst) allHeros.forEach(h => h.points = 0);
 
 		currHero = allHeros.length - 1;
-		selectedHero = allHeros.indexOf(mySide[0]);
+		selectedHero = Math.max(...(mySide.map(hero => allHeros.indexOf(hero))));
 		allHeros.forEach((hero, i) => {
 			var tab = newEle('div', 'hero_tab', 'animated');
 			if (i === selectedHero) {
@@ -58,11 +131,92 @@ CyberAvatorArena.Duel = {};
 			CardArea.classList.add('op_side');
 			ArenaArea.classList.add('op_side');
 		}
-		console.log(selectedHero, isMine, hero);
+
+		var rect = CardArea.getBoundingClientRect();
+		var WIDTH = rect.width, HEIGHT = rect.height;
+
+		CardArea._heroArea.innerHTML = '';
+		CardArea._heroArea.appendChild(hero.getCard());
+
+		[].forEach.call(CardArea._infoArea.querySelectorAll('div.line span.info'), line => {
+			line.innerHTML = '';
+		});
+		[].forEach.call(CardArea._cardArea.querySelectorAll('div.legend'), ui => {
+			if (ui.getAttribute('name') === 'hero') {
+				ui.classList.add('selected');
+			}
+			else {
+				ui.classList.remove('selected');
+			}
+		});
+		[].forEach.call(CardArea._cardArea.querySelectorAll('div.skill_list'), ui => {
+			if (ui.getAttribute('name') === 'hero') {
+				ui.classList.add('selected');
+			}
+			else {
+				ui.classList.remove('selected');
+			}
+		});
+
+		showCards(hero);
+
+		resizeArea(WIDTH, HEIGHT);
+	};
+	const showCards = (list, ui) => {
+		if (Array.isArray(list)) {
+			ui.innerHTML = '';
+			list.forEach(skl => {
+				var card = skl.getCard();
+				ui.appendChild(card);
+			});
+		}
+		else {
+			showCards(list.skills, CardArea._cardArea.querySelector('div.skill_list[name="hero"]'));
+			let array = [...list.extendSkills];
+			for (let i = list.extendSkills.length; i < list.extendCount; i ++) {
+				array.push(Skill.emptySkill());
+			}
+			showCards(array, CardArea._cardArea.querySelector('div.skill_list[name="extends"]'));
+			array = [...list.combineSkill];
+			for (let i = list.combineSkill.length; i < list.combineCount; i ++) {
+				array.push(Skill.emptySkill());
+			}
+			showCards(array, CardArea._cardArea.querySelector('div.skill_list[name="combine"]'));
+			if (mySide.includes(list)) {
+				showCards(list.cards, CardArea._cardArea.querySelector('div.skill_list[name="hands"]'));
+			}
+			else {
+				showCards([], CardArea._cardArea.querySelector('div.skill_list[name="hands"]'));
+			}
+		}
+	};
+	const showSkill = (skill, ui) => {
+		[].forEach.call(CardArea._cardArea.querySelectorAll('div.skill'), card => {
+			if (card === ui) {
+				card.classList.add('selected');
+			}
+			else {
+				card.classList.remove('selected');
+			}
+		});
+
+		if (skill.type === -1) {
+			CardArea._infoArea.querySelector('div.line span.info[type="name"]').innerText = '空';
+			CardArea._infoArea.querySelector('div.line span.info[type="type"]').innerText = '无';
+			CardArea._infoArea.querySelector('div.line span.info[type="desc"]').innerText = '无';
+		}
+		else {
+			CardArea._infoArea.querySelector('div.line span.info[type="name"]').innerText = skill.name;
+			CardArea._infoArea.querySelector('div.line span.info[type="type"]').innerText = SkillType[skill.type];
+			CardArea._infoArea.querySelector('div.line span.info[type="desc"]').innerText = SkillDesc[skill.type];
+		}
 	};
 
 	CyberAvatorArena.Duel.init = () => {
 		CyberAvatorArena.Tool.initHorizontalScroller(HeroListArea);
+		[].forEach.call(CardArea._cardArea.querySelectorAll('div.skill_list'), line => {
+			CyberAvatorArena.Tool.initHorizontalScroller(line);
+		});
 	};
 	CyberAvatorArena.Duel.initCards = async () => {
 		var timestamp = Date.now();
@@ -85,7 +239,7 @@ CyberAvatorArena.Duel = {};
 	CyberAvatorArena.Duel.showModeChooser = () => new Promise(async res => {
 		var last = CyberAvatorArena.Duel.showModeChooser.__res;
 		if (!!last) {
-			last();
+			last([-1, -1, -1]);
 		}
 		CyberAvatorArena.Duel.showModeChooser.__res = res;
 
@@ -101,43 +255,47 @@ CyberAvatorArena.Duel = {};
 		await wait(0);
 		DuelModeChooer.classList.add('show');
 	});
-	CyberAvatorArena.Duel.chooseMode = async target => {
+	CyberAvatorArena.Duel.chooseMode = async (target=-1) => {
 		var notover = false;
 		if (CyberAvatorArena.Duel.showModeChooser.__step === 0) {
 			CyberAvatorArena.Duel.showModeChooser.__mode = target;
-			CyberAvatorArena.Duel.showModeChooser.__step = 1;
-			[].forEach.call(DuelModeChooer.querySelectorAll('div.line[group="mode"]'), line => {
-				line.classList.add('hide');
-			});
-			[].forEach.call(DuelModeChooer.querySelectorAll('div.line[group="team"]'), line => {
-				line.classList.remove('hide');
-			});
-			notover = true;
+			if (target >= 0) {
+				CyberAvatorArena.Duel.showModeChooser.__step = 1;
+				[].forEach.call(DuelModeChooer.querySelectorAll('div.line[group="mode"]'), line => {
+					line.classList.add('hide');
+				});
+				[].forEach.call(DuelModeChooer.querySelectorAll('div.line[group="team"]'), line => {
+					line.classList.remove('hide');
+				});
+				notover = true;
+			}
 		}
 		else if (CyberAvatorArena.Duel.showModeChooser.__step === 1) {
 			CyberAvatorArena.Duel.showModeChooser.__team = target;
-			CyberAvatorArena.Duel.showModeChooser.__step = 1;
-			if (target === 1) {
-				CyberAvatorArena.Duel.showModeChooser.__count = 2;
-				CyberAvatorArena.Duel.showModeChooser.__step = 3;
-			}
-			else {
-				[].forEach.call(DuelModeChooer.querySelectorAll('div.line[group="team"]'), line => {
-					line.classList.add('hide');
-				});
-				[].forEach.call(DuelModeChooer.querySelectorAll('div.line[group="count"]'), (line, i) => {
-					if (i === 0) {
-						if (target === 2) {
-							line.classList.remove('invalid');
+			if (target >= 0) {
+				CyberAvatorArena.Duel.showModeChooser.__step = 1;
+				if (target === 1) {
+					CyberAvatorArena.Duel.showModeChooser.__count = 2;
+					CyberAvatorArena.Duel.showModeChooser.__step = 3;
+				}
+				else {
+					[].forEach.call(DuelModeChooer.querySelectorAll('div.line[group="team"]'), line => {
+						line.classList.add('hide');
+					});
+					[].forEach.call(DuelModeChooer.querySelectorAll('div.line[group="count"]'), (line, i) => {
+						if (i === 0) {
+							if (target === 2) {
+								line.classList.remove('invalid');
+							}
+							else {
+								line.classList.add('invalid');
+							}
 						}
-						else {
-							line.classList.add('invalid');
-						}
-					}
-					line.classList.remove('hide');
-				});
-				CyberAvatorArena.Duel.showModeChooser.__step = 2;
-				notover = true;
+						line.classList.remove('hide');
+					});
+					CyberAvatorArena.Duel.showModeChooser.__step = 2;
+					notover = true;
+				}
 			}
 		}
 		else if (CyberAvatorArena.Duel.showModeChooser.__step === 2) {
@@ -167,6 +325,7 @@ CyberAvatorArena.Duel = {};
 		HeroListArea.__chooseOne = -1;
 		list.forEach((hero, i) => {
 			var ui = hero.getCard();
+			ui.classList.remove('selected');
 			ui.__chooseId = i;
 			HeroListArea.appendChild(ui);
 		});
@@ -174,13 +333,14 @@ CyberAvatorArena.Duel = {};
 		await wait(350);
 		resizeChooser();
 	});
-	CyberAvatorArena.Duel.chooseHero = () => {
+	CyberAvatorArena.Duel.chooseHero = async () => {
 		var res = CyberAvatorArena.Duel.showHeroChooser.__res;
 		if (!res) return;
 		delete CyberAvatorArena.Duel.showHeroChooser.__res;
 		var choise = HeroListArea.__chooseOne;
 		HeroListArea.__chooseOne = -1;
 		HeroChooer.classList.remove('show');
+		await wait(300);
 		res(choise);
 	};
 	CyberAvatorArena.Duel.enter = async (mode, team, count) => {
@@ -268,6 +428,8 @@ CyberAvatorArena.Duel = {};
 		arangeHeros(true);
 
 		ScnArena.classList.remove('hide');
+		await wait(1500);
+		CyberAvatorArena.Duel.onResize();
 	};
 	CyberAvatorArena.Duel.leave = async () => {
 		CyberAvatorArena.Welcome.addNewCmdLine('arena disconnected', true);
@@ -276,9 +438,14 @@ CyberAvatorArena.Duel = {};
 
 		await CyberAvatorArena.Welcome.show();
 		SideBar.innerHTML = '';
+		CardArea._heroArea.innerHTML = '';
+		CardArea._infoArea.innerHTML = '';
 	};
 	CyberAvatorArena.Duel.onResize = () => {
 		if (!!CyberAvatorArena.Duel.showHeroChooser.__res) resizeChooser();
+
+		var rect = CardArea.getBoundingClientRect();
+		resizeArea(rect.width, rect.height);
 	};
 
 	HeroListArea.addEventListener('click', ({target}) => {
@@ -304,5 +471,29 @@ CyberAvatorArena.Duel = {};
 		target.classList.add('selected');
 		selectedHero = target._id;
 		changeHero();
+	});
+	CardArea._cardArea.addEventListener('click', ({target}) => {
+		if (target.classList.contains('skill')) {
+			showSkill(target._skill, target);
+		}
+		else if (target.classList.contains('legend')) {
+			let tgt = target.getAttribute('name');
+			[].forEach.call(CardArea._cardArea.querySelectorAll('div.legend'), ui => {
+				if (ui.getAttribute('name') === tgt) {
+					ui.classList.add('selected');
+				}
+				else {
+					ui.classList.remove('selected');
+				}
+			});
+			[].forEach.call(CardArea._cardArea.querySelectorAll('div.skill_list'), ui => {
+				if (ui.getAttribute('name') === tgt) {
+					ui.classList.add('selected');
+				}
+				else {
+					ui.classList.remove('selected');
+				}
+			});
+		}
 	});
 }) ();

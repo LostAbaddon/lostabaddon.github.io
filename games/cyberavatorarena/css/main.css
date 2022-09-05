@@ -48,6 +48,7 @@ input[type="text"] {
 }
 .scrollable::-webkit-scrollbar {
 	width: 4px;
+	height: 4px;
 	background-color: transparent;
 	cursor: pointer;
 }

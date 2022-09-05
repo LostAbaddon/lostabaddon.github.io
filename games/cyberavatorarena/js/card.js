@@ -22,6 +22,7 @@ class Skill {
 	level = 0;
 	offsetLeft = 0;
 	offsetTop = 0;
+	ui = null;
 
 	constructor (name, poses, gates, count=1, type=0, level=0) {
 		this.name = name;
@@ -47,7 +48,8 @@ class Skill {
 		this.offsetLeft = Math.floor((5 - (rightBound + leftBound)) / 2);
 		this.offsetTop = Math.floor((5 - (bottomBound + topBound)) / 2);
 	}
-	getCard () {
+	getCard (isNew=false) {
+		if (!!this.ui && !isNew) return this.ui;
 		var ui = newEle('div', 'skill', 'animated'), ele, grid = [];
 		ele = newEle('div', 'map');
 		ui.appendChild(ele);
@@ -81,9 +83,15 @@ class Skill {
 		ele.innerText = this.count + '/' + this.level;
 		ui.appendChild(ele);
 		ele = newEle('div', 'type');
-		ele.innerText = SkillType[this.type];
+		ele.innerText = SkillType[this.type] || '无';
 		ui.appendChild(ele);
+		ui._skill = this;
+
+		this.ui = ui;
 		return ui;
+	}
+	static emptySkill () {
+		return new Skill('空', [], [], 0, -1, 0);
 	}
 }
 
@@ -97,6 +105,7 @@ class Hero {
 	combineSkill = [];
 	cards = [];
 	points = 0;
+	ui = null;
 
 	constructor (name, pic, skills=[], exts=1, cmbs=0) {
 		this.name = name;
@@ -108,7 +117,8 @@ class Hero {
 	copy () {
 		return new Hero(this.name, this.image, this.skills, this.extendCount, this.combineCount);
 	}
-	getCard () {
+	getCard (isNew=false) {
+		if (!!this.ui && !isNew) return this.ui;
 		var card = newEle('div', 'card', 'hero', 'animated'), ele;
 		ele = newEle('div', 'avator');
 		ele.style.backgroundImage = "url('" + this.image + "')";
@@ -122,6 +132,9 @@ class Hero {
 		ele = newEle('div', 'point', 'combine');
 		ele.innerText = '合:' + this.combineCount;
 		card.appendChild(ele);
+		card._card = this;
+
+		this.ui = card;
 		return card;
 	}
 }
