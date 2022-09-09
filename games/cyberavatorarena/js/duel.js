@@ -10,8 +10,23 @@ CyberAvatorArena.Duel = {};
 	CardArea._heroArea = CardArea.querySelector('div.hero_area');
 	CardArea._infoArea = CardArea.querySelector('div.info_area');
 	CardArea._cardArea = CardArea.querySelector('div.card_area');
+	CardArea._selectArea = CardArea._cardArea.querySelector('div.skill_selector');
+	CardArea._selectList = CardArea._selectArea.querySelector('div.list');
+
+	ArenaArea._board = ArenaArea.querySelector('div.board');
+
+	const ColorList = [
+		'rgba(81, 168, 221, 1.0)',
+		'rgba(219, 77, 109, 1.0)',
+		'rgba(93, 172, 129, 1.0)',
+		'rgba(106, 76, 156, 1.0)',
+		'rgba(120, 120, 120, 1.0)',
+		'rgba(215, 196, 187, 1.0)',
+	];
+	const InitEnergy = 3;
 
 	var fighting = false;
+	var board = [], boardWidth = 7, boardHeight = 7, boardSkill = [];
 	var duelMode = 0, teamMode = 0;
 	var mySide = [], opSide = [], allHeros = [], currHero = 0, selectedHero = 0;
 
@@ -24,20 +39,24 @@ CyberAvatorArena.Duel = {};
 		else {
 			height = Math.min(450, HEIGHT);
 		}
-		height -= 120 + 10;
+		height -= 120 + 15;
 		var width = height * 0.75;
 		[].forEach.call(HeroListArea.children, card => {
 			card.style.width = width + 'px';
 			card.style.height = height + 'px';
 		});
 	};
-	const resizeArea = (WIDTH, HEIGHT) => {
-		var width, height, isMobile = CyberAvatorArena.Screen.platform === 'mobile';
+	const resizeArea = () => {
+		var isMobile = CyberAvatorArena.Screen.platform === 'mobile';
+		var width, height;
+		var WIDTH, HEIGHT = CyberAvatorArena.Screen.height - 45;
 		if (isMobile) {
+			WIDTH = CyberAvatorArena.Screen.width * 0.6 - 158;
 			height = HEIGHT * 0.6;
 			width = WIDTH * 0.35;
 		}
 		else {
+			WIDTH = CyberAvatorArena.Screen.width * 0.6 - 208;
 			height = Math.min(HEIGHT / 3, 300);
 			width = WIDTH / 2;
 		}
@@ -58,8 +77,28 @@ CyberAvatorArena.Duel = {};
 		CardArea._infoArea.style.height = height + 'px';
 		CardArea._cardArea.style.top = (height + 10) + 'px';
 
-		var line_height, card_height, card_width;
+		var right_width = CyberAvatorArena.Screen.width * 0.4 - 5;
+		var right_height = HEIGHT - 11;
+		var block_width, block_height;
+		right_width = (right_width - 3) * 0.95;
+		right_height = (right_height - 4) * 0.95;
+		if (right_width < right_height / boardHeight * boardWidth) {
+			right_height = right_width / boardWidth * boardHeight;
+		}
+		else {
+			right_width = right_height / boardHeight * boardWidth;
+		}
+		block_width = right_width / boardWidth;
+		block_height = right_height / boardHeight;
+		ArenaArea._board.style.width = right_width + 'px';
+		ArenaArea._board.style.height = right_height + 'px';
+		[].forEach.call(ArenaArea._board.querySelectorAll('div.block'), block => {
+			block.style.width = block_width + 'px';
+			block.style.height = block_height + 'px';
+			block.classList.remove('hide');
+		});
 
+		var line_height, card_height, card_width;
 		if (isMobile) {
 			line_height = HEIGHT - height - 19 - 24 - 26;
 			card_width = WIDTH - 37 - 22 - 10 * 3;
@@ -99,7 +138,9 @@ CyberAvatorArena.Duel = {};
 
 		currHero = allHeros.length - 1;
 		selectedHero = Math.max(...(mySide.map(hero => allHeros.indexOf(hero))));
+		SideBar.innerHTML = '';
 		allHeros.forEach((hero, i) => {
+			hero.energy = InitEnergy + hero.points;
 			var tab = newEle('div', 'hero_tab', 'animated');
 			if (i === selectedHero) {
 				tab.classList.add('selected');
@@ -115,6 +156,10 @@ CyberAvatorArena.Duel = {};
 			}
 			tab.innerText = hero.name + ' (' + hero.points + ')';
 			tab._id = i;
+			hero.skills.forEach(skill => skill.available = skill.count);
+			hero.extendSkills.forEach(skill => skill.available = skill.count);
+			hero.combineSkill.forEach(skill => skill.available = skill.count);
+			hero.cards.forEach(skill => skill.available = skill.count);
 			SideBar.appendChild(tab);
 		});
 		changeHero();
@@ -131,9 +176,6 @@ CyberAvatorArena.Duel = {};
 			CardArea.classList.add('op_side');
 			ArenaArea.classList.add('op_side');
 		}
-
-		var rect = CardArea.getBoundingClientRect();
-		var WIDTH = rect.width, HEIGHT = rect.height;
 
 		CardArea._heroArea.innerHTML = '';
 		CardArea._heroArea.appendChild(hero.getCard());
@@ -160,7 +202,7 @@ CyberAvatorArena.Duel = {};
 
 		showCards(hero);
 
-		resizeArea(WIDTH, HEIGHT);
+		resizeArea();
 	};
 	const showCards = (list, ui) => {
 		if (Array.isArray(list)) {
@@ -210,6 +252,90 @@ CyberAvatorArena.Duel = {};
 			CardArea._infoArea.querySelector('div.line span.info[type="type"]').innerText = SkillType[skill.type];
 			CardArea._infoArea.querySelector('div.line span.info[type="desc"]').innerText = SkillDesc[skill.type];
 		}
+	};
+	const showBoard = () => {
+		ArenaArea._board.innerHTML = '';
+		board = [];
+
+		for (let i = 0; i < boardHeight; i ++) {
+			let line = [];
+			for (let j = 0; j < boardWidth; j ++) {
+				let g = newEle('div', 'block', 'animated', 'hide');
+				g._x = j;
+				g._y = i;
+				g._owner = -1;
+				ArenaArea._board.appendChild(g);
+				line.push(g);
+			}
+			board.push(line);
+		}
+	};
+	const clickBoard = (x, y) => {
+		var block = ArenaArea._board.querySelector('.block.current');
+		if (!!block) block.classList.remove('current');
+
+		block = board[y];
+		if (!block) return;
+		block = block[x];
+		if (!block) return;
+		if (block._owner !== -1) return;
+
+		var hero = allHeros[currHero];
+		block._owner = hero.idx;
+		block.classList.add('owned');
+		block.classList.add('current');
+		block.style.backgroundColor = ColorList[hero.idx];
+
+		var friends = [], fList = [], plots = [];
+		if (teamMode === 3) {
+			if (mySide.includes(hero)) {
+				mySide.forEach(h => {
+					friends.push(h.idx);
+					if (h !== hero) fList.push(...h.combineSkill);
+				});
+			}
+			else if (opSide.includes(hero)) {
+				opSide.forEach(h => {
+					friends.push(h.idx);
+					if (h !== hero) fList.push(...h.combineSkill);
+				});
+			}
+		}
+		hero.cards.forEach(s => {
+			if (s.available <= 0) return;
+			if (s.level > hero.energy) return;
+			var [active, choises] = s.check(0, hero, [x, y], board);
+			if (!active) return;
+			plots.push([true, s, choises]);
+		});
+		[...hero.skills, ...hero.extendSkills].forEach(s => {
+			if (s.available <= 0) return;
+			if (s.level > hero.energy) return;
+			var [active, choises] = s.check(0, hero, [x, y], board);
+			if (!active) return;
+			plots.push([false, s, choises]);
+		});
+		fList.forEach(s => {
+			if (s.available <= 0) return;
+			if (s.level > hero.energy) return;
+			var [active, choises] = s.check(1, hero, [x, y], board, friends);
+			if (!active) return;
+			plots.push([false, s, choises]);
+		});
+		boardSkill.forEach(s => {
+			if (s.available <= 0) return;
+			if (s.level > hero.energy) return;
+			var [active, choises] = s.check(2, hero, [x, y], board);
+			if (!active) return;
+			plots.push([false, s, choises]);
+		});
+
+		console.log(hero, plots);
+		plots.forEach(plot => {
+			console.log(plot);
+			// CardArea._selectList
+		});
+		CardArea._selectArea.classList.add('show');
 	};
 
 	CyberAvatorArena.Duel.init = () => {
@@ -347,11 +473,18 @@ CyberAvatorArena.Duel = {};
 		fighting = true;
 		duelMode = mode;
 		teamMode = team;
+		if (count > 4) {
+			boardWidth = 9;
+			boardHeight = 9;
+		}
+		else {
+			boardWidth = 7;
+			boardHeight = 7;
+		}
 
 		const heroList = [...HeroList];
 		const myHeros = await CyberAvatorArena.Duel.getMyHeros();
 		var list = heroList.filter(hero => {
-			return true;
 			var info = myHeros[hero.name];
 			if (!info) return;
 			if (!info.got) return;
@@ -398,7 +531,7 @@ CyberAvatorArena.Duel = {};
 				mySide.push(hero.copy());
 				for (let i = 1; i < count; i ++) {
 					let id = Math.floor(HeroList.length * Math.random());
-					let hero = list[id];
+					let hero = HeroList[id];
 					opSide.push(hero.copy());
 				}
 			}
@@ -412,7 +545,7 @@ CyberAvatorArena.Duel = {};
 				}
 				for (let i = 0; i < half; i ++) {
 					let id = Math.floor(HeroList.length * Math.random());
-					let hero = list[id];
+					let hero = HeroList[id];
 					opSide.push(hero.copy());
 				}
 			}
@@ -426,7 +559,12 @@ CyberAvatorArena.Duel = {};
 
 		mySide.forEach(h => allHeros.push(h));
 		opSide.forEach(h => allHeros.push(h));
+		allHeros.forEach((hero, i) => {
+			hero.idx = i;
+		});
 		arangeHeros(true);
+
+		showBoard();
 
 		ScnArena.classList.remove('hide');
 		await wait(1500);
@@ -446,9 +584,7 @@ CyberAvatorArena.Duel = {};
 	};
 	CyberAvatorArena.Duel.onResize = () => {
 		if (!!CyberAvatorArena.Duel.showHeroChooser.__res) resizeChooser();
-
-		var rect = CardArea.getBoundingClientRect();
-		resizeArea(rect.width, rect.height);
+		resizeArea();
 	};
 
 	HeroListArea.addEventListener('click', ({target}) => {
@@ -498,5 +634,9 @@ CyberAvatorArena.Duel = {};
 				}
 			});
 		}
+	});
+	ArenaArea._board.addEventListener('click', ({target}) => {
+		if (!target.classList.contains('block')) return;
+		clickBoard(target._x, target._y);
 	});
 }) ();

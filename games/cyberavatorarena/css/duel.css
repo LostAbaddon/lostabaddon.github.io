@@ -118,6 +118,8 @@
 	border: 10px solid rgb(20, 74, 116);
 	box-shadow: inset 0px 0px 5px black;
 	overflow: hidden;
+}
+.duelmode_chooser .container .chooser_area .card {
 	cursor: pointer;
 }
 .duelmode_chooser .container .chooser_area .card:last-child {
@@ -174,15 +176,12 @@
 	border-radius: 10px 0px 0px 0px;
 }
 
-.scene.arena .container div {
-	/*box-shadow: 0px 0px 2px black;*/
-}
-
 .scene.arena .container > div {
 	position: absolute;
 	top: 5px;
 	bottom: 5px;
 }
+
 .scene.arena .container .side_bar {
 	left: 0px;
 	z-index: 1;
@@ -231,6 +230,7 @@
 .scene.arena .container .side_bar .hero_tab.op_side {
 	border-color: rgba(126, 22, 113, 1.0);
 }
+
 .scene.arena .container .card_area {
 	left: 208px;
 	right: 40%;
@@ -245,6 +245,7 @@
 .scene.arena .container .card_area.op_side {
 	border-color: rgba(126, 22, 113, 1.0);
 }
+
 .scene.arena .container .card_area .hero_area {
 	position: absolute;
 	top: 5px;
@@ -282,6 +283,7 @@
 [platform="mobile"] .scene.arena .container .card_area .hero_area .card .combine {
 	font-size: 0.6em;
 }
+
 .scene.arena .container .card_area .info_area {
 	position: absolute;
 	top: 5px;
@@ -309,6 +311,7 @@
 [platform="mobile"] .scene.arena .container .card_area .info_area .line .info {
 	font-size: 8px;
 }
+
 .scene.arena .container .card_area .card_area {
 	position: absolute;
 	left: 5px;
@@ -430,6 +433,10 @@
 .scene.arena .container .card_area .card_area .skill_list .skill .name,
 .scene.arena .container .card_area .card_area .skill_list .skill .level {
 	top: 0px;
+	max-width: 50%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 .scene.arena .container .card_area .card_area .skill_list .skill .name {
 	left: 0px;
@@ -469,6 +476,65 @@
 .scene.arena .container .card_area .card_area .skill_list .skill .map .grid.gate {
 	background-color: rgb(21, 35, 27);
 }
+.scene.arena .container .card_area .card_area .skill_selector {
+	position: absolute;
+	z-index: 2;
+	background-color: rgba(20, 74, 116, 0.85);
+	opacity: 0;
+	pointer-events: none;
+}
+.scene.arena .container .card_area .card_area .skill_selector.show {
+	opacity: 1;
+	pointer-events: auto;
+}
+[platform="mobile"] .scene.arena .container .card_area .card_area .skill_selector {
+	top: 5px;
+	left: 5px;
+	right: 5px;
+	padding: 5px;
+	border-radius: 5px;
+}
+[platform="desktop"] .scene.arena .container .card_area .card_area .skill_selector {
+	top: 10px;
+	bottom: 10px;
+	left: 10px;
+	right: 10px;
+	padding: 10px;
+	border-radius: 10px;
+}
+.scene.arena .container .card_area .card_area .skill_selector .hint {
+	font-weight: bolder;
+	border-bottom: 1px solid white;
+}
+[platform="mobile"] .scene.arena .container .card_area .card_area .skill_selector .hint {
+	padding-bottom: 5px;
+	font-size: 12px;
+}
+[platform="desktop"] .scene.arena .container .card_area .card_area .skill_selector .hint {
+	padding-bottom: 10px;
+	font-size: 18px;
+}
+.scene.arena .container .card_area .card_area .skill_selector .hint span {
+	zoom: 0.8;
+}
+.scene.arena .container .card_area .card_area .skill_selector .list {
+}
+[platform="mobile"] .scene.arena .container .card_area .card_area .skill_selector .list {
+	height: 100px;
+	margin-top: 5px;
+	overflow-x: overlay;
+	overflow-y: hidden;
+}
+[platform="desktop"] .scene.arena .container .card_area .card_area .skill_selector .list {
+	position: absolute;
+	top: 10px;
+	bottom: 10px;
+	left: 10px;
+	right: 10px;
+	overflow-x: hidden;
+	overflow-y: overlay;
+}
+
 .scene.arena .container .arena_area {
 	left: 60%;
 	right: 5px;
@@ -479,6 +545,31 @@
 }
 .scene.arena .container .arena_area.op_side {
 	border-color: rgba(126, 22, 113, 1.0);
+}
+.scene.arena .container .arena_area .board {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	padding: 0px;
+	box-shadow: 0px 0px 2px black;
+	transform: translate(-50%, -50%);
+	white-space: break-spaces;
+	line-height: 0px;
+}
+.scene.arena .container .arena_area .board .block {
+	display: inline-block;
+	border: 1px solid black;
+	background-color: rgba(202, 122, 44, 1.0);
+	cursor: pointer;
+}
+.scene.arena .container .arena_area .board .block.hide {
+	display: none;
+}
+.scene.arena .container .arena_area .board .block.owned {
+	border-radius: 50%;
+}
+.scene.arena .container .arena_area .board .block.current {
+	border-color: white;
 }
 
 @media screen and (max-height: 420px) {
