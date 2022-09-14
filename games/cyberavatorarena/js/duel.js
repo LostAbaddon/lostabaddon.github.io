@@ -193,7 +193,9 @@ CyberAvatorArena.Duel = {};
 		}
 
 		CardArea._heroArea.innerHTML = '';
-		CardArea._heroArea.appendChild(hero.getCard());
+		var avator = hero.getCard();
+		avator.style.color = ColorList[hero.idx];
+		CardArea._heroArea.appendChild(avator);
 
 		[].forEach.call(CardArea._infoArea.querySelectorAll('div.line span.info'), line => {
 			line.innerHTML = '';
@@ -307,6 +309,7 @@ CyberAvatorArena.Duel = {};
 		await useSkill(hero, x, y);
 		// var did = await useSkill(hero, x, y);
 		// if (!did) return;
+		pickStage = 0;
 		currHero --;
 		selectedHero = currHero;
 		if (currHero >= 0) {
@@ -323,6 +326,10 @@ CyberAvatorArena.Duel = {};
 			changeHero();
 		}
 		else {
+			ArenaArea.style.opacity = 0;
+			await wait (300);
+			ArenaArea.style.opacity = 1;
+			await wait (300);
 			arangeHeros();
 		}
 	};
@@ -461,13 +468,18 @@ CyberAvatorArena.Duel = {};
 					}
 				});
 				block.classList.remove('waiting');
+				choosed.add(point.join(','));
+
 				if (skill.type === 0) {
 					block._owner = hero.idx;
 					block.classList.add('owned');
 					block.style.backgroundColor = ColorList[hero.idx];
 					hero.points ++;
-					choosed.add(point.join(','));
 					latestPos = point;
+				}
+				else if (skill.type === 1) {
+					let owner = allHeros[block._owner];
+					console.log(hero, block, owner, point, choosed);
 				}
 
 				[].forEach.call(ArenaArea._board.querySelectorAll('div.block.waiting'), block => {
@@ -495,6 +507,16 @@ CyberAvatorArena.Duel = {};
 			hero.cards.push(getRandCard());
 			shouldUpdateCards = true;
 			if (!!latestPos) {
+				let block = ArenaArea._board.querySelector('.block.current');
+				if (!!block) block.classList.remove('current');
+				block = board[latestPos[1]];
+				if (!!block) {
+					block = block[latestPos[0]];
+					if (!!block) {
+						block.classList.add('current');
+					}
+				}
+
 				await useSkill(hero, ...latestPos);
 			}
 		}
