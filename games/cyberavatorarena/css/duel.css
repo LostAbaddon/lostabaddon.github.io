@@ -310,7 +310,14 @@
 	text-align-last: justify;
 	font-weight: bolder;
 }
-.scene.arena .container .card_area .info_area .line .info {}
+.scene.arena .container .card_area .info_area .line.person {
+	padding-top: 10px;
+	border-top: 1px solid white;
+}
+[platform="mobile"] .scene.arena .container .card_area .info_area .line.person {
+	margin-top: 5px;
+	padding-top: 0px;
+}
 [platform="mobile"] .scene.arena .container .card_area .info_area .line {
 	margin-top: 2px;
 	margin-bottom: 2px;
@@ -428,6 +435,9 @@
 .scene.arena .container .card_area .card_area .skill_panel .skill:last-child {
 	margin-right: 0px;
 }
+.scene.arena .container .card_area .card_area .skill_panel .skill.world_skill {
+	border-color: rgba(109, 46, 91, 1.0);
+}
 [platform="desktop"] .scene.arena .container .card_area .card_area .skill_panel .skill {
 	cursor: pointer;
 }
@@ -528,6 +538,10 @@
 .scene.arena .container .card_area .card_area .skill_selector .hint span {
 	zoom: 0.8;
 }
+.scene.arena .container .card_area .card_area .skill_selector .hint span.abaddon {
+	float: right;
+	cursor: pointer;
+}
 .scene.arena .container .card_area .card_area .skill_selector .list {
 }
 [platform="mobile"] .scene.arena .container .card_area .card_area .skill_selector .list {
@@ -547,6 +561,9 @@
 }
 .scene.arena .container .card_area .card_area .skill_selector .list .skill {
 	border-color: black;
+}
+.scene.arena .container .card_area .card_area .skill_selector .list .skill.handing {
+	border-color: rgba(123, 144, 210, 1.0);
 }
 
 .scene.arena .container .arena_area {

@@ -15,6 +15,7 @@ CyberAvatorArena.Duel = {};
 
 	ArenaArea._board = ArenaArea.querySelector('div.board');
 
+	const JumpOut = Symbol('JumpOut');
 	const ColorList = [
 		'rgba(81, 168, 221, 1.0)',
 		'rgba(219, 77, 109, 1.0)',
@@ -23,15 +24,17 @@ CyberAvatorArena.Duel = {};
 		'rgba(120, 120, 120, 1.0)',
 		'rgba(215, 196, 187, 1.0)',
 	];
+	const MaxWorldSkill = 2;
 	const InitEnergy = 3;
 	const BasicCost = 1;
+	const HandCardLimit = 5;
 
 	var fighting = false;
 	var board = [], boardWidth = 7, boardHeight = 7, boardSkill = [];
 	var duelMode = 0, teamMode = 0;
 	var mySide = [], opSide = [], allHeros = [], currHero = 0, selectedHero = 0;
 	var currLoopIndex = 0;
-	var pickStage = 0, pickingSkills = [];
+	var pickStage = 0, pickingSkills = [], worldSkills = [];
 
 	const resizeChooser = () => {
 		var HEIGHT = CyberAvatorArena.Screen.height;
@@ -164,11 +167,16 @@ CyberAvatorArena.Duel = {};
 			}
 			tab.innerText = hero.name + ' (' + hero.points + ')';
 			tab._id = i;
-			hero.cards.push(getRandCard());
+
+			var count = Math.floor(currLoopIndex / 5) + 1;
+			for (let i = 0; i < count; i ++) {
+				hero.cards.push(getRandCard());
+			}
 			[...hero.skills, ...hero.extendSkills, ...hero.combineSkill, ...hero.cards].forEach(skill => {
 				skill.available = skill.count;
 				skill.used = false;
 			});
+
 			SideBar.appendChild(tab);
 		});
 
@@ -178,6 +186,15 @@ CyberAvatorArena.Duel = {};
 		SideBar.appendChild(loopCount);
 
 		changeHero();
+	};
+	const getHeroById = id => {
+		var hero = null;
+		allHeros.some(h => {
+			if (h.idx !== id) return;
+			hero = h;
+			return true;
+		});
+		return hero;
 	};
 	const changeHero = () => {
 		var hero = allHeros[selectedHero];
@@ -192,8 +209,13 @@ CyberAvatorArena.Duel = {};
 			ArenaArea.classList.add('op_side');
 		}
 
+		worldSkills.forEach(skill => {
+			skill.available = skill.count;
+			skill.used = false;
+		});
+
 		CardArea._heroArea.innerHTML = '';
-		var avator = hero.getCard();
+		var avator = hero.getCard(true);
 		avator.style.color = ColorList[hero.idx];
 		CardArea._heroArea.appendChild(avator);
 
@@ -216,16 +238,17 @@ CyberAvatorArena.Duel = {};
 				ui.classList.remove('selected');
 			}
 		});
+		CardArea._infoArea.querySelector('div.line.person span.info').innerText = hero.energy || 0;
 
 		showCards(hero);
-
 		resizeArea();
 	};
-	const showCards = (list, ui) => {
+	const showCards = (list, ui, needClear=true, extClass) => {
 		if (Array.isArray(list)) {
-			ui.innerHTML = '';
+			if (needClear) ui.innerHTML = '';
 			list.forEach(skl => {
-				var card = skl.getCard();
+				var card = skl.getCard(true);
+				if (!!extClass) card.classList.add(extClass);
 				ui.appendChild(card);
 			});
 		}
@@ -236,6 +259,11 @@ CyberAvatorArena.Duel = {};
 				array.push(Skill.emptySkill());
 			}
 			showCards(array, CardArea._cardArea.querySelector('div.skill_list[name="extends"]'));
+			array = [...worldSkills];
+			for (let i = worldSkills.length; i < MaxWorldSkill; i ++) {
+				array.push(Skill.emptySkill());
+			}
+			showCards(array, CardArea._cardArea.querySelector('div.skill_list[name="extends"]'), false, 'world_skill');
 			array = [...list.combineSkill];
 			for (let i = list.combineSkill.length; i < list.combineCount; i ++) {
 				array.push(Skill.emptySkill());
@@ -309,6 +337,11 @@ CyberAvatorArena.Duel = {};
 		await useSkill(hero, x, y);
 		// var did = await useSkill(hero, x, y);
 		// if (!did) return;
+
+		if (hero.cards.length > HandCardLimit) {
+			hero.cards.splice(0, hero.cards.length - HandCardLimit);
+		}
+
 		pickStage = 0;
 		currHero --;
 		selectedHero = currHero;
@@ -354,15 +387,15 @@ CyberAvatorArena.Duel = {};
 			}
 		}
 		hero.cards.forEach(s => {
-			if (s.available <= 0) return;
+			if (s.used || s.available <= 0) return;
 			if (s.level >= hero.energy + BasicCost) return;
 			var [active, choises] = s.check(0, hero, [x, y], board);
 			if (!active) return;
 			can = true;
 			plots.push([true, s, choises]);
 		});
-		[...hero.skills, ...hero.extendSkills].forEach(s => {
-			if (s.available <= 0) return;
+		[...hero.skills, ...hero.extendSkills, ...worldSkills].forEach(s => {
+			if (s.used || s.available <= 0) return;
 			if (s.level >= hero.energy + BasicCost) return;
 			var [active, choises] = s.check(0, hero, [x, y], board);
 			if (!active) return;
@@ -370,7 +403,7 @@ CyberAvatorArena.Duel = {};
 			plots.push([false, s, choises]);
 		});
 		fList.forEach(([s, hid]) => {
-			if (s.available <= 0) return;
+			if (s.used || s.available <= 0) return;
 			if (s.level >= hero.energy + BasicCost) return;
 			var [active, choises] = s.check(1, hero, [x, y], board, friends, hid);
 			if (!active) return;
@@ -378,7 +411,7 @@ CyberAvatorArena.Duel = {};
 			plots.push([false, s, choises]);
 		});
 		boardSkill.forEach(s => {
-			if (s.available <= 0) return;
+			if (s.used || s.available <= 0) return;
 			if (s.level >= hero.energy + BasicCost) return;
 			var [active, choises] = s.check(2, hero, [x, y], board);
 			if (!active) return;
@@ -398,8 +431,10 @@ CyberAvatorArena.Duel = {};
 		CardArea._selectList.innerHTML = '';
 		var m = CardArea._cardArea.querySelector('div.skill_list div.skill');
 		pickingSkills.forEach((plot, i) => {
+			var isHand = plot[0];
 			var ui = plot[1].getCard(true);
 			ui.classList.add('selecting');
+			if (isHand) ui.classList.add('handing');
 			ui.style.width = m.style.width;
 			ui.style.height = m.style.height;
 			ui._idx = i;
@@ -415,15 +450,12 @@ CyberAvatorArena.Duel = {};
 			pickStage = 0;
 			res = useSkill._reses.pop();
 			res(true);
-			return;
 		}
-
-		return true;
 	});
 	const showSkillGates = async (idx, skill, gates) => {
 		var hero = allHeros[currHero];
 		var choosed = new Set();
-		var latestPos = null;
+		var latestPos = null, jumpout = false;
 
 		[].forEach.call(ArenaArea._board.querySelectorAll('div.block.waiting'), block => {
 			block.classList.remove('waiting');
@@ -459,7 +491,11 @@ CyberAvatorArena.Duel = {};
 			}
 
 			let point = await getSkillPoint();
-			if (!!point) {
+			if (point === JumpOut) {
+				jumpout = true;
+				break;
+			}
+			else if (!!point) {
 				pickStage = 2;
 				let block = point.splice(2, 1)[0];
 				[].forEach.call(CardArea._selectList.querySelectorAll('div.skill'), ui => {
@@ -478,8 +514,11 @@ CyberAvatorArena.Duel = {};
 					latestPos = point;
 				}
 				else if (skill.type === 1) {
-					let owner = allHeros[block._owner];
-					console.log(hero, block, owner, point, choosed);
+					let owner = getHeroById(block._owner);
+					block._owner = -1;
+					block.classList.remove('owned');
+					block.style.backgroundColor = '';
+					owner.points --;
 				}
 
 				[].forEach.call(ArenaArea._board.querySelectorAll('div.block.waiting'), block => {
@@ -492,6 +531,9 @@ CyberAvatorArena.Duel = {};
 		}
 
 		hero.energy -= skill.level + BasicCost;
+		if (currHero === selectedHero) {
+			CardArea._infoArea.querySelector('div.line.person span.info').innerText = Math.max(0, hero.energy || 0);
+		}
 		var info = pickingSkills[idx], shouldUpdateCards = false;
 		if (info[0]) {
 			let idx = hero.cards.indexOf(info[1]);
@@ -500,24 +542,39 @@ CyberAvatorArena.Duel = {};
 				shouldUpdateCards = true;
 			}
 		}
+		skill.used = true;
 
 		pickStage = 1;
 		CardArea._selectArea.classList.remove('show');
-		if (skill.type === 0) {
-			hero.cards.push(getRandCard());
-			shouldUpdateCards = true;
-			if (!!latestPos) {
-				let block = ArenaArea._board.querySelector('.block.current');
-				if (!!block) block.classList.remove('current');
-				block = board[latestPos[1]];
-				if (!!block) {
-					block = block[latestPos[0]];
+		if (jumpout) {
+			[].forEach.call(ArenaArea._board.querySelectorAll('.block.waiting'), block => {
+				block.classList.remove('waiting');
+			});
+		}
+		else {
+			if (skill.type === 0) {
+				// hero.cards.push(getRandCard());
+				shouldUpdateCards = true;
+				if (!!latestPos) {
+					let block = ArenaArea._board.querySelector('.block.current');
+					if (!!block) block.classList.remove('current');
+					block = board[latestPos[1]];
 					if (!!block) {
-						block.classList.add('current');
+						block = block[latestPos[0]];
+						if (!!block) {
+							block.classList.add('current');
+						}
 					}
-				}
 
-				await useSkill(hero, ...latestPos);
+					await useSkill(hero, ...latestPos);
+				}
+			}
+			else if (skill.type === 1) {
+				worldSkills.push(getRandCard());
+				if (worldSkills.length > MaxWorldSkill) {
+					worldSkills.shift();
+				}
+				shouldUpdateCards = true;
 			}
 		}
 
@@ -526,14 +583,14 @@ CyberAvatorArena.Duel = {};
 			resizeArea();
 		}
 
-		if (!!useSkill._pos) {
+		if (!jumpout && !!useSkill._pos) {
 			let [x, y] = useSkill._pos;
 			delete useSkill._pos;
 			await useSkill(hero, x, y);
 		}
 
 		res = useSkill._reses.pop();
-		res(true);
+		if (!!res) res(true);
 	}
 	const getSkillPoint = () => new Promise(res => {
 		var last = getSkillPoint._res;
@@ -677,7 +734,7 @@ CyberAvatorArena.Duel = {};
 		HeroListArea.innerHTML = '';
 		HeroListArea.__chooseOne = -1;
 		list.forEach((hero, i) => {
-			var ui = hero.getCard();
+			var ui = hero.getCard(true);
 			ui.classList.remove('selected');
 			ui.__chooseId = i;
 			HeroListArea.appendChild(ui);
@@ -695,6 +752,26 @@ CyberAvatorArena.Duel = {};
 		HeroChooer.classList.remove('show');
 		await wait(300);
 		res(choise);
+	};
+	CyberAvatorArena.Duel.abaddonSkill = () => {
+		var res = getSkillPoint._res;
+		if (!!res) {
+			delete getSkillPoint._res;
+			res(JumpOut);
+		}
+
+		CardArea._selectArea.classList.remove('show');
+		[].forEach.call(ArenaArea._board.querySelectorAll('.block.waiting'), block => {
+			block.classList.remove('waiting');
+		});
+		pickStage = 0;
+
+		var l = useSkill._reses.length;
+		for (let i = 0; i < l; i ++) {
+			res = useSkill._reses.pop();
+			if (!!res) res(true);
+		}
+		pickStage = 0;
 	};
 	CyberAvatorArena.Duel.enter = async (mode, team, count) => {
 		fighting = true;
@@ -841,6 +918,7 @@ CyberAvatorArena.Duel = {};
 	});
 	CardArea._cardArea.addEventListener('click', ({target}) => {
 		if (target.classList.contains('skill')) {
+			if (pickStage > 1) return;
 			showSkill(target._skill, target);
 			if (target.classList.contains('selecting')) {
 				let skillInfo = pickingSkills[target._idx];
