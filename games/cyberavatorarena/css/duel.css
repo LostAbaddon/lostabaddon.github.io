@@ -230,6 +230,17 @@
 .scene.arena .container .side_bar .hero_tab.op_side {
 	border-color: rgba(126, 22, 113, 1.0);
 }
+.scene.arena .container .side_bar .hero_tab.loop_tab {
+	position: absolute;
+	bottom: 10px;
+	left: 110px;
+	width: 100px;
+	border-color: rgba(101, 103, 101, 1.0);
+	pointer-events: none;
+}
+[platform="mobile"] .scene.arena .container .side_bar .hero_tab.loop_tab {
+	left: 60px;
+}
 
 .scene.arena .container .card_area {
 	left: 208px;
@@ -407,46 +418,46 @@
 	opacity: 1;
 	pointer-events: auto;
 }
-.scene.arena .container .card_area .card_area .skill_list .skill {
+.scene.arena .container .card_area .card_area .skill_panel .skill {
 	position: relative;
 	display: inline-block;
 	margin-right: 10px;
 	border-radius: 5px;
 	border: 1px solid rgba(20, 74, 116, 1.0);
 }
-.scene.arena .container .card_area .card_area .skill_list .skill:last-child {
+.scene.arena .container .card_area .card_area .skill_panel .skill:last-child {
 	margin-right: 0px;
 }
-[platform="desktop"] .scene.arena .container .card_area .card_area .skill_list .skill {
+[platform="desktop"] .scene.arena .container .card_area .card_area .skill_panel .skill {
 	cursor: pointer;
 }
-.scene.arena .container .card_area .card_area .skill_list .skill .name,
-.scene.arena .container .card_area .card_area .skill_list .skill .level,
-.scene.arena .container .card_area .card_area .skill_list .skill .type,
-.scene.arena .container .card_area .card_area .skill_list .skill .map {
+.scene.arena .container .card_area .card_area .skill_panel .skill .name,
+.scene.arena .container .card_area .card_area .skill_panel .skill .level,
+.scene.arena .container .card_area .card_area .skill_panel .skill .type,
+.scene.arena .container .card_area .card_area .skill_panel .skill .map {
 	position: absolute;
 	padding: 2px;
 	background-color: rgb(21, 85, 154);
 	font-size: 8px;
 	pointer-events: none;
 }
-.scene.arena .container .card_area .card_area .skill_list .skill .name,
-.scene.arena .container .card_area .card_area .skill_list .skill .level {
+.scene.arena .container .card_area .card_area .skill_panel .skill .name,
+.scene.arena .container .card_area .card_area .skill_panel .skill .level {
 	top: 0px;
 	max-width: 50%;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
 }
-.scene.arena .container .card_area .card_area .skill_list .skill .name {
+.scene.arena .container .card_area .card_area .skill_panel .skill .name {
 	left: 0px;
 	border-radius: 0px 0px 5px 0px;
 }
-.scene.arena .container .card_area .card_area .skill_list .skill .level {
+.scene.arena .container .card_area .card_area .skill_panel .skill .level {
 	right: 0px;
 	border-radius: 0px 0px 0px 5px;
 }
-.scene.arena .container .card_area .card_area .skill_list .skill .type {
+.scene.arena .container .card_area .card_area .skill_panel .skill .type {
 	bottom: 0px;
 	left: 50%;
 	border-radius: 5px 5px 0px 0px;
@@ -454,7 +465,7 @@
 	font-style: italic;
 	color: rgb(167, 168, 189);
 }
-.scene.arena .container .card_area .card_area .skill_list .skill .map {
+.scene.arena .container .card_area .card_area .skill_panel .skill .map {
 	top: 30%;
 	left: 16%;
 	width: 68%;
@@ -463,17 +474,17 @@
 	white-space: break-spaces;
 	line-height: 0px;
 }
-.scene.arena .container .card_area .card_area .skill_list .skill .map .grid {
+.scene.arena .container .card_area .card_area .skill_panel .skill .map .grid {
 	display: inline-block;
 	width: 20%;
 	height: 20%;
 	border: 1px solid black;
 	background-color: rgb(255, 254, 249);
 }
-.scene.arena .container .card_area .card_area .skill_list .skill .map .grid.pos {
+.scene.arena .container .card_area .card_area .skill_panel .skill .map .grid.pos {
 	background-color: rgb(254, 215, 26);
 }
-.scene.arena .container .card_area .card_area .skill_list .skill .map .grid.gate {
+.scene.arena .container .card_area .card_area .skill_panel .skill .map .grid.gate {
 	background-color: rgb(21, 35, 27);
 }
 .scene.arena .container .card_area .card_area .skill_selector {
@@ -527,12 +538,15 @@
 }
 [platform="desktop"] .scene.arena .container .card_area .card_area .skill_selector .list {
 	position: absolute;
-	top: 10px;
+	top: 60px;
 	bottom: 10px;
 	left: 10px;
 	right: 10px;
 	overflow-x: hidden;
 	overflow-y: overlay;
+}
+.scene.arena .container .card_area .card_area .skill_selector .list .skill {
+	border-color: black;
 }
 
 .scene.arena .container .arena_area {
@@ -570,6 +584,10 @@
 }
 .scene.arena .container .arena_area .board .block.current {
 	border-color: white;
+}
+.scene.arena .container .arena_area .board .block.waiting {
+	border-radius: 20%;
+	background-color: rgba(250, 214, 137, 1.0);
 }
 
 @media screen and (max-height: 420px) {

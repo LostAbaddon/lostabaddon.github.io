@@ -35,3 +35,7 @@ HeroList.push(new Hero('暗网领主',
 	'../lifesimulator/assets/qian04.jpg',
 	[SkillMap['前进'], SkillMap['跳进'], SkillMap['激活'], SkillMap['快速激活']], 3, 3
 ));
+HeroList.push(new Hero('测试人员',
+	'../lifesimulator/assets/somebody01.png',
+	[SkillMap['凌波微步'], SkillMap['天翔龙闪'], SkillMap['快速激活'], SkillMap['拖库攻击']], 3, 3
+));

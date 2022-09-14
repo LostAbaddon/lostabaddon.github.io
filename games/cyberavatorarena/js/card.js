@@ -113,7 +113,7 @@ class Skill {
 		this.ui = ui;
 		return ui;
 	}
-	check (activeType, hero, curr, board, friends=[]) {
+	check (activeType, hero, curr, board, friends=[], owner) {
 		// activeType: 0: 角色技能、拓展技能、手牌; 1: 合体技能; 2: 世界技能
 		var choises = [], active = false;
 
@@ -121,7 +121,7 @@ class Skill {
 			poses.forEach(p => {
 				var dx = curr[0] - p[0];
 				var dy = curr[1] - p[1];
-				var has = activeType !== 1;
+				var hasO = activeType !== 1, hasH = hasO;
 				var can = !poses.some(p => {
 					var x = dx + p[0];
 					var y = dy + p[1];
@@ -130,15 +130,15 @@ class Skill {
 					block = block[x];
 					if (!block) return true;
 					if (activeType === 1) {
-						if (block._owner !== hero.idx) has = true;
+						if (block._owner !== hero.idx) hasO = true;
+						if (block._owner === owner) hasH = true;
 						if (!friends.includes(block._owner)) return true;
 					}
 					else {
 						if (block._owner !== hero.idx) return true;
 					}
 				});
-				if (!has || !can) return;
-				console.log('--:::>', p);
+				if (!hasO || !hasH || !can) return;
 
 				var result = [];
 				if (this.type === 2) {
@@ -165,12 +165,13 @@ class Skill {
 						var x = dx + g[0];
 						var y = dy + g[1];
 						var b = board[y];
-						if (this.type === 0) active = true;
+						// if (this.type === 0) active = true;
 						if (!b) return;
 						b = b[x];
 						if (!b) return;
 						if (this.type === 0) {
 							if (b._owner === -1) {
+								active = true;
 								result.push([x, y]);
 							}
 						}
