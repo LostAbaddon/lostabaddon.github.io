@@ -6,6 +6,7 @@ CyberAvatorArena.Duel = {};
 	const SideBar = ScnArena.querySelector('div.container > div.side_bar');
 	const CardArea = ScnArena.querySelector('div.container > div.card_area');
 	const ArenaArea = ScnArena.querySelector('div.container > div.arena_area');
+	const CardChooser = ScnArena.querySelector('div.card_chooser');
 
 	CardArea._heroArea = CardArea.querySelector('div.hero_area');
 	CardArea._infoArea = CardArea.querySelector('div.info_area');
@@ -14,6 +15,10 @@ CyberAvatorArena.Duel = {};
 	CardArea._selectList = CardArea._selectArea.querySelector('div.list');
 
 	ArenaArea._board = ArenaArea.querySelector('div.board');
+
+	CardChooser._onhand = CardChooser.querySelector('div.panel.onhand div.list');
+	CardChooser._extend = CardChooser.querySelector('div.panel.extend div.list');
+	CardChooser._combine = CardChooser.querySelector('div.panel.combine div.list');
 
 	const JumpOut = Symbol('JumpOut');
 	const ColorList = [
@@ -185,7 +190,7 @@ CyberAvatorArena.Duel = {};
 		loopCount.innerText = `第${currLoopIndex}局`;
 		SideBar.appendChild(loopCount);
 
-		changeHero();
+		switchHero();
 	};
 	const getHeroById = id => {
 		var hero = null;
@@ -195,6 +200,29 @@ CyberAvatorArena.Duel = {};
 			return true;
 		});
 		return hero;
+	};
+	const switchHero = async () => {
+		var hero = allHeros[currHero];
+
+		CardChooser._onhand.innerHTML = '';
+		hero.cards.forEach(skill => {
+			var ui = skill.getCard(true);
+			CardChooser._onhand.appendChild(ui);
+		});
+		CardChooser._extend.innerHTML = '';
+		hero.extendSkills.forEach(skill => {
+			var ui = skill.getCard(true);
+			CardChooser._extend.appendChild(ui);
+		});
+		CardChooser._combine.innerHTML = '';
+		hero.combineSkill.forEach(skill => {
+			var ui = skill.getCard(true);
+			CardChooser._combine.appendChild(ui);
+		});
+
+		CardChooser.classList.add('show');
+
+		changeHero();
 	};
 	const changeHero = () => {
 		var hero = allHeros[selectedHero];
@@ -269,7 +297,7 @@ CyberAvatorArena.Duel = {};
 				array.push(Skill.emptySkill());
 			}
 			showCards(array, CardArea._cardArea.querySelector('div.skill_list[name="combine"]'));
-			if (mySide.includes(list)) {
+			if (duelMode === 1 || mySide.includes(list)) {
 				showCards(list.cards, CardArea._cardArea.querySelector('div.skill_list[name="hands"]'));
 			}
 			else {
@@ -356,7 +384,7 @@ CyberAvatorArena.Duel = {};
 					tab.classList.remove('current');
 				}
 			});
-			changeHero();
+			await switchHero();
 		}
 		else {
 			ArenaArea.style.opacity = 0;
@@ -627,6 +655,9 @@ CyberAvatorArena.Duel = {};
 		[].forEach.call(CardArea._cardArea.querySelectorAll('div.skill_list'), line => {
 			CyberAvatorArena.Tool.initHorizontalScroller(line);
 		});
+		// CyberAvatorArena.Tool.initHorizontalScroller(CardChooser._onhand);
+		// CyberAvatorArena.Tool.initHorizontalScroller(CardChooser._extend);
+		// CyberAvatorArena.Tool.initHorizontalScroller(CardChooser._combine);
 	};
 	CyberAvatorArena.Duel.initCards = async () => {
 		var timestamp = Date.now();
@@ -860,6 +891,13 @@ CyberAvatorArena.Duel = {};
 			let id = await CyberAvatorArena.Duel.showHeroChooser(list, '请选择你的英雄');
 			let hero = list[id];
 			mySide.push(hero.copy());
+		}
+
+		if (teamMode === 3) {
+			CardChooser.querySelector('div.panel.combine').style.display = 'block';
+		}
+		else {
+			CardChooser.querySelector('div.panel.combine').style.display = 'none';
 		}
 
 		mySide.forEach(h => allHeros.push(h));
