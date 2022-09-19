@@ -173,10 +173,6 @@ CyberAvatorArena.Duel = {};
 			tab.innerText = hero.name + ' (' + hero.points + ')';
 			tab._id = i;
 
-			var count = Math.floor(currLoopIndex / 5) + 1;
-			for (let i = 0; i < count; i ++) {
-				hero.cards.push(getRandCard());
-			}
 			[...hero.skills, ...hero.extendSkills, ...hero.combineSkill, ...hero.cards].forEach(skill => {
 				skill.available = skill.count;
 				skill.used = false;
@@ -203,19 +199,37 @@ CyberAvatorArena.Duel = {};
 	};
 	const switchHero = async () => {
 		var hero = allHeros[currHero];
+		console.log(hero);
 
+		var count = Math.floor(currLoopIndex / 5) + 1;
+		for (let i = 0; i < count; i ++) {
+			var skill = getRandCard();
+			skill.available = skill.count;
+			skill.used = false;
+			hero.cards.push(skill);
+		}
 		CardChooser._onhand.innerHTML = '';
 		hero.cards.forEach(skill => {
 			var ui = skill.getCard(true);
 			CardChooser._onhand.appendChild(ui);
 		});
+
+		var list = [...hero.extendSkills];
+		for (let i = hero.extendSkills.length; i < hero.extendCount; i ++) {
+			list.push(Skill.emptySkill());
+		}
 		CardChooser._extend.innerHTML = '';
-		hero.extendSkills.forEach(skill => {
+		list.forEach(skill => {
 			var ui = skill.getCard(true);
 			CardChooser._extend.appendChild(ui);
 		});
+
+		list = [...hero.combineSkill];
+		for (let i = hero.combineSkill.length; i < hero.combineCount; i ++) {
+			list.push(Skill.emptySkill());
+		}
 		CardChooser._combine.innerHTML = '';
-		hero.combineSkill.forEach(skill => {
+		list.forEach(skill => {
 			var ui = skill.getCard(true);
 			CardChooser._combine.appendChild(ui);
 		});

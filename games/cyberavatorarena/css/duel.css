@@ -176,6 +176,70 @@
 	border-radius: 10px 0px 0px 0px;
 }
 
+.scene.arena .skill {
+	position: relative;
+	display: inline-block;
+	margin-right: 10px;
+	border-radius: 5px;
+	border: 1px solid rgba(20, 74, 116, 1.0);
+}
+.scene.arena .skill .name,
+.scene.arena .skill .level,
+.scene.arena .skill .type,
+.scene.arena .skill .map {
+	position: absolute;
+	padding: 2px;
+	background-color: rgb(21, 85, 154);
+	font-size: 8px;
+	pointer-events: none;
+}
+.scene.arena .skill .name,
+.scene.arena .skill .level {
+	top: 0px;
+	max-width: 50%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.scene.arena .skill .name {
+	left: 0px;
+	border-radius: 0px 0px 5px 0px;
+}
+.scene.arena .skill .level {
+	right: 0px;
+	border-radius: 0px 0px 0px 5px;
+}
+.scene.arena .skill .type {
+	bottom: 0px;
+	left: 50%;
+	border-radius: 5px 5px 0px 0px;
+	transform: translateX(-50%);
+	font-style: italic;
+	color: rgb(167, 168, 189);
+}
+.scene.arena .skill .map {
+	top: 30%;
+	left: 16%;
+	width: 68%;
+	height: 51%;
+	padding: 0px;
+	white-space: break-spaces;
+	line-height: 0px;
+}
+.scene.arena .skill .map .grid {
+	display: inline-block;
+	width: 20%;
+	height: 20%;
+	border: 1px solid black;
+	background-color: rgb(255, 254, 249);
+}
+.scene.arena .skill .map .grid.pos {
+	background-color: rgb(254, 215, 26);
+}
+.scene.arena .skill .map .grid.gate {
+	background-color: rgb(21, 35, 27);
+}
+
 .scene.arena .container > div {
 	position: absolute;
 	top: 5px;
@@ -422,13 +486,6 @@
 	opacity: 1;
 	pointer-events: auto;
 }
-.scene.arena .container .card_area .card_area .skill_panel .skill {
-	position: relative;
-	display: inline-block;
-	margin-right: 10px;
-	border-radius: 5px;
-	border: 1px solid rgba(20, 74, 116, 1.0);
-}
 .scene.arena .container .card_area .card_area .skill_panel .skill:last-child {
 	margin-right: 0px;
 }
@@ -437,62 +494,6 @@
 }
 [platform="desktop"] .scene.arena .container .card_area .card_area .skill_panel .skill {
 	cursor: pointer;
-}
-.scene.arena .container .card_area .card_area .skill_panel .skill .name,
-.scene.arena .container .card_area .card_area .skill_panel .skill .level,
-.scene.arena .container .card_area .card_area .skill_panel .skill .type,
-.scene.arena .container .card_area .card_area .skill_panel .skill .map {
-	position: absolute;
-	padding: 2px;
-	background-color: rgb(21, 85, 154);
-	font-size: 8px;
-	pointer-events: none;
-}
-.scene.arena .container .card_area .card_area .skill_panel .skill .name,
-.scene.arena .container .card_area .card_area .skill_panel .skill .level {
-	top: 0px;
-	max-width: 50%;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-}
-.scene.arena .container .card_area .card_area .skill_panel .skill .name {
-	left: 0px;
-	border-radius: 0px 0px 5px 0px;
-}
-.scene.arena .container .card_area .card_area .skill_panel .skill .level {
-	right: 0px;
-	border-radius: 0px 0px 0px 5px;
-}
-.scene.arena .container .card_area .card_area .skill_panel .skill .type {
-	bottom: 0px;
-	left: 50%;
-	border-radius: 5px 5px 0px 0px;
-	transform: translateX(-50%);
-	font-style: italic;
-	color: rgb(167, 168, 189);
-}
-.scene.arena .container .card_area .card_area .skill_panel .skill .map {
-	top: 30%;
-	left: 16%;
-	width: 68%;
-	height: 51%;
-	padding: 0px;
-	white-space: break-spaces;
-	line-height: 0px;
-}
-.scene.arena .container .card_area .card_area .skill_panel .skill .map .grid {
-	display: inline-block;
-	width: 20%;
-	height: 20%;
-	border: 1px solid black;
-	background-color: rgb(255, 254, 249);
-}
-.scene.arena .container .card_area .card_area .skill_panel .skill .map .grid.pos {
-	background-color: rgb(254, 215, 26);
-}
-.scene.arena .container .card_area .card_area .skill_panel .skill .map .grid.gate {
-	background-color: rgb(21, 35, 27);
 }
 .scene.arena .container .card_area .card_area .skill_selector {
 	position: absolute;
