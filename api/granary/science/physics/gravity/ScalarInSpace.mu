@@ -30,11 +30,17 @@ $$
 R_{\mu \nu} - \frac{1}{2} R g_{\mu \nu} + \Lambda g_{\mu \nu} = 8 \pi \partial_\mu \phi \partial_\nu \phi - 4 \pi \left( \partial_\alpha \phi \partial_\beta \phi g^{\alpha \beta} + m^2 \phi^2 \right) g_{\mu \nu}
 $$
 
-所以我们就有如下场方程：
+在考虑弯曲时空中的标量场运动方程：
+
+$$
+\frac{1}{\sqrt{-g}} \partial_\mu \left( \sqrt{-g} g^{\mu \nu} \partial_\nu \phi \right) - m^2 \phi = 0
+$$
+
+这里我们只考虑径向，即$\phi = \phi(t, r)$。这样，我们就能得到如下这组场和时空的联合运动方程组：
 
 $$
 \begin{cases}
-m^2 \phi = \partial_\mu \left( g^{\mu \nu} \partial_\nu \phi \right)\\
+m^2 \phi = \partial_\mu \left( g^{\mu \nu} \partial_\nu \phi \right) - \frac{\dot f h + f \dot h}{2 f^2 h} \dot \phi + \frac{\phi'}{f h} + \frac{f' h + f h'}{2 f h^2} \phi'\\
 4 \pi \partial_\mu \phi \partial_\nu \phi g^{\mu \nu} = \frac{1}{2} R - 2 \Lambda - 8 \pi m^2 \phi^2\\
 1 - \frac{1}{h} + \frac{r}{2 h} \left( \frac{h'}{h} - \frac{f'}{f} \right) = \left( \Lambda + 4 \pi m^2 \phi^2 \right) r^2\\
 \frac{h'}{r h} + \frac{H}{4 f} = 8 \pi \phi'^2 + \left( \Lambda + 4 \pi m^2 \phi^2 \right) h\\
@@ -48,7 +54,7 @@ $$
 
 $$
 \begin{cases}
-m^2 \phi = \frac{1}{h} \phi'' - \frac{1}{f} \ddot \phi + \frac{\dot f}{f^2} \dot \phi - \frac{h'}{h^2} \phi'\\
+m^2 \phi = \frac{1}{h} \phi'' - \frac{1}{f} \ddot \phi + \frac{\dot f}{2 f^2} \dot \phi - \frac{h'}{2 h^2} \phi' - \frac{\dot h}{2 f h} \dot \phi + \frac{f'}{2 f h} \phi' + \frac{1}{f h} \phi'\\
 \partial_t \ln h = 8 \pi r \phi' \dot \phi\\
 \partial_r \ln \left( \frac{h}{f} \right) = 2 \left( \Lambda + 4 \pi m^2 \phi^2 \right) r h - \frac{2 h - 2}{r}\\
 \partial_r \ln (h f) = 8 \pi r \left( \phi'^2 + \dot \phi^2 \frac{h}{f} \right)
@@ -77,7 +83,7 @@ $$
 
 $$
 \begin{cases}
-m^2 \phi = \frac{1}{h} \phi'' - \frac{1}{f} \ddot \phi + \frac{\dot f}{f^2} \dot \phi - \frac{h'}{h^2} \phi'\\
+m^2 \phi = \frac{1}{h} \phi'' - \frac{1}{f} \ddot \phi + \frac{\dot f}{2 f^2} \dot \phi - \frac{h'}{2 h^2} \phi' - \frac{\dot h}{2 f h} \dot \phi + \frac{f'}{2 f h} \phi' + \frac{1}{f h} \phi'\\
 \frac{ 2 \dot M }{r - 2 M} = 8 \pi r \phi' \dot \phi\\
 \partial_r \ln \left( \frac{h}{f} \right) = 2 \left( \Lambda + 4 \pi m^2 \phi^2 \right) \frac{r^2}{r - 2 M} - \frac{4 M}{r (r - 2 M)}\\
 \partial_r \ln (h f) = 8 \pi r \left( \phi'^2 + \dot \phi^2 \frac{h}{f} \right)\\
@@ -95,7 +101,7 @@ h = \frac{r}{r - 2 M}\\
 \frac{ 2 \dot M }{r - 2 M} = 8 \pi r \phi' \dot \phi\\
 \partial_r \ln f = \frac{2 ( r M' + M )}{r (r - 2 M)}\\
 \phi'^2 + \dot \phi^2 \frac{h}{f} = \frac{M'}{2 \pi r (r - 2 M)}\\
-\frac{1}{h} \phi'' - \frac{1}{f} \ddot \phi + \frac{\dot f}{f^2} \dot \phi - \frac{h'}{h^2} \phi' = 0\\
+\frac{1}{h} \phi'' - \frac{1}{f} \ddot \phi + \frac{\dot f}{2 f^2} \dot \phi - \frac{h'}{2 h^2} \phi' - \frac{\dot h}{2 f h} \dot \phi + \frac{f'}{2 f h} \phi' + \frac{1}{f h} \phi' = 0\\
 \frac{2 ( r M' - M )}{r^2 (r - 2 M)} + \frac{H}{4 f} = 8 \pi \phi'^2\\
 H = \frac{12 r \dot M^2}{(r - 2 M)^3} + \frac{4 r \ddot M}{(r - 2 M)^2} - 2 f'' + \frac{f'^2}{f} - \frac{\dot f}{f} \frac{2 r \dot M}{(r - 2 M)^2} + \frac{2 (r M' - M)}{r (r - 2 M)} f'
 \end{cases}
@@ -149,73 +155,121 @@ $$
 
 ##	逼近发散——黑洞是否可能在有限未来出现？
 
-我们下面主要将视线集中在可能会出现奇异性的区域。
+我们下面主要将视线集中在可能会出现奇异性的区域，在这块区域中$f \rightarrow 0$、$h \rightarrow \infty$、$f h$有限，我们将这个区域称为“__近奇异区域__”。
 
-在这里，$h \gg 1$而$f \approx 0$，且$f h < 1$，这些都是上面我们已经得到的结果。
+这样的区域有可能在未来会演化出真正的奇异性，但也可能不会，我们下面就要看是否可能演化出奇异性来。
 
-下面，根据$f h < 1$，我们假定在这个近奇异区域中$f \sim h^{- 1 - \varepsilon}$且$\varepsilon > 1$，所以现在在近奇异区运动方程为：
+我们可以将运动方程简化为：
+
+$$
+\begin{cases}
+m^2 \phi = \frac{1}{h} \phi'' - \frac{1}{f} \ddot \phi + \frac{1}{f h} \phi' + \frac{\dot \phi}{2 f} \partial_t \ln \frac{f}{h} + \frac{\phi'}{2 h} \partial_r \ln \frac{f}{h}\\
+\partial_r \ln h = 4 \pi r \left( \phi'^2 + \dot \phi^2 \frac{h}{f} \right) + \left( \Lambda + 4 \pi m^2 \phi^2 \right) r h - \frac{h}{r}\\
+\partial_r \ln f = 4 \pi r \left( \phi'^2 + \dot \phi^2 \frac{h}{f} \right) - \left( \Lambda + 4 \pi m^2 \phi^2 \right) r h + \frac{h}{r}\\
+\partial_t \ln h = 8 \pi r \phi' \dot \phi
+\end{cases}
+$$
+
+其中第一个场运动部分可以进一步化简为：
 
 $$
 \begin{align}
-\therefore & \quad (2 + \varepsilon) 4 \pi \rho r h = \varepsilon \frac{1}{r} (h - 1)\\
-\therefore & \quad h \approx \left[ \frac{\varepsilon f_0}{(2 + \varepsilon) 4 \pi r^2} \right]^{\frac{1}{1 + \varepsilon}} \left| \dot \phi \right|^{- \frac{2}{1 + \varepsilon}}\\
-\therefore & \quad 8 \pi r \phi' \dot \phi \approx - \frac{2}{1 + \varepsilon} \frac{\ddot \phi}{\dot \phi}\\
-\therefore & \quad \ddot \phi \approx - (1 + \varepsilon) 4 \pi r \phi' \dot \phi^2\\
+m^2 \phi &= - \frac{1}{f} \ddot \phi + \frac{\dot \phi}{2 f} \partial_t \ln \frac{f}{h}\\
+\therefore \ddot \phi & \approx \frac{\dot \phi}{2} \partial_t \ln \frac{f}{h}\\
+\therefore \dot \phi^2 & \approx R(r)^2 \frac{f}{h}
 \end{align}
 $$
 
-如果我们将$\phi(r, t_0) = \phi_0 (r)$、$\phi'(r, t_0) = \phi_r (r)$、$\dot \phi(r, t_0) = \phi_t (r)$视为已知条件，则可以由此估算出下一刻的标量场为：
+也就是说，场本身在这个近奇异区域中，标量场几乎被冻结而不会发生改变。
+
+将这个结果代回则可得：
 
 $$
 \begin{align}
-\phi & \approx \phi_0 + \frac{\ln \left[ 1 + (1 + \varepsilon) 4 \pi r \phi_r \phi_t (t - t_0) \right]}{(1 + \varepsilon) 4 \pi r \phi_r}\\
-\partial_t \phi & \approx \frac{\phi_t}{1 + (1 + \varepsilon) 4 \pi r \phi_r \phi_t (t - t_0)}
+\partial_r \ln (f h) &= 8 \pi r \left( \phi'^2 + R^2 \right)\\
+\partial_t \sqrt{h} &= 4 \pi r R \phi' \sqrt{f}
 \end{align}
 $$
 
-由于，我们希望在$h \gg 1$的区域随着时间的演化能出现$h$发散的奇异性区域，这实际上就要求$\dot h$在该奇异性区域必须大于0，反应在该区域的初始条件上，就等于要求$\phi_r \phi_t > 0$，而这又反过来告诉我们：$\phi$与$\partial_t \phi$不可能在有限区域中发散——一旦它进入可能构成奇异性的“预备区域”，它自己会立刻从中离开，除非初始条件已经存在奇异性。
-
-当然，也存在一种可能，便是$\partial_r \phi$在近奇异区域的某个特定的位置发散，从而造成$\phi$和$\partial_t \phi$，因此我们需要研究一下$\partial_r \phi$的行为。
-
-将上面的结果代入标量场运动方程及约束方程，我们将得到一个看起来很简洁的结果：
+在近奇异区域中，无论是$\sqrt{f}$、$\phi'$还是待定函数$R(r)$都不发散，而由于$R(r)$不含时，所以要在有限时间内得到$\sqrt{h}$的结果，只能寄希望于$\phi'$在有限时间内可以发散。因此我们考虑近奇异区域中$\phi'^2$趋向无穷的小区域，并考虑其中$\phi'$的随时演变：
 
 $$
 \begin{align}
-\phi'' & \approx m^2 \phi h + \frac{\varepsilon - 1}{r} h \phi'\\
-\dot \phi' & \approx \left[ \left( \Lambda + 4 \pi m^2 \phi^2 \right) r - \frac{\varepsilon (1 + \varepsilon)}{(2 + \varepsilon) r} \right] h \dot \phi
+\because \dot \phi & = R \sqrt{\frac{f}{h}}\\
+\therefore \dot \phi' &= \sqrt{\frac{f}{h}} \left\{ R' + R h \left[ \frac{1}{r} - \left( \Lambda + 4 \pi m^2 \phi^2 \right) r \right] \right\}\\
+&\approx \sqrt{f h} R \left[ \frac{1}{r} - \left( \Lambda + 4 \pi m^2 \phi^2 \right) r \right]
 \end{align}
 $$
 
-由第二条方程我们可知（别忘了将$h$表达为$\dot \phi$的函数），虽然由于近奇异区域中$\dot \phi < 0$，从而在宇宙学常数和标量场质量都不大时，场的径向梯度$\phi'$会随时增大，因此似乎可以形成一个$\partial_t \phi = 0$从而度规出现奇异性的情况。但进一步研究该方程的行为后，我们可以发现径向梯度不可能在有限区域内达到发散，所以标量场不可能在有限时间内衰减为0，除非近奇异区内已经存在位置使梯度发散。
+因此我们下面主要看这两个方程：
 
-换言之，即便考虑上$\partial_r \phi$随着时间的不断增长，__近奇异区域内如果本来没有奇异性的话，也无法在有限坐标时内自然演化出奇异性__——当然，如果我们沿着某根测地线下落的话，在内秉时间我们可以遇到奇异性，换言之在最大解析延拓下，奇异性依然是可以出现的，这是早已由彭罗斯证明了的。
+$$
+\begin{cases}
+\partial_r \ln \sqrt{f h} \approx 4 \pi r \phi'^2\\
+\dot \phi' \approx \sqrt{f h} R \left[ \frac{1}{r} - \left( \Lambda + 4 \pi m^2 \phi^2 \right) r \right]
+\end{cases}
+$$
 
-但，就和只考虑经典点粒子以及理想流体时的情况一样，由于时空奇异性不可能在有限坐标时内出现，而在引入霍金辐射后，任何奇异性区域都会在有限坐标时内蒸发干净，这至少告诉我们：__在奇异性区域之外的标量场不可能在有限时间内进入黑洞内部，即便它在尽全力向黑洞坠去__。
+我们取$\phi'_M$为$\left| \phi' \right|$在我们所去近奇异区域中的的最大值，而$r_M$为取到该最大值时的$r$值，而$R_M = R(r_M)$。同理，取$\phi'_m$为$\left| \phi' \right|$的最小值，相应就有$r_m$和$R_m$。
 
->	事实上，由于Unruh效应即便没有视界这类时空奇异性区域也一样存在，它是非平直时空（包括从加速运动看来的等效非平直时空）的固有特性，因此在一个没有奇异性的使用也一样存在霍金辐射，从而这类时空的近奇异区域看来一样会排斥奇异性的诞生。
+这样，我们能将第一个方程改写为：
 
+$$
+\begin{align}
+& 4 \pi r \left( \phi'_M \right)^2 > \partial_r \ln \sqrt{f h} > 4 \pi r \left( \phi'_m \right)^2\\
+\therefore & F(t) e^{2 \pi \left( \phi'_M \right)^2 r^2} > \sqrt{f h} > F(t) e^{2  \pi \left( \phi'_m \right)^2 r^2}
+\end{align}
+$$
 
-当然，从上面我们似乎还能看到另外一种可能性：
+这么一来，$\phi'$的最大点与最小点的演化方程就可以写为：
 
-在近奇异性区域内，由于某些原因，比如霍金辐射，使得原本吸收标量场而造成的$\phi_r \phi_t > 0$的情况被“反转”，以致于$\phi_r \phi_t \ll 0$，那么便有可能在有限时间内出现时空奇异性。
+$$
+\begin{align}
+\dot \phi'_m & > F(t) e^{2  \pi \left( \phi'_m \right)^2 r_m^2} R_m \left[ \frac{1}{r_m} - \left( \Lambda + 4 \pi m^2 \phi_m^2 \right) r_m \right]\\
+\dot \phi'_M & < F(t) e^{2  \pi \left( \phi'_M \right)^2 r_M^2} R_M \left[ \frac{1}{r_M} - \left( \Lambda + 4 \pi m^2 \phi_M^2 \right) r_M \right]
+\end{align}
+$$
 
-而这样的情况却是有可能出现的：近奇异性区域对应的Unruh效应非常强烈，从而使得向外辐射出的场比被引力吸收来的场要强得多，那么在一阵辐射爆发的瞬间，一个奇异的时空区域便有可能形成。
+我们下面考虑如下微分方程：
 
-这里已经需要考虑量子引力了，所以已经不是单纯用广义相对论的本文能解释的问题了。
+$$
+f'(t) = A(t) e^{B f(t)^2}
+$$
 
+其解为：
 
-而，从上面的分析我们可以看出，至少在只有径向运动的情况下，标量场会逐渐向中心聚拢，越往外的标量场会越“稀薄”，最后形成一个近奇异区域，这里的时空相较外部会有更大的弯曲，具有很强的引力红移，且该区域内时空的弯曲程度会越来越大，但在无穷远观测者看来它永远也无法形成时空真正奇异的黑洞，标量场会被不断吸入该区域，并形成一个厚厚的“保护壳”。从落向该近奇异性区域的观测者看来，这个区域会在有限的未来形成黑洞——但如果我们考虑到近奇异性区域本身所具有的霍金辐射，那既有可能无论是在无穷远观测者还是自由落体观测者看来，这个区域都不会形成黑洞，而会形成一个达到动态平衡的区域，在这里霍金辐射足够强，它可以和标量场抗衡、将标量场拒斥在外，形成一个时空扭曲极强但还没有强到能形成黑洞的“灰洞”。
+$$
+f = \frac{1}{\sqrt{B}} \mathrm{erf}^{-1} \left[ t_0 + 2 \sqrt{\frac{B}{\pi}} \int_{0}^t A(z) dz \right]
+$$
 
-当然，这是在完全不考虑标量场具体是什么物体对象的情况下，现实中的粒子显然不是标量场，而我们也需要更加相似的关于量子引力的信息才能真正解决问题。
+对于逆误差函数$\mathrm{erf}^{-1}$，它的定义域是$(-1, 1)$，当取$\pm 1$时函数发散。利用这个结果，我们考虑$m = 0$的情况可得：
 
+$$
+\begin{align}
+\phi'_m (t, r) & > \frac{1}{\sqrt{2 \pi} r_m} \mathrm{erf}^{-1} \left[ t_1 (r) + 2 \sqrt{2} R_m \left( 1 - \Lambda r_m^2 \right) \int_{0}^t F(z) dz \right]\\
+\phi'_M (t, r) & < \frac{1}{\sqrt{2 \pi} r_M} \mathrm{erf}^{-1} \left[ t_2 (r) + 2 \sqrt{2} R_M \left( 1 - \Lambda r_M^2 \right) \int_{0}^t F(z) dz \right]
+\end{align}
+$$
 
-#	结论
+由于$\sqrt{f h} > 0$，否则时空退化，所以$F(t) > 0$。当在近奇异区中$(1 - \Lambda r^2) > 0$时，$R \phi'$会增大，这表示在$\sqrt{h}$的峰值之外，$\sqrt{h}$和$\phi'$都会随着r的增加而减小，而$\dot \phi$则保持为正；反之，在峰值内侧，$\sqrt{h}$和$\phi'$都随r的减小而减小，$\dot \phi$依然保持为正。这就是说在峰值的两侧场在不断增大，但整个峰在变得越来越陡峭，最终当参数部分达到1时这个峰就发散了——坐标奇异性的视界就这么出现了。
 
-通过上述分析，我们可以得到如下结论：
+但，如果在近奇异区中$(1 - \Lambda r^2) < 0$会发生什么？这个时候峰值两侧的场会越来越小，但同时峰依然会越来越陡峭。也就是说，在前一个情况中，峰的两侧会聚集标量场；而在后一个情况中，场被抽到峰上中。
 
-1.	标量场不可能在这类准Schwarzschild时空的有限坐标时内完全落入黑洞；
-2.	考虑霍金辐射的话，时空奇异性区域几乎不可能出现；
-	-	除非近奇异性区域突然爆发一次，那么在这个瞬间有可能构造出奇异性时空，但这种情况极难发生
-3.	最有可能的情况，是时空中心会形成一个霍金辐射与标量场坍缩相抗衡抵消的区域，在行为上表现为灰洞：引力极强，从而有极强的霍金辐射，但又没强到出现时空奇异性。
+现在就只剩下最后一个问题：逆误差函数的参数部分，是否真的可能达到1这个发散边界？
+
+事实上，由于整个时空是满足球对称条件的，所以我们如果直接使用[Birkhoff定理](https://en.wikipedia.org/wiki/Birkhoff%27s_theorem_(relativity)的话，那么$f h$应该是常数，因此有：
+
+$$
+\begin{align}
+F(t) & \sim e^{- 2 \pi r^2 \phi'^2}\\
+\phi' (t, r) & \sim \frac{1}{\sqrt{2 \pi} r} \mathrm{erf}^{-1} \left[ t_2 (r) + 2 \sqrt{2} R \left( 1 - \Lambda r^2 \right) \int_{0}^t F(z) dz \right]
+\end{align}
+$$
+
+也就是说，逆误差函数的参数部分将永远无法在有限时间t内达到发散边界值1。
+
+因此，近奇异区域中的峰值的确会越来越高，但却永远不会在有限时间内达到发散。
+
+也就是说，在这个球对称时空中，可能会存在一个标量场“高度凝结”、时空度规非常扭曲、接近发散的临界区域，可以被称之为“灰洞”。
 
 这些结论和点粒子及理想流体的情况非常相似。
