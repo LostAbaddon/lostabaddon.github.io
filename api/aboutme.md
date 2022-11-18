@@ -43,4 +43,5 @@
 -	[Mastodon](https://masto.ai/@lostabaddon)
 -	[Matters](https://matters.news/@LostAbaddon)
 -	[豆瓣](https://www.douban.com/people/LostAbaddon)
+-	[Telegram](https://t.me/lostabaddon)
 -	[Github](https://github.com/LostAbaddon/lostabaddon.github.io/discussions)
