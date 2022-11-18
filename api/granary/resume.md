@@ -12,7 +12,8 @@
 -	兴趣爱好：数学，物理，算法信息论，历史，跑步，桌游
 -	发表作品
 	-	[《信用超导重塑社会经济——区块链创新理论与实践》](https://detail.tmall.com/item.htm?id=645784153731)的作者之一，负责技术部分与信用超导体概念的架构
-	-	翻译天文科普著作《Calculating the Cosmos》
+	-	[《另一颗星球不存在》](https://book.douban.com/subject/35898060/)
+	-	翻译天文科普著作《Calculating the Cosmos》（待出版）
 
 # 工作经历
 
@@ -32,3 +33,11 @@
 兴趣广泛，学习能力强，有进取心。
 
 尤其在遇到感兴趣的课题时，会不自觉地处于废寝忘食的状态。
+
+# 联系方式
+
+-	[Twitter](https://twitter.com/LostAbaddon)
+-	[Mastodon](https://masto.ai/@lostabaddon)
+-	[Matters](https://matters.news/@LostAbaddon)
+-	[豆瓣](https://www.douban.com/people/LostAbaddon)
+-	[Github](https://github.com/LostAbaddon/lostabaddon.github.io/discussions)

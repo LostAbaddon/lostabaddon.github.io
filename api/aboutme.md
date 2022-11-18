@@ -37,8 +37,10 @@
 
 不告诉你~~~
 
-# 留言堂
+# 联系我
 
-如果想给本人留言，请点击[这里](https://github.com/LostAbaddon/lostabaddon.github.io/discussions)。
-
-或者关注本人推特：[LostAbaddon](https://twitter.com/LostAbaddon)。
+-	[Twitter](https://twitter.com/LostAbaddon)
+-	[Mastodon](https://masto.ai/@lostabaddon)
+-	[Matters](https://matters.news/@LostAbaddon)
+-	[豆瓣](https://www.douban.com/people/LostAbaddon)
+-	[Github](https://github.com/LostAbaddon/lostabaddon.github.io/discussions)
