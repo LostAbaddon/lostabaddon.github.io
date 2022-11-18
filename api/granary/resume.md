@@ -5,7 +5,6 @@
 
 # 个人介绍
 
--	姓名：[LostAbaddon](mailto:lostabaddon@gmail.com)
 -	姓名：[LostAbaddon](lostabaddon@gmail.com)
 -	年龄：30+
 -	工作能力：IT（后台、手机端、网页端、智能合约、底层链），产品设计，团队管理，算法
