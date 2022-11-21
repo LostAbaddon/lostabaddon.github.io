@@ -37,7 +37,7 @@
 # 联系方式
 
 -	[Twitter](https://twitter.com/LostAbaddon)
--	[Mastodon](https://masto.ai/@lostabaddon)
+-	[Mastodon](https://m.cmx.im/@LostAbaddon)
 -	[Matters](https://matters.news/@LostAbaddon)
 -	[豆瓣](https://www.douban.com/people/LostAbaddon)
 -	[Telegram](https://t.me/lostabaddon)
