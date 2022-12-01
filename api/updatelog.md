@@ -1,5 +1,11 @@
 # 更新日志
 
+-	2022/12/01
+	-	将UA更新到GA-4
+-	2022/10/20
+	-	增加[黑洞计算器](/page/tools/blackholeCalculator)
+-	2022/06/20
+	-	数据库的[常用数据](/article/library/data.md)中增加天文相关数据
 -	2021/10/20
 	-	[终极生命游戏](/page/entertain/ultralife)
 -	2021/10/18
