@@ -2,7 +2,7 @@
 		// if (!!gaid && !location.host.match(/localhost/i)) {
 		if (!!gaid) {
 			window.dataLayer = window.dataLayer || [];
-			window.gtag = (...args) => dataLayer.push(arguments);
+			window.gtag = (...args) => dataLayer.push(args);
 			window.gaid = gaid;
 			gtag('js', new Date());
 			gtag('config', gaid);
