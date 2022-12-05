@@ -86,7 +86,7 @@ $$
 \begin{align}
 \Delta_l \rho (l; x^\mu) &= \left( \sum_{\delta^\mu} \frac{1}{n(x^\mu + \delta^\mu)} \rho (l; x^\mu + \delta^\mu) \right) - \rho (l; x^\mu)\\
 &= \frac{1}{n} \sum_{\delta^\mu} \left( \rho (l; x^\mu + \delta^\mu) - \rho (l; x^\mu) \right)\\
-&= \frac{1}{n} \sum_{\delta^\mu} \Delta_{\delta^\mu} \rho (l; x^\mu)
+&= \frac{1}{n} \sum_{\delta^\mu} \Delta_{\delta^\mu}^2 \rho (l; x^\mu)
 \end{align}
 $$
 
