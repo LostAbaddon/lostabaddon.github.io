@@ -3,6 +3,8 @@ AUTHOR: LostAbaddon
 EMAIL: LostAbaddon@gmail.com
 DESCRIPTION: MarkUp 语法演示文档，展示了所有可用的 MarkUp 语法
 KEYWORD: MarkUp
+PUBLISH: 2021/04/09 11:18
+UPDATE: 2022/12/13 23:36
 SHOWTITLE: on
 SHOWAUTHOR： on
 GLOSSARY: on
@@ -10,7 +12,7 @@ RESOURCES: on
 
 Mark it Up, not Down.
 
-VERSION: 1.1.1{>}
+VERSION: 1.1.2{>}
 
 ---
 
