@@ -622,7 +622,8 @@ MarkUp 结合了 ORG 文档的元数据结构，这些元数据平时用户是�
 -	本文标题：\[title\]（[title]）
 -	简介：\[description\]（[description]）
 -	关键字：\[keyword\]（[keyword]）
--	更新日期：\[date\]（[date]）
+-	发布日期：\[publish\]（[publish]）
+-	更新日期：\[update\]（[update]）
 
 如上所示，如果文档中没有定义该元数据，则会直接显示为“%xxx%”。
 
