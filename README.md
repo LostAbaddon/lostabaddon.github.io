@@ -6,5 +6,5 @@
 
 # 更新记录
 
--	本地文件： [updatelog.md](/api/updatelog.md)
+-	本地文件： [updatelog.md](/data/updatelog.md)
 -	[网站页面](https://lostabaddon.github.io/#/aboutMe)
