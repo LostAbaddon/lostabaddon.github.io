@@ -1,0 +1,55 @@
+.console-panel {
+	margin: 0px;
+	padding: 5px;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+.console-panel > div {
+	padding: 2px 5px;
+	font-family: sans-serif;
+	cursor: default;
+}
+
+.console-panel .inputbox,
+.console-panel .message {
+	display: flex;
+	flex-flow: row;
+	justify-content: left;
+	cursor: text;
+}
+
+.console-panel .hint {
+	margin-right: 5px;
+	font-weight: bolder;
+	color: rgba(85, 187, 138, 1.0);
+}
+
+.console-panel .hint .status {
+	color: rgba(240, 161, 168, 1.0);
+}
+
+.console-panel .inputbox .inputter {
+	flex: auto;
+	border: none;
+	outline: none;
+	color: white;
+}
+
+.console-panel .message.welcome {
+	font-weight: bolder;
+	color: rgba(85, 187, 138, 1.0);
+}
+.console-panel .message.command {
+	color: rgba(251, 218, 65, 1.0);
+}
+.console-panel .message.error {
+	color: rgba(237, 59, 47, 1.0);
+}
+.console-panel .message.warning {
+	color: rgba(188, 132, 168, 1.0);
+}
+
+.console-panel .message .content {
+	flex: auto;
+}
