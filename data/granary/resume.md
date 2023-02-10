@@ -42,3 +42,4 @@
 -	[豆瓣](https://www.douban.com/people/LostAbaddon)
 -	[Telegram](https://t.me/lostabaddon)
 -	[Github](https://github.com/LostAbaddon/lostabaddon.github.io/discussions)
+-	微信订阅号: 延迟更新
