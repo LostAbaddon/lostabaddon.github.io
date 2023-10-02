@@ -6,8 +6,8 @@
 	"start_url": "./index.html",
 	"lang": "zh-hans",
 	"orientation": "portrait-primary",
-	"theme_color": "#333",
-	"background_color": "#555",
+	"theme_color": "#000",
+	"background_color": "#000",
 	"icons": [
 		{
 			"sizes": "32x32",
